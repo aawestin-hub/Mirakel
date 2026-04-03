@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Generated output
+wfrp_chargen/output/
+wfrp_chargen/preview_latest.jpg
+
+# Node
+node_modules/
+
+# Misc
+*.pptx

@@ -1,0 +1,83 @@
+Fetching batch 1: Soldier, Militiaman, Thief, Hunter, Woodsman
+Fetching batch 2: Wizard's Apprentice, Initiate, Scholar, Scribe, Entertainer
+Fetching batch 3: Footpad, Pit Fighter, Protagonist, Outlaw, Roadwarden
+Fetching batch 4: Labourer, Marine, Noble, Seaman, Servant
+Fetching batch 5: Squire, Troll Slayer, Tunnel Fighter, Watchman, Boatman
+Fetching batch 6: Bounty Hunter, Coachman, Farmer, Fisherman, Gamekeeper
+Fetching batch 7: Herdsman, Miner, Muleskinner, Outrider, Pilot
+Fetching batch 8: Prospector, Rat Catcher, Runner, Toll-Keeper, Trapper
+Fetching batch 9: Agitator, Bawd, Beggar, Gambler, Grave Robber
+Fetching batch 10: Jailer, Minstrel, Pedlar, Raconteur, Rustler
+Fetching batch 11: Smuggler, Tomb Robber, Alchemist's Apprentice, Artisan's Apprentice, Druid
+Fetching batch 12: Engineer, Exciseman, Herbalist, Hedge-Wizard's Apprentice, Hypnotist
+Fetching batch 13: Pharmacist, Physician's Student, Runescribe, Runesmith's Apprentice, Seer
+Fetching batch 14: Student, Trader, Wood Elf Mage's Apprentice
+
+=== ERRORS ===
+Soldier: connect ETIMEDOUT 207.241.237.3:443
+Thief: connect ECONNREFUSED 207.241.237.3:443
+Hunter: connect ETIMEDOUT 207.241.237.3:443
+Woodsman: connect ECONNREFUSED 207.241.237.3:443
+Wizard's Apprentice: connect ECONNREFUSED 207.241.237.3:443
+Initiate: connect ECONNREFUSED 207.241.237.3:443
+Scholar: connect ECONNREFUSED 207.241.237.3:443
+Scribe: connect ECONNREFUSED 207.241.237.3:443
+Entertainer: connect ECONNREFUSED 207.241.237.3:443
+Footpad: connect ECONNREFUSED 207.241.237.3:443
+Pit Fighter: connect ECONNREFUSED 207.241.237.3:443
+Protagonist: connect ECONNREFUSED 207.241.237.3:443
+Outlaw: connect ECONNREFUSED 207.241.237.3:443
+Roadwarden: connect ECONNREFUSED 207.241.237.3:443
+Labourer: connect ECONNREFUSED 207.241.237.3:443
+Marine: connect ETIMEDOUT 207.241.237.3:443
+Noble: connect ECONNREFUSED 207.241.237.3:443
+Servant: connect ECONNREFUSED 207.241.237.3:443
+Squire: connect ECONNREFUSED 207.241.237.3:443
+Troll Slayer: connect ECONNREFUSED 207.241.237.3:443
+Tunnel Fighter: connect ECONNREFUSED 207.241.237.3:443
+Watchman: connect ECONNREFUSED 207.241.237.3:443
+Boatman: connect ECONNREFUSED 207.241.237.3:443
+Bounty Hunter: connect ECONNREFUSED 207.241.237.3:443
+Coachman: connect ECONNREFUSED 207.241.237.3:443
+Farmer: connect ECONNREFUSED 207.241.237.3:443
+Fisherman: connect ECONNREFUSED 207.241.237.3:443
+Gamekeeper: connect ECONNREFUSED 207.241.237.3:443
+Herdsman: connect ECONNREFUSED 207.241.237.3:443
+Miner: connect ECONNREFUSED 207.241.237.3:443
+Muleskinner: connect ECONNREFUSED 207.241.237.3:443
+Outrider: connect ECONNREFUSED 207.241.237.3:443
+Prospector: connect ECONNREFUSED 207.241.237.3:443
+Rat Catcher: connect ECONNREFUSED 207.241.237.3:443
+Runner: connect ECONNREFUSED 207.241.237.3:443
+Toll-Keeper: connect ECONNREFUSED 207.241.237.3:443
+Trapper: connect ECONNREFUSED 207.241.237.3:443
+Agitator: connect ECONNREFUSED 207.241.237.3:443
+Bawd: connect ECONNREFUSED 207.241.237.3:443
+Beggar: connect ECONNREFUSED 207.241.237.3:443
+Gambler: connect ECONNREFUSED 207.241.237.3:443
+Grave Robber: connect ECONNREFUSED 207.241.237.3:443
+Jailer: connect ECONNREFUSED 207.241.237.3:443
+Minstrel: connect ECONNREFUSED 207.241.237.3:443
+Pedlar: connect ECONNREFUSED 207.241.237.3:443
+Raconteur: connect ECONNREFUSED 207.241.237.3:443
+Rustler: connect ECONNREFUSED 207.241.237.3:443
+Smuggler: connect ECONNREFUSED 207.241.237.3:443
+Tomb Robber: connect ECONNREFUSED 207.241.237.3:443
+Alchemist's Apprentice: connect ECONNREFUSED 207.241.237.3:443
+Artisan's Apprentice: connect ECONNREFUSED 207.241.237.3:443
+Druid: connect ECONNREFUSED 207.241.237.3:443
+Engineer: connect ECONNREFUSED 207.241.237.3:443
+Exciseman: connect ECONNREFUSED 207.241.237.3:443
+Herbalist: connect ECONNREFUSED 207.241.237.3:443
+Hedge-Wizard's Apprentice: connect ETIMEDOUT 207.241.237.3:443
+Hypnotist: connect ECONNREFUSED 207.241.237.3:443
+Pharmacist: connect ECONNREFUSED 207.241.237.3:443
+Physician's Student: connect ECONNREFUSED 207.241.237.3:443
+Runescribe: read ECONNRESET
+Runesmith's Apprentice: connect ECONNREFUSED 207.241.237.3:443
+Seer: connect ECONNREFUSED 207.241.237.3:443
+Student: connect ECONNREFUSED 207.241.237.3:443
+Trader: connect ECONNREFUSED 207.241.237.3:443
+Wood Elf Mage's Apprentice: connect ECONNREFUSED 207.241.237.3:443
+
+=== RESULTS ===

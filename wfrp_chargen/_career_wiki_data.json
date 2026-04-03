@@ -1,0 +1,2464 @@
+{
+  "Bodyguard": {
+    "scheme": {
+      "M": 0,
+      "WS": 20,
+      "BS": 0,
+      "S": 1,
+      "T": 0,
+      "W": 2,
+      "I": 10,
+      "A": 1,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Disarm",
+      "Specialist Weapon - Fist Weapon",
+      "Street Fighting",
+      "Strike Mighty Blow",
+      "Strike To Stun",
+      "50% chance of Very Strong"
+    ],
+    "trappings": [
+      "Knuckle-Dusters",
+      "Leather Jack",
+      "50% chance of Shield"
+    ],
+    "exits": [
+      "Bounty Hunter",
+      "Footpad",
+      "Mercenary",
+      "Outlaw Chief"
+    ]
+  },
+  "Labourer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Scale Sheer Surface",
+      "75% chance of Consume Alcohol",
+      "75% chance of Sing",
+      "50% chance of Carpentry",
+      "50% chance of Drive Cart",
+      "25% chance of Engineering",
+      "25% chance of Very Resilient",
+      "25% chance of Very Strong"
+    ],
+    "trappings": [
+      "Sling bag containing packed lunch",
+      "Flask of herbal tea",
+      "Leather Jack"
+    ],
+    "exits": [
+      "Artillerist (only for characters with Carpentry and/or Engineering)",
+      "Bodyguard",
+      "Footpad",
+      "Miner"
+    ]
+  },
+  "Marine": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Consume Alcohol",
+      "Disarm",
+      "Dodge Blow",
+      "Row",
+      "Secret Language: Battle Tongue",
+      "Strike Mighty Blow",
+      "Strike To Stun",
+      "25% chance of Swim"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Grappling hook and 10 yards of rope",
+      "Mail Shirt",
+      "Shield"
+    ],
+    "exits": [
+      "Artillerist",
+      "Bounty Hunter",
+      "Footpad",
+      "Mercenary Captain",
+      "Sea Captain",
+      "Slaver"
+    ]
+  },
+  "Mercenary": {
+    "scheme": {
+      "M": 0,
+      "WS": 10,
+      "BS": 10,
+      "S": 1,
+      "T": 0,
+      "W": 2,
+      "I": 10,
+      "A": 1,
+      "Dex": 0,
+      "Ld": 10,
+      "Int": 0,
+      "Cl": 10,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Disarm",
+      "Dodge Blow",
+      "Secret Language: Battle Tongue",
+      "Strike Mighty Blow",
+      "Strike To Stun",
+      "75% chance of Drive Cart",
+      "50% chance of Animal Care",
+      "25% chance of Ride"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Mail Shirt or Metal Breastplate",
+      "Shield"
+    ],
+    "exits": [
+      "Artillerist",
+      "Gunner",
+      "Mercenary Captain",
+      "Outlaw Chief",
+      "Sapper (Dwarfs only)",
+      "Slaver",
+      "Tunnel Fighter"
+    ]
+  },
+  "Militiaman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Dodge Blow",
+      "Strike Mighty Blow",
+      "50% chance of Drive Cart",
+      "25% chance of Animal Care",
+      "25% chance of Ride"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Mail Shirt",
+      "Shield",
+      "Spear"
+    ],
+    "exits": [
+      "Footpad",
+      "Mercenary",
+      "Outlaw"
+    ]
+  },
+  "Noble": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Blather",
+      "Charm",
+      "Etiquette",
+      "Heraldry",
+      "Luck",
+      "Read/Write",
+      "Ride",
+      "Wit",
+      "50% chance of Gamble",
+      "50% chance of Public Speaking",
+      "25% chance of Consume Alcohol",
+      "25% chance of Specialist Weapon: Fencing Sword",
+      "10% chance of Musicianship"
+    ],
+    "trappings": [
+      "Horse",
+      "Expensive clothes",
+      "2D6 Gold Crowns",
+      "Jewellery worth 10D6 Gold Crowns",
+      "D4 hangers-on"
+    ],
+    "exits": []
+  },
+  "Outlaw": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Disarm",
+      "Dodge Blow",
+      "Scale Sheer Surface",
+      "Secret Language: Battle Tongue or Thieves' (equal chance of either)",
+      "Set Trap",
+      "Silent Move: Rural",
+      "Spot Trap",
+      "Strike Mighty Blow",
+      "Strike To Stun",
+      "75% chance of Drive Cart",
+      "75% chance of Ride: Horse",
+      "50% chance of Animal Care",
+      "25% chance of Marksmanship",
+      "25% chance of Secret Signs: Woodsman's"
+    ],
+    "trappings": [
+      "Bow and ammunition",
+      "Shield",
+      "50% chance of Leather Jerkin"
+    ],
+    "exits": [
+      "Gamekeeper",
+      "Highwayman",
+      "Outlaw Chief",
+      "Rustler",
+      "Targeteer",
+      "Wardancer (Elves only)"
+    ]
+  },
+  "Pit Fighter": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Disarm",
+      "Dodge Blow",
+      "Specialist Weapon: Fist Weapons",
+      "Specialist Weapon: Flail Weapons",
+      "Specialist Weapon: Parrying Weapons",
+      "Specialist Weapon: Two-Handed Weapons",
+      "Strike Mighty Blow",
+      "Strike To Injure",
+      "50% chance of Very Resilient",
+      "50% chance of Very Strong"
+    ],
+    "trappings": [
+      "Shield",
+      "Mail Shirt",
+      "Knuckle-Dusters",
+      "Flail",
+      "20% chance of Two-Handed Weapon"
+    ],
+    "exits": [
+      "Bounty Hunter",
+      "Footpad",
+      "Giant Slayer (Dwarfs only)",
+      "Judicial Champion",
+      "Outlaw Chief",
+      "Tunnel Fighter",
+      "Wardancer (Elves only)"
+    ]
+  },
+  "Protagonist": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Disarm",
+      "Dodge Blow",
+      "Ride: Horse",
+      "Street Fighting",
+      "Strike Mighty Blow",
+      "Strike To Injure",
+      "Strike To Stun"
+    ],
+    "trappings": [
+      "Horse with saddle and harness",
+      "Mail Shirt or Metal Breastplate",
+      "Shield"
+    ],
+    "exits": [
+      "Bounty Hunter",
+      "Duellist",
+      "Footpad",
+      "Judicial Champion"
+    ]
+  },
+  "Seaman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Dodge Blow",
+      "Row",
+      "Sailing",
+      "Scale Sheer Surface",
+      "Speak Additional Language",
+      "Street Fighting",
+      "Strike Mighty Blow",
+      "Swim",
+      "75% chance of Consume Alcohol"
+    ],
+    "trappings": [
+      "Bottle of cheap spirit"
+    ],
+    "exits": [
+      "Boatman",
+      "Pilot",
+      "Raconteur",
+      "Sea Captain",
+      "Slaver",
+      "Smuggler"
+    ]
+  },
+  "Troll Slayer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Disarm",
+      "Dodge Blow",
+      "Specialist Weapon: Two-Handed Weapon",
+      "Street Fighting",
+      "Strike Mighty Blow"
+    ],
+    "trappings": [
+      "Two-Handed Axe"
+    ],
+    "exits": [
+      "Giant Slayer"
+    ]
+  },
+  "Tunnel Fighter": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Dodge Blow",
+      "Orientation (underground only)",
+      "Scale Sheer Surface",
+      "Strike Mighty Blow",
+      "Strike To Injure",
+      "Strike To Stun"
+    ],
+    "trappings": [
+      "Crossbow and ammunition",
+      "Grappling hook and 10 yards of rope",
+      "Mail Coat",
+      "Shield",
+      "Water flask"
+    ],
+    "exits": [
+      "Sapper (Dwarfs only)",
+      "Smuggler",
+      "Tomb Robber"
+    ]
+  },
+  "Watchman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Strike Mighty Blow",
+      "Strike To Stun"
+    ],
+    "trappings": [
+      "Club",
+      "Lantern and pole",
+      "25% chance of Mail Shirt",
+      "Leather Jack (if character doesn't have Mail Shirt)"
+    ],
+    "exits": [
+      "Bounty Hunter",
+      "Judicial Champion",
+      "Mercenary Captain",
+      "Racketeer",
+      "Roadwarden (except Halflings)"
+    ]
+  },
+  "Boatman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Fish",
+      "Orientation",
+      "River Lore",
+      "Row",
+      "50% chance of Very Strong",
+      "25% chance of Boat Building",
+      "25% chance of Consume Alcohol"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Leather Jack",
+      "Rowing Boat (moored on nearest water)"
+    ],
+    "exits": [
+      "Outlaw",
+      "Seaman",
+      "Smuggler"
+    ]
+  },
+  "Bounty Hunter": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Follow Trail",
+      "Shadowing",
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "Specialist Weapon: Lasso",
+      "Specialist Weapon: Net",
+      "Strike Mighty Blow",
+      "50% chance of Marksmanship"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Hand Weapon",
+      "Mail Shirt",
+      "Rope",
+      "Net",
+      "D4 pairs of Manacles"
+    ],
+    "exits": [
+      "Assassin",
+      "Footpad",
+      "Mercenary",
+      "Protagonist",
+      "Slaver",
+      "Targeteer",
+      "Wardancer (Elves only)"
+    ]
+  },
+  "Coachman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Drive Cart",
+      "Musicianship - Coach-Horn",
+      "Ride: Horse",
+      "Specialist Weapon - Firearms"
+    ],
+    "trappings": [
+      "Coach-Horn",
+      "Blunderbuss and D6 shots of powder and ammunition",
+      "Hand Weapon",
+      "Mail Shirt"
+    ],
+    "exits": [
+      "Highwayman",
+      "Scout"
+    ]
+  },
+  "Farmer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Agriculture",
+      "Animal Care",
+      "Carpentry",
+      "Drive Cart",
+      "Herb Lore",
+      "Identify Plants"
+    ],
+    "trappings": [
+      "Leather Jack",
+      "Plough",
+      "Spade"
+    ],
+    "exits": [
+      "Militiaman",
+      "Scout",
+      "Soldier",
+      "Trader"
+    ]
+  },
+  "Fisherman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Fish",
+      "Sailing",
+      "Swim",
+      "50% chance of River Lore",
+      "25% chance of Boat Building",
+      "5% chance of Cartography"
+    ],
+    "trappings": [
+      "Leather Jack",
+      "25% chance of Boat (moored or hidden at nearest water)"
+    ],
+    "exits": [
+      "Pilot",
+      "Seaman",
+      "Smuggler",
+      "Trader"
+    ]
+  },
+  "Gamekeeper": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Marksmanship",
+      "Secret Signs: Poacher (Poachers only)",
+      "Set Trap",
+      "Silent Move: Rural",
+      "Spot Trap",
+      "50% chance of Secret Language: Ranger (Gamekeepers only)",
+      "10% chance of Animal Training: Hawk"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Hand Weapon",
+      "Leather Jack",
+      "Man Trap"
+    ],
+    "exits": [
+      "Druid",
+      "Militiaman (Gamekeeper only)",
+      "Outlaw (Poacher only)",
+      "Raconteur",
+      "Rustler (Poacher only)",
+      "Scout",
+      "Targeteer (Gamekeeper only)"
+    ]
+  },
+  "Herdsman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Charm Animal",
+      "Musicianship: Wind Instruments",
+      "Specialist Weapon: Sling",
+      "75% chance of Herb Lore",
+      "75% chance of Very Resilient",
+      "50% chance of Animal Training"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Pan-pipes",
+      "Sling and ammunition",
+      "Staff"
+    ],
+    "exits": [
+      "Druid",
+      "Militiaman",
+      "Mountaineer (Dwarfs only)",
+      "Outlaw",
+      "Rustler",
+      "Scout",
+      "Wise Woman"
+    ]
+  },
+  "Hunter": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Follow Trail",
+      "Game Hunting",
+      "Secret Language: Ranger",
+      "Secret Signs: Woodsman's",
+      "Silent Move: Rural",
+      "25% chance of Immunity To Poison"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Hand Weapon"
+    ],
+    "exits": [
+      "Druid",
+      "Mountaineer (Dwarfs only)",
+      "Outlaw",
+      "Scout",
+      "Wise Woman"
+    ]
+  },
+  "Muleskinner": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Specialist Weapon: Flail Weapons",
+      "75% chance of Drive Cart",
+      "25% chance of Animal Training"
+    ],
+    "trappings": [
+      "Weatherproof coat",
+      "Broad-brimmed hat",
+      "Hand Weapon",
+      "Whip"
+    ],
+    "exits": [
+      "Outlaw",
+      "Scout",
+      "Smuggler"
+    ]
+  },
+  "Outrider": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Follow Trail",
+      "Orientation",
+      "Ride: Horse",
+      "Silent Move: Rural",
+      "Specialist Weapon: Lasso",
+      "75% chance of Secret Signs: Scout's or Woodsman's (equal chance of either)"
+    ],
+    "trappings": [
+      "Horse, saddle, and harness",
+      "Bow or Crossbow and ammunition",
+      "Mail Shirt",
+      "Rope (10 yards)",
+      "Shield"
+    ],
+    "exits": [
+      "Highwayman",
+      "Mercenary",
+      "Scout"
+    ]
+  },
+  "Pilot": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Orientation",
+      "Row",
+      "Sailing",
+      "Swim",
+      "20% chance of Consume Alcohol"
+    ],
+    "trappings": [
+      "Leather Jerkin",
+      "Rope (10 yards)",
+      "Rowing boat (moored on nearest water)",
+      "2 lanterns"
+    ],
+    "exits": [
+      "Navigator",
+      "Raconteur",
+      "Sea Captain",
+      "Smuggler"
+    ]
+  },
+  "Prospector": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Carpentry",
+      "Metallurgy",
+      "Orientation",
+      "River Lore",
+      "50% chance of Fish",
+      "50% chance of Game Hunting",
+      "50% chance of Luck",
+      "20% chance of Cartography"
+    ],
+    "trappings": [
+      "Pack",
+      "One-man tent",
+      "Pick",
+      "Shovel",
+      "Pan",
+      "25% chance of Mule"
+    ],
+    "exits": [
+      "Lodefinder&#160;(Dwarfs only)",
+      "Miner",
+      "Scout",
+      "Soldier",
+      "Tomb Robber",
+      "Tunnel Fighter (Dwarfs only)"
+    ]
+  },
+  "Rat Catcher": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Training: Dog",
+      "Concealment: Urban",
+      "Immunity To Disease",
+      "Immunity To Poison",
+      "Set Trap",
+      "Silent Move: Urban",
+      "Specialist Weapon: Sling",
+      "Spot Trap"
+    ],
+    "trappings": [
+      "Ratter's pole with D6 dead rats",
+      "Sling and ammunition",
+      "Small but vicious dog",
+      "D6 animal traps"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Footpad",
+      "Grave Robber",
+      "Jailer"
+    ]
+  },
+  "Roadwarden": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Ride: Horse"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Horse with saddle and harness",
+      "Mail Shirt",
+      "Rope (10 yards)",
+      "Shield"
+    ],
+    "exits": [
+      "Highwayman",
+      "Militiaman",
+      "Outlaw"
+    ]
+  },
+  "Runner": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Flee!",
+      "Fleet Footed",
+      "Orientation",
+      "Spot Trap",
+      "75% chance of Silent Move: Urban",
+      "50% chance of Sixth Sense",
+      "25% chance of  Follow Trail"
+    ],
+    "trappings": [
+      "Running shoes",
+      "Specially made, loose-fitting clothes",
+      "Headband"
+    ],
+    "exits": [
+      "Mountaineer",
+      "Scout",
+      "Tunnel Fighter"
+    ]
+  },
+  "Toll-Keeper": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Evaluate",
+      "Haggle"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Mail Shirt",
+      "Shield"
+    ],
+    "exits": [
+      "Highwayman",
+      "Militiaman",
+      "Outlaw",
+      "Thief (Embezzler)"
+    ]
+  },
+  "Trapper": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Orientation",
+      "Row",
+      "Secret Language: Ranger",
+      "Secret Signs: Woodsman's",
+      "Set Trap",
+      "Silent Move: Rural",
+      "Spot Trap"
+    ],
+    "trappings": [
+      "Bow or Crossbow and ammunition",
+      "Fur hat and buckskins",
+      "Leather Jerkin",
+      "Rope (10 yards)",
+      "Rowing boat or canoe (moored or hidden on nearest water)",
+      "D4 animal traps"
+    ],
+    "exits": [
+      "Druid",
+      "Mountaineer (Dwarfs only)",
+      "Outlaw",
+      "Scout",
+      "Wise Woman"
+    ]
+  },
+  "Woodsman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Follow Trail",
+      "Identify Plant",
+      "Secret Language: Ranger",
+      "Set Trap",
+      "Silent Move: Rural",
+      "Specialist Weapon: Two-Handed Weapon",
+      "Spot Trap",
+      "75% chance of Secret Signs: Woodsman's"
+    ],
+    "trappings": [
+      "Leather Jack",
+      "Two-Handed Woodsman's Axe"
+    ],
+    "exits": [
+      "Druid",
+      "Hedge-Wizard's Apprentice",
+      "Outlaw",
+      "Scout",
+      "Wise Woman"
+    ]
+  },
+  "Agitator": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Public Speaking",
+      "Read/Write"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Leather Jack",
+      "2D10 leaflets for various causes"
+    ],
+    "exits": [
+      "Charlatan",
+      "Demagogue",
+      "Outlaw"
+    ]
+  },
+  "Bawd": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Bribery",
+      "Secret Language: Thieves' Tongue",
+      "Street Fighting",
+      "25% chance of Wit"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Leather Jack",
+      "D6 Gold Crowns"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Fence",
+      "Informer"
+    ]
+  },
+  "Beggar": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Begging",
+      "Concealment: Urban",
+      "Secret Language: Thieves' Tongue",
+      "Secret Signs: Thieves' Signs",
+      "Silent Move: Urban",
+      "25% chance of Consume Alcohol"
+    ],
+    "trappings": [
+      "Begging bowl",
+      "Tattered clothes",
+      "Heavy stick",
+      "Bottle of rotgut spirit"
+    ],
+    "exits": [
+      "Specialised Beggar",
+      "Bodyguard",
+      "Informer",
+      "Racketeer",
+      "Rat Catcher"
+    ]
+  },
+  "Gambler": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Gamble",
+      "Luck",
+      "Palm Object"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Leather Jack",
+      "Pack of cards (including spare aces)",
+      "Pair of dice",
+      "Pair of loaded dice (always roll sixes)"
+    ],
+    "exits": [
+      "Charlatan"
+    ]
+  },
+  "Grave Robber": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "25% chance of Spot Trap"
+    ],
+    "trappings": [
+      "Black cloak",
+      "Hand Weapon",
+      "Lantern",
+      "Large sack",
+      "Spade"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Physician's Student",
+      "Rat Catcher"
+    ]
+  },
+  "Jailer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Immunity To Disease",
+      "Immunity To Poison",
+      "Palm Object",
+      "Silent Move: Urban",
+      "50% chance of Very Resilient",
+      "25% chance of Consume Alcohol",
+      "25% chance of Very Strong"
+    ],
+    "trappings": [
+      "Club",
+      "Ring of heavy keys",
+      "Bottle of rough wine",
+      "Fleas"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Rat Catcher",
+      "Slaver",
+      "Torturer"
+    ]
+  },
+  "Minstrel": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Charm",
+      "Etiquette",
+      "Musicianship",
+      "Public Speaking",
+      "Sing"
+    ],
+    "trappings": [
+      "Lute or mandolin",
+      "Sheet music",
+      "Colourful clothes"
+    ],
+    "exits": [
+      "Charlatan",
+      "Jester"
+    ]
+  },
+  "Pedlar": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Blather",
+      "Drive Cart",
+      "Evaluate",
+      "Haggle",
+      "Herb Lore",
+      "Secret Signs: Pedlar",
+      "Specialist Weapon: Fist Weapon",
+      "10% chance of Astronomy"
+    ],
+    "trappings": [
+      "Wagon and Horse",
+      "Mattress and D4 blankets (in wagon)",
+      "D4 sacks, containing:\nD4 pots and pans",
+      "3D6 small knives",
+      "D6 x 100 pins",
+      "D6 reels of coloured ribbon"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Fence",
+      "Outlaw",
+      "Trader",
+      "Trapper"
+    ]
+  },
+  "Raconteur": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Blather",
+      "Charm",
+      "Public Speaking",
+      "Seduction",
+      "Story Telling",
+      "Wit",
+      "25% chance of Etiquette"
+    ],
+    "trappings": [
+      "Clothes (often loud, always of fine quality)",
+      "Hat (nearly always outrageous)",
+      "3D6 Gold Crowns"
+    ],
+    "exits": [
+      "Charlatan",
+      "Demagogue"
+    ]
+  },
+  "Rustler": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Drive Cart",
+      "Silent Move: Rural",
+      "Specialist Weapon: Lasso",
+      "50% chance of Secret Language: Ranger",
+      "20% chance of Animal Care"
+    ],
+    "trappings": [
+      "Horse and cart",
+      "Hand Weapon",
+      "Lantern",
+      "Rope (10 yards)"
+    ],
+    "exits": [
+      "Outlaw",
+      "Slaver"
+    ]
+  },
+  "Smuggler": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Drive Cart",
+      "Row",
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "50% chance of Consume Alcohol",
+      "50% chance of Secret Language: Thieves' Tongue",
+      "25% chance of Speak Additional Language"
+    ],
+    "trappings": [
+      "Horse and cart",
+      "Rowing boat (moored or hidden on nearest water)",
+      "Hand Weapon",
+      "Leather Jack"
+    ],
+    "exits": [
+      "Fence",
+      "Pilot",
+      "Seaman"
+    ]
+  },
+  "Thief": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Urban",
+      "Secret Language: Thieves' Tongue",
+      "Secret Signs: Thieves' Signs",
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "25% chance of Evaluate"
+    ],
+    "trappings": [
+      "Concealment: Urban",
+      "Secret Language: Thieves' Tongue",
+      "Secret Signs: Thieves' Signs",
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "25% chance of Evaluate"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Charlatan",
+      "Informer",
+      "Outlaw",
+      "Racketeer"
+    ]
+  },
+  "Tomb Robber": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Concealment: Rural",
+      "Concealment: Urban",
+      "Silent Move: Rural",
+      "Silent Move: Urban",
+      "Spot Trap",
+      "75% chance of Secret Signs: Thieves'",
+      "50% chance of Evaluate",
+      "50% chance of Secret Language: Thieves' Tongue"
+    ],
+    "trappings": [
+      "Crowbar",
+      "Hand Weapon",
+      "Lantern",
+      "Leather Jack",
+      "Rope (10 yards)",
+      "D4 sacks"
+    ],
+    "exits": [
+      "Bodyguard",
+      "Fence",
+      "Rat Catcher",
+      "Tunnel Fighter"
+    ]
+  },
+  "Alchemist's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Brewing",
+      "Evaluate",
+      "Read/Write",
+      "50% chance of Chemistry"
+    ],
+    "trappings": [
+      "None"
+    ],
+    "exits": [
+      "Alchemist - level 1",
+      "Astrologer",
+      "Bawd",
+      "Charlatan",
+      "Counterfeiter",
+      "Diviner",
+      "Entertainer: Bunko Artist",
+      "Grave Robber",
+      "Prospector"
+    ]
+  },
+  "Artisan's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Drive Cart",
+      "25% chance of Very Resilient",
+      "25% chance of Very Strong"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Tools appropriate to trade skill (only if the character has a trade skill)"
+    ],
+    "exits": [
+      "Artisan (same trade only)",
+      "Astrologer",
+      "Bodyguard",
+      "Diviner",
+      "Footpad",
+      "Runescribe (Dwarfs only)",
+      "Runesmith (Dwarfs only)"
+    ]
+  },
+  "Druid": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Dowsing",
+      "Follow Trail",
+      "Identify Plants",
+      "Secret Signs: Druid"
+    ],
+    "trappings": [
+      "Bag or sack",
+      "Religious token - a small, silver sickle-knife",
+      "Staff",
+      "Dowsing rods"
+    ],
+    "exits": [
+      "Druidic Priest - level 1",
+      "Gamekeeper",
+      "Hedge-Wizard's Apprentice",
+      "Hunter",
+      "Outlaw",
+      "Trapper",
+      "Wise Woman",
+      "Woodsman"
+    ]
+  },
+  "Engineer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Carpentry",
+      "Drive Cart",
+      "Engineering",
+      "Read/Write",
+      "Secret Signs: Dwarven Engineer's Guild",
+      "Set Trap",
+      "Smithing",
+      "Spot Trap",
+      "50% chance of Metallurgy"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Leather Jack",
+      "Tool bag",
+      "D4 hammers and D6x10 nails",
+      "D4 cold chisels",
+      "Pick",
+      "Saw",
+      "D6 iron spikes",
+      "Tongs",
+      "Pliers",
+      "Heavy wire (10 yards)",
+      "Hand Axe",
+      "Ring with concealed Guild symbol (unless wetback)"
+    ],
+    "exits": [
+      "Alchemist's Apprentice",
+      "Artillerist",
+      "Artisan (Carpenter or Stonemason)",
+      "Dwarf Pilot (Dwarfs only)",
+      "Gunner",
+      "Master Engineer (Dwarfs only)",
+      "Sapper",
+      "Tunnel Fighter"
+    ]
+  },
+  "Exciseman": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Blather",
+      "Numismatics",
+      "Read/Write",
+      "Super Numerate",
+      "50% chance of Law",
+      "20% chance of Embezzling"
+    ],
+    "trappings": [
+      "Leather Jack",
+      "Hand Weapon",
+      "Writing kit",
+      "Abacus",
+      "D6 Gold Crowns"
+    ],
+    "exits": [
+      "Agitator",
+      "Lawyer (only if Law skill obtained)",
+      "Merchant",
+      "Militiaman",
+      "Outlaw",
+      "Roadwarden",
+      "Thief (Clipper or Embezzler)"
+    ]
+  },
+  "Herbalist": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Druidic",
+      "Cure Disease",
+      "Heal Wounds",
+      "Herb Lore",
+      "Identify Plants",
+      "Read/Write",
+      "Secret Language: Classical",
+      "Secret Language: Guilder",
+      "20% chance of Prepare Poisons"
+    ],
+    "trappings": [
+      "Pestle and mortar",
+      "Sling bag with dried herbs"
+    ],
+    "exits": [
+      "Druid",
+      "Physician's Student",
+      "Wise Woman"
+    ]
+  },
+  "Hedge-Wizard's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Cast Spells: Petty Magic",
+      "Flee!",
+      "Identify Plants",
+      "Palm Object",
+      "50% chance of Silent Move: Rural"
+    ],
+    "trappings": [
+      "None"
+    ],
+    "exits": [
+      "Alchemist's Apprentice",
+      "Beggar",
+      "Charlatan",
+      "Hedge-Wizard - level 1",
+      "Herbalist",
+      "Pharmacist",
+      "Servant",
+      "Wizard's Apprentice"
+    ]
+  },
+  "Hypnotist": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Hypnotise",
+      "Magical Awareness"
+    ],
+    "trappings": [
+      "Silver charm on chain"
+    ],
+    "exits": [
+      "Hypnotise",
+      "Magical Awareness"
+    ]
+  },
+  "Initiate": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Read/Write",
+      "Scroll Lore",
+      "Secret Language: Classical",
+      "Theology",
+      "Read/Write: Khazalid (Dwarfs only)"
+    ],
+    "trappings": [
+      "Robes",
+      "Religious symbol"
+    ],
+    "exits": [
+      "Agitator",
+      "Astrologer",
+      "Augur",
+      "Cleric - level 1",
+      "Diviner",
+      "Exorcist"
+    ]
+  },
+  "Pharmacist": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Chemistry",
+      "Cure Disease",
+      "Heal Wounds",
+      "Immunity To Poison",
+      "Manufacture Drugs",
+      "Prepare Poisons",
+      "Secret Language: Guilder"
+    ],
+    "trappings": [
+      "Pestle and mortar",
+      "D6 small glass jars containing various powders and solutions"
+    ],
+    "exits": [
+      "Alchemist's Apprentice",
+      "Charlatan",
+      "Physician",
+      "Prospector"
+    ]
+  },
+  "Physician's Student": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Read/Write",
+      "Scroll Lore",
+      "Secret Language: Classical",
+      "50% chance of Cure Disease",
+      "50% chance of Heal Wounds",
+      "50% chance of Manufacture Drugs",
+      "50% chance of Prepare Poisons"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Medical instruments (battered) in case",
+      "Pottery jar containing D6 leeches"
+    ],
+    "exits": [
+      "Bawd",
+      "Charlatan",
+      "Grave Robber",
+      "Hedge-Wizard's Apprentice",
+      "Physician"
+    ]
+  },
+  "Runescribe": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Dwarf",
+      "Arcane Language: Magick",
+      "Read/Write: Khazalid",
+      "Rune Lore",
+      "75% chance of Speak Additional Language"
+    ],
+    "trappings": [
+      "Writing equipment",
+      "Sheets of thin metal foil"
+    ],
+    "exits": [
+      "Alchemist's Apprentice",
+      "Loremaster",
+      "Runesmith's Apprentice",
+      "Scholar"
+    ]
+  },
+  "Runesmith's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Animal Care",
+      "Art",
+      "Carpentry",
+      "Engineering",
+      "Magical Sense",
+      "Metallurgy",
+      "Read/Write: Khazalid",
+      "Rune Lore",
+      "Smithing"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Tools",
+      "Staff",
+      "Horse and cart (to carry master's anvil)"
+    ],
+    "exits": [
+      "Artisan",
+      "Engineer",
+      "Loremaster",
+      "Runesmith (All advances must be purchased and 200 EP paid to move to the Runesmith career.)"
+    ]
+  },
+  "Scholar": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Astronomy",
+      "Cartography",
+      "History",
+      "Identify Plant",
+      "Linguistics",
+      "Magical Sense",
+      "Numismatics",
+      "Rune Lore",
+      "Speak Additional Language"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "Writing equipment",
+      "5D6 Gold Crowns"
+    ],
+    "exits": [
+      "Explorer",
+      "Loremaster (Dwarfs only; must have two prerequisite careers)",
+      "Merchant"
+    ]
+  },
+  "Scribe": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Magick",
+      "Read/Write",
+      "Secret Language: Classical",
+      "50% chance of Speak Additional Language"
+    ],
+    "trappings": [
+      "Writing equipment"
+    ],
+    "exits": [
+      "Astrologer",
+      "Diviner",
+      "Forger",
+      "Informer",
+      "Lawyer",
+      "Merchant",
+      "Scholar"
+    ]
+  },
+  "Seer": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Magick",
+      "Divining",
+      "Magical Sense",
+      "50% chance of Blather",
+      "50% chance of Charm Animal",
+      "50% chance of Public Speaking"
+    ],
+    "trappings": [
+      "Divination equipment (bones, sand-tray, dice, etc.)"
+    ],
+    "exits": [
+      "Agitator",
+      "Astrologer",
+      "Charlatan",
+      "Diviner",
+      "Wise Woman"
+    ]
+  },
+  "Student": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Magick",
+      "Read/Write",
+      "Secret Language: Classical",
+      "25% chance of Consume Alcohol",
+      "20% chance of History",
+      "10% chance of Astronomy",
+      "10% chance of Cartography",
+      "10% chance of Identify Plant",
+      "10% chance of Numismatics",
+      "10% chance of Speak Additional Language"
+    ],
+    "trappings": [
+      "Hand Weapon",
+      "D3 textbooks corresponding to each knowledge skill",
+      "Writing kit"
+    ],
+    "exits": [
+      "Agitator",
+      "Astrologer",
+      "Bawd",
+      "Lawyer",
+      "Navigator",
+      "Runescribe (Dwarfs only)",
+      "Scholar",
+      "Thief"
+    ]
+  },
+  "Trader": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Evaluate",
+      "Haggle",
+      "Numismatics",
+      "25% chance of Blather",
+      "25% chance of Law"
+    ],
+    "trappings": [
+      "Leather Jerkin",
+      "2D6 Gold Crowns"
+    ],
+    "exits": [
+      "Fence",
+      "Merchant",
+      "Thief (Clipper)"
+    ]
+  },
+  "Wizard's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Magick",
+      "Cast Spells: Petty Magic only",
+      "Read/Write",
+      "Secret Language: Classical",
+      "50% chance of Scroll Lore"
+    ],
+    "trappings": [
+      "None"
+    ],
+    "exits": [
+      "Astrologer",
+      "Bawd",
+      "Charlatan",
+      "Diviner",
+      "Entertainer (Bunko Artist)",
+      "Gambler",
+      "Grave Robber",
+      "Grey Wizard - level 1",
+      "Light Wizard - level 1",
+      "Tomb Robber",
+      "Wizard - level 1"
+    ]
+  },
+  "Wood Elf Mage's Apprentice": {
+    "scheme": {
+      "M": 0,
+      "WS": 0,
+      "BS": 0,
+      "S": 0,
+      "T": 0,
+      "W": 0,
+      "I": 0,
+      "A": 0,
+      "Dex": 0,
+      "Ld": 0,
+      "Int": 0,
+      "Cl": 0,
+      "WP": 0,
+      "Fel": 0
+    },
+    "skills": [
+      "Arcane Language: Magick",
+      "Cast Spells: Petty Magic",
+      "Follow Trail",
+      "Identify Plants",
+      "Secret Language: Malla-room-na-lárin",
+      "Sing",
+      "Silent Move: Rural"
+    ],
+    "trappings": [
+      "None"
+    ],
+    "exits": [
+      "Wizard's Apprentice",
+      "Wood Elf Mage - level 1",
+      "Woodsman"
+    ]
+  }
+}

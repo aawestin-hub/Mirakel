@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>WFRP Preview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #1a1a1a; font-family: sans-serif; color: #ccc; }
+    #toolbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+      background: #2a2a2a; padding: 8px 16px;
+      display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid #444;
+    }
+    #toolbar h2 { font-size: 14px; color: #aaa; }
+    #toolbar label { font-size: 13px; }
+    #toolbar input[type=range] { width: 120px; }
+    #status { font-size: 12px; color: #8f8; margin-left: auto; }
+    #container { margin-top: 50px; padding: 16px; overflow: auto; }
+    #sheet { display: block; border: 2px solid #444; cursor: zoom-in; transition: transform 0.1s; transform-origin: top left; }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <h2>🎲 WFRP 1e — Live Preview</h2>
+    <label>Zoom: <input type="range" id="zoom" min="20" max="150" value="60"> <span id="zoomval">60%</span></label>
+    <label><input type="checkbox" id="page1only"> Side 1 kun</label>
+    <label><input type="checkbox" id="page2only"> Side 2 kun</label>
+    <span id="status">● Laster…</span>
+  </div>
+  <div id="container">
+    <img src="preview_latest.jpg" id="sheet">
+  </div>
+  <script>
+    const img = document.getElementById('sheet');
+    const zoom = document.getElementById('zoom');
+    const zoomval = document.getElementById('zoomval');
+    const status = document.getElementById('status');
+    const p1only = document.getElementById('page1only');
+    const p2only = document.getElementById('page2only');
+
+    let lastSrc = '';
+    let naturalW = 0;
+
+    img.onload = () => {
+      naturalW = img.naturalWidth;
+      applyZoom();
+    };
+
+    function applyZoom() {
+      const pct = parseInt(zoom.value);
+      zoomval.textContent = pct + '%';
+      const displayW = naturalW * pct / 100;
+      img.style.width = displayW + 'px';
+      img.style.height = 'auto';
+    }
+
+    zoom.oninput = applyZoom;
+
+    // Crop to page 1 or page 2
+    p1only.onchange = p2only.onchange = () => {
+      if (p1only.checked) p2only.checked = false;
+      if (p2only.checked) p1only.checked = false;
+      refresh();
+    };
+
+    function refresh() {
+      const ts = Date.now();
+      const base = 'preview_latest.jpg?' + ts;
+      img.src = base;
+      status.textContent = '↻ Oppdatert ' + new Date().toLocaleTimeString();
+      status.style.color = '#8f8';
+    }
+
+    // Auto-refresh every 3 seconds
+    setInterval(refresh, 3000);
+    refresh();
+  </script>
+</body>
+</html>
