@@ -268,7 +268,7 @@ def main() -> None:
         spread_path = os.path.join(out_dir, f"{safe_name}_sheet.jpg")
         save_character_pdf(char, pdf_path)
         save_character_html(char, html_path)
-        save_character_spread(char, spread_path)
+        save_character_spread(char, spread_path, pc_mode=(char.character_type == "PC"))
         print(f"  [OK] PDF lagret  : {pdf_path}")
         print(f"  [OK] HTML lagret : {html_path}")
         print(f"  [OK] Ark lagret  : {spread_path}\n")

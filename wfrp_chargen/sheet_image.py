@@ -282,7 +282,8 @@ _P2_SPELL_START_Y   = 342    # First spell row Y (header ends ~294, first row ce
 _P2_SPELL_SPACING   = 97     # Pixels between rows (~7 rows fit in table)
 
 
-def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
+def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
+                pc_mode: bool = False) -> None:
     """Draw all character data onto an already-opened page-1 ImageDraw context."""
     f_field = _get_font(_FS_FIELD)
     f_stat  = _get_font(_FS_STAT)
@@ -320,14 +321,18 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
 
     # ── Row 3: CURRENT CAREER / CAREER PATH / CAREER EXITS ──────────────────
     # CAREER box: x=335, ends ~x=830 → width ~495px
-    _draw_text_fit(draw, _CAREER_X, _R3_Y, char.career, _FS_FIELD, max_width=490, anchor="lm")
+    # For PC: anchor top-left so player can cross out and write new career below.
+    career_y      = 812 if pc_mode else _R3_Y
+    career_anchor = "lt" if pc_mode else "lm"
+    _draw_text_fit(draw, _CAREER_X, career_y, char.career, _FS_FIELD, max_width=490, anchor=career_anchor)
     # CAREER PATH box: x=837, ends ~x=1575 → width ~738px
-    _draw_text_fit(draw, _PATH_X, _R3_Y, char.career, _FS_FIELD, max_width=730, anchor="lm")
+    _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=730, anchor=career_anchor)
     if char.career_exits:
         exits_text = ", ".join(char.career_exits)
         # EXITS box: x=1582, ends ~x=2510 → width ~928px; row height ~180px
-        _draw_text_wrap(draw, _EXITS_X, _R3_Y, exits_text,
-                        _FS_SMALL, max_width=880, line_height=46, anchor="lm",
+        exits_y = 812 if pc_mode else _R3_Y
+        _draw_text_wrap(draw, _EXITS_X, exits_y, exits_text,
+                        _FS_SMALL, max_width=880, line_height=46, anchor=career_anchor,
                         max_lines=4)
 
     # ── STARTER PROFILE ───────────────────────────────────────────────────────
@@ -348,10 +353,11 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
             _draw_text(draw, x, _ADVANCE_Y, label, f_small, "mm")
 
     # ── CURRENT PROFILE ───────────────────────────────────────────────────────
-    for stat, x in _STAT_X.items():
-        val = getattr(char, stat, None)
-        if val is not None:
-            _draw_text(draw, x, _CURRENT_Y, val, f_stat, "mm")
+    if not pc_mode:
+        for stat, x in _STAT_X.items():
+            val = getattr(char, stat, None)
+            if val is not None:
+                _draw_text(draw, x, _CURRENT_Y, val, f_stat, "mm")
 
     # ── SKILLS ────────────────────────────────────────────────────────────────
     # Fill left column fully before starting right column
@@ -400,34 +406,48 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
             _draw_text(draw, _ARM_ENC_X, y, str(stats["enc"]), f_small, "mm")
 
     # ── ARMOUR AVATAR BOXES (total AP per location) ───────────────────────────
-    def _sum_ap(loc: str) -> str:
-        total = sum(
+    def _sum_ap(loc: str) -> int:
+        return sum(
             get_armour_stats(item)[loc]
             for item in char.armour_items
             if get_armour_stats(item)
         )
-        return str(total) if total else "-"
 
-    _draw_text(draw, _AV_HEAD_X,  _AV_HEAD_Y,  _sum_ap("head"), f_stat, "mm")
-    _draw_text(draw, _AV_BODY_X,  _AV_BODY_Y,  _sum_ap("body"), f_stat, "mm")
-    _draw_text(draw, _AV_R_ARM_X, _AV_R_ARM_Y, _sum_ap("arms"), f_stat, "mm")
-    _draw_text(draw, _AV_L_ARM_X, _AV_L_ARM_Y, _sum_ap("arms"), f_stat, "mm")
-    _draw_text(draw, _AV_R_LEG_X, _AV_R_LEG_Y, _sum_ap("legs"), f_stat, "mm")
-    _draw_text(draw, _AV_L_LEG_X, _AV_L_LEG_Y, _sum_ap("legs"), f_stat, "mm")
-    _draw_text(draw, _AV_SHIELD_X, _AV_SHIELD_Y, "-",            f_stat, "mm")
+    def _ap_label(loc: str) -> str | None:
+        total = _sum_ap(loc)
+        if total:
+            return str(total)
+        return None if pc_mode else "-"
+
+    for x, y, loc in [
+        (_AV_HEAD_X,  _AV_HEAD_Y,  "head"),
+        (_AV_BODY_X,  _AV_BODY_Y,  "body"),
+        (_AV_R_ARM_X, _AV_R_ARM_Y, "arms"),
+        (_AV_L_ARM_X, _AV_L_ARM_Y, "arms"),
+        (_AV_R_LEG_X, _AV_R_LEG_Y, "legs"),
+        (_AV_L_LEG_X, _AV_L_LEG_Y, "legs"),
+    ]:
+        label = _ap_label(loc)
+        if label is not None:
+            _draw_text(draw, x, y, label, f_stat, "mm")
+    # Shield is always blank (player fills in if they have a shield)
+    if not pc_mode:
+        _draw_text(draw, _AV_SHIELD_X, _AV_SHIELD_Y, "-", f_stat, "mm")
 
 
 def save_character_image(char: Character,
-                          path: str = "character_sheet_filled.jpg") -> str:
+                          path: str = "character_sheet_filled.jpg",
+                          pc_mode: bool = False) -> str:
     """Fill page 1 and save as JPEG. Returns output path."""
     img  = Image.open(_SHEET).copy()
     draw = ImageDraw.Draw(img)
-    _fill_page1(char, draw)
+    _fill_page1(char, draw, pc_mode=pc_mode)
     img.save(path, "JPEG", quality=95)
     return path
 
 
-def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
+def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
+                pc_mode: bool = False) -> None:
     """Draw all character data onto page-2 ImageDraw context."""
     f_field = _get_font(_FS_FIELD)
     f_stat  = _get_font(_FS_STAT)
@@ -499,9 +519,14 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
             y_top += _TRAP_ROW_H
 
     # ── Wealth ────────────────────────────────────────────────────────────────
-    _draw_text(draw, _P2_WGC_X, _P2_WGC_Y, f"{char.wealth_gc} GC", f_field, "lm")
-    _draw_text(draw, _P2_WSS_X, _P2_WSS_Y, f"{char.wealth_ss} SS", f_field, "lm")
-    _draw_text(draw, _P2_WBP_X, _P2_WBP_Y, f"{char.wealth_bp} BP", f_field, "lm")
+    # Sheet has pre-printed labels; write only the number.
+    # For PC: leave empty if 0 (player rolls at session start if needed).
+    if not pc_mode or char.wealth_gc:
+        _draw_text(draw, _P2_WGC_X, _P2_WGC_Y, str(char.wealth_gc), f_field, "lm")
+    if not pc_mode or char.wealth_ss:
+        _draw_text(draw, _P2_WSS_X, _P2_WSS_Y, str(char.wealth_ss), f_field, "lm")
+    if not pc_mode or char.wealth_bp:
+        _draw_text(draw, _P2_WBP_X, _P2_WBP_Y, str(char.wealth_bp), f_field, "lm")
 
     # ── Movement rates ────────────────────────────────────────────────────────
     M = char.M
@@ -544,7 +569,8 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
 
 
 def save_character_spread(char: Character,
-                           path: str = "character_sheet_spread.jpg") -> str:
+                           path: str = "character_sheet_spread.jpg",
+                           pc_mode: bool = False) -> str:
     """
     Render both pages of the character sheet side by side (landscape).
     Page 1 (filled) on the left, page 2 (filled) on the right.
@@ -553,7 +579,7 @@ def save_character_spread(char: Character,
     # Fill page 1
     page1 = Image.open(_SHEET).copy()
     draw1 = ImageDraw.Draw(page1)
-    _fill_page1(char, draw1)
+    _fill_page1(char, draw1, pc_mode=pc_mode)
 
     # Fill page 2
     if os.path.exists(_SHEET2):
@@ -561,7 +587,7 @@ def save_character_spread(char: Character,
     else:
         page2 = Image.new("RGB", page1.size, (255, 255, 255))
     draw2 = ImageDraw.Draw(page2)
-    _fill_page2(char, draw2)
+    _fill_page2(char, draw2, pc_mode=pc_mode)
 
     # Combine side by side with a small gap
     W1, H1 = page1.size

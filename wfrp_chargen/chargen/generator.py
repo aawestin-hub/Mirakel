@@ -432,15 +432,41 @@ def _roll_appearance(race: str) -> dict:
 # ── Alignment ─────────────────────────────────────────────────────────────────
 
 _ALIGNMENT_TABLES = {
-    "Warrior":  ["Lawful"] * 6 + ["Neutral"] * 3 + ["Chaotic"],
-    "Ranger":   ["Neutral"] * 5 + ["Lawful"] * 3 + ["Chaotic"] * 2,
-    "Rogue":    ["Neutral"] * 4 + ["Chaotic"] * 4 + ["Lawful"] * 2,
-    "Academic": ["Lawful"] * 5 + ["Neutral"] * 4 + ["Chaotic"],
+    # Human and Dwarf: all five alignments, weighted by career class
+    # Elf: Law or Good only
+    # Halfling: Neutral only
+    # Terms per wiki: Law / Good / Neutral / Evil / Chaos
+    "Warrior": {
+        "Human":    ["Law"] * 4 + ["Good"] * 2 + ["Neutral"] * 2 + ["Evil"] + ["Chaos"],
+        "Dwarf":    ["Law"] * 5 + ["Good"] * 2 + ["Neutral"] * 2 + ["Evil"],
+        "Elf":      ["Law"] * 6 + ["Good"] * 4,
+        "Halfling": ["Neutral"] * 10,
+    },
+    "Ranger": {
+        "Human":    ["Neutral"] * 4 + ["Law"] * 2 + ["Good"] * 2 + ["Evil"] + ["Chaos"],
+        "Dwarf":    ["Neutral"] * 4 + ["Law"] * 3 + ["Good"] * 2 + ["Evil"],
+        "Elf":      ["Good"] * 6 + ["Law"] * 4,
+        "Halfling": ["Neutral"] * 10,
+    },
+    "Rogue": {
+        "Human":    ["Neutral"] * 3 + ["Evil"] * 3 + ["Chaos"] * 2 + ["Law"] + ["Good"],
+        "Dwarf":    ["Neutral"] * 4 + ["Evil"] * 3 + ["Law"] * 2 + ["Chaos"],
+        "Elf":      ["Good"] * 7 + ["Law"] * 3,
+        "Halfling": ["Neutral"] * 10,
+    },
+    "Academic": {
+        "Human":    ["Good"] * 3 + ["Neutral"] * 3 + ["Law"] * 3 + ["Evil"],
+        "Dwarf":    ["Good"] * 3 + ["Neutral"] * 3 + ["Law"] * 3 + ["Evil"],
+        "Elf":      ["Good"] * 7 + ["Law"] * 3,
+        "Halfling": ["Neutral"] * 10,
+    },
 }
 
 
-def _roll_alignment(career_class: str) -> str:
-    return random.choice(_ALIGNMENT_TABLES.get(career_class, ["Neutral"] * 10))
+def _roll_alignment(career_class: str, race: str = "Human") -> str:
+    table = _ALIGNMENT_TABLES.get(career_class, {})
+    options = table.get(race, ["Neutral"] * 10)
+    return random.choice(options)
 
 
 # ── Trapping parser ───────────────────────────────────────────────────────────
@@ -621,7 +647,7 @@ def generate_character(
     char.career_note    = career_data.get("note", "")
 
     # ── Alignment ─────────────────────────────────────────────────────────
-    char.alignment = _roll_alignment(chosen_class)
+    char.alignment = _roll_alignment(chosen_class, race_name)
 
     # ── Physical appearance ───────────────────────────────────────────────
     appearance = _roll_appearance(race_name)
