@@ -508,6 +508,219 @@ def _categorise_trappings(trappings: list) -> dict:
     return {"hth": hth, "missile": missile, "armour": armour, "other": other}
 
 
+_CAREER_FLAVOR = {
+    "Wizard's Apprentice":    "bound by scholarly oaths to master the winds of magic",
+    "Hedge-Wizard's Apprentice": "learning the old ways and petty charms far from the Colleges",
+    "Initiate":               "devoted to the rites of the gods",
+    "Mercenary":              "selling {poss} blade for coin and glory",
+    "Soldier":                "serving in the Empire's armies with little choice in the matter",
+    "Thief":                  "living by {poss} wits and nimble fingers",
+    "Scholar":                "pursuing knowledge in dusty libraries and forgotten tomes",
+    "Innkeeper":              "keeping the fires burning and the ale barrels full",
+    "Trader":                 "hauling goods along the rutted roads of the Empire",
+    "Hunter":                 "tracking quarry through the dark forests beyond the towns",
+    "Physician's Student":    "learning the healing arts under a demanding master",
+    "Rat Catcher":            "earning a grim living clearing vermin from cellars and sewers",
+    "Entertainer":            "earning {poss} supper with song, jest and clever tricks",
+    "Coachman":               "driving rattling coaches along dangerous Imperial roads",
+    "Ferryman":               "working the rivers and canals of the Old World",
+    "Boatman":                "crewing the boats and barges of the inland waterways",
+    "Tomb Robber":            "plundering the tombs of the long-dead for whatever could be sold",
+    "Burglar":                "slipping past locks and guards in the dead of night",
+    "Footpad":                "preying on lonely travellers after dark",
+    "Agitator":               "stirring up discontent and dangerous ideas among the common folk",
+    "Student":                "studying at one of the Empire's learned institutions",
+    "Pedlar":                 "selling trinkets and necessities from village to village",
+    "Raconteur":              "spinning tall tales and half-truths for beer money",
+    "Woodsman":               "felling timber and keeping watch on the forest's edge",
+    "Forester":               "ranging the deep woods as guide and warden",
+    "Herbalist":              "gathering the wild herbs of field and forest for medicine and trade",
+    "Navigator":              "plotting courses across open water for those who could pay",
+    "Sailor":                 "crewing ships through storm and dead calms alike",
+    "Camp Follower":          "trailing behind armies, scraping a living from the leavings of war",
+    "Servant":                "attending to the endless needs of a wealthy household",
+    "Squire":                 "learning the arts of war in service to a noble knight",
+    "Druid":                  "tending to the old groves and the forgotten rites of nature",
+    "Hypnotist":              "practising the subtle arts of the mind on willing and unwilling subjects",
+    "Pharmacist":             "compounding remedies, potions and powders for profit",
+    "Seer":                   "reading the omens and portents that others miss or fear",
+    "Charlatan":              "living entirely by deception, guile and a silver tongue",
+    "Bawd":                   "arranging the vices of others for a careful cut of the coin",
+    "Spy":                    "selling secrets to whoever would pay and trusting no one",
+    "Fence":                  "quietly trading in goods of uncertain origin",
+    "Gambler":                "trusting to luck and skill at cards, dice and other games",
+    "Bounty Hunter":          "tracking down fugitives for the posted reward",
+    "Exciseman":              "collecting the Empire's taxes and making few friends doing it",
+    "Jailer":                 "keeping order in the damp dungeons and lock-ups",
+    "Militiaman":             "serving in the local militia to keep what peace there was",
+    "Roadwarden":             "patrolling the Imperial roads against bandits and worse",
+    "Watchman":               "walking the night watch through dark and dangerous streets",
+    "Troll Slayer":           "seeking a glorious death against trolls, giants and worse",
+    "Wood Elf Wardancer":     "following the sacred and deadly martial dance of the Wood Elves",
+    "Wood Elf Mage's Apprentice": "learning the ancient elven ways of the forest's magic",
+    "Runesmith":              "studying the sacred and powerful runes of the dwarf ancestors",
+    "Engineer":               "designing and building the remarkable machines of the Empire",
+    "Miner":                  "delving deep beneath the earth for ore and precious stone",
+    "Smuggler":               "moving contraband past the watchful eyes of river and road wardens",
+    "Outlaw":                 "living outside the law, hiding in the wilds and forests",
+    "Protagonist":            "picking fights and seeking trouble as a deliberate way of life",
+    "Noble":                  "born to privilege and the heavy obligations of {poss} station",
+    "Trapper":                "setting traps and snares in the wild places beyond the towns",
+    "Scribe":                 "writing letters and documents for those who could not",
+    "Artisan":                "plying {poss} craft with hammer, needle or paint-brush",
+    "Seaman":                 "sailing the great seas in search of whatever fortune offered",
+}
+
+_RACE_INTRO = {
+    "Human": [
+        "Born like so many into the teeming, dangerous life of the Empire,",
+        "One of the countless souls trying to make their way in a perilous world,",
+        "A child of the Old World, where danger lurks behind every friendly face,",
+        "From the hard-worn lands of the Empire,",
+    ],
+    "Elf": [
+        "One of the elder folk, walking the world with older and sadder eyes than most,",
+        "Born under the timeless stars that the elves have watched far longer than men,",
+        "Carrying the long memory and quiet grace of the elven kindred,",
+        "Far older in spirit than appearance alone would suggest,",
+    ],
+    "Dwarf": [
+        "Forged by the unyielding spirit of the mountain holds,",
+        "Dour, proud, and nursing grudges that would outlast most human kingdoms,",
+        "Bearing the iron traditions of the dwarven ancestor gods,",
+        "Stout as stone, twice as stubborn, and just as likely to crack heads,",
+    ],
+    "Halfling": [
+        "Smaller than most, but quick and clever enough to compensate,",
+        "Wandered out of The Moot and into a world far larger than expected,",
+        "With the insatiable curiosity that afflicts the best — and worst — halflings,",
+        "Far from the comfortable hearths and well-stocked larders of The Moot,",
+    ],
+}
+
+_BIRTHPLACE_PHRASES = {
+    "City": "the busy, dangerous streets of the city",
+    "Prosperous Town": "the comfortable lanes of a prosperous town",
+    "Market Town": "the market squares and muddy lanes of a busy market town",
+    "Fortified Town": "behind the walls of a fortified settlement",
+    "Farming Village": "a quiet farming village surrounded by open fields",
+    "Small Settlement": "a small and largely forgotten settlement",
+    "Pig/Cattle Farm": "a pig-and-cattle farm on the edge of settled land",
+    "Poor Village": "a struggling, dirt-poor village",
+    "Arable Farm": "a hard-working arable farm amid the provinces",
+    "Hovel": "a tumbledown hovel at the end of a forgotten lane",
+}
+
+_RELIGION_PHRASES = {
+    "Sigmar": "faith in Sigmar, the Empire's greatest hero and god",
+    "Ulric": "devotion to Ulric, god of wolves, winter and battle",
+    "Morr": "quiet observance of Morr, lord of the dead and keeper of dreams",
+    "Shallya": "the merciful teachings of Shallya, goddess of healing and mercy",
+    "Taal": "reverence for Taal, lord of beasts and the wild places",
+    "Ranald": "a wry and often private reverence for Ranald, god of luck and trickery",
+    "Verena": "dedication to Verena, goddess of justice, truth and learning",
+    "Myrmidia": "honour paid to Myrmidia, warrior-goddess of strategy and southern lands",
+    "Grungni": "the ancient rites of Grungni, ancestor god of dwarven craft and mining",
+    "Grimnir": "the fierce warrior-honour of Grimnir, patron of those who seek to slay or be slain",
+    "Valaya": "the protective runes of Valaya, guardian-goddess of the dwarven holds",
+    "Isha": "the old rites of Isha, elven mother of the earth and all living things",
+    "Lileath": "wonder and devotion towards Lileath, elven goddess of dreams and fate",
+    "Loec": "the mischievous and dangerous ways of Loec, elven trickster-god",
+    "Khaine": "a dark edge of devotion to Khaine, lord of murder — not spoken aloud",
+    "Esmeralda": "the cosy wisdom of Esmeralda, halfling goddess of hearth and home",
+}
+
+
+def _generate_background_narrative(char) -> str:
+    """Generate a rich background paragraph for the character sheet."""
+    race    = char.race
+    gender  = char.gender or "Male"
+    he      = "He" if gender == "Male" else "She"
+    he_l    = he.lower()
+    his     = "His" if gender == "Male" else "Her"
+    his_l   = his.lower()
+    him     = "him" if gender == "Male" else "her"
+    career  = char.career
+
+    sentences = []
+
+    # --- Opening: race flavour + birthplace ---
+    intros  = _RACE_INTRO.get(race, _RACE_INTRO["Human"])
+    intro   = random.choice(intros)
+
+    birth = char.place_of_birth or ""
+    settle_phrase = ""
+    for key, phrase in _BIRTHPLACE_PHRASES.items():
+        if key in birth:
+            settle_phrase = phrase
+            break
+
+    if settle_phrase and "," in birth:
+        province = birth.split(",")[-1].strip()
+        sentences.append(f"{intro} {he_l} was raised in {settle_phrase} of {province}.")
+    elif birth:
+        sentences.append(f"{intro} {he_l} grew up in {birth}.")
+    else:
+        sentences.append(f"{intro} {his} origins are humble.")
+
+    # --- Family ---
+    parent   = char.parents_occupation or ""
+    siblings = char.family_members or "No siblings"
+
+    if parent:
+        if siblings != "No siblings":
+            sentences.append(
+                f"{his} parent worked as a {parent.lower()}, "
+                f"and {he_l} grew up alongside {siblings}."
+            )
+        else:
+            sentences.append(
+                f"The only child of a {parent.lower()}, "
+                f"{he_l} learned early that nothing comes for free."
+            )
+    elif siblings != "No siblings":
+        sentences.append(f"{he} has {siblings}, scattered by the winds of fate.")
+
+    # --- Career ---
+    raw_flavor = _CAREER_FLAVOR.get(career, f"making {his_l} living as a {career.lower()}")
+    flavor     = raw_flavor.replace("{poss}", his_l)
+    openers    = [
+        f"Now {he_l} makes {his_l} way in the world, {flavor}.",
+        f"These days {he_l} earns {his_l} keep by {flavor}.",
+        f"Fate and circumstance have led {him} to the path of {flavor}.",
+    ]
+    sentences.append(random.choice(openers))
+
+    # --- Religion ---
+    if char.religion:
+        rel = _RELIGION_PHRASES.get(char.religion, f"quiet observance of {char.religion}")
+        closers = [
+            f"{he} draws strength from {rel}.",
+            f"In difficult times {he_l} turns to {rel}.",
+            f"{his} faith rests on {rel}.",
+        ]
+        sentences.append(random.choice(closers))
+
+    # --- Star sign ---
+    if char.star_sign:
+        star_lines = [
+            f"Born under {char.star_sign}, {he_l} carries the mark of the heavens.",
+            f"The sign of {char.star_sign} watched over {his_l} birth, for good or ill.",
+        ]
+        sentences.append(random.choice(star_lines))
+
+    # --- Distinguishing mark ---
+    if char.distinguishing_marks:
+        mark = char.distinguishing_marks.lower()
+        mark_lines = [
+            f"Most who meet {him} remember {his_l} {mark} long after the encounter.",
+            f"{his} {mark} is a detail rarely overlooked by sharp-eyed strangers.",
+        ]
+        sentences.append(random.choice(mark_lines))
+
+    return " ".join(sentences)
+
+
 def available_classes(race_name: str, stats: dict[str, int]) -> list[str]:
     """Return which career classes this character qualifies for."""
     prereqs = CAREER_CLASS_PREREQS.get(race_name, {})
@@ -731,8 +944,7 @@ def generate_character(
     )
     char.psychology_notes = ""
 
-    # ── Starting wealth — parsed from trappings ───────────────────────────────
-    # Handles "2D6 Gold Crowns", "D6 Silver Shillings", "1D6 Brass Pennies" etc.
+    # ── Starting wealth — parsed from trappings ───────────────────────────────    # Handles "2D6 Gold Crowns", "D6 Silver Shillings", "1D6 Brass Pennies" etc.
     import re as _re
     _MONEY_PAT = _re.compile(
         r'^(\d*)D(\d+)\s+(Gold Crowns?|Silver Shillings?|Brass Pennies?)',
@@ -797,5 +1009,8 @@ def generate_character(
     elif resolved_career == "Wood Elf Mage's Apprentice":
         char.spells = random.sample(_PETTY_MAGIC + _ARCANE_L1, min(3, 7))
         char.Mag = 1
+
+    # ── Background narrative ──────────────────────────────────────────────────
+    char.background_narrative = _generate_background_narrative(char)
 
     return char

@@ -253,15 +253,15 @@ _AV_SHIELD_Y   = 2322
 
 # ── Page 2 coordinates (relative to page-2 image origin) ──────────────────────
 
-_P2_FP_X           = 1853  # kept – marker was dragged off screen during calibration
+_P2_FP_X           = 2040
 _P2_FP_Y           = 340
-_P2_MAG_X          = 1837  # kept – marker was dragged off screen during calibration
+_P2_MAG_X          = 2040
 _P2_MAG_Y          = 520
-_P2_PL_X           = 1932  # Power Level (new box between Magic Points and Experience)
+_P2_PL_X           = 2040  # Power Level
 _P2_PL_Y           = 686
-_P2_IP_X           = 1925
+_P2_IP_X           = 2040
 _P2_IP_Y           = 1459
-_P2_XP_X           = 1774  # kept – marker was dragged off screen during calibration
+_P2_XP_X           = 2040
 _P2_XP_Y           = 870
 
 _P2_TRAP_X         = 191
@@ -289,9 +289,9 @@ _P2_LANG_X         = 1527
 _P2_LANG_START_Y   = 1056
 _P2_LANG_SPACING   = 48
 
-_P2_SOCIAL_X       = 1916
+_P2_SOCIAL_X       = 2040
 _P2_SOCIAL_Y       = 1756
-_P2_RELIG_X        = 1843
+_P2_RELIG_X        = 2040
 _P2_RELIG_Y        = 2000
 
 # Background free-text area (birthplace / parents / family / star sign / mark merged here)
@@ -303,15 +303,15 @@ _PAGE_GAP = 20
 
 
 # ── Page 2 spell section coordinates ──────────────────────────────────────────
-_P2_SPELL_NAME_X    = 274
-_P2_SPELL_SL_X      = 674
-_P2_SPELL_MP_X      = 766
-_P2_SPELL_R_X       = 858
-_P2_SPELL_D_X       = 949
-_P2_SPELL_ING_X     = 1010
-_P2_SPELL_EFF_X     = 1354
-_P2_SPELL_START_Y   = 337
-_P2_SPELL_SPACING   = 96
+_P2_SPELL_NAME_X    = 20
+_P2_SPELL_SL_X      = 727
+_P2_SPELL_MP_X      = 820
+_P2_SPELL_R_X       = 913
+_P2_SPELL_D_X       = 1007
+_P2_SPELL_ING_X     = 1075
+_P2_SPELL_EFF_X     = 1520
+_P2_SPELL_START_Y   = 352   # first data row center (header ends y≈287)
+_P2_SPELL_SPACING   = 130   # each row ~130px tall (660px / 5 rows)
 
 
 def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
@@ -350,13 +350,14 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
     _draw_text_fit(draw, _EYES_X,   _R2_Y, char.eye_colour,  _FS_FIELD, max_width=194, anchor="lm")
 
     # ── Row 3: CURRENT CAREER / CAREER PATH / CAREER EXITS ──────────────────
-    career_y      = 716 if pc_mode else _R3_Y
+    career_y      = _R3_Y - 80 if pc_mode else _R3_Y
     career_anchor = "lt" if pc_mode else "lm"
     _draw_text_fit(draw, _CAREER_X, career_y, char.career, _FS_FIELD, max_width=432, anchor=career_anchor)
-    # CAREER PATH box
-    _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=644, anchor=career_anchor)
+    # CAREER PATH box: blank for starting PC (history starts empty); NPC shows career
+    if not pc_mode:
+        _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=644, anchor=career_anchor)
     if char.career_exits:
-        exits_y = 716 if pc_mode else _R3_Y
+        exits_y = career_y
         _draw_exits(draw, _EXITS_X, exits_y, char.career_exits,
                     _FS_SMALL, max_width=750, line_height=40,
                     anchor=career_anchor, max_lines=4)
@@ -462,6 +463,48 @@ def save_character_image(char: Character,
     return path
 
 
+def _draw_paragraph(draw, x: int, y: int, text: str, base_size: int,
+                    max_width: int, line_height: int, max_lines: int = 15,
+                    colour=_INK) -> None:
+    """Word-wrap text into multiple lines, shrinking font to fit."""
+    if not text:
+        return
+    words = text.split()
+    for size in range(base_size, 20, -2):
+        font = _get_font(size)
+        lines, cur = [], []
+        for word in words:
+            test = " ".join(cur + [word])
+            if _text_width(draw, test, font) <= max_width:
+                cur.append(word)
+            else:
+                if cur:
+                    lines.append(" ".join(cur))
+                cur = [word]
+        if cur:
+            lines.append(" ".join(cur))
+        if len(lines) <= max_lines:
+            for i, line in enumerate(lines):
+                draw.text((x, y + i * line_height), line,
+                          font=font, fill=colour, anchor="lm")
+            return
+    # fallback at min size
+    font = _get_font(22)
+    lines, cur = [], []
+    for word in words:
+        test = " ".join(cur + [word])
+        if _text_width(draw, test, font) <= max_width:
+            cur.append(word)
+        else:
+            if cur:
+                lines.append(" ".join(cur))
+            cur = [word]
+    if cur:
+        lines.append(" ".join(cur))
+    for i, line in enumerate(lines[:max_lines]):
+        draw.text((x, y + i * line_height), line, font=font, fill=colour, anchor="lm")
+
+
 def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
                 pc_mode: bool = False) -> None:
     """Draw all character data onto page-2 ImageDraw context."""
@@ -476,8 +519,9 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     # Mag: only show if character has magic (Mag > 0)
     if char.Mag:
         _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
+    # Power Level: show starting value of 0
+    _draw_text(draw, _P2_PL_X, _P2_PL_Y, "0", f_stat, "mm")
     # IP and XP: always start at 0 — leave blank; player/GM fills in
-    # (Power Level also left blank — filled by GM/player as needed)
 
     # ── Spells ────────────────────────────────────────────────────────────────
     # Column boundaries (from pixel scan): NAME 294-713, SL 713-815, MP 815-921,
@@ -567,26 +611,27 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
 
     # ── Background ────────────────────────────────────────────────────────────
     if char.social_level:
-        _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level, f_field, "lm")
+        _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level, f_field, "mm")
     if char.religion:
-        _draw_text(draw, _P2_RELIG_X,  _P2_RELIG_Y,  char.religion,     f_field, "lm")
+        _draw_text(draw, _P2_RELIG_X,  _P2_RELIG_Y,  char.religion,     f_field, "mm")
 
     # ── Background free-text (birthplace / parents / family merged) ───────────
-    back_lines = []
-    if char.place_of_birth:
-        back_lines.append(f"Birthplace: {char.place_of_birth}")
-    if char.parents_occupation:
-        back_lines.append(f"Parents: {char.parents_occupation}")
-    if char.family_members:
-        back_lines.append(f"Family: {char.family_members}")
-    if char.star_sign:
-        back_lines.append(f"Star Sign: {char.star_sign}")
-    if char.distinguishing_marks:
-        back_lines.append(f"Mark: {char.distinguishing_marks}")
-    for i, line in enumerate(back_lines):
-        _draw_text_fit(draw, _P2_BACK_X,
-                       _P2_BACK_Y + i * _P2_BACK_SPACING,
-                       line, _FS_SMALL, max_width=1900, anchor="lm")
+    # ── Background narrative ───────────────────────────────────────────────────
+    if char.background_narrative:
+        _draw_paragraph(draw, _P2_BACK_X, _P2_BACK_Y,
+                        char.background_narrative,
+                        _FS_SMALL, max_width=1900, line_height=48, max_lines=12)
+    else:
+        # Fallback: list key facts
+        back_lines = []
+        if char.place_of_birth:      back_lines.append(f"Birthplace: {char.place_of_birth}")
+        if char.parents_occupation:  back_lines.append(f"Parents: {char.parents_occupation}")
+        if char.family_members:      back_lines.append(f"Family: {char.family_members}")
+        if char.star_sign:           back_lines.append(f"Star Sign: {char.star_sign}")
+        if char.distinguishing_marks: back_lines.append(f"Mark: {char.distinguishing_marks}")
+        for i, line in enumerate(back_lines):
+            _draw_text_fit(draw, _P2_BACK_X, _P2_BACK_Y + i * _P2_BACK_SPACING,
+                           line, _FS_SMALL, max_width=1900, anchor="lm")
 
 
 def save_character_spread(char: Character,

@@ -102,6 +102,7 @@ class Character:
     wealth_gc:           int   = 0   # Gold Crowns
     wealth_ss:           int   = 0   # Silver Shillings
     wealth_bp:           int   = 0   # Brass Pennies
+    background_narrative: str = ""
 
     def compute_bonuses(self) -> None:
         """
