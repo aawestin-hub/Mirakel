@@ -635,6 +635,18 @@ def generate_character(
             remaining.append(item)
     char.trappings = remaining
 
+    # Resolve remaining dice quantities in trapping descriptions
+    # e.g. "D4 pairs of Manacles" → "2 pairs of Manacles"
+    #      "Jewellery worth 10D6 Gold Crowns" → "Jewellery worth 37 Gold Crowns"
+    def _roll_dice_in_text(text: str) -> str:
+        def _sub(m):
+            n = int(m.group(1)) if m.group(1) else 1
+            sides = int(m.group(2))
+            return str(sum(random.randint(1, sides) for _ in range(n)))
+        return _re.sub(r'(\d*)D(\d+)', _sub, text, flags=_re.IGNORECASE)
+
+    char.trappings = [_roll_dice_in_text(t) for t in char.trappings]
+
     # Recategorise after removing money items
     cats2 = _categorise_trappings(char.trappings)
     char.hth_weapons     = cats2["hth"]
