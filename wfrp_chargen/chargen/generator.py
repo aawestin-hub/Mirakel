@@ -41,35 +41,96 @@ from chargen.roller import roll_stat, roll_small_stat, roll_direct, roll_d100
 # Stats rolled on the 2d10+base percentile scale
 _PERCENTILE_STATS = ("WS", "BS", "I", "Dex", "Ld", "Int", "Cl", "WP", "Fel")
 
-# ── Physical appearance tables (WFRP 1e weighted) ────────────────────────────
-# Weights reflect real-world frequency for immersion; roll D10 style
+# ── Physical appearance tables (WFRP 1e rulebook, Table 2-8 / 2-9) ─────────────
+# Each list is a d10 table: index 0 = roll 1, index 9 = roll 10.
 
 _HAIR = {
-    "Human":    [("Brown", 3), ("Dark Brown", 2), ("Black", 2), ("Blonde", 1),
-                 ("Chestnut", 1), ("Red", 1)],
-    "Elf":      [("Golden", 3), ("Auburn", 2), ("Black", 2), ("Silver", 2), ("White", 1)],
-    "Dwarf":    [("Brown", 2), ("Dark Brown", 2), ("Black", 2), ("Red", 2),
-                 ("Ginger", 1), ("Grey", 1)],
-    "Halfling": [("Brown", 3), ("Curly Brown", 2), ("Blonde", 2), ("Sandy", 2), ("Red", 1)],
+    # Table 2-8: Hair Colour (d10)
+    "Human":    ["Blond", "Red", "Copper", "Light Brown", "Light Brown",
+                 "Brown", "Brown", "Dark Brown", "Dark Brown", "Black"],
+    "Elf":      ["Silver", "Ash Blond", "Corn Yellow", "Yellow", "Copper",
+                 "Light Brown", "Brown", "Dark Brown", "Black", "Black"],
+    "Dwarf":    ["Ash Blond", "Ash Blond", "Ash Blond", "Yellow", "Yellow",
+                 "Copper", "Light Brown", "Brown", "Dark Brown", "Black"],
+    "Halfling": ["Ash Blond", "Ash Blond", "Corn Yellow", "Corn Yellow", "Copper",
+                 "Light Brown", "Light Brown", "Brown", "Brown", "Black"],
 }
 
 _EYES = {
-    "Human":    [("Brown", 3), ("Blue", 2), ("Grey", 2), ("Green", 2), ("Hazel", 1)],
-    "Elf":      [("Blue", 2), ("Green", 2), ("Silver", 2), ("Grey", 2), ("Violet", 1), ("Gold", 1)],
-    "Dwarf":    [("Brown", 3), ("Grey", 2), ("Dark Brown", 2), ("Blue", 2), ("Green", 1)],
-    "Halfling": [("Brown", 3), ("Blue", 2), ("Green", 2), ("Hazel", 2), ("Grey", 1)],
+    # Table 2-9: Eye Colour (d10)
+    "Human":    ["Blue", "Blue", "Hazel", "Hazel", "Green",
+                 "Grey", "Grey", "Light Brown", "Brown", "Dark Brown"],
+    "Elf":      ["Grey", "Blue", "Blue", "Blue", "Green",
+                 "Light Brown", "Brown", "Brown", "Dark Brown", "Black"],
+    "Dwarf":    ["Pale Grey", "Grey", "Blue", "Hazel", "Green",
+                 "Light Brown", "Brown", "Dark Brown", "Black", "Purple"],
+    "Halfling": ["Pale Grey", "Grey", "Blue", "Hazel", "Green",
+                 "Light Brown", "Light Brown", "Brown", "Dark Brown", "Black"],
 }
 
-def _weighted_choice(table):
-    options, weights = zip(*table)
-    return random.choices(options, weights=weights, k=1)[0]
 
-_GENDER_WEIGHTS = {
-    "Human":    [("Male", 50), ("Female", 50)],
-    "Elf":      [("Male", 50), ("Female", 50)],
-    "Dwarf":    [("Male", 65), ("Female", 35)],
-    "Halfling": [("Male", 50), ("Female", 50)],
+def _d10_table(table: list) -> str:
+    return table[random.randint(1, 10) - 1]
+
+
+# Age ranges: (base, d_sides, d_count)  — unchanged from rulebook
+_AGE = {
+    "Human":    (16, 10, 2),   # 2d10 + 16
+    "Elf":      (60, 20, 5),   # 5d20 + 60
+    "Dwarf":    (20, 20, 3),   # 3d20 + 20
+    "Halfling": (16, 10, 2),   # 2d10 + 16
 }
+
+# Height: (female_base_in, male_base_in) — book Table 2-6, both use +1d10"
+_HEIGHT = {
+    "Human":    (61, 64),   # Female 5'1"+1d10", Male 5'4"+1d10"
+    "Elf":      (64, 66),   # Female 5'4"+1d10", Male 5'6"+1d10"
+    "Dwarf":    (50, 52),   # Female 4'2"+1d10", Male 4'4"+1d10"
+    "Halfling": (38, 40),   # Female 3'2"+1d10", Male 3'4"+1d10"
+}
+
+# Weight: book Table 2-7, d100 lookup — (max_roll, [Dwarf, Elf, Halfling, Human])
+_WEIGHT_TABLE = [
+    (1,  [90,  80,  75,  105]),
+    (3,  [95,  85,  75,  110]),
+    (5,  [100, 90,  80,  115]),
+    (8,  [105, 95,  80,  120]),
+    (12, [110, 100, 85,  125]),
+    (17, [115, 105, 85,  130]),
+    (22, [120, 110, 90,  135]),
+    (29, [125, 115, 90,  140]),
+    (37, [130, 120, 95,  145]),
+    (49, [135, 125, 100, 150]),
+    (64, [140, 130, 100, 155]),
+    (71, [145, 135, 105, 160]),
+    (78, [150, 140, 110, 165]),
+    (83, [155, 145, 115, 170]),
+    (88, [160, 150, 120, 175]),
+    (92, [165, 155, 125, 180]),
+    (95, [170, 160, 130, 190]),
+    (97, [175, 165, 135, 200]),
+    (99, [180, 170, 140, 210]),
+    (100,[185, 175, 145, 220]),
+]
+_WEIGHT_RACE_IDX = {"Dwarf": 0, "Elf": 1, "Halfling": 2, "Human": 3}
+
+
+def _roll_weight(race: str) -> int:
+    roll = random.randint(1, 100)
+    idx  = _WEIGHT_RACE_IDX[race]
+    for max_roll, weights in _WEIGHT_TABLE:
+        if roll <= max_roll:
+            return weights[idx]
+    return _WEIGHT_TABLE[-1][1][idx]
+
+
+def _inches_to_cm(inches: int) -> str:
+    return f"{round(inches * 2.54)} cm"
+
+
+def _lbs_to_kg(lbs: int) -> str:
+    return f"{round(lbs * 0.4536)} kg"
+
 
 _DESCRIPTION_BUILDS = [
     "Athletic build", "Stocky build", "Slim build", "Broad-shouldered",
@@ -81,51 +142,18 @@ _DESCRIPTION_FEATURES = [
     "calloused hands", "a missing tooth", "a bushy beard", "bright eyes",
 ]
 
-# Age ranges: (base, d_sides, d_count)
-_AGE = {
-    "Human":    (16, 10, 2),
-    "Elf":      (60, 20, 5),
-    "Dwarf":    (20, 20, 3),
-    "Halfling": (16, 10, 2),
-}
-
-# Height in inches: (base_inches, d_sides, d_count)
-_HEIGHT = {
-    "Human":    (64, 6, 2),   # 5'4" + 2d6"
-    "Elf":      (66, 6, 2),   # 5'6" + 2d6"
-    "Dwarf":    (50, 6, 2),   # 4'2" + 2d6"
-    "Halfling": (40, 6, 2),   # 3'4" + 2d6"
-}
-
-# Weight in lbs: (base, d_sides, d_count)
-_WEIGHT = {
-    "Human":    (120, 10, 4),
-    "Elf":      (100, 10, 3),
-    "Dwarf":    (130, 10, 4),
-    "Halfling": (60,  10, 3),
-}
-
-
-def _inches_to_cm(inches: int) -> str:
-    return f"{round(inches * 2.54)} cm"
-
-
-def _lbs_to_kg(lbs: int) -> str:
-    return f"{round(lbs * 0.4536)} kg"
-
 
 def _roll_appearance(race: str) -> dict:
     base_age, d_age, n_age = _AGE[race]
     age = base_age + sum(random.randint(1, d_age) for _ in range(n_age))
 
-    base_h, d_h, n_h = _HEIGHT[race]
-    height_in = base_h + sum(random.randint(1, d_h) for _ in range(n_h))
+    gender = random.choice(["Male", "Female"])
 
-    base_w, d_w, n_w = _WEIGHT[race]
-    weight = base_w + sum(random.randint(1, d_w) for _ in range(n_w))
+    female_base, male_base = _HEIGHT[race]
+    base_h = male_base if gender == "Male" else female_base
+    height_in = base_h + random.randint(1, 10)   # +1d10" per book
 
-    genders, weights = zip(*_GENDER_WEIGHTS[race])
-    gender = random.choices(genders, weights=weights, k=1)[0]
+    weight_lbs = _roll_weight(race)
 
     build   = random.choice(_DESCRIPTION_BUILDS)
     feature = random.choice(_DESCRIPTION_FEATURES)
@@ -133,9 +161,9 @@ def _roll_appearance(race: str) -> dict:
     return {
         "age":         str(age),
         "height":      _inches_to_cm(height_in),
-        "weight":      _lbs_to_kg(weight),
-        "hair_colour": _weighted_choice(_HAIR[race]),
-        "eye_colour":  _weighted_choice(_EYES[race]),
+        "weight":      _lbs_to_kg(weight_lbs),
+        "hair_colour": _d10_table(_HAIR[race]),
+        "eye_colour":  _d10_table(_EYES[race]),
         "gender":      gender,
         "description": f"{build}, {feature}",
     }
