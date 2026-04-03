@@ -121,11 +121,47 @@ def _draw_text_wrap(draw, x, y, text: str, base_size: int, max_width: int,
                   line, font=font, fill=colour, anchor=anchor)
 
 
-# Keep old name as alias for backwards compat
-def _draw_text_wrap2(draw, x, y, text: str, base_size: int, max_width: int,
-                     line_height: int, anchor="lm", colour=_INK, min_size: int = 20):
-    _draw_text_wrap(draw, x, y, text, base_size, max_width, line_height,
-                    anchor=anchor, colour=colour, min_size=min_size, max_lines=2)
+def _draw_exits(draw, x: int, y: int, items: list[str], base_size: int,
+                max_width: int, line_height: int, anchor: str = "lm",
+                min_size: int = 18, max_lines: int = 4) -> None:
+    """
+    Render a comma-separated list of exit names, keeping multi-word names
+    (e.g. 'Outlaw Chief', 'Sapper (Dwarfs only)') on the same line.
+    Shrinks font if the list doesn't fit at the given size.
+    """
+    top_anchor = "t" in anchor
+    for size in range(base_size, min_size - 1, -2):
+        font = _get_font(size)
+        lines: list[str] = []
+        current: list[str] = []
+        for item in items:
+            candidate = ", ".join(current + [item])
+            if _text_width(draw, candidate, font) <= max_width:
+                current.append(item)
+            else:
+                if current:
+                    lines.append(", ".join(current))
+                current = [item]
+        if current:
+            lines.append(", ".join(current))
+        if len(lines) <= max_lines and all(
+            _text_width(draw, ln, font) <= max_width for ln in lines
+        ):
+            total_h = (len(lines) - 1) * line_height
+            start_y = y if top_anchor else y - total_h // 2
+            for i, line in enumerate(lines):
+                draw.text((x, start_y + i * line_height),
+                          line, font=font, fill=_INK, anchor=anchor)
+            return
+    # Last resort at min_size
+    font = _get_font(min_size)
+    lines = [", ".join(items[:len(items) // 2]),
+             ", ".join(items[len(items) // 2:])][:max_lines]
+    total_h = (len(lines) - 1) * line_height
+    start_y = y if top_anchor else y - total_h // 2
+    for i, line in enumerate(lines):
+        draw.text((x, start_y + i * line_height),
+                  line, font=font, fill=_INK, anchor=anchor)
 
 
 # ── Coordinates (calibrated via calibrate_ui.py) ─────────────────────────────
@@ -329,12 +365,12 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
     # CAREER PATH box: x=837, ends ~x=1575 → width ~738px
     _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=730, anchor=career_anchor)
     if char.career_exits:
-        exits_text = ", ".join(char.career_exits)
-        # EXITS box: x=1582, ends ~x=2510 → width ~928px; row height ~180px
+        # Use comma-aware renderer: keeps "Outlaw Chief", "Sapper (Dwarfs only)"
+        # etc. together instead of splitting on spaces
         exits_y = 812 if pc_mode else _R3_Y
-        _draw_text_wrap(draw, _EXITS_X, exits_y, exits_text,
-                        _FS_SMALL, max_width=880, line_height=46, anchor=career_anchor,
-                        max_lines=4)
+        _draw_exits(draw, _EXITS_X, exits_y, char.career_exits,
+                    _FS_SMALL, max_width=850, line_height=46,
+                    anchor=career_anchor, max_lines=4)
 
     # ── STARTER PROFILE ───────────────────────────────────────────────────────
     for stat, x in _STAT_X.items():

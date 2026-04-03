@@ -88,10 +88,13 @@ _NAMES: dict[str, dict] = {
 }
 
 
-def random_name(race: str) -> str:
-    """Return a random full name appropriate for the given race."""
+def random_name(race: str, gender: str | None = None) -> str:
+    """Return a random full name appropriate for the given race and gender."""
     data = _NAMES.get(race, _NAMES["Human"])
-    gender = random.choice(["male", "female"])
-    forename = random.choice(data[gender])
+    if gender and gender.lower() in ("male", "female"):
+        g = gender.lower()
+    else:
+        g = random.choice(["male", "female"])
+    forename = random.choice(data[g])
     surname = random.choice(data["surname"])
     return f"{forename} {surname}"

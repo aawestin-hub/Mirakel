@@ -99,9 +99,9 @@ def prompt_race() -> str:
         print(f"  Invalid choice. Enter a number 1–{len(RACES_LIST)} or a race name.")
 
 
-def prompt_name(race: str) -> str:
+def prompt_name(race: str, gender: str = "") -> str:
     """Suggest a race-appropriate name; let the user accept or override."""
-    suggestion = random_name(race)
+    suggestion = random_name(race, gender)
     raw = _safe_input(f"Character name [Enter for '{suggestion}']: ")
     return raw if raw else suggestion
 
@@ -213,7 +213,7 @@ def _generate_npc_auto(race: str | None = None) -> "Character":
             race = "Halfling"
 
     gender = _rand.choice(["Male", "Female"])
-    name   = _rname(race)
+    name   = _rname(race, gender)
     char   = _gen(race_name=race, char_name=name, gender=gender)
     char.character_type = "NPC"
     return char
@@ -244,12 +244,12 @@ def main() -> None:
             race = prompt_race()
             print()
 
-            # ── Optional name ─────────────────────────────────────────
-            name = prompt_name(race)
+            # ── Gender selection (before name so suggestion matches) ──
+            gender = prompt_gender()
             print()
 
-            # ── Gender selection ──────────────────────────────────────
-            gender = prompt_gender()
+            # ── Optional name ─────────────────────────────────────────
+            name = prompt_name(race, gender)
             print()
 
             # ── Roll stats first so we can show prereqs ───────────────
@@ -304,6 +304,10 @@ def main() -> None:
         save_character_pdf(char, pdf_path)
         save_character_html(char, html_path)
         save_character_spread(char, spread_path, pc_mode=(char.character_type == "PC"))
+        # Keep preview_latest.jpg pointing to the most recently generated sheet
+        preview_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preview_latest.jpg")
+        import shutil
+        shutil.copy2(spread_path, preview_path)
         print(f"  [OK] PDF lagret  : {pdf_path}")
         print(f"  [OK] HTML lagret : {html_path}")
         print(f"  [OK] Ark lagret  : {spread_path}\n")
