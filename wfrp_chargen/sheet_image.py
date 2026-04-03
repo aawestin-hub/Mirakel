@@ -96,13 +96,14 @@ def _draw_text_wrap(draw, x, y, text: str, base_size: int, max_width: int,
                     min_size: int = 18, max_lines: int = 3):
     """Draw text, wrapping to up to max_lines lines and shrinking font to fit."""
     text = str(text)
+    top_anchor = "t" in anchor  # "lt" → start at y; "lm" → centre block around y
     for size in range(base_size, min_size - 1, -2):
         font = _get_font(size)
         for n in range(1, max_lines + 1):
             lines = _best_split(draw, text.split(), n, font, max_width)
             if lines is not None:
                 total_h = (len(lines) - 1) * line_height
-                start_y = y - total_h // 2
+                start_y = y if top_anchor else y - total_h // 2
                 for i, line in enumerate(lines):
                     draw.text((x, start_y + i * line_height),
                               line, font=font, fill=colour, anchor=anchor)
@@ -114,7 +115,7 @@ def _draw_text_wrap(draw, x, y, text: str, base_size: int, max_width: int,
     lines = [" ".join(words[i:i+chunk]) for i in range(0, len(words), chunk)]
     lines = lines[:max_lines]
     total_h = (len(lines) - 1) * line_height
-    start_y = y - total_h // 2
+    start_y = y if top_anchor else y - total_h // 2
     for i, line in enumerate(lines):
         draw.text((x, start_y + i * line_height),
                   line, font=font, fill=colour, anchor=anchor)
@@ -415,9 +416,7 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
 
     def _ap_label(loc: str) -> str | None:
         total = _sum_ap(loc)
-        if total:
-            return str(total)
-        return None if pc_mode else "-"
+        return str(total) if total else None  # blank when no armour, in both modes
 
     for x, y, loc in [
         (_AV_HEAD_X,  _AV_HEAD_Y,  "head"),
@@ -430,9 +429,7 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
         label = _ap_label(loc)
         if label is not None:
             _draw_text(draw, x, y, label, f_stat, "mm")
-    # Shield is always blank (player fills in if they have a shield)
-    if not pc_mode:
-        _draw_text(draw, _AV_SHIELD_X, _AV_SHIELD_Y, "-", f_stat, "mm")
+    # Shield box: always blank (player/GM fills in if relevant)
 
 
 def save_character_image(char: Character,
@@ -455,10 +452,13 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     f_small = _get_font(_FS_SMALL)
 
     # ── Info boxes ────────────────────────────────────────────────────────────
-    _draw_text(draw, _P2_FP_X,  _P2_FP_Y,  str(char.FP),  f_stat, "mm")
-    _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
-    _draw_text(draw, _P2_IP_X,  _P2_IP_Y,  str(char.IP),  f_stat, "mm")
-    _draw_text(draw, _P2_XP_X,  _P2_XP_Y,  str(char.experience), f_stat, "mm")
+    # FP: always shown (meaningful starting value)
+    _draw_text(draw, _P2_FP_X, _P2_FP_Y, str(char.FP), f_stat, "mm")
+    # Mag: only show if character has magic (Mag > 0)
+    if char.Mag:
+        _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
+    # IP and XP: always start at 0 — leave blank; player/GM fills in
+    # (Power Level also left blank — filled by GM/player as needed)
 
     # ── Spells ────────────────────────────────────────────────────────────────
     # Column boundaries (from pixel scan): NAME 294-713, SL 713-815, MP 815-921,
