@@ -196,7 +196,7 @@ _DIST_MARKS = [
 
 def _roll_distinguishing_marks(race: str) -> str:
     if race == "Elf" and random.randint(1, 10) > 1:
-        return "None"
+        return ""   # 90% of Elves have no distinguishing mark
     return _roll_d100_table(_DIST_MARKS)
 
 

@@ -468,12 +468,35 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
     armour_set = set(char.armour_items)
     other_items = [t for t in char.trappings
                    if t not in weapon_set and t not in armour_set]
-    # Append spells with a prefix so they appear in the equipment table
     spell_entries = []  # spells are now drawn in dedicated section above
     all_items = other_items + spell_entries
-    for i, item in enumerate(all_items):
-        y = _P2_TRAP_START_Y + i * _P2_TRAP_SPACING
-        _draw_text_fit(draw, _P2_TRAP_X, y, item, _FS_SKILL, max_width=510, anchor="lm")
+
+    _TRAP_MAX_W  = 510          # item text column width (px)
+    _TRAP_ROW_H  = _P2_TRAP_SPACING          # 57px per grid row
+    _TRAP_WRAP_H = 28           # line-height when wrapping within a 2-row block
+    _TRAP_MAX_Y  = _P2_WGC_Y - 80           # stop well before the WEALTH section
+    trap_font    = _get_font(_FS_SKILL)
+
+    y_top = _P2_TRAP_START_Y
+    for item in all_items:
+        if y_top >= _TRAP_MAX_Y:
+            break
+        if _text_width(draw, item, trap_font) <= _TRAP_MAX_W:
+            # Fits on a single row — draw centred in the row
+            draw.text((_P2_TRAP_X, y_top + _TRAP_ROW_H // 2), item,
+                      font=trap_font, fill=_INK, anchor="lm")
+            y_top += _TRAP_ROW_H
+        elif y_top + _TRAP_ROW_H * 2 <= _TRAP_MAX_Y:
+            # Wrap across two rows — centre block in the 2-row space
+            _draw_text_wrap(draw, _P2_TRAP_X, y_top + _TRAP_ROW_H,
+                            item, _FS_SKILL, max_width=_TRAP_MAX_W,
+                            line_height=_TRAP_WRAP_H, anchor="lm", max_lines=2)
+            y_top += _TRAP_ROW_H * 2
+        else:
+            # Only 1 row left — shrink to fit rather than overflow
+            _draw_text_fit(draw, _P2_TRAP_X, y_top + _TRAP_ROW_H // 2,
+                           item, _FS_SKILL, max_width=_TRAP_MAX_W, anchor="lm")
+            y_top += _TRAP_ROW_H
 
     # ── Wealth ────────────────────────────────────────────────────────────────
     _draw_text(draw, _P2_WGC_X, _P2_WGC_Y, f"{char.wealth_gc} GC", f_field, "lm")
