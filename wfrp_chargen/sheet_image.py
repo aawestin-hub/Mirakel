@@ -1,8 +1,8 @@
 """
-Fills character data onto the official WFRP 1st Edition character sheet image.
+Fills character data onto the WFRP 1st Edition character sheet image.
 
 Uses Pillow to overlay text at calibrated field positions.
-Image: sheet_page0.png  (2550 × 3300 px, rendered from PDF at 300 DPI)
+Image: sheet_page0.png  (2250 × 3250 px, rendered from PDF at 300 DPI)
 
 Usage:
     from sheet_image import save_character_image
@@ -39,11 +39,11 @@ def _get_font(size: int):
             continue
     return ImageFont.load_default()
 
-# Font sizes – calibrated for 2550 × 3300 px sheet
-_FS_FIELD   = 42   # identity fields
-_FS_STAT    = 40   # stat grid values
-_FS_SKILL   = 34   # skill / weapon names
-_FS_SMALL   = 32   # advance scheme / table values
+# Font sizes – calibrated for 2250 × 3250 px sheet
+_FS_FIELD   = 37   # identity fields
+_FS_STAT    = 35   # stat grid values
+_FS_SKILL   = 30   # skill / weapon names
+_FS_SMALL   = 28   # advance scheme / table values
 
 _INK = (20, 20, 20)
 
@@ -167,156 +167,151 @@ def _draw_exits(draw, x: int, y: int, items: list[str], base_size: int,
 # ── Coordinates (calibrated via calibrate_ui.py) ─────────────────────────────
 
 # Row 1
-_R1_Y       = 530
-_NAME_X     = 355
-_RACE_X     = 1042
-_GENDER_X   = 1265
-_CLASS_X    = 1507
-_ALIGN_X    = 2017
+_R1_Y       = 522
+_NAME_X     = 213
+_RACE_X     = 895
+_GENDER_X   = 1120
+_CLASS_X    = 1345
+_ALIGN_X    = 1845
 
 # Description
-_DESC_X     = 1512
-_DESC_Y     = 702
+_DESC_X     = 1340
+_DESC_Y     = 668
 
 # Row 2 – physical
-_R2_Y       = 700
-_AGE_X      = 350
-_HEIGHT_X   = 580
-_WEIGHT_X   = 807
-_HAIR_X     = 1037
-_EYES_X     = 1267
+_R2_Y       = 690
+_AGE_X      = 206
+_HEIGHT_X   = 434
+_WEIGHT_X   = 659
+_HAIR_X     = 884
+_EYES_X     = 1115
 
 # Row 3 – career
-_R3_Y       = 897
-_CAREER_X   = 335
-_PATH_X     = 837
-_EXITS_X    = 1582
+_R3_Y       = 900
+_CAREER_X   = 200
+_PATH_X     = 681
+_EXITS_X    = 1422
 
 # Stat profile grid
 _STAT_X = {
-    "M":   722, "WS":  842, "BS":  962, "S":   1067,
-    "T":   1192, "W":  1305, "I":  1417, "A":   1535,
-    "Dex": 1650, "Ld": 1767, "Int": 1877, "Cl": 1995,
-    "WP":  2105, "Fel": 2225,
+    "M":   584, "WS":  697, "BS":  811, "S":   925,
+    "T":  1031, "W":  1152, "I":  1263, "A":  1379,
+    "Dex": 1493, "Ld": 1609, "Int": 1720, "Cl": 1834,
+    "WP":  1940, "Fel": 2052,
 }
-_STARTER_Y  = 1097
-_ADVANCE_Y  = 1215
-_CURRENT_Y  = 1327
+_STARTER_Y  = 1086
+_ADVANCE_Y  = 1197
+_CURRENT_Y  = 1311
 
 # Skills
-_SKILL_LEFT_X      = 1247
-_SKILL_RIGHT_X     = 1802
-_SKILL_START_Y     = 1495
-_SKILL_SPACING     = 52
-_SKILL_MAX_PER_COL = 25   # rows available in each column before overflowing
+_SKILL_LEFT_X      = 1638
+_SKILL_START_Y     = 1470
+_SKILL_SPACING     = 50
+_SKILL_MAX_ROWS    = 30   # max skills that fit in a single column
 
 # Hand-to-hand weapons table
-_HTH_X        = 342
-_HTH_START_Y  = 1495
-_HTH_SPACING  = 60
-_HTH_IMOD_X   = 807
-_HTH_WS_X     = 920   # WS modifier column
-_HTH_DMG_X    = 1020   # D column (was 922 = WS column)
-_HTH_PARRY_X  = 1135
+_HTH_X        = 204
+_HTH_START_Y  = 1477
+_HTH_SPACING  = 50
+_HTH_IMOD_X   = 663
+_HTH_WS_X     = 769   # estimated proportionally (between imod and dmg)
+_HTH_DMG_X    = 875
+_HTH_PARRY_X  = 986
 
 # Missile weapons table
-_MIS_X        = 335
-_MIS_START_Y  = 2042
-_MIS_SPACING  = 55
-_MIS_SR_X     = 702
-_MIS_MR_X     = 817
-_MIS_LR_X     = 912
-_MIS_DMG_X    = 1020
-_MIS_RLD_X    = 1130
+_MIS_X        = 195
+_MIS_START_Y  = 2006
+_MIS_SPACING  = 48
+_MIS_SR_X     = 556
+_MIS_MR_X     = 665
+_MIS_LR_X     = 763
+_MIS_DMG_X    = 872
+_MIS_RLD_X    = 979
 
 # Armour table
-_ARM_X        = 327
-_ARM_START_Y  = 2572
-_ARM_SPACING  = 53
-_ARM_LOC_X    = 805
-_ARM_ENC_X    = 1127
+_ARM_X        = 188
+_ARM_START_Y  = 2538
+_ARM_SPACING  = 50
+_ARM_LOC_X    = 647
+_ARM_ENC_X    = 972
 
 # Armour location boxes around avatar figure
-_AV_HEAD_X     = 1312
-_AV_HEAD_Y     = 2380
-_AV_R_ARM_X    = 1245
-_AV_R_ARM_Y    = 2610
-_AV_L_ARM_X    = 1685
-_AV_L_ARM_Y    = 2510
-_AV_BODY_X     = 1690
-_AV_BODY_Y     = 2727
-_AV_R_LEG_X    = 1250
-_AV_R_LEG_Y    = 2877
-_AV_L_LEG_X    = 1685
-_AV_L_LEG_Y    = 2940
-_AV_SHIELD_X   = 1572
-_AV_SHIELD_Y   = 2347
+_AV_HEAD_X     = 1161
+_AV_HEAD_Y     = 2347
+_AV_R_ARM_X    = 1093
+_AV_R_ARM_Y    = 2570
+_AV_L_ARM_X    = 1525
+_AV_L_ARM_Y    = 2475
+_AV_BODY_X     = 1531
+_AV_BODY_Y     = 2693
+_AV_R_LEG_X    = 1097
+_AV_R_LEG_Y    = 2838
+_AV_L_LEG_X    = 1529
+_AV_L_LEG_Y    = 2895
+_AV_SHIELD_X   = 1420
+_AV_SHIELD_Y   = 2322
 
 # ── Page 2 coordinates (relative to page-2 image origin) ──────────────────────
 
-_P2_FP_X           = 2100
+_P2_FP_X           = 1853  # kept – marker was dragged off screen during calibration
 _P2_FP_Y           = 340
-_P2_MAG_X          = 2082
+_P2_MAG_X          = 1837  # kept – marker was dragged off screen during calibration
 _P2_MAG_Y          = 520
-_P2_IP_X           = 1817
-_P2_IP_Y           = 1445
-_P2_XP_X           = 2010
+_P2_PL_X           = 1932  # Power Level (new box between Magic Points and Experience)
+_P2_PL_Y           = 686
+_P2_IP_X           = 1925
+_P2_IP_Y           = 1459
+_P2_XP_X           = 1774  # kept – marker was dragged off screen during calibration
 _P2_XP_Y           = 870
 
-_P2_TRAP_X         = 337
-_P2_TRAP_START_Y   = 1080
-_P2_TRAP_SPACING   = 57
-_P2_TRAP_LOC_X     = 865
-_P2_TRAP_ENC_X     = 972
+_P2_TRAP_X         = 191
+_P2_TRAP_START_Y   = 1059
+_P2_TRAP_SPACING   = 50
+_P2_TRAP_LOC_X     = 716
+_P2_TRAP_ENC_X     = 827
 
-_P2_WGC_X          = 332
-_P2_WGC_Y          = 2400
-_P2_WSS_X          = 335
-_P2_WSS_Y          = 2455
-_P2_WBP_X          = 337
-_P2_WBP_Y          = 2507
+_P2_WGC_X          = 293
+_P2_WGC_Y          = 2384
+_P2_WSS_X          = 509
+_P2_WSS_Y          = 2381
+_P2_WBP_X          = 736
+_P2_WBP_Y          = 2384
 
-_P2_MV_X           = 1357   # row-label anchor (also used as 10-SECS col)
-_P2_MV_CAUT_Y      = 1082
-_P2_MV_STD_Y       = 1175
-_P2_MV_RUN_Y       = 1272
-_P2_MV_10_X        = 1357   # "m/10 SEK" column
-_P2_MV_MIN_X       = 1467   # "m/Min." column
-_P2_MV_MPH_X       = 1560   # "km/t" column
+_P2_MV_X           = 1216
+_P2_MV_CAUT_Y      = 1072
+_P2_MV_STD_Y       = 1156
+_P2_MV_RUN_Y       = 1247
+_P2_MV_10_X        = 1214
+_P2_MV_MIN_X       = 1314
+_P2_MV_MPH_X       = 1416
 
-_P2_LANG_X         = 1690
-_P2_LANG_START_Y   = 1077
-_P2_LANG_SPACING   = 58
+_P2_LANG_X         = 1527
+_P2_LANG_START_Y   = 1056
+_P2_LANG_SPACING   = 48
 
-_P2_BIRTH_X        = 1342
-_P2_BIRTH_Y        = 1830
-_P2_PARENT_X       = 1440
-_P2_PARENT_Y       = 1880
-_P2_FAMILY_X       = 1385
-_P2_FAMILY_Y       = 1940
-_P2_STAR_X         = 1019
-_P2_STAR_Y         = 2000
-_P2_DISTMARK_X     = 1019
-_P2_DISTMARK_Y     = 2090
-_P2_SOCIAL_X       = 1307
-_P2_SOCIAL_Y       = 2202
-_P2_RELIG_X        = 1720
-_P2_RELIG_Y        = 2202
+_P2_SOCIAL_X       = 1916
+_P2_SOCIAL_Y       = 1756
+_P2_RELIG_X        = 1843
+_P2_RELIG_Y        = 2000
+
+# Background free-text area (birthplace / parents / family / star sign / mark merged here)
+_P2_BACK_X         = 200
+_P2_BACK_Y         = 2554
+_P2_BACK_SPACING   = 48
 
 _PAGE_GAP = 20
 
 
-# ── Page 2 spell section coordinates (calibrated from sheet_page1.png pixel scan) ──
-# Column dividers found at x: 294, 713, 815, 921, 1023, 1130, 1519, 1946
-_P2_SPELL_NAME_X    = 310    # Left anchor: spell name (inside left border x=294)
-_P2_SPELL_SL_X      = 764    # SL column centre  (713–815)
-_P2_SPELL_MP_X      = 868    # MP column centre  (815–921)
-_P2_SPELL_R_X       = 972    # R (range) centre  (921–1023)
-_P2_SPELL_D_X       = 1076   # D (duration) centre (1023–1130)
-_P2_SPELL_ING_X     = 1145   # Ingredients left anchor (1130+15)
-_P2_SPELL_EFF_X     = 1534   # Effect left anchor (1519+15)
-_P2_SPELL_START_Y   = 342    # First spell row Y (header ends ~294, first row centre ~342)
-_P2_SPELL_SPACING   = 97     # Pixels between rows (~7 rows fit in table)
+# ── Page 2 spell section coordinates ──────────────────────────────────────────
+_P2_SPELL_NAME_X    = 274
+_P2_SPELL_SL_X      = 674
+_P2_SPELL_MP_X      = 766
+_P2_SPELL_R_X       = 858
+_P2_SPELL_D_X       = 949
+_P2_SPELL_ING_X     = 1010
+_P2_SPELL_EFF_X     = 1354
+_P2_SPELL_START_Y   = 337
+_P2_SPELL_SPACING   = 96
 
 
 def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
@@ -329,47 +324,41 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
 
     # ── Row 1: NAME / RACE / GENDER / CLASS / ALIGNMENT ─────────────────────
     # Cell widths: NAME 355-1042(687px), RACE 1042-1265(223px), GENDER 1265-1507(242px),
-    # CLASS 1507-2017(510px), ALIGN 2017-2490(473px)
+    # CLASS 1330-1780(450px), ALIGN 1780-2200(420px)
     _draw_text_fit(draw, _NAME_X,   _R1_Y, char.name or "(unnamed)", _FS_FIELD,
-                   max_width=670, anchor="lm")
+                   max_width=591, anchor="lm")
     _draw_text_fit(draw, _RACE_X,   _R1_Y, char.race,                _FS_FIELD,
-                   max_width=210, anchor="lm")
+                   max_width=185, anchor="lm")
     if char.gender:
         _draw_text_fit(draw, _GENDER_X, _R1_Y, char.gender,          _FS_FIELD,
-                       max_width=225, anchor="lm")
+                       max_width=199, anchor="lm")
     _draw_text_fit(draw, _CLASS_X,  _R1_Y, char.career_class,        _FS_FIELD,
-                   max_width=490, anchor="lm")
+                   max_width=432, anchor="lm")
     _draw_text_fit(draw, _ALIGN_X,  _R1_Y, char.alignment,           _FS_FIELD,
-                   max_width=450, anchor="lm")
+                   max_width=397, anchor="lm")
 
     # ── Description ──────────────────────────────────────────────────────────
     if char.description:
         _draw_text_fit(draw, _DESC_X, _DESC_Y, char.description, _FS_SMALL,
-                       max_width=990, anchor="lm")
+                       max_width=873, anchor="lm")
 
     # ── Row 2: AGE / HEIGHT / WEIGHT / HAIR / EYES ───────────────────────────
-    # Cell widths: AGE 350-580(230px), HEIGHT 580-807(227px), WEIGHT 807-1037(230px),
-    # HAIR 1037-1267(230px), EYES 1267-1507(240px)
-    _draw_text_fit(draw, _AGE_X,    _R2_Y, char.age,         _FS_FIELD, max_width=210, anchor="lm")
-    _draw_text_fit(draw, _HEIGHT_X, _R2_Y, char.height,      _FS_FIELD, max_width=210, anchor="lm")
-    _draw_text_fit(draw, _WEIGHT_X, _R2_Y, char.weight,      _FS_FIELD, max_width=210, anchor="lm")
-    _draw_text_fit(draw, _HAIR_X,   _R2_Y, char.hair_colour, _FS_FIELD, max_width=210, anchor="lm")
-    _draw_text_fit(draw, _EYES_X,   _R2_Y, char.eye_colour,  _FS_FIELD, max_width=220, anchor="lm")
+    _draw_text_fit(draw, _AGE_X,    _R2_Y, char.age,         _FS_FIELD, max_width=185, anchor="lm")
+    _draw_text_fit(draw, _HEIGHT_X, _R2_Y, char.height,      _FS_FIELD, max_width=185, anchor="lm")
+    _draw_text_fit(draw, _WEIGHT_X, _R2_Y, char.weight,      _FS_FIELD, max_width=185, anchor="lm")
+    _draw_text_fit(draw, _HAIR_X,   _R2_Y, char.hair_colour, _FS_FIELD, max_width=185, anchor="lm")
+    _draw_text_fit(draw, _EYES_X,   _R2_Y, char.eye_colour,  _FS_FIELD, max_width=194, anchor="lm")
 
     # ── Row 3: CURRENT CAREER / CAREER PATH / CAREER EXITS ──────────────────
-    # CAREER box: x=335, ends ~x=830 → width ~495px
-    # For PC: anchor top-left so player can cross out and write new career below.
-    career_y      = 812 if pc_mode else _R3_Y
+    career_y      = 716 if pc_mode else _R3_Y
     career_anchor = "lt" if pc_mode else "lm"
-    _draw_text_fit(draw, _CAREER_X, career_y, char.career, _FS_FIELD, max_width=490, anchor=career_anchor)
-    # CAREER PATH box: x=837, ends ~x=1575 → width ~738px
-    _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=730, anchor=career_anchor)
+    _draw_text_fit(draw, _CAREER_X, career_y, char.career, _FS_FIELD, max_width=432, anchor=career_anchor)
+    # CAREER PATH box
+    _draw_text_fit(draw, _PATH_X, career_y, char.career, _FS_FIELD, max_width=644, anchor=career_anchor)
     if char.career_exits:
-        # Use comma-aware renderer: keeps "Outlaw Chief", "Sapper (Dwarfs only)"
-        # etc. together instead of splitting on spaces
-        exits_y = 812 if pc_mode else _R3_Y
+        exits_y = 716 if pc_mode else _R3_Y
         _draw_exits(draw, _EXITS_X, exits_y, char.career_exits,
-                    _FS_SMALL, max_width=850, line_height=46,
+                    _FS_SMALL, max_width=750, line_height=40,
                     anchor=career_anchor, max_lines=4)
 
     # ── STARTER PROFILE ───────────────────────────────────────────────────────
@@ -397,17 +386,11 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
                 _draw_text(draw, x, _CURRENT_Y, val, f_stat, "mm")
 
     # ── SKILLS ────────────────────────────────────────────────────────────────
-    # Fill left column fully before starting right column
-    left_skills  = char.skills[:_SKILL_MAX_PER_COL]
-    right_skills = char.skills[_SKILL_MAX_PER_COL:]
-    for i, skill in enumerate(left_skills):
+    # ── SKILLS (single column, all skills) ───────────────────────────────────
+    for i, skill in enumerate(char.skills[:_SKILL_MAX_ROWS]):
         _draw_text_fit(draw, _SKILL_LEFT_X,
                        _SKILL_START_Y + i * _SKILL_SPACING,
-                       skill, _FS_SKILL, max_width=460, anchor="lm")
-    for i, skill in enumerate(right_skills[:_SKILL_MAX_PER_COL]):
-        _draw_text_fit(draw, _SKILL_RIGHT_X,
-                       _SKILL_START_Y + i * _SKILL_SPACING,
-                       skill, _FS_SKILL, max_width=620, anchor="lm")
+                       skill, _FS_SKILL, max_width=1050, anchor="lm")
 
     # ── HAND TO HAND WEAPONS ──────────────────────────────────────────────────
     for i, weapon in enumerate(char.hth_weapons):
@@ -527,10 +510,10 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     spell_entries = []  # spells are now drawn in dedicated section above
     all_items = other_items + spell_entries
 
-    _TRAP_MAX_W  = 510          # item text column width (px)
-    _TRAP_ROW_H  = _P2_TRAP_SPACING          # 57px per grid row
-    _TRAP_WRAP_H = 28           # line-height when wrapping within a 2-row block
-    _TRAP_MAX_Y  = _P2_WGC_Y - 80           # stop well before the WEALTH section
+    _TRAP_MAX_W  = 450          # item text column width (px)
+    _TRAP_ROW_H  = _P2_TRAP_SPACING
+    _TRAP_WRAP_H = 25           # line-height when wrapping within a 2-row block
+    _TRAP_MAX_Y  = _P2_WGC_Y - 70           # stop well before the WEALTH section
     trap_font    = _get_font(_FS_SKILL)
 
     y_top = _P2_TRAP_START_Y
@@ -583,24 +566,27 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
         _draw_text(draw, _P2_LANG_X, y, lang, f_skill, "lm")
 
     # ── Background ────────────────────────────────────────────────────────────
-    if char.place_of_birth:
-        _draw_text_fit(draw, _P2_BIRTH_X,  _P2_BIRTH_Y,  char.place_of_birth,     _FS_FIELD, max_width=760, anchor="lm")
-    if char.parents_occupation:
-        _draw_text_fit(draw, _P2_PARENT_X, _P2_PARENT_Y, char.parents_occupation, _FS_FIELD, max_width=730, anchor="lm")
-    if char.family_members:
-        _draw_text_fit(draw, _P2_FAMILY_X, _P2_FAMILY_Y, char.family_members,     _FS_FIELD, max_width=785, anchor="lm")
-    if char.star_sign:
-        _draw_text_fit(draw, _P2_STAR_X, _P2_STAR_Y,
-                       f"Star Sign: {char.star_sign}", _FS_FIELD,
-                       max_width=1100, anchor="lm")
-    if char.distinguishing_marks:
-        _draw_text_fit(draw, _P2_DISTMARK_X, _P2_DISTMARK_Y,
-                       f"Mark: {char.distinguishing_marks}", _FS_FIELD,
-                       max_width=1100, anchor="lm")
     if char.social_level:
-        _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level,       f_field, "lm")
+        _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level, f_field, "lm")
     if char.religion:
-        _draw_text(draw, _P2_RELIG_X,  _P2_RELIG_Y,  char.religion,           f_field, "lm")
+        _draw_text(draw, _P2_RELIG_X,  _P2_RELIG_Y,  char.religion,     f_field, "lm")
+
+    # ── Background free-text (birthplace / parents / family merged) ───────────
+    back_lines = []
+    if char.place_of_birth:
+        back_lines.append(f"Birthplace: {char.place_of_birth}")
+    if char.parents_occupation:
+        back_lines.append(f"Parents: {char.parents_occupation}")
+    if char.family_members:
+        back_lines.append(f"Family: {char.family_members}")
+    if char.star_sign:
+        back_lines.append(f"Star Sign: {char.star_sign}")
+    if char.distinguishing_marks:
+        back_lines.append(f"Mark: {char.distinguishing_marks}")
+    for i, line in enumerate(back_lines):
+        _draw_text_fit(draw, _P2_BACK_X,
+                       _P2_BACK_Y + i * _P2_BACK_SPACING,
+                       line, _FS_SMALL, max_width=1900, anchor="lm")
 
 
 def save_character_spread(char: Character,
