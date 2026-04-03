@@ -5,8 +5,8 @@ Drag the coloured markers to the correct positions on the sheet.
 Press S to save coordinates to calibration_result.py.
 Press Q to quit.
 
-Scale: the sheet is displayed at 40% size for screen fit,
-but all saved coordinates are in full 2550×3300 pixel space.
+Scale: the sheet is displayed at 44% size for screen fit,
+but all saved coordinates are in full 2250×3250 pixel space.
 Page 2 markers are stored relative to the top-left of page 2.
 """
 
@@ -20,114 +20,113 @@ _SHEET   = os.path.join(_HERE, "..", "templates", "sheet_page0.png")
 _SHEET2  = os.path.join(_HERE, "..", "templates", "sheet_page1.png")
 _OUT     = os.path.join(_HERE, "calibration_result.py")
 
-DISPLAY_SCALE = 0.40   # show at 40% of full size
+DISPLAY_SCALE = 0.44   # show at 44% of full size
 _PAGE_GAP     = 20     # pixels between pages (full-res)
+
+# ── P2 x-offset in spread coordinates ────────────────────────────────────────
+# Page 1 is 2250px wide; P2 starts at 2250+20 = 2270
+_P2_OFF = 2270
 
 # ── Initial marker definitions ──────────────────────────────────────────────
 # Each entry: (id, label, x, y, colour, anchor_hint)
-# Page 2 markers use x > 2550 (offset by P1_W + _PAGE_GAP); saved coords are relative to p2 origin.
+# Page 2 markers use x > 2250 (offset by P1_W + _PAGE_GAP); saved coords are relative to p2 origin.
 MARKERS = [
     # Row 1
-    ("name",    "NAME",    355,  530, "#e00", "lm"),
-    ("race",    "RACE",   1042,  530, "#e00", "mm"),
-    ("gender",  "GENDER", 1265,  530, "#e00", "mm"),
-    ("cls",     "CLASS",  1507,  530, "#e00", "lm"),
-    ("align",   "ALIGN",  2017,  530, "#e00", "lm"),
-    # Description (row 1, after alignment, or separate row)
-    ("desc",    "DESC",    355,  615, "#800", "lm"),
+    ("name",    "NAME",    313,  522, "#e00", "lm"),
+    ("race",    "RACE",    919,  522, "#e00", "mm"),
+    ("gender",  "GENDER", 1116,  522, "#e00", "mm"),
+    ("cls",     "CLASS",  1330,  522, "#e00", "lm"),
+    ("align",   "ALIGN",  1780,  522, "#e00", "lm"),
+    # Description
+    ("desc",    "DESC",    313,  615, "#800", "lm"),
     # Row 2
-    ("age",     "AGE",     350,  700, "#c00", "lm"),
-    ("height",  "HEIGHT",  580,  700, "#c00", "lm"),
-    ("weight",  "WEIGHT",  807,  700, "#c00", "lm"),
-    ("hair",    "HAIR",   1037,  700, "#c00", "lm"),
-    ("eyes",    "EYES",   1267,  700, "#c00", "lm"),
+    ("age",     "AGE",     309,  689, "#c00", "lm"),
+    ("height",  "HEIGHT",  512,  689, "#c00", "lm"),
+    ("weight",  "WEIGHT",  712,  689, "#c00", "lm"),
+    ("hair",    "HAIR",    915,  689, "#c00", "lm"),
+    ("eyes",    "EYES",   1118,  689, "#c00", "lm"),
     # Row 3
-    ("career",  "CAREER",  335,  897, "#080", "lm"),
-    ("path",    "PATH",    837,  897, "#080", "lm"),
-    ("exits",   "EXITS",  1582,  897, "#080", "lm"),
+    ("career",  "CAREER",  296,  883, "#080", "lm"),
+    ("path",    "PATH",    739,  883, "#080", "lm"),
+    ("exits",   "EXITS",  1396,  883, "#080", "lm"),
     # Stat rows
-    ("M_s",     "M",       722, 1097, "#00c", "mm"),
-    ("WS_s",    "WS",      842, 1097, "#00c", "mm"),
-    ("BS_s",    "BS",      962, 1097, "#00c", "mm"),
-    ("S_s",     "S",      1067, 1097, "#00c", "mm"),
-    ("T_s",     "T",      1192, 1097, "#00c", "mm"),
-    ("W_s",     "W",      1305, 1097, "#00c", "mm"),
-    ("I_s",     "I",      1417, 1097, "#00c", "mm"),
-    ("A_s",     "A",      1535, 1097, "#00c", "mm"),
-    ("Dex_s",   "Dex",    1650, 1097, "#00c", "mm"),
-    ("Ld_s",    "Ld",     1767, 1097, "#00c", "mm"),
-    ("Int_s",   "Int",    1877, 1097, "#00c", "mm"),
-    ("Cl_s",    "Cl",     1995, 1097, "#00c", "mm"),
-    ("WP_s",    "WP",     2105, 1097, "#00c", "mm"),
-    ("Fel_s",   "Fel",    2225, 1097, "#00c", "mm"),
+    ("M_s",     "M",       637, 1080, "#00c", "mm"),
+    ("WS_s",    "WS",      743, 1080, "#00c", "mm"),
+    ("BS_s",    "BS",      849, 1080, "#00c", "mm"),
+    ("S_s",     "S",       941, 1080, "#00c", "mm"),
+    ("T_s",     "T",      1052, 1080, "#00c", "mm"),
+    ("W_s",     "W",      1151, 1080, "#00c", "mm"),
+    ("I_s",     "I",      1250, 1080, "#00c", "mm"),
+    ("A_s",     "A",      1354, 1080, "#00c", "mm"),
+    ("Dex_s",   "Dex",    1456, 1080, "#00c", "mm"),
+    ("Ld_s",    "Ld",     1559, 1080, "#00c", "mm"),
+    ("Int_s",   "Int",    1656, 1080, "#00c", "mm"),
+    ("Cl_s",    "Cl",     1760, 1080, "#00c", "mm"),
+    ("WP_s",    "WP",     1857, 1080, "#00c", "mm"),
+    ("Fel_s",   "Fel",    1963, 1080, "#00c", "mm"),
     # Advance / Current rows
-    ("adv_y",   "ADV-Y",   722, 1215, "#a0a", "mm"),
-    ("cur_y",   "CUR-Y",   722, 1327, "#a0a", "mm"),
-    # Skills
-    ("skl_l",   "SKL-L",  1247, 1495, "#c60", "lm"),
-    ("skl_r",   "SKL-R",  1820, 1495, "#c60", "lm"),
-    ("skl_l2",  "SKL-L2", 1247, 1547, "#fa0", "lm"),
+    ("adv_y",   "ADV-Y",   637, 1197, "#a0a", "mm"),
+    ("cur_y",   "CUR-Y",   637, 1307, "#a0a", "mm"),
+    # Skills (single column)
+    ("skl_l",   "SKL-L",  1100, 1472, "#c60", "lm"),
+    ("skl_l2",  "SKL-L2", 1100, 1523, "#fa0", "lm"),   # second row → gives spacing
     # Hand-to-hand weapons (first two rows to get Y + spacing)
-    ("hth1",       "HTH-1",    100, 1900, "#0aa", "lm"),
-    ("hth2",       "HTH-2",    100, 1960, "#0aa", "lm"),
-    # HTH column X positions (name col already = hth1.x)
-    ("hth_imod",   "HTH-IMOD", 700, 1900, "#0aa", "mm"),
-    ("hth_dmg",    "HTH-DMG",  900, 1900, "#0aa", "mm"),
-    ("hth_parry",  "HTH-PRRY",1100, 1900, "#0aa", "mm"),
+    ("hth1",       "HTH-1",    90, 1472, "#0aa", "lm"),
+    ("hth2",       "HTH-2",    90, 1531, "#0aa", "lm"),
+    ("hth_imod",   "HTH-IMOD", 712, 1472, "#0aa", "mm"),
+    ("hth_dmg",    "HTH-DMG",  900, 1472, "#0aa", "mm"),
+    ("hth_parry",  "HTH-PRRY",1001, 1472, "#0aa", "mm"),
     # Missile weapons (first two rows)
-    ("mis1",       "MIS-1",    100, 2200, "#09a", "lm"),
-    ("mis2",       "MIS-2",    100, 2260, "#09a", "lm"),
-    # Missile column X positions
-    ("mis_sr",     "MIS-SR",   700, 2200, "#09a", "mm"),
-    ("mis_mr",     "MIS-MR",   850, 2200, "#09a", "mm"),
-    ("mis_lr",     "MIS-LR",  1000, 2200, "#09a", "mm"),
-    ("mis_dmg",    "MIS-DMG", 1150, 2200, "#09a", "mm"),
-    ("mis_rld",    "MIS-RLD", 1350, 2200, "#09a", "mm"),
+    ("mis1",       "MIS-1",    90, 2011, "#09a", "lm"),
+    ("mis2",       "MIS-2",    90, 2065, "#09a", "lm"),
+    ("mis_sr",     "MIS-SR",  619, 2011, "#09a", "mm"),
+    ("mis_mr",     "MIS-MR",  721, 2011, "#09a", "mm"),
+    ("mis_lr",     "MIS-LR",  805, 2011, "#09a", "mm"),
+    ("mis_dmg",    "MIS-DMG", 900, 2011, "#09a", "mm"),
+    ("mis_rld",    "MIS-RLD", 997, 2011, "#09a", "mm"),
     # Armour (first two rows)
-    ("arm1",       "ARM-1",    100, 2500, "#0c8", "lm"),
-    ("arm2",       "ARM-2",    100, 2560, "#0c8", "lm"),
-    # Armour column X positions: Location and Encumbrance
-    ("arm_loc",    "ARM-LOC",  900, 2500, "#0c8", "lm"),
-    ("arm_enc",    "ARM-ENC", 1350, 2500, "#0c8", "mm"),
-    # Armour location boxes around the avatar figure (7 locations)
-    ("av_head",    "AV-HEAD",  1600, 1570, "#f80", "mm"),
-    ("av_r_arm",   "AV-RARM",  1450, 1720, "#f80", "mm"),
-    ("av_l_arm",   "AV-LARM",  1750, 1720, "#f80", "mm"),
-    ("av_body",    "AV-BODY",  1600, 1800, "#f80", "mm"),
-    ("av_r_leg",   "AV-RLEG",  1480, 1980, "#f80", "mm"),
-    ("av_l_leg",   "AV-LLEG",  1720, 1980, "#f80", "mm"),
-    ("av_shield",  "AV-SHLD",  1900, 1800, "#f80", "mm"),
-    # ── Page 2 markers (x = 2550 + 20 + relative_x on page 2) ─────────────
+    ("arm1",       "ARM-1",    90, 2533, "#0c8", "lm"),
+    ("arm2",       "ARM-2",    90, 2585, "#0c8", "lm"),
+    ("arm_loc",    "ARM-LOC",  710, 2533, "#0c8", "lm"),
+    ("arm_enc",    "ARM-ENC",  994, 2533, "#0c8", "mm"),
+    # Armour location boxes around the avatar figure
+    ("av_head",    "AV-HEAD",  1158, 2344, "#f80", "mm"),
+    ("av_r_arm",   "AV-RARM",  1099, 2570, "#f80", "mm"),
+    ("av_l_arm",   "AV-LARM",  1487, 2472, "#f80", "mm"),
+    ("av_body",    "AV-BODY",  1491, 2686, "#f80", "mm"),
+    ("av_r_leg",   "AV-RLEG",  1103, 2833, "#f80", "mm"),
+    ("av_l_leg",   "AV-LLEG",  1487, 2895, "#f80", "mm"),
+    ("av_shield",  "AV-SHLD",  1387, 2311, "#f80", "mm"),
+    # ── Page 2 markers (x = 2270 + relative_x on page 2) ─────────────────────
     # Right column boxes
-    ("p2_fp",      "P2-FP",    2570+2090, 160,  "#55f", "mm"),
-    ("p2_mag",     "P2-MAG",   2570+2090, 310,  "#55f", "mm"),
-    ("p2_ip",      "P2-IP",    2570+1740, 1450, "#55f", "mm"),
-    ("p2_xp",      "P2-XP",    2570+2090, 585,  "#55f", "mm"),
+    ("p2_fp",      "P2-FP",    _P2_OFF+1853,  335, "#55f", "mm"),
+    ("p2_mag",     "P2-MAG",   _P2_OFF+1837,  512, "#55f", "mm"),
+    ("p2_pl",      "P2-PL",    _P2_OFF+1837,  684, "#55f", "mm"),
+    ("p2_ip",      "P2-IP",    _P2_OFF+1603, 1423, "#55f", "mm"),
+    ("p2_xp",      "P2-XP",    _P2_OFF+1774,  857, "#55f", "mm"),
     # Equipment/Trappings table
-    ("p2_trap1",   "P2-TR1",   2570+100,  530,  "#0bb", "lm"),
-    ("p2_trap2",   "P2-TR2",   2570+100,  605,  "#0bb", "lm"),
-    ("p2_traploc", "P2-TRLOC", 2570+820,  530,  "#0bb", "lm"),
-    ("p2_trapenc", "P2-TRENC", 2570+1000, 530,  "#0bb", "mm"),
+    ("p2_trap1",   "P2-TR1",   _P2_OFF+297,  1064, "#0bb", "lm"),
+    ("p2_trap2",   "P2-TR2",   _P2_OFF+297,  1120, "#0bb", "lm"),
+    ("p2_traploc", "P2-TRLOC", _P2_OFF+763,  1064, "#0bb", "lm"),
+    ("p2_trapenc", "P2-TRENC", _P2_OFF+858,  1064, "#0bb", "mm"),
     # Wealth rows (GC / SS / BP)
-    ("p2_wgc",     "P2-GC",    2570+100,  1320, "#b80", "lm"),
-    ("p2_wss",     "P2-SS",    2570+100,  1375, "#b80", "lm"),
-    ("p2_wbp",     "P2-BP",    2570+100,  1430, "#b80", "lm"),
-    # Movement rate columns (use p2_mv_y_* for row Y, p2_mv_10/min/mph for col X)
-    ("p2_mv_caut", "P2-CAUT",  2570+1060, 1250, "#080", "lm"),
-    ("p2_mv_std",  "P2-STD",   2570+1060, 1310, "#080", "lm"),
-    ("p2_mv_run",  "P2-RUN",   2570+1060, 1375, "#080", "lm"),
-    ("p2_mv_10",   "P2-MV10",  2570+1260, 1250, "#080", "mm"),
-    ("p2_mv_min",  "P2-MVMIN", 2570+1440, 1250, "#080", "mm"),
-    ("p2_mv_mph",  "P2-MVMPH", 2570+1580, 1250, "#080", "mm"),
+    ("p2_wgc",     "P2-GC",    _P2_OFF+293,  2364, "#b80", "lm"),
+    ("p2_wss",     "P2-SS",    _P2_OFF+296,  2418, "#b80", "lm"),
+    ("p2_wbp",     "P2-BP",    _P2_OFF+297,  2469, "#b80", "lm"),
+    # Movement rate
+    ("p2_mv_caut", "P2-CAUT",  _P2_OFF+1197, 1066, "#080", "lm"),
+    ("p2_mv_std",  "P2-STD",   _P2_OFF+1197, 1157, "#080", "lm"),
+    ("p2_mv_run",  "P2-RUN",   _P2_OFF+1197, 1253, "#080", "lm"),
+    ("p2_mv_10",   "P2-MV10",  _P2_OFF+1197, 1066, "#080", "mm"),
+    ("p2_mv_min",  "P2-MVMIN", _P2_OFF+1294, 1066, "#080", "mm"),
+    ("p2_mv_mph",  "P2-MVMPH", _P2_OFF+1376, 1066, "#080", "mm"),
     # Languages
-    ("p2_lang1",   "P2-LNG1",  2570+1680, 530,  "#a0a", "lm"),
-    ("p2_lang2",   "P2-LNG2",  2570+1680, 595,  "#a0a", "lm"),
-    # Background fields
-    ("p2_birth",   "P2-BRTH",  2570+480,  1660, "#c44", "lm"),
-    ("p2_parent",  "P2-PRNT",  2570+530,  1720, "#c44", "lm"),
-    ("p2_family",  "P2-FAM",   2570+510,  1785, "#c44", "lm"),
-    ("p2_social",  "P2-SOC",   2570+380,  1870, "#c44", "lm"),
-    ("p2_relig",   "P2-REL",   2570+1200, 1870, "#c44", "lm"),
+    ("p2_lang1",   "P2-LNG1",  _P2_OFF+1491, 1061, "#a0a", "lm"),
+    ("p2_lang2",   "P2-LNG2",  _P2_OFF+1491, 1118, "#a0a", "lm"),
+    # Background fields → now in BACKGROUND section (single block)
+    ("p2_back",  "P2-BACK",  _P2_OFF+297,  2650, "#c44", "lm"),
+    ("p2_social","P2-SOC",   _P2_OFF+1153, 2169, "#c44", "lm"),
+    ("p2_relig", "P2-REL",   _P2_OFF+1518, 2169, "#c44", "lm"),
 ]
 
 R = 10   # marker circle radius (display pixels)
@@ -233,6 +232,7 @@ def _load_saved() -> dict:
     _P2_SIMPLE = [
         ("p2_fp",      "_P2_FP_X",      "_P2_FP_Y"),
         ("p2_mag",     "_P2_MAG_X",     "_P2_MAG_Y"),
+        ("p2_pl",      "_P2_PL_X",      "_P2_PL_Y"),
         ("p2_ip",      "_P2_IP_X",      "_P2_IP_Y"),
         ("p2_xp",      "_P2_XP_X",      "_P2_XP_Y"),
         ("p2_trap1",   "_P2_TRAP_X",    "_P2_TRAP_START_Y"),
@@ -248,13 +248,11 @@ def _load_saved() -> dict:
         ("p2_mv_min",  "_P2_MV_MIN_X",  "_P2_MV_CAUT_Y"),
         ("p2_mv_mph",  "_P2_MV_MPH_X",  "_P2_MV_CAUT_Y"),
         ("p2_lang1",   "_P2_LANG_X",    "_P2_LANG_START_Y"),
-        ("p2_birth",   "_P2_BIRTH_X",   "_P2_BIRTH_Y"),
-        ("p2_parent",  "_P2_PARENT_X",  "_P2_PARENT_Y"),
-        ("p2_family",  "_P2_FAMILY_X",  "_P2_FAMILY_Y"),
-        ("p2_social",  "_P2_SOCIAL_X",  "_P2_SOCIAL_Y"),
-        ("p2_relig",   "_P2_RELIG_X",   "_P2_RELIG_Y"),
+        ("p2_back",   "_P2_BACK_X",    "_P2_BACK_Y"),
+        ("p2_social", "_P2_SOCIAL_X",  "_P2_SOCIAL_Y"),
+        ("p2_relig",  "_P2_RELIG_X",   "_P2_RELIG_Y"),
     ]
-    p2_off = ns.get("_P2_OFFSET", 2570)
+    p2_off = ns.get("_P2_OFFSET", 2270)
     for mid, xv, yv in _P2_SIMPLE:
         xv_val = ns.get(xv)
         yv_val = ns.get(yv)
@@ -448,7 +446,6 @@ class CalibApp:
             "}",
             "",
             f"_SKILL_LEFT_X  = {m['skl_l']['fx']}",
-            f"_SKILL_RIGHT_X = {m['skl_r']['fx']}",
             f"_SKILL_START_Y = {m['skl_l']['fy']}",
             f"_SKILL_SPACING = {skill_spacing}",
             "",
@@ -507,6 +504,8 @@ class CalibApp:
             f"_P2_FP_Y           = {p2y('p2_fp')}",
             f"_P2_MAG_X          = {p2x('p2_mag')}",
             f"_P2_MAG_Y          = {p2y('p2_mag')}",
+            f"_P2_PL_X           = {p2x('p2_pl')}",
+            f"_P2_PL_Y           = {p2y('p2_pl')}",
             f"_P2_IP_X           = {p2x('p2_ip')}",
             f"_P2_IP_Y           = {p2y('p2_ip')}",
             f"_P2_XP_X           = {p2x('p2_xp')}",
@@ -541,13 +540,9 @@ class CalibApp:
             f"_P2_LANG_START_Y   = {p2y('p2_lang1')}",
             f"_P2_LANG_SPACING   = {m['p2_lang2']['fy'] - m['p2_lang1']['fy']}",
             "",
-            "# Background",
-            f"_P2_BIRTH_X        = {p2x('p2_birth')}",
-            f"_P2_BIRTH_Y        = {p2y('p2_birth')}",
-            f"_P2_PARENT_X       = {p2x('p2_parent')}",
-            f"_P2_PARENT_Y       = {p2y('p2_parent')}",
-            f"_P2_FAMILY_X       = {p2x('p2_family')}",
-            f"_P2_FAMILY_Y       = {p2y('p2_family')}",
+            "# Background (free-text block)",
+            f"_P2_BACK_X         = {p2x('p2_back')}",
+            f"_P2_BACK_Y         = {p2y('p2_back')}",
             f"_P2_SOCIAL_X       = {p2x('p2_social')}",
             f"_P2_SOCIAL_Y       = {p2y('p2_social')}",
             f"_P2_RELIG_X        = {p2x('p2_relig')}",

@@ -307,9 +307,9 @@ _P2_SPELL_NAME_X    = 20
 _P2_SPELL_SL_X      = 727
 _P2_SPELL_MP_X      = 820
 _P2_SPELL_R_X       = 913
-_P2_SPELL_D_X       = 1007
+_P2_SPELL_D_X       = 1025   # shifted right to avoid left-edge clipping
 _P2_SPELL_ING_X     = 1075
-_P2_SPELL_EFF_X     = 1520
+_P2_SPELL_EFF_X     = 1490
 _P2_SPELL_START_Y   = 352   # first data row center (header ends y≈287)
 _P2_SPELL_SPACING   = 130   # each row ~130px tall (660px / 5 rows)
 
@@ -530,7 +530,7 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
         y = _P2_SPELL_START_Y + i * _P2_SPELL_SPACING
         data = get_spell(spell_name)
         _draw_text_fit(draw, _P2_SPELL_NAME_X, y, spell_name,
-                       _FS_SKILL, max_width=390, anchor="lm")
+                       _FS_SKILL, max_width=640, anchor="lm")
         if data:
             _draw_text_fit(draw, _P2_SPELL_SL_X,  y, str(data["sl"]),
                            26, max_width=90, anchor="mm")
@@ -541,9 +541,9 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
             _draw_text_fit(draw, _P2_SPELL_D_X,   y, data["d"],
                            26, max_width=90, anchor="mm", min_size=14)
             _draw_text_fit(draw, _P2_SPELL_ING_X, y, data["ingredients"],
-                           26, max_width=360, anchor="lm")
+                           26, max_width=330, anchor="lm")
             _draw_text_wrap(draw, _P2_SPELL_EFF_X, y, data["effect"],
-                            26, max_width=400, line_height=_P2_SPELL_SPACING // 2,
+                            26, max_width=260, line_height=_P2_SPELL_SPACING // 2,
                             anchor="lm", max_lines=2)
 
     # ── Trappings (items not already listed as weapons/armour) ────────────────
@@ -613,7 +613,8 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     if char.social_level:
         _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level, f_field, "mm")
     if char.religion:
-        _draw_text(draw, _P2_RELIG_X,  _P2_RELIG_Y,  char.religion,     f_field, "mm")
+        _draw_text_fit(draw, _P2_RELIG_X - 170, _P2_RELIG_Y, char.religion,
+                       _FS_FIELD, max_width=340, anchor="lm")
 
     # ── Background free-text (birthplace / parents / family merged) ───────────
     # ── Background narrative ───────────────────────────────────────────────────
