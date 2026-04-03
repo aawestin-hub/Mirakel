@@ -257,9 +257,9 @@ _P2_PARENT_X       = 1440
 _P2_PARENT_Y       = 1880
 _P2_FAMILY_X       = 1385
 _P2_FAMILY_Y       = 1940
-_P2_STAR_X         = 1352
+_P2_STAR_X         = 1019
 _P2_STAR_Y         = 2000
-_P2_DISTMARK_X     = 1342
+_P2_DISTMARK_X     = 1019
 _P2_DISTMARK_Y     = 2090
 _P2_SOCIAL_X       = 1307
 _P2_SOCIAL_Y       = 2202
@@ -509,11 +509,11 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
     if char.star_sign:
         _draw_text_fit(draw, _P2_STAR_X, _P2_STAR_Y,
                        f"Star Sign: {char.star_sign}", _FS_FIELD,
-                       max_width=880, anchor="lm")
+                       max_width=1100, anchor="lm")
     if char.distinguishing_marks:
         _draw_text_fit(draw, _P2_DISTMARK_X, _P2_DISTMARK_Y,
                        f"Mark: {char.distinguishing_marks}", _FS_FIELD,
-                       max_width=880, anchor="lm")
+                       max_width=1100, anchor="lm")
     if char.social_level:
         _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level,       f_field, "lm")
     if char.religion:
