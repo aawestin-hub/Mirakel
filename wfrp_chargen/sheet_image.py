@@ -257,6 +257,10 @@ _P2_PARENT_X       = 1440
 _P2_PARENT_Y       = 1880
 _P2_FAMILY_X       = 1385
 _P2_FAMILY_Y       = 1940
+_P2_STAR_X         = 1352
+_P2_STAR_Y         = 2000
+_P2_DISTMARK_X     = 1342
+_P2_DISTMARK_Y     = 2090
 _P2_SOCIAL_X       = 1307
 _P2_SOCIAL_Y       = 2202
 _P2_RELIG_X        = 1720
@@ -323,8 +327,8 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
         exits_text = ", ".join(char.career_exits)
         # EXITS box: x=1582, ends ~x=2510 → width ~928px; row height ~180px
         _draw_text_wrap(draw, _EXITS_X, _R3_Y, exits_text,
-                        _FS_SMALL, max_width=880, line_height=55, anchor="lm",
-                        max_lines=3)
+                        _FS_SMALL, max_width=880, line_height=46, anchor="lm",
+                        max_lines=4)
 
     # ── STARTER PROFILE ───────────────────────────────────────────────────────
     for stat, x in _STAT_X.items():
@@ -502,6 +506,14 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
         _draw_text(draw, _P2_PARENT_X, _P2_PARENT_Y, char.parents_occupation, f_field, "lm")
     if char.family_members:
         _draw_text(draw, _P2_FAMILY_X, _P2_FAMILY_Y, char.family_members,     f_field, "lm")
+    if char.star_sign:
+        _draw_text_fit(draw, _P2_STAR_X, _P2_STAR_Y,
+                       f"Star Sign: {char.star_sign}", _FS_FIELD,
+                       max_width=880, anchor="lm")
+    if char.distinguishing_marks:
+        _draw_text_fit(draw, _P2_DISTMARK_X, _P2_DISTMARK_Y,
+                       f"Mark: {char.distinguishing_marks}", _FS_FIELD,
+                       max_width=880, anchor="lm")
     if char.social_level:
         _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level,       f_field, "lm")
     if char.religion:

@@ -1,0 +1,119 @@
+- generic [ref=e3]:
+  - generic [ref=e5]:
+    - img "Google" [ref=e8]
+    - generic [ref=e9]:
+      - generic [ref=e11]:
+        - heading "Logg på" [level=1] [ref=e12]
+        - paragraph [ref=e13]: Gå videre til Google Regneark
+      - generic [ref=e14]:
+        - generic [ref=e17]:
+          - generic [ref=e22]:
+            - textbox "E-post eller telefon" [active] [ref=e23]
+            - generic:
+              - generic: E-post eller telefon
+          - paragraph [ref=e24]:
+            - link "Har du glemt e-postadressen?" [ref=e25] [cursor=pointer]:
+              - /url: /signin/usernamerecovery?continue=https://docs.google.com/spreadsheets/u/0/create?usp%3Ddot_new&dsh=S-131459979:1773259115535309&flowEntry=ServiceLogin&flowName=WebLiteSignIn&followup=https://docs.google.com/spreadsheets/u/0/create?usp%3Ddot_new&ifkv=ASfE1-oh2mhkobLX_8T4ICvSTnpJJbYXvohLo7Ouxy7uLi78Gi80yMvjLUccOUTW5VZJFmYfhFQyhA&ltmpl=sheets&osid=1&service=wise
+        - paragraph [ref=e28]:
+          - text: Tilhører denne datamaskinen noen andre? Bruk et privat nettleservindu til å logge på.
+          - link "Finn ut mer om bruk av gjestemodus" [ref=e29] [cursor=pointer]:
+            - /url: https://support.google.com/accounts?p=signin_privatebrowsing&hl=no
+        - generic [ref=e31]:
+          - button "Neste" [ref=e33]
+          - link "Opprett konto" [ref=e35] [cursor=pointer]:
+            - /url: /lifecycle/flows/signup?continue=https://docs.google.com/spreadsheets/u/0/create?usp%3Ddot_new&dsh=S-131459979:1773259115535309&flowEntry=SignUp&flowName=GlifWebSignIn&followup=https://docs.google.com/spreadsheets/u/0/create?usp%3Ddot_new&ifkv=ASfE1-oh2mhkobLX_8T4ICvSTnpJJbYXvohLo7Ouxy7uLi78Gi80yMvjLUccOUTW5VZJFmYfhFQyhA&ltmpl=sheets&osid=1&service=wise
+  - contentinfo [ref=e36]:
+    - combobox [ref=e39] [cursor=pointer]:
+      - option "Afrikaans"
+      - option "azərbaycan"
+      - option "bosanski"
+      - option "català"
+      - option "Čeština"
+      - option "Cymraeg"
+      - option "Dansk"
+      - option "Deutsch"
+      - option "eesti"
+      - option "English (United Kingdom)"
+      - option "English (United States)"
+      - option "Español (España)"
+      - option "Español (Latinoamérica)"
+      - option "euskara"
+      - option "Filipino"
+      - option "Français (Canada)"
+      - option "Français (France)"
+      - option "Gaeilge"
+      - option "galego"
+      - option "Hrvatski"
+      - option "Indonesia"
+      - option "isiZulu"
+      - option "íslenska"
+      - option "Italiano"
+      - option "Kiswahili"
+      - option "latviešu"
+      - option "lietuvių"
+      - option "magyar"
+      - option "Melayu"
+      - option "Nederlands"
+      - option "norsk" [selected]
+      - option "o‘zbek"
+      - option "polski"
+      - option "Português (Brasil)"
+      - option "Português (Portugal)"
+      - option "română"
+      - option "shqip"
+      - option "Slovenčina"
+      - option "slovenščina"
+      - option "srpski (latinica)"
+      - option "Suomi"
+      - option "Svenska"
+      - option "Tiếng Việt"
+      - option "Türkçe"
+      - option "Ελληνικά"
+      - option "беларуская"
+      - option "български"
+      - option "кыргызча"
+      - option "қазақ тілі"
+      - option "македонски"
+      - option "монгол"
+      - option "Русский"
+      - option "српски (ћирилица)"
+      - option "Українська"
+      - option "ქართული"
+      - option "հայերեն"
+      - option "‫עברית‬‎"
+      - option "‫اردو‬‎"
+      - option "‫العربية‬‎"
+      - option "‫فارسی‬‎"
+      - option "አማርኛ"
+      - option "नेपाली"
+      - option "मराठी"
+      - option "हिन्दी"
+      - option "অসমীয়া"
+      - option "বাংলা"
+      - option "ਪੰਜਾਬੀ"
+      - option "ગુજરાતી"
+      - option "ଓଡ଼ିଆ"
+      - option "தமிழ்"
+      - option "తెలుగు"
+      - option "ಕನ್ನಡ"
+      - option "മലയാളം"
+      - option "සිංහල"
+      - option "ไทย"
+      - option "ລາວ"
+      - option "မြန်မာ"
+      - option "ខ្មែរ"
+      - option "한국어"
+      - option "中文（香港）"
+      - option "日本語"
+      - option "简体中文"
+      - option "繁體中文"
+    - list [ref=e40]:
+      - listitem [ref=e41]:
+        - link "Hjelp" [ref=e42] [cursor=pointer]:
+          - /url: https://support.google.com/accounts?hl=no&p=account_iph
+      - listitem [ref=e43]:
+        - link "Personvern" [ref=e44] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=NO&hl=no&privacy=true
+      - listitem [ref=e45]:
+        - link "Vilkår" [ref=e46] [cursor=pointer]:
+          - /url: https://accounts.google.com/TOS?loc=NO&hl=no

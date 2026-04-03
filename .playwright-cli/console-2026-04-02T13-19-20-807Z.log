@@ -1,0 +1,2 @@
+[     665ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://www.scribd.com/favicon.ico:0
+[    1733ms] [WARNING] Datadog Browser SDK: No storage available for session. We will not send any data. @ https://s-f.scribdassets.com/webpack/search/993.df56e9.js:0

@@ -1,0 +1,153 @@
+- generic [active] [ref=e1]:
+  - navigation "Navigation for skip links" [ref=e2]:
+    - link "Skip to navigation" [ref=e3] [cursor=pointer]:
+      - /url: "#a11y-skip-to-menu"
+    - link "Skip to main content" [ref=e4] [cursor=pointer]:
+      - /url: "#a11y-skip-to-main"
+  - generic [ref=e5]:
+    - navigation [ref=e9]:
+      - generic [ref=e10]:
+        - text: 
+        - link "Yumpu Logo" [ref=e11] [cursor=pointer]:
+          - /url: https://www.yumpu.com/en
+          - img "Yumpu Logo" [ref=e12]
+      - button "Change language" [ref=e15] [cursor=pointer]: EN
+      - generic [ref=e16]:
+        - text: 
+        - search [ref=e17]:
+          - searchbox "Search in YUMPU" [ref=e18]
+          - text: 
+      - generic [ref=e19]:
+        - generic:  
+        - generic:    
+      - text: X
+      - list [ref=e21]:
+        - listitem [ref=e22]:
+          - button "Discover" [ref=e23] [cursor=pointer]
+        - listitem [ref=e24]:
+          - button "products" [ref=e25] [cursor=pointer]: products
+        - listitem [ref=e26]:
+          - button "Magazines" [ref=e27] [cursor=pointer]
+        - listitem [ref=e28]:
+          - link "Create ePaper" [ref=e29] [cursor=pointer]:
+            - /url: https://www.yumpu.com/en/user/registration?utm_content=reg-pdf-upload-start
+        - listitem [ref=e30]:
+          - button " " [ref=e31] [cursor=pointer]:
+            - generic [ref=e32]:
+              - generic [ref=e33]: 
+              - generic [ref=e34]: 
+          - text:  
+    - generic [ref=e38]:
+      - heading "Browse Magazines" [level=1] [ref=e43]
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - link "Futterhaus Prospekt":
+            - /url: https://www.yumpu.com/de/document/view/71064717/futterhaus-prospekt
+            - img "Futterhaus Prospekt" [ref=e49] [cursor=pointer]
+        - generic [ref=e52]:
+          - link "Futterhaus Prospekt" [ref=e53] [cursor=pointer]:
+            - /url: https://www.yumpu.com/de/document/view/71064717/futterhaus-prospekt
+            - generic [ref=e54]: Futterhaus Prospekt
+          - link "eprospekte" [ref=e56] [cursor=pointer]:
+            - /url: https://www.yumpu.com/user/eprospekte
+      - text: 
+    - generic [ref=e61]:
+      - generic [ref=e65]:
+        - generic [ref=e67]:
+          - img "Yumpu Logo" [ref=e68]
+          - generic [ref=e69]:
+            - link "Facebook" [ref=e70] [cursor=pointer]:
+              - /url: https://www.facebook.com/yumpunews
+              - generic [ref=e71]: 
+            - link "Twitter" [ref=e72] [cursor=pointer]:
+              - /url: https://x.com/yumpu_com
+              - generic [ref=e73]: 
+            - link "Pinterest" [ref=e74] [cursor=pointer]:
+              - /url: https://www.pinterest.com/yumpucom
+              - generic [ref=e75]: 
+            - link "Youtube" [ref=e76] [cursor=pointer]:
+              - /url: https://www.youtube.com/user/yumpucom
+              - generic [ref=e77]: 
+            - link "Vimeo" [ref=e78] [cursor=pointer]:
+              - /url: https://vimeo.com/yumpucom
+              - generic [ref=e79]: 
+        - generic [ref=e81]:
+          - paragraph [ref=e82]: products
+          - list [ref=e83]:
+            - listitem [ref=e84]:
+              - link "FREE" [ref=e85] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/free
+            - listitem [ref=e86]:
+              - link "adFREE" [ref=e87] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/adfree
+            - listitem [ref=e88]:
+              - link "WEBKiosk" [ref=e89] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/webkiosk
+            - listitem [ref=e90]:
+              - link "APPKiosk" [ref=e91] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/appkiosk
+            - listitem [ref=e92]:
+              - link "PROKiosk" [ref=e93] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/prokiosk
+        - generic [ref=e95]:
+          - paragraph [ref=e96]: Resources
+          - list [ref=e97]:
+            - listitem [ref=e98]:
+              - link "Blog" [ref=e99] [cursor=pointer]:
+                - /url: https://en.blog.yumpu.com
+            - listitem [ref=e100]:
+              - link "API" [ref=e101] [cursor=pointer]:
+                - /url: https://developers.yumpu.com
+            - listitem [ref=e102]:
+              - link "FAQ" [ref=e103] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/publishing-software/faq
+            - listitem [ref=e104]:
+              - link "Help & Support" [ref=e105] [cursor=pointer]:
+                - /url: https://helpcenter.yumpu.com
+            - listitem [ref=e106]:
+              - link "Status" [ref=e107] [cursor=pointer]:
+                - /url: https://status.yumpu.com
+            - listitem [ref=e108]:
+              - link "tuxbrain.com" [ref=e109] [cursor=pointer]:
+                - /url: https://tuxbrain.com/
+            - listitem [ref=e110]:
+              - link "ooomacros.org" [ref=e111] [cursor=pointer]:
+                - /url: https://ooomacros.org/
+            - listitem [ref=e112]:
+              - link "nubuntu.org" [ref=e113] [cursor=pointer]:
+                - /url: https://nubuntu.org/
+            - listitem [ref=e114]:
+              - link "Direct Marketing" [ref=e115] [cursor=pointer]:
+                - /url: https://adrom.net/
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: Company
+          - list [ref=e119]:
+            - listitem [ref=e120]:
+              - link "Contact us" [ref=e121] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/info/contact_us
+            - listitem [ref=e122]:
+              - link "Careers" [ref=e123] [cursor=pointer]:
+                - /url: https://yummy.digital/jobs
+            - listitem [ref=e124]:
+              - link "Terms of service" [ref=e125] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/info/terms_of_service
+            - listitem [ref=e126]:
+              - link "Privacy policy" [ref=e127] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/info/privacy_policy
+            - listitem [ref=e128]:
+              - button "Cookie settings" [ref=e129] [cursor=pointer]
+            - listitem [ref=e130]:
+              - link "Accessibility Statement" [ref=e131] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/info/accessibility_statement
+            - listitem [ref=e132]:
+              - link "Imprint" [ref=e133] [cursor=pointer]:
+                - /url: https://www.yumpu.com/en/info/impressum
+      - generic [ref=e137]:
+        - link "Change language" [ref=e139] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=e140]: Made with love in Switzerland
+        - generic [ref=e141]: © 2026 Yumpu.com, all rights reserved
+    - text: X
+  - generic:  
+  - text:    
+  - img [ref=e144] [cursor=pointer]

@@ -1,0 +1,63 @@
+- dialog "Tus opciones de privacidad" [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - heading [level=1] [ref=e7]:
+        - banner [ref=e8]:
+          - generic [ref=e11]:
+            - generic [ref=e12]:
+              - heading "guce" [level=1] [ref=e13]
+              - link "yahoo logo" [ref=e14] [cursor=pointer]:
+                - /url: https://es.yahoo.com/
+                - img [ref=e15]
+                - text: guce
+            - toolbar
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - generic [ref=e18]:
+            - paragraph [ref=e19]: Tu privacidad es importante para nosotros
+            - paragraph [ref=e20]:
+              - text: Yahoo forma parte de la
+              - button "Familia de marcas de Yahoo" [ref=e21]: familia de marcas de Yahoo
+              - text: .
+            - generic [ref=e22]:
+              - text: Cuando utilizas nuestros sitios y aplicaciones, usamos
+              - button "Cookies" [ref=e23]: cookies
+              - text: "para:"
+            - list [ref=e24]:
+              - listitem [ref=e25]: proporcionarte nuestros sitios y aplicaciones;
+              - listitem [ref=e26]: autenticar usuarios, aplicar medidas de seguridad y evitar el spam y los abusos, y
+              - listitem [ref=e27]:
+                - button "Medición" [ref=e28]: medir
+                - text: su uso de nuestros sitios y aplicaciones
+          - generic [ref=e29]:
+            - generic [ref=e30]: Tus opciones de privacidad
+            - generic [ref=e31]:
+              - text: Si haces clic en «
+              - strong [ref=e32]: Aceptar todo
+              - text: », nosotros y
+              - link "nuestros socios" [ref=e33] [cursor=pointer]:
+                - /url: /v2/partners-list?sessionId=3_cc-session_d3e83ebc-0e0e-43d4-81ee-fe2c27f237de
+              - text: ", incluidos los 251 que son parte del Marco de transparencia y consentimiento de IAB, también almacenaremos o guardaremos información en un dispositivo (en otras palabras, usaremos cookies) y utilizaremos datos de geolocalización y otros tipo de datos precisos, como"
+              - button "Identificadores técnicos" [ref=e34]: identificadores técnicos
+              - text: ", y datos de navegación y de búsquedas, con el fin de efectuar análisis, mostrar anuncios y contenidos personalizados, medir la publicidad y el contenido, realizar investigaciones de públicos y desarrollar servicios."
+            - paragraph [ref=e35]:
+              - text: Si no quieres que nosotros ni nuestros socios utilicemos cookies y datos personales para estos propósitos adicionales, haz clic en «
+              - strong [ref=e36]: Rechazar todo
+              - text: ».
+            - paragraph [ref=e37]:
+              - text: Si quieres personalizar tus opciones, haz clic en «
+              - strong [ref=e38]: Gestionar configuración de privacidad
+              - text: ».
+            - paragraph [ref=e39]:
+              - text: Puedes revocar tu consentimiento o cambiar tus opciones en cualquier momento haciendo clic en el enlace «Configuración de privacidad y cookies» o «Panel de privacidad» de nuestros sitios y aplicaciones. Para obtener más información sobre cómo utilizamos tus datos personales, consulta nuestra
+              - link "Política de privacidad" [ref=e40] [cursor=pointer]:
+                - /url: /redirect?to=https%3A%2F%2Flegal.yahoo.com%2Fie%2Fes%2Fyahoo%2Fprivacy%2Findex.html&brandDomain=&brandId=yahoo&tos=eu&step=&sessionId=3_cc-session_d3e83ebc-0e0e-43d4-81ee-fe2c27f237de&userType=NON_REG
+              - text: y la
+              - link "Política de cookies" [ref=e41] [cursor=pointer]:
+                - /url: /redirect?to=https%3A%2F%2Flegal.yahoo.com%2Fie%2Fes%2Fyahoo%2Fprivacy%2Fcookies%2Findex.html&brandDomain=&brandId=yahoo&tos=eu&step=&sessionId=3_cc-session_d3e83ebc-0e0e-43d4-81ee-fe2c27f237de&userType=NON_REG
+              - text: .
+        - generic [ref=e42]:
+          - button "Aceptar todo" [ref=e43] [cursor=pointer]
+          - button "Rechazar todo" [ref=e44] [cursor=pointer]
+          - button "Gestionar configuración de privacidad" [ref=e45] [cursor=pointer]
+    - button "Ir al final" [ref=e47] [cursor=pointer]: Ir al final

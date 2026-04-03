@@ -1,0 +1,9 @@
+- main [ref=e2]:
+  - link "Error 404" [ref=e3] [cursor=pointer]:
+    - /url: /
+    - img "Error 404" [ref=e4]
+  - heading "It appears we're missing some bits…" [level=1] [ref=e12]
+  - paragraph [ref=e13]: Sorry, the page you're looking for is missing or does not exist.
+  - paragraph [ref=e14]:
+    - link "Take Me Home" [ref=e15] [cursor=pointer]:
+      - /url: /

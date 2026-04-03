@@ -1,0 +1,217 @@
+- application [ref=e1]:
+  - iframe [ref=e2]:
+    
+  - iframe [ref=e3]:
+    
+  - banner "Menylinje" [ref=e4]:
+    - generic [ref=e7]:
+      - link "Startsiden for Regneark" [ref=e9] [cursor=pointer]:
+        - /url: https://docs.google.com/spreadsheets/u/0/?authuser=0&usp=sheets_web
+      - generic [ref=e16]:
+        - generic "Regneark uten navn" [ref=e18]:
+          - generic [ref=e19]:
+            - generic: Regneark uten navn
+            - textbox "Gi nytt navn" [ref=e21]: Regneark uten navn
+          - generic [ref=e22]:
+            - checkbox "Stjerne" [ref=e24] [cursor=pointer]
+            - button "Flytt" [ref=e450] [cursor=pointer]
+            - 'button "Dokumentstatus: Lagrer …." [ref=e860]':
+              - generic [ref=e865] [cursor=pointer]: Lagrer …
+        - generic [ref=e29]:
+          - button "Sist redigert for noen sekunder siden" [ref=e445] [cursor=pointer]
+          - button "Vis alle kommentarene" [ref=e31] [cursor=pointer]
+          - button "Bli med i en samtale her, eller presenter denne fanen i samtalen" [ref=e35] [cursor=pointer]
+          - generic [ref=e40]:
+            - button "Del. Privat bare for meg." [ref=e41] [cursor=pointer]: Del
+            - button "Handlinger for rask deling" [ref=e43] [cursor=pointer]
+          - generic [ref=e46]:
+            - generic:
+              - button "Spør Gemini" [ref=e49] [cursor=pointer]:
+                - img [ref=e52]
+              - tooltip [ref=e55]: Spør Gemini
+          - 'button "Google-konto: Andreas Westin (aawestin@gmail.com)" [ref=e58] [cursor=pointer]':
+            - img [ref=e60]
+            - img [ref=e65]
+    - generic [ref=e66]:
+      - menubar [ref=e68]:
+        - menuitem "Fil" [ref=e69] [cursor=pointer]
+        - menuitem "Endre" [ref=e70] [cursor=pointer]
+        - menuitem "Visning" [ref=e71] [cursor=pointer]
+        - menuitem "Sett inn" [ref=e72] [cursor=pointer]
+        - menuitem "Format" [ref=e73] [cursor=pointer]
+        - menuitem "Data" [ref=e74] [cursor=pointer]
+        - menuitem "Verktøy" [ref=e75] [cursor=pointer]
+        - menuitem "Gemini" [ref=e76] [cursor=pointer]
+        - menuitem "Utvidelser" [ref=e77] [cursor=pointer]
+        - menuitem "Hjelp" [ref=e78] [cursor=pointer]
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - toolbar "Søk i menyene (Alt+/)" [ref=e81]:
+            - combobox "Menyer" [ref=e83]
+          - toolbar "Hoved" [ref=e84]:
+            - button "Angre (Ctrl+Z)" [ref=e85] [cursor=pointer]
+            - button "Utfør likevel (Ctrl+Y)" [ref=e90] [cursor=pointer]
+            - button "Skriv ut (Ctrl+P)" [ref=e95] [cursor=pointer]
+            - button "Kopiér formatering" [ref=e100] [cursor=pointer]
+            - combobox "Zoom" [disabled] [ref=e105] [cursor=pointer]:
+              - option "Zoom-listen. 100% valgt." [disabled] [selected] [ref=e108]:
+                - textbox "Zoom" [disabled] [ref=e109]: 100%
+            - separator [disabled] [ref=e113]
+            - button "Formater som valuta" [ref=e114] [cursor=pointer]:
+              - generic [ref=e116]: kr
+            - button "Formater som prosent" [ref=e117] [cursor=pointer]:
+              - generic [ref=e119]: "%"
+            - button "Reduser antall desimaler" [ref=e120] [cursor=pointer]
+            - button "Øk antall desimaler" [ref=e125] [cursor=pointer]
+            - button "Flere formater" [ref=e130] [cursor=pointer]:
+              - generic [ref=e133]: "123"
+            - separator [disabled] [ref=e134]
+            - listbox "Skrift" [ref=e135] [cursor=pointer]:
+              - option "Skrift-listen. Arial valgt." [selected] [ref=e867]: Arial
+            - separator [disabled] [ref=e142]
+            - button "Reduser skriftstørrelsen (Ctrl+Shift+komma)" [ref=e143] [cursor=pointer]
+            - combobox "Skriftstørrelse" [ref=e148] [cursor=pointer]:
+              - option "Skriftstørrelse-listen. 10 valgt." [selected] [ref=e151]:
+                - textbox "Skriftstørrelse" [ref=e152]: "10"
+            - button "Øk skriftstørrelsen (Ctrl+Shift+punktum)" [ref=e153] [cursor=pointer]
+            - separator [disabled] [ref=e158]
+            - button "Fet (Ctrl+B)" [ref=e159] [cursor=pointer]
+            - button "Kursiv (Ctrl+I)" [ref=e164] [cursor=pointer]
+            - button "Gjennomstreking (Alt+Shift+5)" [ref=e169] [cursor=pointer]
+            - button "Tekstfarge" [ref=e174] [cursor=pointer]
+            - separator [disabled] [ref=e181]
+            - button "Fyllfarge" [ref=e182] [cursor=pointer]
+            - button "Kantlinjer" [ref=e189] [cursor=pointer]
+            - button "Slå sammen celler" [disabled] [ref=e195]
+            - button "Velg flettetype …" [disabled] [ref=e200]
+            - separator [disabled] [ref=e206]
+            - button "Mer" [ref=e207] [cursor=pointer]
+        - toolbar "Modus og visning" [ref=e214]:
+          - button "Skjul menyene (Ctrl+Shift+F)" [ref=e215] [cursor=pointer]
+    - generic [ref=e220]:
+      - complementary "Sidepanel" [ref=e221]:
+        - tablist [ref=e223]:
+          - tab "Kalender"
+          - tab "Keep"
+          - tab "Huskeliste"
+          - tab "Kontakter"
+          - tab "Maps"
+          - separator [disabled] [ref=e229]
+          - tab "Finn tillegg"
+      - generic:
+        - button "Skjul sidepanelet":
+          - img [ref=e232] [cursor=pointer]
+    - generic [ref=e237]:
+      - generic "Navnefelt (Ctrl + J)" [ref=e238]:
+        - textbox [ref=e239]: C2
+        - button "Menyknapp for navnefelt. Velg et av menyelementene for å gå til det tilsvarende navngitte området." [ref=e241] [cursor=pointer]
+      - textbox [ref=e254]
+  - navigation "Arkfanelinje" [ref=e290]:
+    - toolbar [ref=e291]:
+      - button "Legg til ark" [ref=e292] [cursor=pointer]
+      - button "Alle ark" [ref=e297] [cursor=pointer]
+    - toolbar [ref=e304]:
+      - button "Ark 1" [ref=e305]:
+        - generic [ref=e309]: Ark 1
+    - toolbar [ref=e313]
+  - combobox "C2" [active] [ref=e868]:
+    - text: A6A4
+    - link "https://youtube.com/watch?v=K2zoDSoOlxc" [ref=e869]:
+      - /url: https://youtube.com/watch?v=K2zoDSoOlxc
+  - link "Slå på støtte for skjermlesere" [ref=e315] [cursor=pointer]:
+    - /url: "#"
+  - textbox [ref=e316]
+  - region [ref=e317]: Du kan aktivere støtte for skjermleser ved å trykke på Ctrl+Alt+Z Trykk på Ctrl+skråstrek hvis du vil ha informasjon om hurtigtaster
+  - region
+  - complementary "Tabeller" [ref=e318]:
+    - generic [ref=e320]:
+      - generic [ref=e325]: Tabeller
+      - button "Lukk" [ref=e326] [cursor=pointer]
+    - generic [ref=e329]:
+      - button "Hjelp meg å lage tabeller" [ref=e330] [cursor=pointer]:
+        - generic [ref=e331]: Hjelp meg å lage tabeller
+      - generic [ref=e334]:
+        - generic [ref=e335]:
+          - generic [ref=e336]:
+            - generic [ref=e337]: NYHET
+            - text: Tabeller med AI-forbedringer
+          - generic [ref=e338]: Inneholder automatisk genererte kolonner for oppsummering, sentimentanalyse, tekstgenerering med mer
+          - img "Kampanjebilde for tabeller" [ref=e339]
+        - generic [ref=e340]:
+          - button "Fremhevet" [expanded] [ref=e341]:
+            - generic [ref=e345]: Fremhevet
+          - generic [ref=e348]:
+            - button "Innhenting av tilbakemeldinger" [ref=e349]:
+              - generic [ref=e353]: Innhenting av tilbakemeldinger
+            - button "Utgiftsklassifisering" [ref=e354]:
+              - generic [ref=e358]: Utgiftsklassifisering
+            - button "Annonseoppretting" [ref=e359]:
+              - generic [ref=e363]: Annonseoppretting
+            - button "Svar på e-post:" [ref=e364]:
+              - generic [ref=e368]: "Svar på e-post:"
+            - button "Anropssammendrag" [ref=e369]:
+              - generic [ref=e373]: Anropssammendrag
+            - button "Tom tabell" [ref=e374]:
+              - generic [ref=e378]: Tom tabell
+        - button "Aktivitetsplanlegger" [ref=e380]:
+          - generic [ref=e384]: Aktivitetsplanlegger
+        - button "Kundeforhold" [ref=e386]:
+          - generic [ref=e390]: Kundeforhold
+        - button "Prosjektstyring" [ref=e392]:
+          - generic [ref=e396]: Prosjektstyring
+        - button "Reiseplanlegger" [ref=e398]:
+          - generic [ref=e402]: Reiseplanlegger
+        - button "Produktplan" [ref=e404]:
+          - generic [ref=e408]: Produktplan
+        - button "Beholdningsadministrering" [ref=e410]:
+          - generic [ref=e414]: Beholdningsadministrering
+        - button "Rekruttering" [ref=e416]:
+          - generic [ref=e420]: Rekruttering
+        - button "Teamplanlegger" [ref=e422]:
+          - generic [ref=e426]: Teamplanlegger
+        - button "Markedsføring" [ref=e428]:
+          - generic [ref=e432]: Markedsføring
+  - dialog "Endre eller fjern linken." [ref=e870]:
+    - generic [ref=e871]:
+      - generic [ref=e872]:
+        - generic [ref=e873]:
+          - generic [ref=e874]:
+            - img [ref=e877]
+            - generic [ref=e879]:
+              - generic [ref=e880]:
+                - link "The Funniest CATS of 2026 So Far 😂 NEW Funny Cat Videos!" [ref=e883] [cursor=pointer]:
+                  - /url: https://youtube.com/watch?v=K2zoDSoOlxc
+                - tooltip [ref=e884]: The Funniest CATS of 2026 So Far 😂 NEW Funny Cat Videos!
+              - tooltip [ref=e885]: youtube.com/watch?v=K2zoDSoOlxc
+          - generic [ref=e886]:
+            - generic [ref=e887]:
+              - button "Kopiér" [ref=e888] [cursor=pointer]:
+                - img [ref=e891]
+              - tooltip [ref=e894]: Kopiér
+            - generic [ref=e895]:
+              - button "Rediger linken" [ref=e896] [cursor=pointer]:
+                - img [ref=e899]
+              - tooltip [ref=e902]: Rediger linken
+            - generic [ref=e903]:
+              - button "Fjern" [ref=e904] [cursor=pointer]:
+                - img [ref=e907]
+              - tooltip [ref=e910]: Fjern
+        - generic [ref=e913]:
+          - link "Miniatyrbilde for den tilknyttede nettadressen." [ref=e915] [cursor=pointer]:
+            - /url: https://youtube.com/watch?v=K2zoDSoOlxc
+            - button "Miniatyrbilde for den tilknyttede nettadressen." [ref=e916]:
+              - img [ref=e922]
+          - generic [ref=e925]:
+            - img [ref=e927]
+            - generic [ref=e929]:
+              - generic [ref=e932]: "The Funniest CATS of 2026 So Far 😂 NEW Funny Cat Videos! 2026 is already giving us some of the funniest cats ever 🤣 From chaotic orange cats to dramatic black cats, sleepy loafs, and unexpected fails, this compilation brings you the best funny cat moments of 2026 so far! If you love funny cat compilations, cute and goofy kitties, and nonstop laughter, this video is made for you. Every clip is filled with chaos, charm, and pure feline joy. #cat #funnycat #animal #funnycatvideos --------------------------------------------------------- 🐾 Want more daily doses of cuteness? ✨ Subscribe to Incredible Animal: https://bit.ly/3IMUVpU Here at Incredible Animal, we capture every mood: the funny, the silly, the naughty, and the heartwarming. Join our growing community of cat lovers and let’s explore the wonderful world of cats together! 📺 Binge-watch more hilarious moments here: https://www.youtube.com/playlist?list=PLRYyoNB9x4nzyN2MvEp7H9auG51-9SwwE Thanks for watching and supporting the channel! 🐾"
+              - tooltip [ref=e933]: "The Funniest CATS of 2026 So Far 😂 NEW Funny Cat Videos! 2026 is already giving us some of the funniest cats ever 🤣 From chaotic orange cats to dramatic black cats, sleepy loafs, and unexpected fails, this compilation brings you the best funny cat moments of 2026 so far! If you love funny cat compilations, cute and goofy kitties, and nonstop laughter, this video is made for you. Every clip is filled with chaos, charm, and pure feline joy. #cat #funnycat #animal #funnycatvideos --------------------------------------------------------- 🐾 Want more daily doses of cuteness? ✨ Subscribe to Incredible Animal: https://bit.ly/3IMUVpU Here at Incredible Animal, we capture every mood: the funny, the silly, the naughty, and the heartwarming. Join our growing community of cat lovers and let’s explore the wonderful world of cats together! 📺 Binge-watch more hilarious moments here: https://www.youtube.com/playlist?list=PLRYyoNB9x4nzyN2MvEp7H9auG51-9SwwE Thanks for watching and supporting the channel! 🐾"
+      - generic [ref=e936]:
+        - generic [ref=e937]:
+          - img [ref=e939]
+          - generic [ref=e942]: Erstatt nettadressen
+        - generic [ref=e943]:
+          - button "Link" [ref=e944] [cursor=pointer]:
+            - generic [ref=e945]: Link
+          - button "Brikke" [ref=e946] [cursor=pointer]:
+            - generic [ref=e947]: Brikke

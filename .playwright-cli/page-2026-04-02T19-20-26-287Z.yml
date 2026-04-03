@@ -1,0 +1,443 @@
+- generic [active] [ref=e1]:
+  - navigation "Fandom top navigation" [ref=e2]:
+    - link "Fandom homepage" [ref=e3] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/
+      - img [ref=e4]
+    - generic [ref=e18]:
+      - link "Start a Wiki" [ref=e20] [cursor=pointer]:
+        - /url: //web.archive.org/web/20250122135346/https://createnewwiki.fandom.com/Special:CreateNewWiki
+        - generic [ref=e21]:
+          - img [ref=e22]
+          - text: Start a Wiki
+      - link "Sign In" [ref=e25] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122135346/https://auth.fandom.com/signin?source=mw&redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FMercenary
+        - generic [ref=e26]:
+          - img
+          - text: Sign In
+  - generic "Community navigation" [ref=e27]:
+    - link "Fandom homepage" [ref=e29] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/
+      - img [ref=e30]
+    - navigation [ref=e45]:
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - generic [ref=e48]:
+            - link [ref=e49] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e50]
+            - img [ref=e51]
+        - listitem [ref=e52]:
+          - generic [ref=e53]:
+            - link "Wiki Content" [ref=e54] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122135346/https://wfrp1e.fandom.com/wiki/Wiki_Content
+              - generic [ref=e55]: Wiki Content
+            - img [ref=e56]
+        - listitem [ref=e57]:
+          - generic [ref=e58]:
+            - link "Community" [ref=e59] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122135346/https://wfrp1e.fandom.com/wiki/Warhammer_Fantasy_Roleplay_First_Edition_Wiki:Community_Portal
+              - generic [ref=e60]: Community
+            - img [ref=e61]
+    - link "Dark Theme" [ref=e64] [cursor=pointer]:
+      - /url: "#"
+      - img
+    - link "Sign In" [ref=e67] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122135346/https://auth.fandom.com/signin?source=mw&redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FMercenary
+      - generic [ref=e68]:
+        - img
+        - text: Sign In
+  - navigation "Fandom navigation" [ref=e71]:
+    - button "Explore" [ref=e73] [cursor=pointer]:
+      - generic [ref=e74]:
+        - img [ref=e76]
+        - generic [ref=e77]: Explore
+    - link "Fan Central" [ref=e79] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/fancentral/home
+      - generic [ref=e80]:
+        - img [ref=e82]
+        - generic [ref=e83]: Fan Central
+    - generic [ref=e84]:
+      - generic [ref=e85]: Current
+      - button "Current" [ref=e87] [cursor=pointer]:
+        - img [ref=e90]
+  - generic [ref=e93]:
+    - generic [ref=e96]: Advertisement
+    - generic [ref=e98]:
+      - banner [ref=e100]:
+        - generic [ref=e101]:
+          - link "Warhammer Fantasy Roleplay First Edition Wiki" [ref=e103] [cursor=pointer]:
+            - /url: //web.archive.org/web/20250122135346/https://wfrp1e.fandom.com/
+          - generic [ref=e104]:
+            - generic [ref=e105]: 1,307
+            - generic [ref=e106]: pages
+          - link "Dark Theme" [ref=e108] [cursor=pointer]:
+            - /url: "#"
+            - img
+        - navigation [ref=e109]:
+          - list [ref=e110]:
+            - listitem [ref=e111]:
+              - generic [ref=e112]:
+                - link "Explore" [ref=e113] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e114]
+                  - generic [ref=e115]: Explore
+                - img [ref=e116]
+            - listitem [ref=e117]:
+              - generic [ref=e118]:
+                - link "Wiki Content" [ref=e119] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://wfrp1e.fandom.com/wiki/Wiki_Content
+                  - generic [ref=e120]: Wiki Content
+                - img [ref=e121]
+            - listitem [ref=e122]:
+              - generic [ref=e123]:
+                - link "Community" [ref=e124] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://wfrp1e.fandom.com/wiki/Warhammer_Fantasy_Roleplay_First_Edition_Wiki:Community_Portal
+                  - generic [ref=e125]: Community
+                - img [ref=e126]
+      - generic [ref=e127]:
+        - main [ref=e128]:
+          - generic [ref=e130]:
+            - button "Expand" [ref=e131] [cursor=pointer]:
+              - img [ref=e132]
+            - link "Sign in to edit" [ref=e133] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122135346/https://auth.fandom.com/signin?redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FMercenary%3Fveaction%3Dedit&uselang=en
+              - img [ref=e134]
+          - generic [ref=e135]:
+            - generic [ref=e138]:
+              - text: "in:"
+              - link "Careers" [ref=e139] [cursor=pointer]:
+                - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Category:Careers
+              - text: ","
+              - link "Rules" [ref=e140] [cursor=pointer]:
+                - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Category:Rules
+            - generic [ref=e141]:
+              - heading "Mercenary" [level=1] [ref=e143]
+              - generic [ref=e144]:
+                - link [ref=e145] [cursor=pointer]:
+                  - /url: "#articleComments"
+                  - img
+                - link "Sign in to edit" [ref=e147] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://auth.fandom.com/signin?redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FMercenary%3Fveaction%3Dedit&uselang=en
+                  - img
+                  - text: Sign in to edit
+                - button "Page Tools" [ref=e149]:
+                  - img
+          - generic [ref=e152]:
+            - paragraph [ref=e153]: The Mercenary fights for money, the spoils of war, and the taste of blood. All Mercenaries dream of untold riches; for most of them, the reality consists of an early death and an unmarked grave. Mercenaries roam the Old World, from one war to another - inevitably someone will hire their swords to settle a grievance. Rich Nobles, Merchants, and others take on Mercenaries to bring an argument to a swift conclusion; the Old World kingdoms generate enough conflict to keep many thousands of Mercenaries fully employed. Eventually, however, the wiser ones realise that there is no crock of gold for the hired fighter, and so they turn to adventuring for variety or in search of greater rewards.
+            - paragraph [ref=e154]
+            - table [ref=e155]:
+              - rowgroup [ref=e156]:
+                - row "Advance Scheme" [ref=e157]:
+                  - columnheader "Advance Scheme" [ref=e158]:
+                    - paragraph [ref=e159]:
+                      - generic [ref=e160]: Advance Scheme
+                - row "M WS BS S T W I A Dex Ld Int Cl WP Fel" [ref=e161]:
+                  - cell "M" [ref=e162]:
+                    - paragraph [ref=e163]:
+                      - generic [ref=e164]: M
+                  - cell "WS" [ref=e165]:
+                    - paragraph [ref=e166]:
+                      - generic [ref=e167]: WS
+                  - cell "BS" [ref=e168]:
+                    - paragraph [ref=e169]:
+                      - generic [ref=e170]: BS
+                  - cell "S" [ref=e171]:
+                    - paragraph [ref=e172]:
+                      - generic [ref=e173]: S
+                  - cell "T" [ref=e174]:
+                    - paragraph [ref=e175]:
+                      - generic [ref=e176]: T
+                  - cell "W" [ref=e177]:
+                    - paragraph [ref=e178]:
+                      - generic [ref=e179]: W
+                  - cell "I" [ref=e180]:
+                    - paragraph [ref=e181]:
+                      - generic [ref=e182]: I
+                  - cell "A" [ref=e183]:
+                    - paragraph [ref=e184]:
+                      - generic [ref=e185]: A
+                  - cell "Dex" [ref=e186]:
+                    - paragraph [ref=e187]:
+                      - generic [ref=e188]: Dex
+                  - cell "Ld" [ref=e189]:
+                    - paragraph [ref=e190]:
+                      - generic [ref=e191]: Ld
+                  - cell "Int" [ref=e192]:
+                    - paragraph [ref=e193]:
+                      - generic [ref=e194]: Int
+                  - cell "Cl" [ref=e195]:
+                    - paragraph [ref=e196]:
+                      - generic [ref=e197]: Cl
+                  - cell "WP" [ref=e198]:
+                    - paragraph [ref=e199]:
+                      - generic [ref=e200]: WP
+                  - cell "Fel" [ref=e201]:
+                    - paragraph [ref=e202]:
+                      - generic [ref=e203]: Fel
+                - row "+10 +10 +1 +2 +10 +1 +10 +10" [ref=e204]:
+                  - cell [ref=e205]:
+                    - paragraph [ref=e206]
+                  - cell "+10" [ref=e207]:
+                    - paragraph [ref=e208]: "+10"
+                  - cell "+10" [ref=e209]:
+                    - paragraph [ref=e210]: "+10"
+                  - cell "+1" [ref=e211]:
+                    - paragraph [ref=e212]: "+1"
+                  - cell [ref=e213]:
+                    - paragraph [ref=e214]
+                  - cell "+2" [ref=e215]:
+                    - paragraph [ref=e216]: "+2"
+                  - cell "+10" [ref=e217]:
+                    - paragraph [ref=e218]: "+10"
+                  - cell "+1" [ref=e219]:
+                    - paragraph [ref=e220]: "+1"
+                  - cell [ref=e221]:
+                    - paragraph [ref=e222]
+                  - cell "+10" [ref=e223]:
+                    - paragraph [ref=e224]: "+10"
+                  - cell [ref=e225]:
+                    - paragraph [ref=e226]
+                  - cell "+10" [ref=e227]:
+                    - paragraph [ref=e228]: "+10"
+                  - cell [ref=e229]:
+                    - paragraph [ref=e230]
+                  - cell [ref=e231]:
+                    - paragraph [ref=e232]
+            - paragraph [ref=e233]: Skills
+            - list [ref=e234]:
+              - listitem [ref=e235]:
+                - link "Disarm" [ref=e236] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Disarm
+              - listitem [ref=e237]:
+                - link "Dodge Blow" [ref=e238] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Dodge_Blow
+              - listitem [ref=e239]:
+                - 'link "Secret Language: Battle Tongue" [ref=e240] [cursor=pointer]':
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Secret_Language
+              - listitem [ref=e241]:
+                - link "Strike Mighty Blow" [ref=e242] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Strike_Mighty_Blow
+              - listitem [ref=e243]:
+                - link "Strike To Stun" [ref=e244] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Strike_To_Stun
+              - listitem [ref=e245]:
+                - text: 75% chance of
+                - link "Drive Cart" [ref=e246] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Drive_Cart
+              - listitem [ref=e247]:
+                - text: 50% chance of
+                - link "Animal Care" [ref=e248] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Animal_Care
+              - listitem [ref=e249]:
+                - text: 25% chance of
+                - link "Ride" [ref=e250] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Ride
+            - paragraph [ref=e251]:
+              - text: A Dwarf warrior following the basic career of Mercenary has the following
+              - link "Specialist Weapon" [ref=e252] [cursor=pointer]:
+                - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Specialist_Weapon
+              - text: "skills, in addition to those listed above, according to their role:"
+            - table [ref=e253]:
+              - rowgroup [ref=e254]:
+                - 'row "Bombard Crew Specialist Weapon: Bombard" [ref=e255]':
+                  - cell "Bombard Crew" [ref=e256]
+                  - 'cell "Specialist Weapon: Bombard" [ref=e257]'
+                - 'row "Firethrower Crew Specialist Weapon: Firethrower" [ref=e258]':
+                  - cell "Firethrower Crew" [ref=e259]
+                  - 'cell "Specialist Weapon: Firethrower" [ref=e260]'
+                - 'row "Mortar Crew Specialist Weapon: Mortar" [ref=e261]':
+                  - cell "Mortar Crew" [ref=e262]
+                  - 'cell "Specialist Weapon: Mortar" [ref=e263]'
+                - 'row "Swivel Gun Crew Specialist Weapon: Blunderbuss" [ref=e264]':
+                  - cell "Swivel Gun Crew" [ref=e265]
+                  - 'cell "Specialist Weapon: Blunderbuss" [ref=e266]'
+                - 'row "Volley Gun Crew Specialist Weapon: Firearms" [ref=e267]':
+                  - cell "Volley Gun Crew" [ref=e268]
+                  - 'cell "Specialist Weapon: Firearms" [ref=e269]'
+                - 'row "Cannon Crew Specialist Weapon: Cannon" [ref=e270]':
+                  - cell "Cannon Crew" [ref=e271]
+                  - 'cell "Specialist Weapon: Cannon" [ref=e272]'
+                - 'row "Flame Cannon Crew Specialist Weapon: Flame Cannon" [ref=e273]':
+                  - cell "Flame Cannon Crew" [ref=e274]
+                  - 'cell "Specialist Weapon: Flame Cannon" [ref=e275]'
+                - 'row "Organ Gun Crew Specialist Weapon: Cannon" [ref=e276]':
+                  - cell "Organ Gun Crew" [ref=e277]
+                  - 'cell "Specialist Weapon: Cannon" [ref=e278]'
+                - 'row "Nautilus Gunner Specialist Weapon: Cannon Specialist Weapon: Torpedo" [ref=e279]':
+                  - cell "Nautilus Gunner" [ref=e280]
+                  - 'cell "Specialist Weapon: Cannon Specialist Weapon: Torpedo" [ref=e281]':
+                    - paragraph [ref=e282]: "Specialist Weapon: Cannon"
+                    - paragraph [ref=e283]: "Specialist Weapon: Torpedo"
+            - paragraph [ref=e284]: Trappings
+            - list [ref=e285]:
+              - listitem [ref=e286]:
+                - link "Bow" [ref=e287] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Bow
+                - text: or
+                - link "Crossbow" [ref=e288] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Crossbow
+                - text: and ammunition
+              - listitem [ref=e289]: Mail Shirt or Metal Breastplate
+              - listitem [ref=e290]: Shield
+            - paragraph [ref=e291]: Career Exits
+            - list [ref=e292]:
+              - listitem [ref=e293]:
+                - link "Artillerist" [ref=e294] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Artillerist
+              - listitem [ref=e295]:
+                - link "Gunner" [ref=e296] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Gunner
+              - listitem [ref=e297]:
+                - link "Mercenary Captain" [ref=e298] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Mercenary_Captain
+              - listitem [ref=e299]:
+                - link "Outlaw Chief" [ref=e300] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Outlaw_Chief
+              - listitem [ref=e301]:
+                - link "Sapper" [ref=e302] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Sapper
+                - text: (Dwarfs only)
+              - listitem [ref=e303]:
+                - link "Slaver" [ref=e304] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Slaver
+              - listitem [ref=e305]:
+                - link "Tunnel Fighter" [ref=e306] [cursor=pointer]:
+                  - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Tunnel_Fighter
+          - generic [ref=e307]:
+            - generic [ref=e309] [cursor=pointer]:
+              - text: Categories
+              - img [ref=e310]
+            - generic [ref=e311]:
+              - text: Community content is available under
+              - link "CC-BY-SA" [ref=e312] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/licensing
+              - text: unless otherwise noted.
+        - complementary [ref=e313]
+    - contentinfo [ref=e317]:
+      - generic [ref=e318]:
+        - generic [ref=e319]:
+          - heading "Fandom homepage" [level=2] [ref=e320]:
+            - link "Fandom homepage" [ref=e321] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/
+              - img "Fandom logo" [ref=e322]
+          - generic [ref=e323]:
+            - heading "Explore properties" [level=3] [ref=e324]
+            - list [ref=e325]:
+              - listitem [ref=e326]:
+                - link "Fandom" [ref=e327] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/
+              - listitem [ref=e328]:
+                - link "Muthead" [ref=e329] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.muthead.com/
+              - listitem [ref=e330]:
+                - link "Fanatical" [ref=e331] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.fanatical.com/
+          - generic [ref=e332]:
+            - heading "Follow Us" [level=3] [ref=e333]
+            - list [ref=e334]:
+              - listitem [ref=e335]:
+                - link "Follow Fandom on Facebook" [ref=e336] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.facebook.com/getfandom
+                  - img [ref=e337]
+              - listitem [ref=e338]:
+                - link "Follow Fandom on Twitter" [ref=e339] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://twitter.com/getfandom
+                  - img [ref=e340]
+              - listitem [ref=e341]:
+                - link "Follow Fandom on Youtube" [ref=e342] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.youtube.com/fandomentertainment
+                  - img [ref=e343]
+              - listitem [ref=e344]:
+                - link "Follow Fandom on Instagram" [ref=e345] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.instagram.com/getfandom/
+                  - img [ref=e346]
+              - listitem [ref=e347]:
+                - link "Follow Fandom on LinkedIn" [ref=e348] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://www.linkedin.com/company/157252
+                  - img [ref=e349]
+        - generic [ref=e351]:
+          - heading "Overview" [level=3] [ref=e352]
+          - list [ref=e353]:
+            - listitem [ref=e354]:
+              - link "What is Fandom?" [ref=e355] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/what-is-fandom
+            - listitem [ref=e356]:
+              - link "About" [ref=e357] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/about
+            - listitem [ref=e358]:
+              - link "Careers" [ref=e359] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/careers
+            - listitem [ref=e360]:
+              - link "Press" [ref=e361] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/press
+            - listitem [ref=e362]:
+              - link "Contact" [ref=e363] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/about#contact
+            - listitem [ref=e364]:
+              - link "Terms of Use" [ref=e365] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/terms-of-use
+            - listitem [ref=e366]:
+              - link "Privacy Policy" [ref=e367] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/privacy-policy
+            - listitem [ref=e368]:
+              - link "Digital Services Act" [ref=e369] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122135346/https://www.fandom.com/digital-services-act
+            - listitem [ref=e370]:
+              - link "Global Sitemap" [ref=e371] [cursor=pointer]:
+                - /url: //web.archive.org/web/20250122135346/https://community.fandom.com/Sitemap
+            - listitem [ref=e372]:
+              - link "Local Sitemap" [ref=e373] [cursor=pointer]:
+                - /url: /web/20250122135346/https://wfrp1e.fandom.com/wiki/Local_Sitemap
+            - listitem
+        - generic [ref=e374]:
+          - generic [ref=e375]:
+            - heading "Community" [level=3] [ref=e376]
+            - list [ref=e377]:
+              - listitem [ref=e378]:
+                - link "Community Central" [ref=e379] [cursor=pointer]:
+                  - /url: //web.archive.org/web/20250122135346/https://community.fandom.com/wiki/Community_Central
+              - listitem [ref=e380]:
+                - link "Support" [ref=e381] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://fandom.zendesk.com/
+              - listitem [ref=e382]:
+                - link "Help" [ref=e383] [cursor=pointer]:
+                  - /url: //web.archive.org/web/20250122135346/https://community.fandom.com/wiki/Help:Contents
+          - generic [ref=e384]:
+            - heading "Advertise" [level=3] [ref=e385]
+            - list [ref=e386]:
+              - listitem [ref=e387]:
+                - link "Media Kit" [ref=e388] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://about.fandom.com/mediakit
+              - listitem [ref=e389]:
+                - link "Contact" [ref=e390] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://about.fandom.com/mediakit#contact
+        - generic [ref=e391]:
+          - generic [ref=e392]:
+            - heading "Fandom Apps" [level=3] [ref=e393]
+            - text: Take your favorite fandoms with you and never miss a beat.
+          - generic [ref=e394]:
+            - img "Fandom App logo" [ref=e395]
+            - list [ref=e396]:
+              - listitem [ref=e397]:
+                - link "Fandom's Apple Store" [ref=e398] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://apps.apple.com/us/app/fandom-videos-news-reviews/id1230063803
+                  - img "Store icon" [ref=e399]
+              - listitem [ref=e400]:
+                - link "Fandom's Google Play" [ref=e401] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122135346/https://play.google.com/store/apps/details?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dglobalfooter
+                  - img "Store icon" [ref=e402]
+      - generic [ref=e403]:
+        - generic [ref=e404]: Warhammer Fantasy Roleplay First Edition Wiki is a FANDOM Games Community.
+        - generic [ref=e405]: View Mobile Site
+  - generic:
+    - generic [ref=e407]:
+      - link "Follow on IG" [ref=e408] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122135346/https://bit.ly/FandomIG
+      - link "TikTok" [ref=e409] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122135346/https://bit.ly/TikTokFandom
+      - link "Join Fan Lab" [ref=e410] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122135346/https://bit.ly/FanLabWikiBar
+      - link [ref=e411] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=e412]
+    - img [ref=e415]

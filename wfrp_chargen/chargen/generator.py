@@ -73,13 +73,20 @@ def _d10_table(table: list) -> str:
     return table[random.randint(1, 10) - 1]
 
 
-# Age ranges: (base, d_sides, d_count)  — unchanged from rulebook
-_AGE = {
-    "Human":    (16, 10, 2),   # 2d10 + 16
-    "Elf":      (60, 20, 5),   # 5d20 + 60
-    "Dwarf":    (20, 20, 3),   # 3d20 + 20
-    "Halfling": (16, 10, 2),   # 2d10 + 16
+# Age: book Table 2-13 (d100 lookup, 20 buckets of 5 rolls each)
+# Each list has 20 values — roll d100, bucket = (roll-1)//5, return list[bucket]
+_AGE_TABLE = {
+    "Human":    list(range(16, 36)),                                      # 16–35
+    "Dwarf":    list(range(20, 116, 5)),                                   # 20–115
+    "Elf":      list(range(30, 126, 5)),                                   # 30–125
+    "Halfling": [20,22,24,26,28,30,32,34,36,38,40,42,44,46,50,52,54,56,58,60],
 }
+
+
+def _roll_age(race: str) -> int:
+    roll = random.randint(1, 100)
+    bucket = (roll - 1) // 5   # 0–19
+    return _AGE_TABLE[race][bucket]
 
 # Height: (female_base_in, male_base_in) — book Table 2-6, both use +1d10"
 _HEIGHT = {
@@ -124,6 +131,142 @@ def _roll_weight(race: str) -> int:
     return _WEIGHT_TABLE[-1][1][idx]
 
 
+def _d100_lookup(table: list, roll: int):
+    for max_r, value in table:
+        if roll <= max_r:
+            return value
+    return table[-1][1]
+
+
+def _roll_d100_table(table: list):
+    return _d100_lookup(table, random.randint(1, 100))
+
+
+# ── Star Sign table (WFRP 1e rulebook, Table 2-12, d100) ──────────────────────
+_STAR_SIGNS = [
+    (5,  "Wymund the Anchorite"),
+    (10, "The Big Cross"),
+    (15, "The Limner's Line"),
+    (25, "Gnuthus the Ox"),
+    (30, "Dragomas the Drake"),
+    (35, "The Gloaming"),
+    (40, "Grungni's Baldric"),
+    (45, "Mammit the Wise"),
+    (50, "Mummit the Fool"),
+    (55, "The Two Bullocks"),
+    (60, "The Dancer"),
+    (65, "The Drummer"),
+    (70, "The Piper"),
+    (75, "Vobist the Faint"),
+    (80, "The Broken Cart"),
+    (85, "The Greased Goat"),
+    (90, "Rhya's Cauldron"),
+    (95, "Cackelfax the Cockerel"),
+    (98, "The Bonesaw"),
+    (100, "The Witchling Star"),
+]
+
+
+# ── Distinguishing Marks table (WFRP 1e rulebook, Table 2-10, d100) ───────────
+# Elves "seldom possess these marks" — they have a 10% chance only.
+_DIST_MARKS = [
+    (5,  "Pox Marks"),
+    (10, "Ruddy Faced"),
+    (15, "Broken Nose"),
+    (20, "Missing Tooth"),
+    (25, "Snaggle Teeth"),
+    (29, "Huge Nose"),
+    (35, "Large Mole"),
+    (39, "Wart"),
+    (45, "Scar"),
+    (50, "Tattoo"),
+    (55, "Earring"),
+    (60, "Lazy Eye"),
+    (65, "Ragged Ear"),
+    (70, "Nose Ring"),
+    (75, "Missing Nail"),
+    (80, "Distinctive Gait"),
+    (84, "Curious Smell"),
+    (89, "Missing Eyebrow(s)"),
+    (94, "Small Bald Patch"),
+    (98, "Missing Digit"),
+    (100, "Strange Coloured Eye(s)"),
+]
+
+
+def _roll_distinguishing_marks(race: str) -> str:
+    if race == "Elf" and random.randint(1, 10) > 1:
+        return "None"
+    return _roll_d100_table(_DIST_MARKS)
+
+
+# ── Siblings table (WFRP 1e rulebook, Table 2-11, d10) ────────────────────────
+# Each tuple: (max_d10_roll, num_siblings)
+_SIBLINGS_TABLE = {
+    "Dwarf":    [(1, 0), (3, 0), (5, 1), (7, 1), (9, 2), (10, 3)],
+    "Elf":      [(1, 0), (3, 1), (5, 1), (7, 2), (9, 2), (10, 3)],
+    "Halfling": [(1, 1), (3, 2), (5, 3), (7, 4), (9, 5), (10, 6)],
+    "Human":    [(1, 0), (3, 1), (5, 2), (7, 3), (9, 4), (10, 5)],
+}
+
+
+def _roll_siblings(race: str) -> int:
+    roll = random.randint(1, 10)
+    for max_r, count in _SIBLINGS_TABLE[race]:
+        if roll <= max_r:
+            return count
+    return _SIBLINGS_TABLE[race][-1][1]
+
+
+# ── Birthplace tables (WFRP 1e rulebook, Tables 2-14 to 2-17) ─────────────────
+_HUMAN_PROVINCE   = ["Averland", "Hochland", "Middenland", "Nordland", "Ostermark",
+                      "Ostland", "Reikland", "Stirland", "Talabecland", "Wissenland"]
+_HUMAN_SETTLEMENT = ["City", "Prosperous Town", "Market Town", "Fortified Town",
+                      "Farming Village", "Small Settlement", "Pig/Cattle Farm",
+                      "Poor Village", "Arable Farm", "Hovel"]
+
+
+def _roll_human_birthplace() -> str:
+    province   = _HUMAN_PROVINCE[random.randint(0, 9)]
+    settlement = _HUMAN_SETTLEMENT[random.randint(0, 9)]
+    return f"{settlement}, {province}"
+
+
+_DWARF_BIRTHPLACE = [
+    (30,  None),                                       # roll on Human table
+    (40,  "Karak Norn (Grey Mountains)"),
+    (50,  "Karak Izor (the Vaults)"),
+    (60,  "Karak Hirn (Black Mountains)"),
+    (70,  "Karak Kadrin (World's Edge Mountains)"),
+    (80,  "Karaz-A-Karak (World's Edge Mountains)"),
+    (90,  "Zhufbar (World's Edge Mountains)"),
+    (100, "Barak Varr (the Black Gulf)"),
+]
+
+_ELF_BIRTHPLACE = [
+    (20,  "Altdorf"),
+    (40,  "Marienburg"),
+    (70,  "Laurelorn Forest"),
+    (85,  "The Great Forest"),
+    (100, "Reikwald Forest"),
+]
+
+
+def _roll_birthplace(race: str) -> str:
+    if race == "Human":
+        return _roll_human_birthplace()
+    elif race == "Dwarf":
+        result = _roll_d100_table(_DWARF_BIRTHPLACE)
+        return _roll_human_birthplace() if result is None else result
+    elif race == "Elf":
+        return _roll_d100_table(_ELF_BIRTHPLACE)
+    elif race == "Halfling":
+        if random.randint(1, 100) <= 50:
+            return "The Moot"
+        return _roll_human_birthplace()
+    return _roll_human_birthplace()
+
+
 def _inches_to_cm(inches: int) -> str:
     return f"{round(inches * 2.54)} cm"
 
@@ -144,8 +287,7 @@ _DESCRIPTION_FEATURES = [
 
 
 def _roll_appearance(race: str) -> dict:
-    base_age, d_age, n_age = _AGE[race]
-    age = base_age + sum(random.randint(1, d_age) for _ in range(n_age))
+    age = _roll_age(race)
 
     gender = random.choice(["Male", "Female"])
 
@@ -404,16 +546,6 @@ def generate_character(
     char.social_level = _SOCIAL_LEVEL.get(chosen_class, "2")
 
     # ── Background fields ─────────────────────────────────────────────────────
-    _BIRTH_BY_CLASS = {
-        "Warrior":  ["Altdorf", "Nuln", "Talabheim", "Middenheim", "Averheim",
-                     "Wolfenburg", "Hergig", "Bechafen"],
-        "Ranger":   ["Wissenland", "Reikland", "Middenland", "Stirland",
-                     "Hochland", "Nordland", "Ostland", "Ostermark"],
-        "Rogue":    ["Marienburg", "Bögenhafen", "Kemperbad", "Altdorf",
-                     "Nuln", "Wurtbad", "Ubersreik"],
-        "Academic": ["Altdorf", "Middenheim", "Nuln", "Talabheim",
-                     "Marienburg", "Averheim"],
-    }
     _PARENT_OCC_BY_CLASS = {
         "Warrior":  ["Soldier", "Blacksmith", "Guard", "Watchman", "Militiaman",
                      "Mercenary", "Armourer"],
@@ -424,21 +556,29 @@ def generate_character(
         "Academic": ["Scholar", "Priest", "Physician", "Scribe",
                      "Merchant", "Lawyer", "Alchemist"],
     }
-    char.place_of_birth     = random.choice(
-        _BIRTH_BY_CLASS.get(chosen_class, ["Altdorf", "Middenheim", "Nuln"])
-    )
+    char.place_of_birth     = _roll_birthplace(race_name)
     char.parents_occupation = random.choice(
         _PARENT_OCC_BY_CLASS.get(chosen_class, ["Farmer", "Merchant", "Soldier"])
     )
-    brothers = random.randint(0, 3)
-    sisters  = random.randint(0, 3)
+
+    # Siblings: book Table 2-11 (d10), each sibling 50/50 male/female
+    num_siblings = _roll_siblings(race_name)
+    brothers = sum(1 for _ in range(num_siblings) if random.random() < 0.5)
+    sisters  = num_siblings - brothers
     parts = []
     if brothers:
         parts.append(f"{brothers} brother{'s' if brothers > 1 else ''}")
     if sisters:
         parts.append(f"{sisters} sister{'s' if sisters > 1 else ''}")
-    char.family_members   = ", ".join(parts) if parts else "No siblings"
-    char.religion         = random.choice(
+    char.family_members = ", ".join(parts) if parts else "No siblings"
+
+    # Star sign: book Table 2-12 (d100)
+    char.star_sign = _roll_d100_table(_STAR_SIGNS)
+
+    # Distinguishing marks: book Table 2-10 (d100; Elves seldom have marks)
+    char.distinguishing_marks = _roll_distinguishing_marks(race_name)
+
+    char.religion = random.choice(
         {"Human":    ["Sigmar", "Ulric", "Morr", "Shallya", "Taal", "Ranald", "Verena", "Myrmidia"],
          "Dwarf":    ["Grungni", "Grimnir", "Valaya"],
          "Elf":      ["Isha", "Lileath", "Loec", "Khaine"],

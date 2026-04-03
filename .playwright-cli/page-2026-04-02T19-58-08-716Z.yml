@@ -1,0 +1,551 @@
+- generic [active] [ref=e1]:
+  - navigation "Fandom top navigation" [ref=e2]:
+    - link "Fandom homepage" [ref=e3] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/
+      - img [ref=e4]
+    - generic [ref=e18]:
+      - link "Start a Wiki" [ref=e20] [cursor=pointer]:
+        - /url: //web.archive.org/web/20250122154810/https://createnewwiki.fandom.com/Special:CreateNewWiki
+        - generic [ref=e21]:
+          - img [ref=e22]
+          - text: Start a Wiki
+      - link "Sign In" [ref=e25] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122154810/https://auth.fandom.com/signin?source=mw&redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FThief
+        - generic [ref=e26]:
+          - img
+          - text: Sign In
+  - generic "Community navigation" [ref=e27]:
+    - link "Fandom homepage" [ref=e29] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/
+      - img [ref=e30]
+    - navigation [ref=e45]:
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - generic [ref=e48]:
+            - link [ref=e49] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e50]
+            - img [ref=e51]
+        - listitem [ref=e52]:
+          - generic [ref=e53]:
+            - link "Wiki Content" [ref=e54] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122154810/https://wfrp1e.fandom.com/wiki/Wiki_Content
+              - generic [ref=e55]: Wiki Content
+            - img [ref=e56]
+        - listitem [ref=e57]:
+          - generic [ref=e58]:
+            - link "Community" [ref=e59] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122154810/https://wfrp1e.fandom.com/wiki/Warhammer_Fantasy_Roleplay_First_Edition_Wiki:Community_Portal
+              - generic [ref=e60]: Community
+            - img [ref=e61]
+    - link "Dark Theme" [ref=e64] [cursor=pointer]:
+      - /url: "#"
+      - img
+    - link "Sign In" [ref=e67] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122154810/https://auth.fandom.com/signin?source=mw&redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FThief
+      - generic [ref=e68]:
+        - img
+        - text: Sign In
+  - navigation "Fandom navigation" [ref=e71]:
+    - button "Explore" [ref=e73] [cursor=pointer]:
+      - generic [ref=e74]:
+        - img [ref=e76]
+        - generic [ref=e77]: Explore
+    - link "Fan Central" [ref=e79] [cursor=pointer]:
+      - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/fancentral/home
+      - generic [ref=e80]:
+        - img [ref=e82]
+        - generic [ref=e83]: Fan Central
+    - generic [ref=e84]:
+      - generic [ref=e85]: Current
+      - button "Current" [ref=e87] [cursor=pointer]:
+        - img [ref=e90]
+  - generic [ref=e93]:
+    - generic [ref=e96]: Advertisement
+    - generic [ref=e98]:
+      - banner [ref=e100]:
+        - generic [ref=e101]:
+          - link "Warhammer Fantasy Roleplay First Edition Wiki" [ref=e103] [cursor=pointer]:
+            - /url: //web.archive.org/web/20250122154810/https://wfrp1e.fandom.com/
+          - generic [ref=e104]:
+            - generic [ref=e105]: 1,307
+            - generic [ref=e106]: pages
+          - link "Dark Theme" [ref=e108] [cursor=pointer]:
+            - /url: "#"
+            - img
+        - navigation [ref=e109]:
+          - list [ref=e110]:
+            - listitem [ref=e111]:
+              - generic [ref=e112]:
+                - link "Explore" [ref=e113] [cursor=pointer]:
+                  - /url: "#"
+                  - img [ref=e114]
+                  - generic [ref=e115]: Explore
+                - img [ref=e116]
+            - listitem [ref=e117]:
+              - generic [ref=e118]:
+                - link "Wiki Content" [ref=e119] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://wfrp1e.fandom.com/wiki/Wiki_Content
+                  - generic [ref=e120]: Wiki Content
+                - img [ref=e121]
+            - listitem [ref=e122]:
+              - generic [ref=e123]:
+                - link "Community" [ref=e124] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://wfrp1e.fandom.com/wiki/Warhammer_Fantasy_Roleplay_First_Edition_Wiki:Community_Portal
+                  - generic [ref=e125]: Community
+                - img [ref=e126]
+      - generic [ref=e127]:
+        - main [ref=e128]:
+          - generic [ref=e130]:
+            - button "Expand" [ref=e131] [cursor=pointer]:
+              - img [ref=e132]
+            - link "Sign in to edit" [ref=e133] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122154810/https://auth.fandom.com/signin?redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FThief%3Fveaction%3Dedit&uselang=en
+              - img [ref=e134]
+          - generic [ref=e135]:
+            - generic [ref=e138]:
+              - text: "in:"
+              - link "Careers" [ref=e139] [cursor=pointer]:
+                - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Category:Careers
+              - text: ","
+              - link "Rules" [ref=e140] [cursor=pointer]:
+                - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Category:Rules
+            - generic [ref=e141]:
+              - heading "Thief" [level=1] [ref=e143]
+              - generic [ref=e144]:
+                - link [ref=e145] [cursor=pointer]:
+                  - /url: "#articleComments"
+                  - img
+                - link "Sign in to edit" [ref=e147] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://auth.fandom.com/signin?redirect=https%3A%2F%2Fwfrp1e.fandom.com%2Fwiki%2FThief%3Fveaction%3Dedit&uselang=en
+                  - img
+                  - text: Sign in to edit
+                - button "Page Tools" [ref=e149]:
+                  - img
+          - generic [ref=e152]:
+            - paragraph [ref=e153]: Many Rogues have no special skills or inclinations, but indulge their larcenous tendencies as the opportunity presents itself. The simplest way to make money in the Old World is to take it from somebody else. Thieves are opportunists, ready to turn their hands to anything - they may even consider legitimate employment from time to time, although many regard employment with distaste.
+            - paragraph [ref=e154]: Although nearly every Thief is a jack-of-all-trades, there are those who specialise in certain types of crime.
+            - paragraph [ref=e155]: Burglars specialise in entering and robbing houses, mainly at night. They are adept at spotting the tell-tale signs that show a house is not occupied and are skilled in dealing with locks, alarms, and other security devices.
+            - paragraph [ref=e156]: Clippers are petty crooks who earn their living by tampering with coinage. Old World coins are irregularly-shaped things, whose value is determined by the weight of metal they contain; the stamp of the issuing government on both sides of a coin is a guarantee of its weight and consequently of its value. The Clipper exploits this by clipping or shaving a small amount of metal off the coin. By doing this to ten or twenty coins, the clipper can recover enough metal to make a new coin. One trick, which requires considerable expertise, is to saw a coin in half from edge to edge to give two coins which can be passed to the unwary.
+            - paragraph [ref=e157]: Embezzlers are highly-skilled Rogues who work, undetected, for an individual or organisation, syphoning off money through various methods. They place themselves in positions of trust and then help themselves to the monetary wealth of their clients.
+            - paragraph [ref=e158]: Fishers are Thieves that specialise in stealing goods through broken or open windows and similar small openings by using a hooked pole. This method attracts less attention than breaking and entering and a Fisher has less chance of getting caught than a burglar who is detected inside an unfamiliar building - all he has to do is drop his pole and run. Fishing is called 'curbing' in Thieves' Tongue, but this term is not known to the law-abiding.
+            - paragraph [ref=e159]:
+              - text: Pickpockets are specialised Thieves whose forte is stealing valuables from pockets and purses. The Pickpocket is a regular curse in cities and, on crowded market days, there can be any number of individuals or teams operating through the crowds. Cash, of course, is the favourite, the most common technique being to cut the purse from the victim's belt with a small, sharp knife or straight razor. Jewellery has a high value, but is too often difficult to steal unnoticed and can be easily traceable - which makes it difficult to dispose of without the help of a reliable
+              - link "Fence" [ref=e160] [cursor=pointer]:
+                - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Fence
+              - text: ", who will probably rob the Thief even more than the Thief has just robbed the true owner..."
+            - paragraph [ref=e161]
+            - table [ref=e162]:
+              - rowgroup [ref=e163]:
+                - row "Advance Scheme" [ref=e164]:
+                  - columnheader "Advance Scheme" [ref=e165]:
+                    - paragraph [ref=e166]:
+                      - generic [ref=e167]: Advance Scheme
+                - row "M WS BS S T W I A Dex Ld Int Cl WP Fel" [ref=e168]:
+                  - cell "M" [ref=e169]:
+                    - paragraph [ref=e170]:
+                      - generic [ref=e171]: M
+                  - cell "WS" [ref=e172]:
+                    - paragraph [ref=e173]:
+                      - generic [ref=e174]: WS
+                  - cell "BS" [ref=e175]:
+                    - paragraph [ref=e176]:
+                      - generic [ref=e177]: BS
+                  - cell "S" [ref=e178]:
+                    - paragraph [ref=e179]:
+                      - generic [ref=e180]: S
+                  - cell "T" [ref=e181]:
+                    - paragraph [ref=e182]:
+                      - generic [ref=e183]: T
+                  - cell "W" [ref=e184]:
+                    - paragraph [ref=e185]:
+                      - generic [ref=e186]: W
+                  - cell "I" [ref=e187]:
+                    - paragraph [ref=e188]:
+                      - generic [ref=e189]: I
+                  - cell "A" [ref=e190]:
+                    - paragraph [ref=e191]:
+                      - generic [ref=e192]: A
+                  - cell "Dex" [ref=e193]:
+                    - paragraph [ref=e194]:
+                      - generic [ref=e195]: Dex
+                  - cell "Ld" [ref=e196]:
+                    - paragraph [ref=e197]:
+                      - generic [ref=e198]: Ld
+                  - cell "Int" [ref=e199]:
+                    - paragraph [ref=e200]:
+                      - generic [ref=e201]: Int
+                  - cell "Cl" [ref=e202]:
+                    - paragraph [ref=e203]:
+                      - generic [ref=e204]: Cl
+                  - cell "WP" [ref=e205]:
+                    - paragraph [ref=e206]:
+                      - generic [ref=e207]: WP
+                  - cell "Fel" [ref=e208]:
+                    - paragraph [ref=e209]:
+                      - generic [ref=e210]: Fel
+                - row "+10 +10 +2 +10 +10 +10" [ref=e211]:
+                  - cell [ref=e212]:
+                    - paragraph [ref=e213]
+                  - cell "+10" [ref=e214]:
+                    - paragraph [ref=e215]: "+10"
+                  - cell "+10" [ref=e216]:
+                    - paragraph [ref=e217]: "+10"
+                  - cell [ref=e218]:
+                    - paragraph [ref=e219]
+                  - cell [ref=e220]:
+                    - paragraph [ref=e221]
+                  - cell "+2" [ref=e222]:
+                    - paragraph [ref=e223]: "+2"
+                  - cell "+10" [ref=e224]:
+                    - paragraph [ref=e225]: "+10"
+                  - cell [ref=e226]:
+                    - paragraph [ref=e227]
+                  - cell "+10" [ref=e228]:
+                    - paragraph [ref=e229]: "+10"
+                  - cell [ref=e230]:
+                    - paragraph [ref=e231]
+                  - cell [ref=e232]:
+                    - paragraph [ref=e233]
+                  - cell [ref=e234]:
+                    - paragraph [ref=e235]
+                  - cell [ref=e236]:
+                    - paragraph [ref=e237]
+                  - cell "+10" [ref=e238]:
+                    - paragraph [ref=e239]: "+10"
+            - paragraph [ref=e240]: "Consult the following table for skills and trappings:"
+            - paragraph [ref=e241]
+            - table [ref=e242]:
+              - rowgroup [ref=e243]:
+                - row "Thief Skills Trappings" [ref=e244]:
+                  - columnheader "Thief" [ref=e245]
+                  - columnheader "Skills" [ref=e246]
+                  - columnheader "Trappings" [ref=e247]
+                - 'row "General Thief Concealment: Urban Secret Language: Thieves'' Tongue Secret Signs: Thieves'' Signs Silent Move: Rural Silent Move: Urban 25% chance of Evaluate Hand Weapon Sack" [ref=e248]':
+                  - cell "General Thief" [ref=e249]
+                  - 'cell "Concealment: Urban Secret Language: Thieves'' Tongue Secret Signs: Thieves'' Signs Silent Move: Rural Silent Move: Urban 25% chance of Evaluate" [ref=e250]':
+                    - list [ref=e251]:
+                      - listitem [ref=e252]:
+                        - 'link "Concealment: Urban" [ref=e253] [cursor=pointer]':
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Concealment:_Urban
+                      - listitem [ref=e254]:
+                        - 'link "Secret Language: Thieves'' Tongue" [ref=e255] [cursor=pointer]':
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Secret_Language
+                      - listitem [ref=e256]:
+                        - 'link "Secret Signs: Thieves'' Signs" [ref=e257] [cursor=pointer]':
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Secret_Signs
+                      - listitem [ref=e258]:
+                        - 'link "Silent Move: Rural" [ref=e259] [cursor=pointer]':
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Silent_Move:_Rural
+                      - listitem [ref=e260]:
+                        - 'link "Silent Move: Urban" [ref=e261] [cursor=pointer]':
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Silent_Move:_Urban
+                      - listitem [ref=e262]:
+                        - text: 25% chance of
+                        - link "Evaluate" [ref=e263] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Evaluate
+                  - cell "Hand Weapon Sack" [ref=e264]:
+                    - list [ref=e265]:
+                      - listitem [ref=e266]:
+                        - link "Hand Weapon" [ref=e267] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Hand_Weapon
+                    - list [ref=e268]:
+                      - listitem [ref=e269]: Sack
+                - 'row "Burglar As General Thief plus: Pick Lock Scale Sheer Surface Spot Trap As General Thief plus: Black-hooded tunic Lockpicking tools Rope (10 yards)" [ref=e270]':
+                  - cell "Burglar" [ref=e271]
+                  - 'cell "As General Thief plus: Pick Lock Scale Sheer Surface Spot Trap" [ref=e272]':
+                    - paragraph [ref=e273]: "As General Thief plus:"
+                    - list [ref=e274]:
+                      - listitem [ref=e275]:
+                        - link "Pick Lock" [ref=e276] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Pick_Lock
+                    - list [ref=e277]:
+                      - listitem [ref=e278]:
+                        - link "Scale Sheer Surface" [ref=e279] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Scale_Sheer_Surface
+                    - list [ref=e280]:
+                      - listitem [ref=e281]:
+                        - link "Spot Trap" [ref=e282] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Spot_Trap
+                  - 'cell "As General Thief plus: Black-hooded tunic Lockpicking tools Rope (10 yards)" [ref=e283]':
+                    - paragraph [ref=e284]: "As General Thief plus:"
+                    - list [ref=e285]:
+                      - listitem [ref=e286]: Black-hooded tunic
+                    - list [ref=e287]:
+                      - listitem [ref=e288]: Lockpicking tools
+                    - list [ref=e289]:
+                      - listitem [ref=e290]: Rope (10 yards)
+                - 'row "Clipper As General Thief plus: Palm Object As General Thief plus: Small clippers and files" [ref=e291]':
+                  - cell "Clipper" [ref=e292]
+                  - 'cell "As General Thief plus: Palm Object" [ref=e293]':
+                    - paragraph [ref=e294]: "As General Thief plus:"
+                    - list [ref=e295]:
+                      - listitem [ref=e296]:
+                        - link "Palm Object" [ref=e297] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Palm_Object
+                  - 'cell "As General Thief plus: Small clippers and files" [ref=e298]':
+                    - paragraph [ref=e299]: "As General Thief plus:"
+                    - list [ref=e300]:
+                      - listitem [ref=e301]: Small clippers and files
+                - 'row "Embezzler As General Thief plus: Palm Object 50% chance of Read/Write 25% chance of Super Numerate As General Thief" [ref=e302]':
+                  - cell "Embezzler" [ref=e303]
+                  - 'cell "As General Thief plus: Palm Object 50% chance of Read/Write 25% chance of Super Numerate" [ref=e304]':
+                    - paragraph [ref=e305]: "As General Thief plus:"
+                    - list [ref=e306]:
+                      - listitem [ref=e307]:
+                        - link "Palm Object" [ref=e308] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Palm_Object
+                      - listitem [ref=e309]:
+                        - text: 50% chance of
+                        - link "Read/Write" [ref=e310] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Read/Write
+                      - listitem [ref=e311]:
+                        - text: 25% chance of
+                        - link "Super Numerate" [ref=e312] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Super_Numerate
+                  - cell "As General Thief" [ref=e313]
+                - 'row "Fisher As General Thief plus: Flee! Palm Object Spot Trap Window Fishing 50% chance of Evaluate As General Thief plus: Hooked pole, up to 6 feet long (some are collapsible and may be disguised as walking-sticks)" [ref=e314]':
+                  - cell "Fisher" [ref=e315]
+                  - 'cell "As General Thief plus: Flee! Palm Object Spot Trap Window Fishing 50% chance of Evaluate" [ref=e316]':
+                    - paragraph [ref=e317]: "As General Thief plus:"
+                    - list [ref=e318]:
+                      - listitem [ref=e319]:
+                        - link "Flee!" [ref=e320] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Flee!
+                      - listitem [ref=e321]:
+                        - link "Palm Object" [ref=e322] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Palm_Object
+                      - listitem [ref=e323]:
+                        - link "Spot Trap" [ref=e324] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Spot_Trap
+                      - listitem [ref=e325]:
+                        - link "Window Fishing" [ref=e326] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Window_Fishing
+                      - listitem [ref=e327]:
+                        - text: 50% chance of
+                        - link "Evaluate" [ref=e328] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Evaluate
+                  - 'cell "As General Thief plus: Hooked pole, up to 6 feet long (some are collapsible and may be disguised as walking-sticks)" [ref=e329]':
+                    - paragraph [ref=e330]: "As General Thief plus:"
+                    - list [ref=e331]:
+                      - listitem [ref=e332]: Hooked pole, up to 6 feet long (some are collapsible and may be disguised as walking-sticks)
+                - 'row "Pickpocket As General Thief plus: Flee! Palm Object Pick Pocket As General Thief" [ref=e333]':
+                  - cell "Pickpocket" [ref=e334]
+                  - 'cell "As General Thief plus: Flee! Palm Object Pick Pocket" [ref=e335]':
+                    - paragraph [ref=e336]: "As General Thief plus:"
+                    - list [ref=e337]:
+                      - listitem [ref=e338]:
+                        - link "Flee!" [ref=e339] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Flee!
+                      - listitem [ref=e340]:
+                        - link "Palm Object" [ref=e341] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Palm_Object
+                      - listitem [ref=e342]:
+                        - link "Pick Pocket" [ref=e343] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Pick_Pocket
+                  - cell "As General Thief" [ref=e344]
+            - paragraph [ref=e345]
+            - paragraph [ref=e346]: Career Exits
+            - paragraph [ref=e347]: "All beginning characters who roll Thief as their careers start off as General Thieves. Thereafter, all Thieves may elect to become a specialized Thief type on the completion of their Basic Career, or they may choose a new Rogue or a random Ranger, Warrior, or Academic career as usual. Additional Career Exits are available as follows:"
+            - table [ref=e348]:
+              - rowgroup [ref=e349]:
+                - row "General Thief Bodyguard Charlatan Informer Outlaw Racketeer" [ref=e350]:
+                  - cell "General Thief" [ref=e351]
+                  - cell "Bodyguard Charlatan Informer Outlaw Racketeer" [ref=e352]:
+                    - list [ref=e353]:
+                      - listitem [ref=e354]:
+                        - link "Bodyguard" [ref=e355] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Bodyguard
+                      - listitem [ref=e356]:
+                        - link "Charlatan" [ref=e357] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Charlatan
+                      - listitem [ref=e358]:
+                        - link "Informer" [ref=e359] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Informer
+                      - listitem [ref=e360]:
+                        - link "Outlaw" [ref=e361] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Outlaw
+                      - listitem [ref=e362]:
+                        - link "Racketeer" [ref=e363] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Racketeer
+                - row "Burglar Bodyguard Fence" [ref=e364]:
+                  - cell "Burglar" [ref=e365]
+                  - cell "Bodyguard Fence" [ref=e366]:
+                    - list [ref=e367]:
+                      - listitem [ref=e368]:
+                        - link "Bodyguard" [ref=e369] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Bodyguard
+                      - listitem [ref=e370]:
+                        - link "Fence" [ref=e371] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Fence
+                - row "Clipper Counterfeiter Fence" [ref=e372]:
+                  - cell "Clipper" [ref=e373]
+                  - cell "Counterfeiter Fence" [ref=e374]:
+                    - list [ref=e375]:
+                      - listitem [ref=e376]:
+                        - link "Counterfeiter" [ref=e377] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Counterfeiter
+                      - listitem [ref=e378]:
+                        - link "Fence" [ref=e379] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Fence
+                - row "Embezzler Fence Scribe Trader" [ref=e380]:
+                  - cell "Embezzler" [ref=e381]
+                  - cell "Fence Scribe Trader" [ref=e382]:
+                    - list [ref=e383]:
+                      - listitem [ref=e384]:
+                        - link "Fence" [ref=e385] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Fence
+                      - listitem [ref=e386]:
+                        - link "Scribe" [ref=e387] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Scribe
+                      - listitem [ref=e388]:
+                        - link "Trader" [ref=e389] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Trader
+                - row "Pickpocket Bodyguard Fence" [ref=e390]:
+                  - cell "Pickpocket" [ref=e391]
+                  - cell "Bodyguard Fence" [ref=e392]:
+                    - list [ref=e393]:
+                      - listitem [ref=e394]:
+                        - link "Bodyguard" [ref=e395] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Bodyguard
+                      - listitem [ref=e396]:
+                        - link "Fence" [ref=e397] [cursor=pointer]:
+                          - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Fence
+          - generic [ref=e398]:
+            - generic [ref=e400] [cursor=pointer]:
+              - text: Categories
+              - img [ref=e401]
+            - generic [ref=e402]:
+              - text: Community content is available under
+              - link "CC-BY-SA" [ref=e403] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/licensing
+              - text: unless otherwise noted.
+        - complementary [ref=e404]
+    - contentinfo [ref=e408]:
+      - generic [ref=e409]:
+        - generic [ref=e410]:
+          - heading "Fandom homepage" [level=2] [ref=e411]:
+            - link "Fandom homepage" [ref=e412] [cursor=pointer]:
+              - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/
+              - img "Fandom logo" [ref=e413]
+          - generic [ref=e414]:
+            - heading "Explore properties" [level=3] [ref=e415]
+            - list [ref=e416]:
+              - listitem [ref=e417]:
+                - link "Fandom" [ref=e418] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/
+              - listitem [ref=e419]:
+                - link "Muthead" [ref=e420] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.muthead.com/
+              - listitem [ref=e421]:
+                - link "Fanatical" [ref=e422] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.fanatical.com/
+          - generic [ref=e423]:
+            - heading "Follow Us" [level=3] [ref=e424]
+            - list [ref=e425]:
+              - listitem [ref=e426]:
+                - link "Follow Fandom on Facebook" [ref=e427] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.facebook.com/getfandom
+                  - img [ref=e428]
+              - listitem [ref=e429]:
+                - link "Follow Fandom on Twitter" [ref=e430] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://twitter.com/getfandom
+                  - img [ref=e431]
+              - listitem [ref=e432]:
+                - link "Follow Fandom on Youtube" [ref=e433] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.youtube.com/fandomentertainment
+                  - img [ref=e434]
+              - listitem [ref=e435]:
+                - link "Follow Fandom on Instagram" [ref=e436] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.instagram.com/getfandom/
+                  - img [ref=e437]
+              - listitem [ref=e438]:
+                - link "Follow Fandom on LinkedIn" [ref=e439] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://www.linkedin.com/company/157252
+                  - img [ref=e440]
+        - generic [ref=e442]:
+          - heading "Overview" [level=3] [ref=e443]
+          - list [ref=e444]:
+            - listitem [ref=e445]:
+              - link "What is Fandom?" [ref=e446] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/what-is-fandom
+            - listitem [ref=e447]:
+              - link "About" [ref=e448] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/about
+            - listitem [ref=e449]:
+              - link "Careers" [ref=e450] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/careers
+            - listitem [ref=e451]:
+              - link "Press" [ref=e452] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/press
+            - listitem [ref=e453]:
+              - link "Contact" [ref=e454] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/about#contact
+            - listitem [ref=e455]:
+              - link "Terms of Use" [ref=e456] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/terms-of-use
+            - listitem [ref=e457]:
+              - link "Privacy Policy" [ref=e458] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/privacy-policy
+            - listitem [ref=e459]:
+              - link "Digital Services Act" [ref=e460] [cursor=pointer]:
+                - /url: https://web.archive.org/web/20250122154810/https://www.fandom.com/digital-services-act
+            - listitem [ref=e461]:
+              - link "Global Sitemap" [ref=e462] [cursor=pointer]:
+                - /url: //web.archive.org/web/20250122154810/https://community.fandom.com/Sitemap
+            - listitem [ref=e463]:
+              - link "Local Sitemap" [ref=e464] [cursor=pointer]:
+                - /url: /web/20250122154810/https://wfrp1e.fandom.com/wiki/Local_Sitemap
+            - listitem
+        - generic [ref=e465]:
+          - generic [ref=e466]:
+            - heading "Community" [level=3] [ref=e467]
+            - list [ref=e468]:
+              - listitem [ref=e469]:
+                - link "Community Central" [ref=e470] [cursor=pointer]:
+                  - /url: //web.archive.org/web/20250122154810/https://community.fandom.com/wiki/Community_Central
+              - listitem [ref=e471]:
+                - link "Support" [ref=e472] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://fandom.zendesk.com/
+              - listitem [ref=e473]:
+                - link "Help" [ref=e474] [cursor=pointer]:
+                  - /url: //web.archive.org/web/20250122154810/https://community.fandom.com/wiki/Help:Contents
+          - generic [ref=e475]:
+            - heading "Advertise" [level=3] [ref=e476]
+            - list [ref=e477]:
+              - listitem [ref=e478]:
+                - link "Media Kit" [ref=e479] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://about.fandom.com/mediakit
+              - listitem [ref=e480]:
+                - link "Contact" [ref=e481] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://about.fandom.com/mediakit#contact
+        - generic [ref=e482]:
+          - generic [ref=e483]:
+            - heading "Fandom Apps" [level=3] [ref=e484]
+            - text: Take your favorite fandoms with you and never miss a beat.
+          - generic [ref=e485]:
+            - img "Fandom App logo" [ref=e486]
+            - list [ref=e487]:
+              - listitem [ref=e488]:
+                - link "Fandom's Apple Store" [ref=e489] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://apps.apple.com/us/app/fandom-videos-news-reviews/id1230063803
+                  - img "Store icon" [ref=e490]
+              - listitem [ref=e491]:
+                - link "Fandom's Google Play" [ref=e492] [cursor=pointer]:
+                  - /url: https://web.archive.org/web/20250122154810/https://play.google.com/store/apps/details?id=com.fandom.app&referrer=utm_source%3Dwikia%26utm_medium%3Dglobalfooter
+                  - img "Store icon" [ref=e493]
+      - generic [ref=e494]:
+        - generic [ref=e495]: Warhammer Fantasy Roleplay First Edition Wiki is a FANDOM Games Community.
+        - generic [ref=e496]: View Mobile Site
+  - generic:
+    - generic [ref=e498]:
+      - link "Follow on IG" [ref=e499] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122154810/https://bit.ly/FandomIG
+      - link "TikTok" [ref=e500] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122154810/https://bit.ly/TikTokFandom
+      - link "Join Fan Lab" [ref=e501] [cursor=pointer]:
+        - /url: https://web.archive.org/web/20250122154810/https://bit.ly/FanLabWikiBar
+      - link [ref=e502] [cursor=pointer]:
+        - /url: "#"
+        - img [ref=e503]
+    - img [ref=e506]

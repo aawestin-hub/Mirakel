@@ -1,0 +1,25 @@
+- generic [ref=e2]:
+  - separator [ref=e3]
+  - iframe [ref=e8]:
+    - generic [ref=f2e2]:
+      - generic [ref=f2e3]:
+        - checkbox "Jeg er ikke en robot" [ref=f2e7]
+        - generic [ref=f2e11]: Jeg er ikke en robot
+      - generic [ref=f2e12]:
+        - generic [ref=f2e15]: reCAPTCHA
+        - generic [ref=f2e16]:
+          - link "Personvern" [ref=f2e17] [cursor=pointer]:
+            - /url: https://www.google.com/intl/no/policies/privacy/
+          - text: "-"
+          - link "Vilkår" [ref=f2e18] [cursor=pointer]:
+            - /url: https://www.google.com/intl/no/policies/terms/
+  - separator [ref=e9]
+  - generic [ref=e10]:
+    - text: Om denne siden
+    - text: Systemene våre har oppdaget uvanlig trafikk fra ditt datanettverk. Denne siden kontrollerer om det faktisk er du som sender forespørslene, og ikke en maskin.
+    - link "Why did this happen?" [ref=e11] [cursor=pointer]:
+      - /url: "#"
+    - generic [ref=e12]:
+      - text: "IP adresse: 2001:2020:8335:e6bf:35ab:dd39:3eef:c87d"
+      - text: "Tidspunkt: 2026-04-02T13:18:22Z"
+      - text: "Nettadresse: https://www.google.com/search?q=wfrp+warhammer+fantasy+roleplay+1st+edition+character+sheet+fillable+pdf+image&udm=2&sei=nWzOaYXHH7GqwPAP5KOV2AY"

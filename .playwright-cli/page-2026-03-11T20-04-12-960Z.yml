@@ -1,0 +1,141 @@
+- application [ref=e1]:
+  - iframe [ref=e2]:
+    
+  - iframe [ref=e3]:
+    
+  - banner "Menylinje" [ref=e4]:
+    - generic [ref=e7]:
+      - link "Startsiden for Regneark" [ref=e9] [cursor=pointer]:
+        - /url: https://docs.google.com/spreadsheets/u/0/?authuser=0&usp=sheets_web
+      - generic [ref=e16]:
+        - generic "Regneark uten navn" [ref=e18]:
+          - generic [ref=e19]:
+            - generic: Regneark uten navn
+            - textbox "Gi nytt navn" [ref=e21]: Regneark uten navn
+          - generic [ref=e22]:
+            - checkbox "Stjerne" [ref=e338] [cursor=pointer]
+            - generic:
+              - button
+        - generic [ref=e25]:
+          - button "Vis alle kommentarene" [ref=e27] [cursor=pointer]
+          - button "Bli med i en samtale her, eller presenter denne fanen i samtalen" [ref=e341] [cursor=pointer]
+          - button "Del. Privat bare for meg." [ref=e37] [cursor=pointer]
+          - generic [ref=e345]:
+            - generic:
+              - button "Spør Gemini" [ref=e348] [cursor=pointer]:
+                - img [ref=e351]
+              - tooltip [ref=e354]: Spør Gemini
+          - 'button "Google-konto: Andreas Westin (aawestin@gmail.com)" [ref=e43] [cursor=pointer]':
+            - img [ref=e45]
+            - img [ref=e50]
+    - generic [ref=e51]:
+      - menubar [ref=e53]:
+        - menuitem "Fil" [ref=e54] [cursor=pointer]
+        - menuitem "Endre" [ref=e55] [cursor=pointer]
+        - menuitem "Visning" [ref=e56] [cursor=pointer]
+        - menuitem "Sett inn" [ref=e57] [cursor=pointer]
+        - menuitem "Format" [ref=e58] [cursor=pointer]
+        - menuitem "Data" [ref=e59] [cursor=pointer]
+        - menuitem "Verktøy" [ref=e60] [cursor=pointer]
+        - menuitem "Gemini" [ref=e61] [cursor=pointer]
+        - menuitem "Utvidelser" [ref=e62] [cursor=pointer]
+        - menuitem "Hjelp" [ref=e63] [cursor=pointer]
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - toolbar "Søk i menyene (Alt+/)" [ref=e66]:
+            - combobox "Menyer" [ref=e68]
+          - toolbar "Hoved" [ref=e69]:
+            - button "Angre (Ctrl+Z)" [ref=e70] [cursor=pointer]
+            - button "Utfør likevel (Ctrl+Y)" [ref=e75] [cursor=pointer]
+            - button "Skriv ut (Ctrl+P)" [ref=e80] [cursor=pointer]
+            - button "Kopiér formatering" [ref=e85] [cursor=pointer]
+            - combobox "Zoom" [ref=e90] [cursor=pointer]:
+              - option "Zoom-listen. 100% valgt." [selected] [ref=e93]:
+                - textbox "Zoom" [ref=e94]: 100%
+            - separator [disabled] [ref=e98]
+            - button "Mer" [ref=e229] [cursor=pointer]
+        - toolbar "Modus og visning" [ref=e236]:
+          - button "Skjul menyene (Ctrl+Shift+F)" [ref=e237] [cursor=pointer]
+    - generic [ref=e242]:
+      - complementary "Sidepanel" [ref=e243]:
+        - tablist [ref=e355]:
+          - tab "Kalender"
+          - tab "Keep"
+          - tab "Huskeliste"
+          - tab "Kontakter"
+          - tab "Maps"
+          - separator [disabled] [ref=e356]
+          - tab "Finn tillegg"
+      - generic:
+        - button "Skjul sidepanelet":
+          - img [ref=e359] [cursor=pointer]
+    - generic [ref=e253]:
+      - generic "Navnefelt (Ctrl + J)" [ref=e254]:
+        - textbox [ref=e255]: A1
+        - button "Menyknapp for navnefelt. Velg et av menyelementene for å gå til det tilsvarende navngitte området." [ref=e257] [cursor=pointer]
+      - textbox [ref=e273]
+  - navigation "Arkfanelinje" [ref=e309]:
+    - toolbar [ref=e310]:
+      - button "Legg til ark" [ref=e311] [cursor=pointer]
+      - button "Alle ark" [ref=e316] [cursor=pointer]
+    - toolbar [ref=e323]:
+      - button "Ark 1" [ref=e324]:
+        - generic [ref=e328]: Ark 1
+    - toolbar [ref=e332]
+  - generic [ref=e333]:
+    - textbox [active]
+  - link "Slå på støtte for skjermlesere" [ref=e334] [cursor=pointer]:
+    - /url: "#"
+  - textbox [ref=e335]
+  - region [ref=e336]: Du kan aktivere støtte for skjermleser ved å trykke på Ctrl+Alt+Z Trykk på Ctrl+skråstrek hvis du vil ha informasjon om hurtigtaster
+  - region
+  - complementary "Tabeller" [ref=e362]:
+    - generic [ref=e364]:
+      - generic [ref=e369]: Tabeller
+      - button "Lukk" [ref=e370] [cursor=pointer]
+    - generic [ref=e373]:
+      - button "Hjelp meg å lage tabeller" [ref=e374] [cursor=pointer]:
+        - generic [ref=e375]: Hjelp meg å lage tabeller
+      - generic [ref=e378]:
+        - generic [ref=e379]:
+          - generic [ref=e380]:
+            - generic [ref=e381]: NYHET
+            - text: Tabeller med AI-forbedringer
+          - generic [ref=e382]: Inneholder automatisk genererte kolonner for oppsummering, sentimentanalyse, tekstgenerering med mer
+          - img "Kampanjebilde for tabeller" [ref=e383]
+        - generic [ref=e384]:
+          - button "Fremhevet" [expanded] [ref=e385]:
+            - generic [ref=e389]: Fremhevet
+          - generic [ref=e392]:
+            - button "Innhenting av tilbakemeldinger" [ref=e393]:
+              - generic [ref=e397]: Innhenting av tilbakemeldinger
+            - button "Utgiftsklassifisering" [ref=e398]:
+              - generic [ref=e402]: Utgiftsklassifisering
+            - button "Annonseoppretting" [ref=e403]:
+              - generic [ref=e407]: Annonseoppretting
+            - button "Svar på e-post:" [ref=e408]:
+              - generic [ref=e412]: "Svar på e-post:"
+            - button "Anropssammendrag" [ref=e413]:
+              - generic [ref=e417]: Anropssammendrag
+            - button "Tom tabell" [ref=e418]:
+              - generic [ref=e422]: Tom tabell
+        - button "Aktivitetsplanlegger" [ref=e424]:
+          - generic [ref=e428]: Aktivitetsplanlegger
+        - button "Kundeforhold" [ref=e430]:
+          - generic [ref=e434]: Kundeforhold
+        - button "Prosjektstyring" [ref=e436]:
+          - generic [ref=e440]: Prosjektstyring
+        - button "Reiseplanlegger" [ref=e442]:
+          - generic [ref=e446]: Reiseplanlegger
+        - button "Produktplan" [ref=e448]:
+          - generic [ref=e452]: Produktplan
+        - button "Beholdningsadministrering" [ref=e454]:
+          - generic [ref=e458]: Beholdningsadministrering
+        - button "Rekruttering" [ref=e460]:
+          - generic [ref=e464]: Rekruttering
+        - button "Teamplanlegger" [ref=e466]:
+          - generic [ref=e470]: Teamplanlegger
+        - button "Markedsføring" [ref=e472]:
+          - generic [ref=e476]: Markedsføring
+  - iframe [ref=e478]:
+    

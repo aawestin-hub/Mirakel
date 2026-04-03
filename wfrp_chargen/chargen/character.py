@@ -94,6 +94,8 @@ class Character:
     place_of_birth:      str   = ""
     parents_occupation:  str   = ""
     family_members:      str   = ""
+    star_sign:           str   = ""
+    distinguishing_marks: str  = ""
     social_level:        str   = ""
     religion:            str   = ""
     psychology_notes:    str   = ""

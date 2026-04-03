@@ -1,0 +1,10 @@
+- main [ref=e2]:
+  - link "Google" [ref=e3] [cursor=pointer]:
+    - /url: //www.google.com
+    - img "Google" [ref=e4]
+  - paragraph [ref=e5]:
+    - text: "404."
+    - insertion [ref=e6]: Det er en feil.
+  - paragraph [ref=e7]:
+    - text: Finner ikke nettadressen på denne tjeneren.
+    - insertion [ref=e8]: Vi vet ikke mer enn det.
