@@ -49,6 +49,14 @@ with st.sidebar:
 
     char_type = st.radio("Character type", ["PC", "NPC"], horizontal=True)
 
+    st.subheader("Sheet template")
+    template_choice = st.radio(
+        "Sheet style",
+        ["Weskon's Fantasy Roleplay", "Classic Edited Sheet"],
+        help="Choose which character sheet layout to use.",
+    )
+    template_key = "weskon" if template_choice == "Weskon's Fantasy Roleplay" else "classic"
+
     st.subheader("Identity")
 
     race_options = ["Random", "Human", "Elf", "Dwarf", "Halfling"]
@@ -129,7 +137,8 @@ if generate_btn:
         with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
             tmp_path = tmp.name
         try:
-            save_character_spread(char, tmp_path, pc_mode=(char_type == "PC"))
+            save_character_spread(char, tmp_path, pc_mode=(char_type == "PC"),
+                                  template=template_key)
             img = Image.open(tmp_path)
             buf = io.BytesIO()
             img.save(buf, format="JPEG", quality=95)

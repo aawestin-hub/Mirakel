@@ -637,18 +637,26 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
 
 def save_character_spread(char: Character,
                            path: str = "character_sheet_spread.jpg",
-                           pc_mode: bool = False) -> str:
+                           pc_mode: bool = False,
+                           template: str = "weskon") -> str:
     """
     Render both pages of the character sheet side by side (landscape).
     Page 1 (filled) on the left, page 2 (filled) on the right.
+
+    Args:
+        template: "weskon"  – Weskon's Fantasy Roleplay sheet (default, 2250×3250)
+                  "classic" – Classic Edited sheet (1700×2200)
     Returns the output path.
     """
-    # Fill page 1
+    if template == "classic":
+        from sheet_classic import save_classic_spread
+        return save_classic_spread(char, path=path, pc_mode=pc_mode)
+
+    # ── Weskon's sheet (default) ───────────────────────────────────────────────
     page1 = Image.open(_SHEET).copy()
     draw1 = ImageDraw.Draw(page1)
     _fill_page1(char, draw1, pc_mode=pc_mode)
 
-    # Fill page 2
     if os.path.exists(_SHEET2):
         page2 = Image.open(_SHEET2).copy()
     else:
@@ -656,7 +664,6 @@ def save_character_spread(char: Character,
     draw2 = ImageDraw.Draw(page2)
     _fill_page2(char, draw2, pc_mode=pc_mode)
 
-    # Combine side by side with a small gap
     W1, H1 = page1.size
     W2, H2 = page2.size
     H = max(H1, H2)
