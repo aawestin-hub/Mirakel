@@ -19,8 +19,17 @@ import random
 import re
 
 
-def _apply_career_skills(career_skills: list) -> list:
-    """Roll d100 for probabilistic skills (e.g. '75% chance of Drive Cart')."""
+_RACE_SKILL_RE = re.compile(
+    r'\((Dwarfs? only|Elves? only|Halflings? only|Humans? only)\)',
+    re.IGNORECASE,
+)
+_RACE_KEYWORD = {
+    "Dwarf": "dwarf", "Elf": "elf", "Halfling": "halfling", "Human": "human",
+}
+
+
+def _apply_career_skills(career_skills: list, race: str = "") -> list:
+    """Roll d100 for probabilistic skills and filter race-restricted ones."""
     result = []
     for skill in career_skills:
         m = re.match(r'^(\d+)%\s+chance\s+of\s+(.+)$', skill, re.IGNORECASE)
@@ -29,6 +38,12 @@ def _apply_career_skills(career_skills: list) -> list:
             if random.randint(1, 100) <= pct:
                 result.append(m.group(2).strip())
         else:
+            # Drop skills restricted to a different race
+            rm = _RACE_SKILL_RE.search(skill)
+            if rm and race:
+                allowed = rm.group(1).lower()
+                if _RACE_KEYWORD.get(race, "").lower() not in allowed:
+                    continue
             result.append(skill)
     return result
 
@@ -505,7 +520,7 @@ def generate_character(
 
     char.career         = resolved_career
     char.career_class   = chosen_class
-    char.skills         = _apply_career_skills(career_data["skills"])
+    char.skills         = _apply_career_skills(career_data["skills"], race_name)
     char.trappings      = [t for t in career_data["trappings"] if t.lower() != "none listed"]
     char.advance_scheme = dict(career_data["advance_scheme"])
     char.career_exits   = list(career_data.get("exits", []))
