@@ -28,23 +28,62 @@ _RACE_KEYWORD = {
 }
 
 
+_OR_EQUAL_RE = re.compile(
+    r'^(.+?)\s+or\s+(.+?)\s+\(equal chance of either\)$', re.IGNORECASE
+)
+_PCT_OR_RE = re.compile(
+    r'^(\d+)%\s+chance\s+of\s+(.+?)\s+or\s+(.+)$', re.IGNORECASE
+)
+_PCT_RE = re.compile(r'^(\d+)%\s+chance\s+of\s+(.+)$', re.IGNORECASE)
+
+
+def _pick_or(a: str, b: str) -> str:
+    """Return one of two skill alternatives with equal probability.
+
+    When the second alternative lacks a colon prefix but the first has one
+    (e.g. "Secret Signs: Scout's or Woodsman's"), the shared category prefix
+    is prepended to keep the skill name fully qualified.
+    """
+    a, b = a.strip(), b.strip()
+    if ":" in a and ":" not in b:
+        prefix = a[: a.index(":") + 1].strip()
+        b = f"{prefix} {b}"
+    return random.choice([a, b])
+
+
 def _apply_career_skills(career_skills: list, race: str = "") -> list:
     """Roll d100 for probabilistic skills and filter race-restricted ones."""
     result = []
     for skill in career_skills:
-        m = re.match(r'^(\d+)%\s+chance\s+of\s+(.+)$', skill, re.IGNORECASE)
+        # "Skill A or Skill B (equal chance of either)" — no percentage, 50/50
+        m = _OR_EQUAL_RE.match(skill)
+        if m:
+            result.append(_pick_or(m.group(1), m.group(2)))
+            continue
+
+        # "X% chance of Skill A or Skill B" — roll then choose between alternatives
+        m = _PCT_OR_RE.match(skill)
+        if m:
+            pct = int(m.group(1))
+            if random.randint(1, 100) <= pct:
+                result.append(_pick_or(m.group(2), m.group(3)))
+            continue
+
+        # "X% chance of Skill" — standard probabilistic skill
+        m = _PCT_RE.match(skill)
         if m:
             pct = int(m.group(1))
             if random.randint(1, 100) <= pct:
                 result.append(m.group(2).strip())
-        else:
-            # Drop skills restricted to a different race
-            rm = _RACE_SKILL_RE.search(skill)
-            if rm and race:
-                allowed = rm.group(1).lower()
-                if _RACE_KEYWORD.get(race, "").lower() not in allowed:
-                    continue
-            result.append(skill)
+            continue
+
+        # Plain skill — drop if restricted to a different race
+        rm = _RACE_SKILL_RE.search(skill)
+        if rm and race:
+            allowed = rm.group(1).lower()
+            if _RACE_KEYWORD.get(race, "").lower() not in allowed:
+                continue
+        result.append(skill)
     return result
 
 
