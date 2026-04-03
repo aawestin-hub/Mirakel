@@ -519,13 +519,12 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
             y_top += _TRAP_ROW_H
 
     # ── Wealth ────────────────────────────────────────────────────────────────
-    # Sheet has pre-printed labels; write only the number.
-    # For PC: leave empty if 0 (player rolls at session start if needed).
-    if not pc_mode or char.wealth_gc:
+    # Sheet has pre-printed labels; write only the number. Leave blank if 0.
+    if char.wealth_gc:
         _draw_text(draw, _P2_WGC_X, _P2_WGC_Y, str(char.wealth_gc), f_field, "lm")
-    if not pc_mode or char.wealth_ss:
+    if char.wealth_ss:
         _draw_text(draw, _P2_WSS_X, _P2_WSS_Y, str(char.wealth_ss), f_field, "lm")
-    if not pc_mode or char.wealth_bp:
+    if char.wealth_bp:
         _draw_text(draw, _P2_WBP_X, _P2_WBP_Y, str(char.wealth_bp), f_field, "lm")
 
     # ── Movement rates ────────────────────────────────────────────────────────

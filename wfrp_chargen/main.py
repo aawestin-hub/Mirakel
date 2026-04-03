@@ -194,6 +194,31 @@ def prompt_career(career_class: str, race: str) -> str | None:
 
 
 
+def _generate_npc_auto(race: str | None = None) -> "Character":
+    """Generate a fully random NPC with no user prompts."""
+    import random as _rand
+    from data.names import random_name as _rname
+    from chargen.generator import generate_character as _gen
+
+    # Roll race if not specified
+    if race is None:
+        roll = _rand.randint(1, 100)
+        if roll <= 90:
+            race = "Human"
+        elif roll <= 95:
+            race = "Elf"
+        elif roll <= 98:
+            race = "Dwarf"
+        else:
+            race = "Halfling"
+
+    gender = _rand.choice(["Male", "Female"])
+    name   = _rname(race)
+    char   = _gen(race_name=race, char_name=name, gender=gender)
+    char.character_type = "NPC"
+    return char
+
+
 def main() -> None:
     print(BANNER)
 
@@ -203,58 +228,68 @@ def main() -> None:
         print(f"  -> Generating {char_type}")
         print()
 
-        # ── Race selection ────────────────────────────────────────────────
-        race = prompt_race()
-        print()
+        if char_type == "NPC":
+            # ── NPC: fully automatic ─────────────────────────────────────
+            char = _generate_npc_auto()
+            print(f"  Race    : {char.race}")
+            print(f"  Gender  : {char.gender}")
+            print(f"  Career  : {char.career}  ({char.career_class})")
+            print(f"  Name    : {char.name}")
+            print()
 
-        # ── Optional name ─────────────────────────────────────────────────
-        name = prompt_name(race)
-        print()
+        else:
+            # ── PC: guided character creation ────────────────────────────
 
-        # ── Gender selection ──────────────────────────────────────────────
-        gender = prompt_gender()
-        print()
+            # ── Race selection ────────────────────────────────────────
+            race = prompt_race()
+            print()
 
-        # ── Roll stats first so we can show prereqs ───────────────────────
-        # We generate the full character then display it.
-        # Career class prompt needs the stats dict, so we peek at a temp roll.
-        from data.races import RACES as _RACES
-        rd = _RACES[race]
-        _PSTATS = ("WS", "BS", "I", "Dex", "Ld", "Int", "Cl", "WP", "Fel")
-        temp_stats = {s: roll_stat(rd["stat_bases"][s]) for s in _PSTATS}
-        temp_stats["S"] = roll_small_stat(rd["s_mod"])
-        temp_stats["T"] = roll_small_stat(rd["t_mod"])
+            # ── Optional name ─────────────────────────────────────────
+            name = prompt_name(race)
+            print()
 
-        print("Rolled characteristics:")
-        pairs = [f"{k}={v}" for k, v in temp_stats.items()]
-        print("  " + "  ".join(pairs[:6]))
-        print("  " + "  ".join(pairs[6:]))
-        print()
+            # ── Gender selection ──────────────────────────────────────
+            gender = prompt_gender()
+            print()
 
-        # ── Career class selection ────────────────────────────────────────
-        career_cls = prompt_career_class(race, temp_stats)
-        print()
+            # ── Roll stats first so we can show prereqs ───────────────
+            from data.races import RACES as _RACES
+            rd = _RACES[race]
+            _PSTATS = ("WS", "BS", "I", "Dex", "Ld", "Int", "Cl", "WP", "Fel")
+            temp_stats = {s: roll_stat(rd["stat_bases"][s]) for s in _PSTATS}
+            temp_stats["S"] = roll_small_stat(rd["s_mod"])
+            temp_stats["T"] = roll_small_stat(rd["t_mod"])
 
-        # ── Career selection ──────────────────────────────────────────────
-        chosen_career = prompt_career(career_cls, race)
-        if chosen_career is None:
-            print(f"  -> Rolling randomly on the {career_cls} table...")
-        print()
+            print("Rolled characteristics:")
+            pairs = [f"{k}={v}" for k, v in temp_stats.items()]
+            print("  " + "  ".join(pairs[:6]))
+            print("  " + "  ".join(pairs[6:]))
+            print()
 
-        # ── Generate using pre-rolled stats ──────────────────────────────
-        char = generate_character(
-            race_name=race,
-            char_name=name,
-            career_class=career_cls,
-            career_name=chosen_career,
-            gender=gender,
-        )
-        # Overwrite primary stats with the ones already shown to the user
-        for k, v in temp_stats.items():
-            setattr(char, k, v)
-        char.SB = char.S
-        char.TB = char.T
-        char.character_type = char_type
+            # ── Career class selection ────────────────────────────────
+            career_cls = prompt_career_class(race, temp_stats)
+            print()
+
+            # ── Career selection ──────────────────────────────────────
+            chosen_career = prompt_career(career_cls, race)
+            if chosen_career is None:
+                print(f"  -> Rolling randomly on the {career_cls} table...")
+            print()
+
+            # ── Generate using pre-rolled stats ──────────────────────
+            char = generate_character(
+                race_name=race,
+                char_name=name,
+                career_class=career_cls,
+                career_name=chosen_career,
+                gender=gender,
+            )
+            # Overwrite primary stats with the ones already shown to the user
+            for k, v in temp_stats.items():
+                setattr(char, k, v)
+            char.SB = char.S
+            char.TB = char.T
+            char.character_type = char_type
 
         # ── Display ───────────────────────────────────────────────────────
         print_character_sheet(char)
