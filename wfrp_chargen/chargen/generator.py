@@ -27,6 +27,61 @@ _RACE_KEYWORD = {
     "Dwarf": "dwarf", "Elf": "elf", "Halfling": "halfling", "Human": "human",
 }
 
+_TRAP_PCT_RE = re.compile(r'^(\d+)%\s+chance\s+of\s+(.+)$', re.IGNORECASE)
+
+
+def _resolve_or_trapping(text: str) -> str:
+    """For 'A or B' trappings, randomly pick one alternative.
+    Only splits on 'or' at the top level (not inside parentheses)."""
+    depth = 0
+    for i, c in enumerate(text):
+        if c == "(":
+            depth += 1
+        elif c == ")":
+            depth -= 1
+        elif depth == 0 and text[i:i+4] == " or ":
+            a = text[:i].strip()
+            b = text[i+4:].strip()
+            return random.choice([a, b])
+    return text
+
+
+_COND_NO_RE = re.compile(
+    r"^(.+?)\s+\(if character doesn[''`]t have (.+?)\)$", re.IGNORECASE
+)
+
+
+def _apply_career_trappings(career_trappings: list) -> list:
+    """Process raw trapping entries:
+    - Roll for probabilistic items ('X% chance of ...')
+    - Randomly choose between 'A or B' alternatives
+    - Resolve 'Item (if character doesn't have X)' conditionals
+    """
+    result = []
+    for item in career_trappings:
+        if item.lower() == "none listed":
+            continue
+
+        # Conditional: "Leather Jack (if character doesn't have Mail Shirt)"
+        cm = _COND_NO_RE.match(item)
+        if cm:
+            trapping_name = cm.group(1).strip()
+            required_absent = cm.group(2).strip().lower()
+            if not any(required_absent in t.lower() for t in result):
+                result.append(trapping_name)
+            continue
+
+        # Probabilistic: "X% chance of ITEM"
+        m = _TRAP_PCT_RE.match(item)
+        if m:
+            pct = int(m.group(1))
+            if random.randint(1, 100) <= pct:
+                result.append(_resolve_or_trapping(m.group(2).strip()))
+            # else: item not received — skip
+            continue
+
+        result.append(_resolve_or_trapping(item))
+    return result
 
 _OR_EQUAL_RE = re.compile(
     r'^(.+?)\s+or\s+(.+?)\s+\(equal chance of either\)$', re.IGNORECASE
@@ -560,7 +615,7 @@ def generate_character(
     char.career         = resolved_career
     char.career_class   = chosen_class
     char.skills         = _apply_career_skills(career_data["skills"], race_name)
-    char.trappings      = [t for t in career_data["trappings"] if t.lower() != "none listed"]
+    char.trappings      = _apply_career_trappings(career_data["trappings"])
     char.advance_scheme = dict(career_data["advance_scheme"])
     char.career_exits   = list(career_data.get("exits", []))
     char.career_note    = career_data.get("note", "")

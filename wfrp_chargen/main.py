@@ -107,7 +107,8 @@ def prompt_name(race: str) -> str:
 
 
 def prompt_gender() -> str:
-    """Ask the user to pick a gender, or press Enter for random."""
+    """Ask the user to pick a gender, or press Enter for random.
+    Always returns a resolved value ('Male' or 'Female')."""
     print("Choose gender (or press Enter for random):")
     print("  1. Male")
     print("  2. Female")
@@ -115,7 +116,9 @@ def prompt_gender() -> str:
     while True:
         raw = _safe_input("  > ").lower()
         if raw == "" or raw == "r":
-            return ""   # random
+            chosen = _random.choice(["Male", "Female"])
+            print(f"  -> {chosen}")
+            return chosen
         if raw in ("1", "male", "m"):
             return "Male"
         if raw in ("2", "female", "f"):
@@ -210,7 +213,6 @@ def main() -> None:
 
         # ── Gender selection ──────────────────────────────────────────────
         gender = prompt_gender()
-        print(f"  -> {'Random' if not gender else gender}")
         print()
 
         # ── Roll stats first so we can show prereqs ───────────────────────
@@ -245,7 +247,7 @@ def main() -> None:
             char_name=name,
             career_class=career_cls,
             career_name=chosen_career,
-            gender=gender if gender else None,
+            gender=gender,
         )
         # Overwrite primary stats with the ones already shown to the user
         for k, v in temp_stats.items():
