@@ -321,8 +321,8 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw) -> None:
     # ── Row 3: CURRENT CAREER / CAREER PATH / CAREER EXITS ──────────────────
     # CAREER box: x=335, ends ~x=830 → width ~495px
     _draw_text_fit(draw, _CAREER_X, _R3_Y, char.career, _FS_FIELD, max_width=490, anchor="lm")
-    # CAREER PATH box: x=837, ends ~x=1575 → width ~738px; use field-size font
-    _draw_text_fit(draw, _PATH_X, _R3_Y, f"[{char.career}]", _FS_FIELD, max_width=730, anchor="lm")
+    # CAREER PATH box: x=837, ends ~x=1575 → width ~738px
+    _draw_text_fit(draw, _PATH_X, _R3_Y, char.career, _FS_FIELD, max_width=730, anchor="lm")
     if char.career_exits:
         exits_text = ", ".join(char.career_exits)
         # EXITS box: x=1582, ends ~x=2510 → width ~928px; row height ~180px
@@ -501,11 +501,11 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
 
     # ── Background ────────────────────────────────────────────────────────────
     if char.place_of_birth:
-        _draw_text(draw, _P2_BIRTH_X,  _P2_BIRTH_Y,  char.place_of_birth,     f_field, "lm")
+        _draw_text_fit(draw, _P2_BIRTH_X,  _P2_BIRTH_Y,  char.place_of_birth,     _FS_FIELD, max_width=760, anchor="lm")
     if char.parents_occupation:
-        _draw_text(draw, _P2_PARENT_X, _P2_PARENT_Y, char.parents_occupation, f_field, "lm")
+        _draw_text_fit(draw, _P2_PARENT_X, _P2_PARENT_Y, char.parents_occupation, _FS_FIELD, max_width=730, anchor="lm")
     if char.family_members:
-        _draw_text(draw, _P2_FAMILY_X, _P2_FAMILY_Y, char.family_members,     f_field, "lm")
+        _draw_text_fit(draw, _P2_FAMILY_X, _P2_FAMILY_Y, char.family_members,     _FS_FIELD, max_width=785, anchor="lm")
     if char.star_sign:
         _draw_text_fit(draw, _P2_STAR_X, _P2_STAR_Y,
                        f"Star Sign: {char.star_sign}", _FS_FIELD,
