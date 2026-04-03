@@ -335,8 +335,13 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
 
     # ── Right-column stat boxes ───────────────────────────────────────────────
     _draw_text(draw, _C2_FP_X,  _C2_FP_Y,  str(char.FP),  f_field, "mm")
-    _draw_text(draw, _C2_MAG_X, _C2_MAG_Y, str(char.Mag), f_field, "mm")
+    # Mag: always show for NPC; PC shows only if > 0
+    if char.Mag or not pc_mode:
+        _draw_text(draw, _C2_MAG_X, _C2_MAG_Y, str(char.Mag), f_field, "mm")
     _draw_text(draw, _C2_PL_X,  _C2_PL_Y,  str(getattr(char, 'power_level', 0)), f_field, "mm")
+    # XP: blank for PC (filled during play); show 0 for NPC
+    if not pc_mode:
+        _draw_text(draw, _C2_XP_X, _C2_XP_Y, "0", f_field, "mm")
 
     # ── Equipment / Trappings ─────────────────────────────────────────────────
     all_items = list(char.trappings)
@@ -365,7 +370,9 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         _draw_text(draw, _C2_MV_MPH_X, y, str(vkph), f_small, "mm")
 
     # ── Insanity Points ───────────────────────────────────────────────────────
-    _draw_text(draw, _C2_IP_X, _C2_IP_Y, "0", f_field, "mm")
+    # Always show for NPC; PC leaves blank (filled during play)
+    if not pc_mode:
+        _draw_text(draw, _C2_IP_X, _C2_IP_Y, "0", f_field, "mm")
 
     # ── Languages ─────────────────────────────────────────────────────────────
     for i, lang in enumerate(char.languages[:9]):
@@ -405,12 +412,14 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
                        _CFS_FIELD, max_width=300, anchor="lm")
 
     # ── Wealth ────────────────────────────────────────────────────────────────
-    if getattr(char, 'wealth_gc', 0):
-        _draw_text(draw, _C2_WGC_X, _C2_WGC_Y, str(char.wealth_gc), f_small, "lm")
-    if getattr(char, 'wealth_ss', 0):
-        _draw_text(draw, _C2_WSS_X, _C2_WSS_Y, str(char.wealth_ss), f_small, "lm")
-    if getattr(char, 'wealth_bp', 0):
-        _draw_text(draw, _C2_WBP_X, _C2_WBP_Y, str(char.wealth_bp), f_small, "lm")
+    # ── Wealth ────────────────────────────────────────────────────────────────
+    # PC: leave blank if 0. NPC: always show value (even 0).
+    if getattr(char, 'wealth_gc', 0) or not pc_mode:
+        _draw_text(draw, _C2_WGC_X, _C2_WGC_Y, str(getattr(char,'wealth_gc',0)), f_small, "lm")
+    if getattr(char, 'wealth_ss', 0) or not pc_mode:
+        _draw_text(draw, _C2_WSS_X, _C2_WSS_Y, str(getattr(char,'wealth_ss',0)), f_small, "lm")
+    if getattr(char, 'wealth_bp', 0) or not pc_mode:
+        _draw_text(draw, _C2_WBP_X, _C2_WBP_Y, str(getattr(char,'wealth_bp',0)), f_small, "lm")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

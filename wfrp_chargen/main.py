@@ -194,29 +194,112 @@ def prompt_career(career_class: str, race: str) -> str | None:
 
 
 
-def _generate_npc_auto(race: str | None = None) -> "Character":
-    """Generate a fully random NPC with no user prompts."""
-    import random as _rand
-    from data.names import random_name as _rname
-    from chargen.generator import generate_character as _gen
+def prompt_template() -> str:
+    """Ask the user which character sheet template to use."""
+    print("Choose a character sheet template:")
+    print("  1. Weskon's Fantasy Roleplay  (modified sheet, recommended)")
+    print("  2. Classic Edited Sheet       (original WFRP edited layout)")
+    print()
+    while True:
+        raw = _safe_input("  > ").strip()
+        if raw in ("", "1", "weskon", "w"):
+            return "weskon"
+        if raw in ("2", "classic", "c"):
+            return "classic"
+        print("  Enter 1 (Weskon) or 2 (Classic).")
 
-    # Roll race if not specified
-    if race is None:
-        roll = _rand.randint(1, 100)
-        if roll <= 90:
-            race = "Human"
-        elif roll <= 95:
-            race = "Elf"
-        elif roll <= 98:
-            race = "Dwarf"
+
+def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
+    """
+    Let the GM optionally choose race, gender and career for the NPC.
+    Returns (race_or_None, gender_or_None, career_name_or_None).
+    Press Enter at any prompt to keep it random.
+    """
+    from data.careers import CAREERS, CAREER_CLASS_TABLES
+
+    print("NPC options — press Enter at any prompt to keep it random.")
+    print()
+
+    # Race
+    print("Race (Enter = random):")
+    for i, r in enumerate(RACES_LIST, 1):
+        print(f"  {i}. {r}")
+    raw = _safe_input("  > ").strip()
+    race: str | None = None
+    if raw:
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(RACES_LIST):
+                race = RACES_LIST[idx]
         else:
-            race = "Halfling"
+            for r in RACES_LIST:
+                if r.lower() == raw.lower():
+                    race = r
+                    break
+    if race:
+        print(f"  -> {race}")
+    else:
+        print("  -> Random")
+    print()
 
-    gender = _rand.choice(["Male", "Female"])
-    name   = _rname(race, gender)
-    char   = _gen(race_name=race, char_name=name, gender=gender)
-    char.character_type = "NPC"
-    return char
+    # Gender
+    print("Gender (Enter = random):")
+    print("  1. Male   2. Female")
+    raw = _safe_input("  > ").strip().lower()
+    gender: str | None = None
+    if raw in ("1", "male", "m"):
+        gender = "Male"
+    elif raw in ("2", "female", "f"):
+        gender = "Female"
+    if gender:
+        print(f"  -> {gender}")
+    else:
+        gender_rolled = _random.choice(["Male", "Female"])
+        print(f"  -> Random → {gender_rolled} 🎲")
+        gender = gender_rolled
+    print()
+
+    # Career — show all (basic + advanced) grouped
+    basic_careers: list[str] = []
+    used_race = race or "Human"
+    for cls in ("Warrior", "Ranger", "Rogue", "Academic"):
+        for entry in CAREER_CLASS_TABLES.get(cls, {}).get(used_race, []):
+            c = entry[2]
+            if c not in basic_careers:
+                basic_careers.append(c)
+    basic_set = set(basic_careers)
+    advanced_careers = sorted(c for c in CAREERS if c not in basic_set)
+
+    all_careers = basic_careers + advanced_careers
+    print(f"Career (Enter = random) — showing for {used_race}:")
+    print("  Basic careers:")
+    for i, c in enumerate(basic_careers, 1):
+        print(f"    {i:3}. {c}")
+    if advanced_careers:
+        print("  Advanced careers:")
+        for i, c in enumerate(advanced_careers, len(basic_careers) + 1):
+            print(f"    {i:3}. {c}")
+    print()
+
+    raw = _safe_input("  > ").strip()
+    career_name: str | None = None
+    if raw:
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(all_careers):
+                career_name = all_careers[idx]
+        else:
+            for c in all_careers:
+                if c.lower() == raw.lower():
+                    career_name = c
+                    break
+    if career_name:
+        print(f"  -> {career_name}")
+    else:
+        print("  -> Random")
+    print()
+
+    return race, gender, career_name
 
 
 def main() -> None:
@@ -228,12 +311,40 @@ def main() -> None:
         print(f"  -> Generating {char_type}")
         print()
 
+        # ── Template selection ────────────────────────────────────────────────
+        template = prompt_template()
+        print()
+
         if char_type == "NPC":
-            # ── NPC: fully automatic ─────────────────────────────────────
-            char = _generate_npc_auto()
+            # ── NPC: GM can choose options, rest is random ────────────────
+            npc_race, npc_gender, npc_career = prompt_npc_options()
+
+            # Roll race if not chosen
+            if npc_race is None:
+                roll = _random.randint(1, 100)
+                if roll <= 90:
+                    npc_race = "Human"
+                elif roll <= 95:
+                    npc_race = "Elf"
+                elif roll <= 98:
+                    npc_race = "Dwarf"
+                else:
+                    npc_race = "Halfling"
+                print(f"  -> Race rolled: {npc_race}")
+
+            name = random_name(npc_race, npc_gender or "Male")
+            char = generate_character(
+                race_name=npc_race,
+                char_name=name,
+                career_name=npc_career,
+                gender=npc_gender,
+                npc_mode=True,
+            )
+            char.character_type = "NPC"
             print(f"  Race    : {char.race}")
             print(f"  Gender  : {char.gender}")
-            print(f"  Career  : {char.career}  ({char.career_class})")
+            advanced_tag = " [ADVANCED]" if char.is_advanced_career else ""
+            print(f"  Career  : {char.career}{advanced_tag}  ({char.career_class})")
             print(f"  Name    : {char.name}")
             print()
 
@@ -303,7 +414,8 @@ def main() -> None:
         spread_path = os.path.join(out_dir, f"{safe_name}_sheet.jpg")
         save_character_pdf(char, pdf_path)
         save_character_html(char, html_path)
-        save_character_spread(char, spread_path, pc_mode=(char.character_type == "PC"))
+        save_character_spread(char, spread_path, pc_mode=(char.character_type == "PC"),
+                              template=template)
         # Keep preview_latest.jpg pointing to the most recently generated sheet
         preview_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "preview_latest.jpg")
         import shutil

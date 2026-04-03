@@ -1157,4 +1157,732 @@ CAREERS: dict[str, dict] = {
         "note": "Wood Elf only.",
         "exits": ["Wizard's Apprentice", "Wood Elf Mage - level 1", "Woodsman"],
     },
+
+    # ── ADVANCED CAREERS ─────────────────────────────────────────────────────
+    # These are accessible only as exits from basic careers.
+
+    # ── Warrior advanced ─────────────────────────────────────────────────────
+
+    "Mercenary Captain": {
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "W": 4, "I": 20, "A": 2,
+                           "Ld": 30, "Cl": 20, "WP": 10, "Fel": 10},
+        "skills": [
+            "Command", "Disarm", "Dodge Blow", "Secret Language: Battle Tongue",
+            "Strike Mighty Blow", "Strike To Injure", "Wit",
+            "50% chance of Ride", "50% chance of Drive Cart",
+        ],
+        "trappings": [
+            "Hand Weapon", "Crossbow and ammunition", "Mail Coat",
+            "D6 subordinates", "50 Gold Crowns",
+        ],
+        "exits": ["Outlaw Chief", "Politician", "Sea Captain"],
+    },
+
+    "Artillerist": {
+        "advance_scheme": {"WS": 10, "BS": 30, "S": 2, "W": 3, "I": 20, "A": 1,
+                           "Dex": 20, "Int": 10},
+        "skills": [
+            "Artillery", "Carpentry", "Engineering", "Set Trap",
+            "Smithing", "Specialist Weapon: Engineer",
+            "25% chance of Metallurgy",
+        ],
+        "trappings": ["Hand Weapon", "Leather Jack", "Engineering tools"],
+        "exits": ["Mercenary Captain", "Sea Captain"],
+    },
+
+    "Gunner": {
+        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "W": 3, "I": 20, "A": 1, "Dex": 20},
+        "skills": [
+            "Artillery", "Dodge Blow", "Drive Cart", "Seaman",
+            "Specialist Weapon: Flintlock Pistol or Blunderbuss",
+            "Strike Mighty Blow",
+        ],
+        "trappings": [
+            "Hand Weapon", "Firearm and ammunition", "Powder flask and shot",
+            "Leather Jack",
+        ],
+        "exits": ["Artillerist", "Mercenary Captain", "Sea Captain"],
+    },
+
+    "Sapper": {
+        "advance_scheme": {"WS": 10, "S": 2, "T": 1, "W": 3, "I": 10, "A": 1, "Dex": 10},
+        "skills": [
+            "Carpentry", "Concealment: Underground", "Demolition", "Engineering",
+            "Mining", "Orientation", "Silent Move: Underground",
+            "Specialist Weapon: Engineer",
+        ],
+        "trappings": [
+            "Hand Weapon", "Pick Axe", "Engineering tools", "Rope (50 metres)",
+        ],
+        "note": "Primarily available to Dwarfs.",
+        "exits": ["Artillerist", "Mercenary Captain", "Tunnel Fighter"],
+    },
+
+    "Tunnel Fighter": {
+        "advance_scheme": {"WS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 2, "Cl": 10},
+        "skills": [
+            "Concealment: Underground", "Mining", "Silent Move: Underground",
+            "Strike Mighty Blow", "Strike To Stun",
+            "50% chance of Scale Sheer Surface",
+        ],
+        "trappings": [
+            "Hand Weapon", "Leather Jack", "Lantern and oil",
+        ],
+        "note": "Primarily available to Dwarfs.",
+        "exits": ["Mercenary Captain", "Sapper"],
+    },
+
+    "Knight Errant": {
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 20, "A": 2,
+                           "Ld": 20, "Cl": 20, "WP": 10, "Fel": 10},
+        "skills": [
+            "Animal Care", "Dodge Blow", "Etiquette", "Heraldry",
+            "Ride", "Specialist Weapon: Lance", "Strike Mighty Blow",
+            "Strike To Injure", "Wit",
+        ],
+        "trappings": [
+            "Hand Weapon", "Lance", "Plate Armour", "Shield", "Warhorse and saddlery",
+        ],
+        "exits": ["Captain", "Politician"],
+    },
+
+    "Captain": {
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 20, "A": 2,
+                           "Ld": 30, "Cl": 30, "WP": 20, "Fel": 20},
+        "skills": [
+            "Command", "Disarm", "Dodge Blow", "Etiquette", "Heraldry",
+            "Ride", "Secret Language: Battle Tongue", "Strike Mighty Blow", "Wit",
+        ],
+        "trappings": [
+            "Hand Weapon", "Mail Coat or Plate Armour", "Shield",
+            "Horse and saddlery", "100 Gold Crowns",
+        ],
+        "exits": ["Knight Errant", "Politician", "Sea Captain"],
+    },
+
+    "Sea Captain": {
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "W": 4, "I": 20, "A": 2,
+                           "Ld": 30, "Cl": 20, "WP": 10, "Fel": 20},
+        "skills": [
+            "Cartography", "Command", "Dodge Blow", "Navigation", "Read/Write",
+            "Row", "Sailing", "Swim",
+        ],
+        "trappings": [
+            "Hand Weapon", "Pistol and ammunition", "Spyglass",
+            "Nautical charts", "Captain's uniform", "50 Gold Crowns",
+        ],
+        "exits": ["Explorer", "Merchant", "Outlaw Chief"],
+    },
+
+    "Judicial Champion": {
+        "advance_scheme": {"WS": 30, "S": 2, "W": 4, "I": 10, "A": 2, "Cl": 20, "WP": 10},
+        "skills": [
+            "Disarm", "Dodge Blow", "Specialist Weapon: Fist Weapons",
+            "Specialist Weapon: Parrying Weapons", "Specialist Weapon: Two-Handed Weapons",
+            "Strike Mighty Blow", "Strike To Injure",
+        ],
+        "trappings": [
+            "Hand Weapon", "Two-Handed Weapon", "Chain Mail", "Shield",
+        ],
+        "exits": ["Captain", "Mercenary Captain"],
+    },
+
+    "Slaver": {
+        "advance_scheme": {"WS": 20, "S": 1, "W": 3, "I": 20, "A": 1, "Ld": 20, "Cl": 10},
+        "skills": [
+            "Command", "Dodge Blow", "Drive Cart", "Evaluate", "Haggle",
+            "Strike Mighty Blow", "Strike To Stun",
+        ],
+        "trappings": [
+            "Hand Weapon", "Whip", "Manacles (D6 pairs)", "Cart",
+            "20 Gold Crowns",
+        ],
+        "exits": ["Merchant", "Outlaw Chief", "Sea Captain"],
+    },
+
+    # ── Ranger advanced ───────────────────────────────────────────────────────
+
+    "Scout": {
+        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 10, "Cl": 10},
+        "skills": [
+            "Concealment: Rural", "Follow Trail", "Orientation",
+            "Set Trap", "Silent Move: Rural", "Spot Trap", "Trapping",
+        ],
+        "trappings": [
+            "Hand Weapon", "Crossbow and ammunition", "Leather Jack",
+            "Rope (10 metres)", "D4 animal traps",
+        ],
+        "exits": ["Explorer", "Mercenary", "Targeteer"],
+    },
+
+    "Targeteer": {
+        "advance_scheme": {"WS": 10, "BS": 30, "W": 2, "I": 20, "A": 1, "Dex": 20, "Cl": 10},
+        "skills": [
+            "Concealment: Rural", "Marksmanship", "Outdoor Survival",
+            "Silent Move: Rural",
+            "Specialist Weapon: Long Bow or Crossbow",
+        ],
+        "trappings": [
+            "Long Bow or Crossbow and ammunition", "Leather Jack", "Quiver (D10+10 arrows)",
+        ],
+        "exits": ["Assassin", "Scout"],
+    },
+
+    "Mountaineer": {
+        "advance_scheme": {"WS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 10},
+        "skills": [
+            "Concealment: Rural", "Orientation", "Scale Sheer Surface",
+            "Silent Move: Rural", "Spot Trap",
+            "50% chance of Animal Care",
+        ],
+        "trappings": [
+            "Hand Weapon", "Leather Jack", "Rope (20 metres)",
+            "Grappling hook", "Climbing kit",
+        ],
+        "exits": ["Explorer", "Scout"],
+    },
+
+    "Navigator": {
+        "advance_scheme": {"W": 2, "I": 10, "Dex": 10, "Int": 20, "Cl": 10, "WP": 10},
+        "skills": [
+            "Astronomy", "Cartography", "Navigation", "Orientation",
+            "Read/Write", "Row", "Sailing", "Swim",
+        ],
+        "trappings": ["Compass", "Navigational charts", "Writing kit", "Spyglass"],
+        "exits": ["Astrologer", "Explorer", "Sea Captain"],
+    },
+
+    "Explorer": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "W": 3, "I": 20, "A": 1, "Dex": 10,
+                           "Ld": 10, "Int": 10, "Cl": 10},
+        "skills": [
+            "Astronomy", "Cartography", "Evaluate", "Orientation",
+            "Outdoor Survival", "Read/Write", "Ride", "Row",
+            "Sailing", "Speak Additional Language", "Swim",
+        ],
+        "trappings": [
+            "Hand Weapon", "Crossbow and ammunition", "Astronomical instruments",
+            "Writing kit", "Rope (20 metres)", "20 Gold Crowns",
+        ],
+        "exits": ["Merchant", "Navigator", "Sea Captain"],
+    },
+
+    "Lodefinder": {
+        "advance_scheme": {"T": 1, "W": 2, "I": 20, "Dex": 10, "Int": 10},
+        "skills": [
+            "Concealment: Underground", "Dowsing", "Mining",
+            "Orientation", "Prospecting",
+        ],
+        "trappings": ["Dowsing rods", "Pick axe", "Leather Jack"],
+        "note": "Dwarfs only.",
+        "exits": ["Prospector", "Runesmith"],
+    },
+
+    # ── Rogue advanced ────────────────────────────────────────────────────────
+
+    "Outlaw Chief": {
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "W": 4, "I": 30, "A": 2,
+                           "Ld": 30, "Cl": 20, "WP": 10, "Fel": 10},
+        "skills": [
+            "Concealment: Rural", "Disguise", "Dodge Blow",
+            "Secret Language: Battle Tongue or Thieves' (equal chance of either)",
+            "Silent Move: Rural", "Strike Mighty Blow", "Strike To Stun",
+        ],
+        "trappings": [
+            "Hand Weapon", "Bow and ammunition", "Leather Jack",
+            "D6 followers", "20 Gold Crowns",
+        ],
+        "exits": ["Mercenary Captain", "Sea Captain"],
+    },
+
+    "Highwayman": {
+        "advance_scheme": {"WS": 10, "BS": 20, "W": 2, "I": 20, "A": 1,
+                           "Dex": 10, "Cl": 10, "WP": 10},
+        "skills": [
+            "Concealment: Rural", "Disarm", "Evaluate", "Palm Object",
+            "Ride", "Silent Move: Rural", "Strike To Injure",
+            "50% chance of Read/Write",
+        ],
+        "trappings": [
+            "Hand Weapon", "Pistol and ammunition", "Riding Horse", "Mask",
+            "D6 Gold Crowns",
+        ],
+        "exits": ["Merchant", "Outlaw Chief"],
+    },
+
+    "Assassin": {
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "W": 3, "I": 30, "A": 1,
+                           "Dex": 20, "Cl": 20, "WP": 20},
+        "skills": [
+            "Concealment: Urban", "Disguise", "Prepare Poisons",
+            "Scale Sheer Surface", "Silent Move: Urban",
+            "Strike To Injure", "Strike To Stun",
+        ],
+        "trappings": [
+            "Hand Weapon", "Garotte", "Short Bow and arrows or 2 Knives",
+            "Dark clothing", "D3 doses of poison",
+        ],
+        "exits": ["Demagogue"],
+    },
+
+    "Charlatan": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 10, "Ld": 10, "Int": 20,
+                           "Cl": 20, "WP": 10, "Fel": 30},
+        "skills": [
+            "Act", "Blather", "Charm", "Disguise",
+            "Fortune Telling", "Hypnotise", "Palm Object", "Wit",
+        ],
+        "trappings": [
+            "Assorted 'magical' paraphernalia", "Costume", "2D6 Silver Shillings",
+        ],
+        "exits": ["Bard", "Demagogue", "Politician"],
+    },
+
+    "Demagogue": {
+        "advance_scheme": {"W": 2, "I": 20, "Ld": 30, "Int": 10,
+                           "Cl": 20, "WP": 20, "Fel": 30},
+        "skills": [
+            "Charm", "Disguise", "Public Speaking", "Read/Write", "Wit",
+            "50% chance of Blather",
+        ],
+        "trappings": [
+            "Hand Weapon", "Pamphlets and propaganda",
+            "Robes or costume", "2D6 Gold Crowns",
+        ],
+        "exits": ["Politician"],
+    },
+
+    "Fence": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Ld": 20,
+                           "Int": 20, "Cl": 10, "WP": 10, "Fel": 20},
+        "skills": [
+            "Evaluate", "Gamble", "Haggle", "Palm Object",
+            "Secret Language: Thieves' Tongue", "Secret Signs: Thieves' Signs",
+        ],
+        "trappings": [
+            "Shop premises or market stall", "50 Gold Crowns",
+        ],
+        "exits": ["Merchant", "Racketeer"],
+    },
+
+    "Racketeer": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "A": 1, "Ld": 20,
+                           "Cl": 10, "WP": 10, "Fel": 10},
+        "skills": [
+            "Bribery", "Concealment: Urban", "Disarm", "Intimidate",
+            "Secret Language: Thieves' Tongue", "Street Fighting",
+        ],
+        "trappings": [
+            "Hand Weapon", "Leather Jack", "2D6 Gold Crowns",
+        ],
+        "exits": ["Charlatan", "Demagogue", "Outlaw Chief"],
+    },
+
+    "Informer": {
+        "advance_scheme": {"W": 2, "I": 20, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10},
+        "skills": [
+            "Bribery", "Evaluate", "Shadowing",
+            "Secret Language: Thieves' Tongue",
+        ],
+        "trappings": ["Leather Jack", "D6 Gold Crowns"],
+        "exits": ["Charlatan", "Demagogue"],
+    },
+
+    "Bard": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 10, "Ld": 20,
+                           "Int": 20, "Cl": 20, "WP": 10, "Fel": 30},
+        "skills": [
+            "Act", "Blather", "Charm", "Evaluate", "History",
+            "Musicianship", "Numismatics", "Sing", "Tale Teller", "Wit",
+        ],
+        "trappings": [
+            "Musical Instrument", "Entertainer's Costume", "10 Gold Crowns",
+        ],
+        "exits": ["Minstrel", "Politician", "Scholar"],
+    },
+
+    "Jongleur": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Cl": 10, "Fel": 20},
+        "skills": [
+            "Acrobatics", "Contortionist", "Dance", "Juggling",
+            "Musicianship", "Sing", "Tale Teller",
+        ],
+        "trappings": [
+            "Colourful costume", "Musical instrument", "D6 Silver Shillings",
+        ],
+        "exits": ["Bard", "Minstrel"],
+    },
+
+    "Rogue": {
+        "advance_scheme": {"WS": 10, "BS": 10, "W": 3, "I": 20, "A": 1, "Dex": 20,
+                           "Ld": 10, "Cl": 10, "WP": 10, "Fel": 10},
+        "skills": [
+            "Concealment: Urban", "Disguise", "Dodge Blow", "Evaluate",
+            "Gamble", "Palm Object", "Pick Lock", "Pick Pocket",
+            "Scale Sheer Surface", "Secret Language: Thieves' Tongue",
+            "Secret Signs: Thieves' Signs", "Silent Move: Urban",
+        ],
+        "trappings": [
+            "Hand Weapon", "Leather Jack", "Lock picks",
+            "D6 Gold Crowns",
+        ],
+        "exits": ["Assassin", "Fence", "Master Thief"],
+    },
+
+    "Thief (Clipper)": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 10, "Cl": 10, "WP": 10},
+        "skills": [
+            "Bribery", "Evaluate", "Numismatics", "Palm Object",
+            "Pick Pocket", "Sleight of Hand",
+        ],
+        "trappings": ["Leather Jack", "Clipping tools", "2D6 Silver Shillings"],
+        "exits": ["Fence", "Forger"],
+    },
+
+    "Forger": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 20, "WP": 10, "Fel": 10},
+        "skills": [
+            "Art", "Evaluate", "Forgery", "Numismatics", "Read/Write",
+            "50% chance of Calligraphy",
+        ],
+        "trappings": [
+            "Forgery equipment", "Writing kit", "D6 Gold Crowns",
+        ],
+        "exits": ["Counterfeiter", "Fence"],
+    },
+
+    "Counterfeiter": {
+        "advance_scheme": {"W": 2, "I": 10, "Dex": 20, "Int": 20, "WP": 10},
+        "skills": [
+            "Art", "Chemistry", "Evaluate", "Forgery", "Metallurgy",
+            "Numismatics", "Read/Write",
+        ],
+        "trappings": [
+            "Counterfeiting equipment", "Workshop access", "10 Gold Crowns",
+        ],
+        "exits": ["Fence", "Merchant"],
+    },
+
+    # ── Academic advanced ─────────────────────────────────────────────────────
+
+    "Politician": {
+        "advance_scheme": {"W": 2, "I": 10, "Ld": 30, "Int": 20,
+                           "Cl": 20, "WP": 20, "Fel": 30},
+        "skills": [
+            "Blather", "Bribery", "Charm", "Disguise", "Etiquette",
+            "Law", "Public Speaking", "Read/Write", "Wit",
+        ],
+        "trappings": [
+            "Expensive clothes", "Horse and carriage", "5D6 Gold Crowns",
+        ],
+        "exits": ["Captain", "Merchant", "Noble"],
+    },
+
+    "Lawyer": {
+        "advance_scheme": {"W": 2, "I": 10, "Ld": 20, "Int": 30,
+                           "Cl": 20, "WP": 20, "Fel": 20},
+        "skills": [
+            "Blather", "Charm", "Evaluate", "Law", "Numismatics",
+            "Read/Write", "Secret Language: Classical", "Super Numerate",
+        ],
+        "trappings": [
+            "Expensive clothes", "Law books", "Writing kit", "2D6 Gold Crowns",
+        ],
+        "exits": ["Politician", "Scholar"],
+    },
+
+    "Physician": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 30,
+                           "Cl": 20, "WP": 20, "Fel": 10},
+        "skills": [
+            "Diagnose Disease", "Heal Wounds", "Identify Plants",
+            "Prepare Poisons and Antidotes", "Read/Write",
+            "Secret Language: Classical",
+            "50% chance of Ride", "50% chance of Drive Cart",
+        ],
+        "trappings": [
+            "Medical kit", "2 Healing Draughts", "Hand Weapon",
+            "D6 Gold Crowns",
+        ],
+        "exits": ["Exorcist", "Scholar"],
+    },
+
+    "Merchant": {
+        "advance_scheme": {"W": 2, "I": 10, "Dex": 10, "Ld": 20, "Int": 20,
+                           "Cl": 20, "WP": 10, "Fel": 30},
+        "skills": [
+            "Evaluate", "Haggle", "Numismatics", "Read/Write",
+            "Speak Additional Language",
+            "50% chance of Ride", "50% chance of Drive Cart",
+        ],
+        "trappings": [
+            "Trade goods", "Horse and cart or warehouse",
+            "100 Gold Crowns",
+        ],
+        "exits": ["Fence", "Politician"],
+    },
+
+    "Artisan": {
+        "advance_scheme": {"S": 1, "W": 2, "I": 20, "Dex": 30, "Ld": 10,
+                           "Int": 20, "Cl": 10, "WP": 10},
+        "skills": [
+            "Evaluate", "Read/Write",
+            "Skill: Carpentry or Jeweller or Smithing or Tailoring",
+            "75% chance of Art",
+        ],
+        "trappings": [
+            "Artisan's tools appropriate to trade", "Workshop access",
+            "20 Gold Crowns",
+        ],
+        "exits": ["Artillerist", "Engineer", "Merchant"],
+    },
+
+    "Astrologer": {
+        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "WP": 20, "Fel": 10},
+        "skills": [
+            "Arcane Language: Magick", "Astronomy", "Cartography",
+            "Navigation", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical", "Speak Additional Language",
+        ],
+        "trappings": [
+            "Astronomical instruments", "Writing kit",
+            "D6 reference books", "2D6 Silver Shillings",
+        ],
+        "exits": ["Augur", "Diviner", "Navigator", "Scholar"],
+    },
+
+    "Augur": {
+        "advance_scheme": {"W": 1, "I": 10, "Int": 20, "Cl": 10, "WP": 20, "Fel": 10},
+        "skills": [
+            "Arcane Language: Magick", "Divining", "Fortune Telling",
+            "Magical Awareness", "Read/Write", "Second Sight",
+        ],
+        "trappings": [
+            "Divination equipment", "Robes", "D6 Silver Shillings",
+        ],
+        "exits": ["Astrologer", "Wise Woman"],
+    },
+
+    "Diviner": {
+        "advance_scheme": {"W": 2, "I": 10, "Int": 20, "WP": 30, "Fel": 10},
+        "skills": [
+            "Arcane Language: Magick", "Divining", "Magical Awareness",
+            "Magical Sense", "Read/Write", "Rune Lore", "Second Sight",
+        ],
+        "trappings": [
+            "Divination equipment", "Robes", "D6 Silver Shillings",
+        ],
+        "exits": ["Astrologer", "Scholar", "Wise Woman"],
+    },
+
+    "Wise Woman": {
+        "advance_scheme": {"T": 1, "W": 2, "I": 20, "Dex": 10, "Int": 20,
+                           "Cl": 20, "WP": 20, "Fel": 10},
+        "skills": [
+            "Cure Disease", "Dowsing", "Fortune Telling",
+            "Herb Lore", "Identify Plants", "Prepare Poisons", "Second Sight",
+        ],
+        "trappings": [
+            "Herbs and ingredients", "Pestle and mortar",
+            "Small cottage or travelling wagon",
+        ],
+        "exits": ["Druid", "Physician"],
+    },
+
+    "Alchemist - level 1": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 30, "WP": 20},
+        "skills": [
+            "Alchemy", "Arcane Language: Magick", "Chemistry", "Evaluate",
+            "Identify Plants", "Metallurgy", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Alchemical laboratory", "Grimoire", "D3 doses of alchemical compound",
+            "2D6 Gold Crowns",
+        ],
+        "exits": ["Astrologer", "Scholar", "Wizard - level 1"],
+    },
+
+    "Hedge-Wizard - level 1": {
+        "advance_scheme": {"W": 1, "I": 10, "Int": 20, "WP": 20},
+        "skills": [
+            "Animal Care", "Cast Spells: Petty Magic",
+            "Cast Spells: Hedge Magic Level 1", "Identify Plants",
+        ],
+        "trappings": [
+            "Staff", "Homespun robes", "D3 magic ingredients",
+        ],
+        "exits": ["Herbalist", "Wise Woman"],
+    },
+
+    "Wizard - level 1": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 30,
+                           "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
+            "Cast Spells: Petty Magic", "Magical Awareness",
+            "Read/Write", "Scroll Lore", "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Grimoire (Battle Magic Level 1 spells)", "Robe", "Staff",
+            "D3 magic ingredients", "2D6 Gold Crowns",
+        ],
+        "exits": ["Scholar", "Wizard - level 2"],
+    },
+
+    "Grey Wizard - level 1": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 30,
+                           "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
+            "Cast Spells: Petty Magic", "Concealment: Urban",
+            "Magical Awareness", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical", "Silent Move: Urban",
+        ],
+        "trappings": [
+            "Grey robes", "Staff", "Grimoire (Grey Magic spells)",
+            "D3 magic ingredients",
+        ],
+        "exits": ["Scholar", "Wizard - level 2"],
+    },
+
+    "Cleric - level 1": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Ld": 20, "Int": 20,
+                           "Cl": 30, "WP": 30, "Fel": 20, "Mag": 1},
+        "skills": [
+            "Cast Spells: Cleric Level 1", "Etiquette", "Heal Wounds",
+            "Immunity to Disease", "Pray", "Public Speaking", "Read/Write",
+        ],
+        "trappings": [
+            "Hand Weapon", "Holy Symbol", "Prayer Book", "Robes",
+            "2D6 Silver Shillings",
+        ],
+        "exits": ["Exorcist", "Scholar"],
+    },
+
+    "Druidic Priest - level 1": {
+        "advance_scheme": {"T": 1, "W": 2, "I": 20, "Ld": 20, "Int": 10,
+                           "Cl": 30, "WP": 30, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Animal Care", "Cast Spells: Druid Level 1", "Cure Disease",
+            "Identify Plants", "Immunity to Disease", "Pray", "Read/Write",
+            "Secret Signs: Druid",
+        ],
+        "trappings": [
+            "Silver sickle-knife", "Druidic robes", "Staff",
+            "Holy symbol", "D3 magic ingredients",
+        ],
+        "exits": ["Scholar"],
+    },
+
+    "Wood Elf Mage - level 1": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 20,
+                           "WP": 30, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
+            "Cast Spells: Petty Magic", "Follow Trail", "Identify Plants",
+            "Magical Awareness", "Read/Write",
+            "Secret Language: Malla-room-na-larin",
+        ],
+        "trappings": [
+            "Staff or Longbow", "Robes", "Grimoire (Wood Elf Magic spells)",
+            "D3 magic ingredients",
+        ],
+        "note": "Wood Elf only.",
+        "exits": [],
+    },
+
+    "Exorcist": {
+        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Ld": 20, "Int": 10,
+                           "Cl": 30, "WP": 30},
+        "skills": [
+            "Arcane Language: Magick", "Charm", "Heal Wounds",
+            "Immunity to Disease", "Immunity to Poison", "Magical Sense",
+            "Pray", "Read/Write",
+        ],
+        "trappings": [
+            "Hand Weapon", "Holy Symbol", "Prayer Book",
+            "Robes", "Holy water (D6 vials)",
+        ],
+        "exits": ["Scholar"],
+    },
+
+    "Runesmith": {
+        "advance_scheme": {"WS": 10, "S": 1, "T": 1, "W": 2, "I": 20,
+                           "Dex": 30, "Int": 30, "Cl": 20, "WP": 20},
+        "skills": [
+            "Arcane Language: Runic", "Evaluate",
+            "Identify Magical Artefacts", "Metallurgy", "Rune Lore", "Smithing",
+        ],
+        "trappings": [
+            "Smithing tools", "Runestone collection", "50 Gold Crowns",
+        ],
+        "note": "Dwarfs only.",
+        "exits": ["Loremaster (Dwarfs only)"],
+    },
+
+    "Master Engineer (Dwarfs only)": {
+        "advance_scheme": {"S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 20,
+                           "Int": 30, "Cl": 20, "WP": 10},
+        "skills": [
+            "Artillery", "Carpentry", "Drive Cart", "Engineering",
+            "Metallurgy", "Read/Write", "Smithing",
+            "Specialist Weapon: Engineer",
+        ],
+        "trappings": [
+            "Engineering tools", "Hand Weapon", "Blueprints",
+            "50 Gold Crowns",
+        ],
+        "note": "Dwarfs only.",
+        "exits": [],
+    },
+
+    "Loremaster": {
+        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "Cl": 20, "WP": 20},
+        "skills": [
+            "Arcane Language: Magick", "Astronomy", "Cartography", "History",
+            "Identify Magical Artefacts", "Read/Write", "Rune Lore",
+            "Scroll Lore", "Secret Language: Classical", "Speak Additional Language",
+        ],
+        "trappings": [
+            "Extensive library", "Writing kit", "D6 reference books",
+        ],
+        "exits": [],
+    },
+
+    "Loremaster (Dwarfs only)": {
+        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "Cl": 20, "WP": 20},
+        "skills": [
+            "Arcane Language: Runic", "Cartography", "History",
+            "Identify Magical Artefacts", "Read/Write", "Rune Lore",
+            "Scroll Lore", "Speak Additional Language",
+        ],
+        "trappings": [
+            "Extensive library", "Runestone collection", "Writing kit",
+        ],
+        "note": "Dwarfs only.",
+        "exits": [],
+    },
+
+    "Valet": {
+        "advance_scheme": {"W": 2, "I": 10, "Dex": 10, "Ld": 10,
+                           "Cl": 10, "WP": 10, "Fel": 20},
+        "skills": [
+            "Etiquette", "Evaluate", "Gamble",
+            "50% chance of Ride", "50% chance of Drive Cart",
+        ],
+        "trappings": ["Livery uniform", "D3 Silver Shillings"],
+        "exits": ["Charlatan", "Lawyer", "Merchant"],
+    },
+
+    "Jester": {
+        "advance_scheme": {"W": 2, "I": 20, "Dex": 10, "Cl": 10, "Fel": 20},
+        "skills": [
+            "Acrobatics", "Act", "Blather", "Charm",
+            "Contortionist", "Dance", "Juggling", "Wit",
+        ],
+        "trappings": ["Jester's motley", "Bladder on stick", "D3 Silver Shillings"],
+        "exits": ["Bard", "Charlatan", "Jongleur"],
+    },
 }

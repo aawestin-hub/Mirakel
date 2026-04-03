@@ -522,12 +522,15 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     # ── Info boxes ────────────────────────────────────────────────────────────
     # FP: always shown (meaningful starting value)
     _draw_text(draw, _P2_FP_X, _P2_FP_Y, str(char.FP), f_stat, "mm")
-    # Mag: only show if character has magic (Mag > 0)
-    if char.Mag:
+    # Mag: always show for NPC (even if 0); PC shows only if > 0
+    if char.Mag or not pc_mode:
         _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
     # Power Level: show starting value of 0
     _draw_text(draw, _P2_PL_X, _P2_PL_Y, "0", f_stat, "mm")
-    # IP and XP: always start at 0 — leave blank; player/GM fills in
+    # IP and XP: show 0 for NPC; leave blank for PC (player fills in)
+    if not pc_mode:
+        _draw_text(draw, _P2_IP_X, _P2_IP_Y, "0", f_stat, "mm")
+        _draw_text(draw, _P2_XP_X, _P2_XP_Y, "0", f_stat, "mm")
 
     # ── Spells ────────────────────────────────────────────────────────────────
     # Column boundaries (from pixel scan): NAME 294-713, SL 713-815, MP 815-921,
@@ -588,12 +591,13 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
             y_top += _TRAP_ROW_H
 
     # ── Wealth ────────────────────────────────────────────────────────────────
-    # Sheet has pre-printed labels; write only the number. Leave blank if 0.
-    if char.wealth_gc:
+    # Sheet has pre-printed labels; write only the number.
+    # PC: leave blank if 0. NPC: always show value (even 0).
+    if char.wealth_gc or not pc_mode:
         _draw_text(draw, _P2_WGC_X, _P2_WGC_Y, str(char.wealth_gc), f_field, "lm")
-    if char.wealth_ss:
+    if char.wealth_ss or not pc_mode:
         _draw_text(draw, _P2_WSS_X, _P2_WSS_Y, str(char.wealth_ss), f_field, "lm")
-    if char.wealth_bp:
+    if char.wealth_bp or not pc_mode:
         _draw_text(draw, _P2_WBP_X, _P2_WBP_Y, str(char.wealth_bp), f_field, "lm")
 
     # ── Movement rates ────────────────────────────────────────────────────────
