@@ -316,7 +316,7 @@ CAREERS: dict[str, dict] = {
             "25% chance of Swim",
         ],
         "trappings": [
-            "Bow or Crossbow and ammunition", "Grappling hook and 10 yards of rope",
+            "Bow or Crossbow and ammunition", "Grappling hook and 10 metres of rope",
             "Mail Shirt", "Shield",
         ],
         "exits": [
@@ -469,7 +469,7 @@ CAREERS: dict[str, dict] = {
             "Strike Mighty Blow", "Strike To Injure", "Strike To Stun",
         ],
         "trappings": [
-            "Crossbow and ammunition", "Grappling hook and 10 yards of rope",
+            "Crossbow and ammunition", "Grappling hook and 10 metres of rope",
             "Mail Coat", "Shield", "Water flask",
         ],
         "exits": ["Sapper (Dwarfs only)", "Smuggler", "Tomb Robber"],
@@ -618,7 +618,7 @@ CAREERS: dict[str, dict] = {
         ],
         "trappings": [
             "Horse, saddle, and harness", "Bow or Crossbow and ammunition",
-            "Mail Shirt", "Rope (10 yards)", "Shield",
+            "Mail Shirt", "Rope (10 metres)", "Shield",
         ],
         "exits": ["Highwayman", "Mercenary", "Scout"],
     },
@@ -630,7 +630,7 @@ CAREERS: dict[str, dict] = {
             "20% chance of Consume Alcohol",
         ],
         "trappings": [
-            "Leather Jerkin", "Rope (10 yards)",
+            "Leather Jerkin", "Rope (10 metres)",
             "Rowing boat (moored on nearest water)", "2 lanterns",
         ],
         "exits": ["Navigator", "Raconteur", "Sea Captain", "Smuggler"],
@@ -671,7 +671,7 @@ CAREERS: dict[str, dict] = {
         "skills": ["Ride: Horse"],
         "trappings": [
             "Bow or Crossbow and ammunition", "Horse with saddle and harness",
-            "Mail Shirt", "Rope (10 yards)", "Shield",
+            "Mail Shirt", "Rope (10 metres)", "Shield",
         ],
         "exits": ["Highwayman", "Militiaman", "Outlaw"],
     },
@@ -703,7 +703,7 @@ CAREERS: dict[str, dict] = {
         ],
         "trappings": [
             "Bow or Crossbow and ammunition", "Fur hat and buckskins",
-            "Leather Jerkin", "Rope (10 yards)",
+            "Leather Jerkin", "Rope (10 metres)",
             "Rowing boat or canoe (moored on nearest water)", "D4 animal traps",
         ],
         "exits": ["Druid", "Outlaw", "Scout"],
@@ -846,7 +846,7 @@ CAREERS: dict[str, dict] = {
             "Drive Cart", "Silent Move: Rural", "Specialist Weapon: Lasso",
             "50% chance of Secret Language: Ranger", "20% chance of Animal Care",
         ],
-        "trappings": ["Horse and cart", "Hand Weapon", "Lantern", "Rope (10 yards)"],
+        "trappings": ["Horse and cart", "Hand Weapon", "Lantern", "Rope (10 metres)"],
         "exits": ["Outlaw", "Slaver"],
     },
 
@@ -889,7 +889,7 @@ CAREERS: dict[str, dict] = {
         ],
         "trappings": [
             "Crowbar", "Hand Weapon", "Lantern", "Leather Jack",
-            "Rope (10 yards)", "D4 sacks",
+            "Rope (10 metres)", "D4 sacks",
         ],
         "exits": ["Bodyguard", "Fence", "Rat Catcher", "Tunnel Fighter"],
     },

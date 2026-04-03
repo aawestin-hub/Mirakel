@@ -1,3 +1,5 @@
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 import random
 from chargen.generator import generate_character
 from sheet_image import save_character_spread

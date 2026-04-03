@@ -16,8 +16,8 @@ from PIL import Image, ImageTk
 import os, json
 
 _HERE    = os.path.dirname(os.path.abspath(__file__))
-_SHEET   = os.path.join(_HERE, "sheet_page0.png")
-_SHEET2  = os.path.join(_HERE, "sheet_page1.png")
+_SHEET   = os.path.join(_HERE, "..", "templates", "sheet_page0.png")
+_SHEET2  = os.path.join(_HERE, "..", "templates", "sheet_page1.png")
 _OUT     = os.path.join(_HERE, "calibration_result.py")
 
 DISPLAY_SCALE = 0.40   # show at 40% of full size

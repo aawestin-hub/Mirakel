@@ -19,8 +19,8 @@ from data.spells import get_spell
 # ── Image & font setup ────────────────────────────────────────────────────────
 
 _HERE  = os.path.dirname(os.path.abspath(__file__))
-_SHEET  = os.path.join(_HERE, "sheet_page0.png")
-_SHEET2 = os.path.join(_HERE, "sheet_page1.png")
+_SHEET  = os.path.join(_HERE, "templates", "sheet_page0.png")
+_SHEET2 = os.path.join(_HERE, "templates", "sheet_page1.png")
 
 def _get_font(size: int):
     # Prefer handwritten/print-style fonts; fall back to bold then regular
@@ -243,9 +243,9 @@ _P2_MV_X           = 1357   # row-label anchor (also used as 10-SECS col)
 _P2_MV_CAUT_Y      = 1082
 _P2_MV_STD_Y       = 1175
 _P2_MV_RUN_Y       = 1272
-_P2_MV_10_X        = 1357   # "Yds./10 SECS" column (same x as row marker)
-_P2_MV_MIN_X       = 1467
-_P2_MV_MPH_X       = 1560
+_P2_MV_10_X        = 1357   # "m/10 SEK" column
+_P2_MV_MIN_X       = 1467   # "m/Min." column
+_P2_MV_MPH_X       = 1560   # "km/t" column
 
 _P2_LANG_X         = 1690
 _P2_LANG_START_Y   = 1077
@@ -478,8 +478,8 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw) -> None:
 
     # ── Movement rates ────────────────────────────────────────────────────────
     M = char.M
-    _Y = 0.9144   # yards to metres
-    _K = 1.60934  # mph to km/h
+    _Y = 0.9144   # yards -> metres
+    _K = 1.60934  # mph -> km/t
     mv_rows = [
         (round(M     * _Y, 1), round(M *  6 * _Y, 1), round(M *  6 * 60 / 1760 * _K, 1), _P2_MV_CAUT_Y),
         (round(M * 2 * _Y, 1), round(M * 12 * _Y, 1), round(M * 12 * 60 / 1760 * _K, 1), _P2_MV_STD_Y),
