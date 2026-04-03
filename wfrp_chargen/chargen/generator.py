@@ -279,10 +279,17 @@ _DESCRIPTION_BUILDS = [
     "Athletic build", "Stocky build", "Slim build", "Broad-shouldered",
     "Wiry frame", "Heavy-set", "Lithe frame", "Muscular build",
 ]
-_DESCRIPTION_FEATURES = [
+_DESCRIPTION_FEATURES_NEUTRAL = [
     "sharp eyes", "a weathered face", "a stern gaze", "kind eyes",
     "a scarred cheek", "a crooked nose", "a strong jaw", "wild hair",
-    "calloused hands", "a missing tooth", "a bushy beard", "bright eyes",
+    "calloused hands", "a missing tooth", "bright eyes", "a furrowed brow",
+    "a hawk-like nose", "piercing eyes", "high cheekbones",
+]
+_DESCRIPTION_FEATURES_MALE = [
+    "a bushy beard", "a thick moustache", "a stubbly chin",
+]
+_DESCRIPTION_FEATURES_FEMALE = [
+    "long lashes", "a graceful bearing", "a sharp tongue",
 ]
 
 
@@ -297,8 +304,10 @@ def _roll_appearance(race: str) -> dict:
 
     weight_lbs = _roll_weight(race)
 
-    build   = random.choice(_DESCRIPTION_BUILDS)
-    feature = random.choice(_DESCRIPTION_FEATURES)
+    build = random.choice(_DESCRIPTION_BUILDS)
+    gender_features = _DESCRIPTION_FEATURES_MALE if gender == "Male" else _DESCRIPTION_FEATURES_FEMALE
+    feature_pool = _DESCRIPTION_FEATURES_NEUTRAL + gender_features
+    feature = random.choice(feature_pool)
 
     return {
         "age":         str(age),
