@@ -744,6 +744,7 @@ def generate_character(
     career_class: str | None = None,
     career_name: str | None = None,
     gender: str | None = None,
+    npc_mode: bool = False,
 ) -> Character:
     """
     Generate a complete starting character.
@@ -756,6 +757,8 @@ def generate_character(
                    If None, one is chosen randomly from those available.
     career_name  : specific career name (e.g. "Mercenary").
                    If provided, overrides career_class roll.
+    npc_mode     : if True, skip career-class prerequisites (NPCs can be
+                   anything) and detect advanced careers.
     Returns
     -------
     A fully populated Character instance.
@@ -804,30 +807,35 @@ def generate_character(
     char.A   = 1
 
     # ── Career class selection ────────────────────────────────────────────
-    stats_dict = {
-        "WS": char.WS, "BS": char.BS, "S": char.S, "T": char.T,
-        "I": char.I, "Dex": char.Dex, "Ld": char.Ld, "Int": char.Int,
-        "Cl": char.Cl, "WP": char.WP, "Fel": char.Fel,
-    }
-    # Only include classes where this race has a career table
-    valid_classes = [
-        cls for cls in available_classes(race_name, stats_dict)
-        if race_name in CAREER_CLASS_TABLES.get(cls, {})
-    ]
+    # Build list of classes available for this race
+    race_classes = [c for c in CAREER_CLASS_TABLES if race_name in CAREER_CLASS_TABLES[c]]
 
-    # Check requested class is valid and available for this race
-    if career_class and career_class in valid_classes:
-        chosen_class = career_class
-    elif valid_classes:
-        chosen_class = random.choice(valid_classes)
+    if npc_mode:
+        # NPCs have no prerequisites — use the requested class directly if given
+        if career_class and career_class in CAREER_CLASS_TABLES:
+            chosen_class = career_class
+        else:
+            chosen_class = random.choice(race_classes)
     else:
-        # Extremely unlikely: no prereqs met – pick any available class
-        all_classes = list(CAREER_CLASS_TABLES.keys())
-        race_classes = [
-            c for c in all_classes
-            if race_name in CAREER_CLASS_TABLES[c]
+        stats_dict = {
+            "WS": char.WS, "BS": char.BS, "S": char.S, "T": char.T,
+            "I": char.I, "Dex": char.Dex, "Ld": char.Ld, "Int": char.Int,
+            "Cl": char.Cl, "WP": char.WP, "Fel": char.Fel,
+        }
+        # Only include classes where this race has a career table
+        valid_classes = [
+            cls for cls in available_classes(race_name, stats_dict)
+            if race_name in CAREER_CLASS_TABLES.get(cls, {})
         ]
-        chosen_class = random.choice(race_classes)
+
+        # Check requested class is valid and available for this race
+        if career_class and career_class in valid_classes:
+            chosen_class = career_class
+        elif valid_classes:
+            chosen_class = random.choice(valid_classes)
+        else:
+            # Extremely unlikely: no prereqs met – pick any available class
+            chosen_class = random.choice(race_classes) if race_classes else "Warrior"
 
     # ── Career roll ───────────────────────────────────────────────────────
     if career_name and career_name in CAREERS:
@@ -858,6 +866,15 @@ def generate_character(
     char.advance_scheme = dict(career_data["advance_scheme"])
     char.career_exits   = list(career_data.get("exits", []))
     char.career_note    = career_data.get("note", "")
+
+    # Detect advanced (exit-only) careers — those not listed in any class table
+    _basic_careers = {
+        name
+        for race_tbl in CAREER_CLASS_TABLES.values()
+        for r_list in race_tbl.values()
+        for _, _, name in r_list
+    }
+    char.is_advanced_career = resolved_career not in _basic_careers
 
     # ── Alignment ─────────────────────────────────────────────────────────
     char.alignment = _roll_alignment(chosen_class, race_name)

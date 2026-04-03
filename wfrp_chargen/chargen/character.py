@@ -76,12 +76,13 @@ class Character:
     eye_colour:  str = ""
 
     # Career info
-    skills:          list  = field(default_factory=list)
-    trappings:       list  = field(default_factory=list)
-    spells:          list  = field(default_factory=list)
-    advance_scheme:  dict  = field(default_factory=dict)
-    career_exits:    list  = field(default_factory=list)
-    career_note:     str   = ""
+    skills:              list  = field(default_factory=list)
+    trappings:           list  = field(default_factory=list)
+    spells:              list  = field(default_factory=list)
+    advance_scheme:      dict  = field(default_factory=dict)
+    career_exits:        list  = field(default_factory=list)
+    career_note:         str   = ""
+    is_advanced_career:  bool  = False
 
     # Equipment categories (parsed from trappings)
     hth_weapons:     list  = field(default_factory=list)

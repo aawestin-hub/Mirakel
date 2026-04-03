@@ -381,9 +381,15 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
 
     # ── CURRENT PROFILE ───────────────────────────────────────────────────────
     if not pc_mode:
+        adv = char.advance_scheme if getattr(char, "is_advanced_career", False) else {}
         for stat, x in _STAT_X.items():
             val = getattr(char, stat, None)
             if val is not None:
+                if adv and stat in adv:
+                    try:
+                        val = val + int(adv[stat])
+                    except (TypeError, ValueError):
+                        pass
                 _draw_text(draw, x, _CURRENT_Y, val, f_stat, "mm")
 
     # ── SKILLS ────────────────────────────────────────────────────────────────

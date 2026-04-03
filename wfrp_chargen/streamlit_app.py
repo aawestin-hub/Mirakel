@@ -18,18 +18,29 @@ if _HERE not in sys.path:
 
 from chargen.generator import generate_character
 from data.names import random_name
-from data.careers import CAREERS
+from data.careers import CAREERS, CAREER_CLASS_TABLES
 from sheet_image import save_character_spread
 
 # ── Careers organised by class (for the dropdown) ─────────────────────────────
 _CAREER_CLASSES = ["Warrior", "Ranger", "Rogue", "Academic"]
 
 def _careers_for_class(cls: str) -> list[str]:
-    return sorted(
+    """Return all unique basic career names belonging to the given career class."""
+    careers: set[str] = set()
+    for race_list in CAREER_CLASS_TABLES.get(cls, {}).values():
+        for _, _, name in race_list:
+            careers.add(name)
+    return sorted(careers)
+
+def _advanced_careers() -> list[str]:
+    """Return careers accessible only as exits (not rolled as starting careers)."""
+    basic = {
         name
-        for name, data in CAREERS.items()
-        if data.get("career_class") == cls
-    )
+        for race_tbl in CAREER_CLASS_TABLES.values()
+        for r_list in race_tbl.values()
+        for _, _, name in r_list
+    }
+    return sorted(name for name in CAREERS if name not in basic)
 
 # ── Page config ───────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -82,8 +93,18 @@ with st.sidebar:
             career_options = ["Random"] + sorted(CAREERS.keys())
         career_choice = st.selectbox("Career", career_options)
     else:
-        class_choice  = "Random"
-        career_choice = "Random"
+        st.subheader("Career (NPC)")
+        st.caption("NPCs have no prerequisites — any career is available.")
+        npc_class_options = ["Random"] + _CAREER_CLASSES + ["Advanced"]
+        class_choice = st.selectbox("Career class", npc_class_options)
+
+        if class_choice == "Random":
+            career_options = ["Random"] + sorted(CAREERS.keys())
+        elif class_choice == "Advanced":
+            career_options = ["Random"] + _advanced_careers()
+        else:
+            career_options = ["Random"] + _careers_for_class(class_choice)
+        career_choice = st.selectbox("Career", career_options)
 
     st.divider()
     generate_btn = st.button("🎲 Generate character", type="primary", use_container_width=True)
@@ -109,6 +130,7 @@ if generate_btn:
 
         # Resolve gender
         gender = None if gender_choice == "Random" else gender_choice
+        gender_was_rolled = False
 
         # Resolve name
         if name_input.strip():
@@ -118,9 +140,10 @@ if generate_btn:
             name = random_name(race, resolved_gender)
             if gender is None:
                 gender = resolved_gender
+                gender_was_rolled = True
 
         # Resolve career options
-        career_class  = None if class_choice  == "Random" else class_choice
+        career_class  = None if class_choice  in ("Random", "Advanced") else class_choice
         career_name   = None if career_choice == "Random" else career_choice
 
         # Generate character
@@ -130,8 +153,10 @@ if generate_btn:
             career_class=career_class,
             career_name=career_name,
             gender=gender,
+            npc_mode=(char_type == "NPC"),
         )
         char.character_type = char_type
+        char._gender_was_rolled = gender_was_rolled
 
         # Render to in-memory image
         with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
@@ -156,11 +181,16 @@ if "last_char" in st.session_state:
     img_bytes = st.session_state["last_img"]
 
     # Character summary row
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric("Name",   char.name  or "—")
     col2.metric("Race",   char.race  or "—")
     col3.metric("Career", char.career or "—")
-    col4.metric("Type",   char.character_type or "—")
+    # Gender: show roll indicator if it was randomly determined
+    gender_label = char.gender or "—"
+    if getattr(char, "_gender_was_rolled", False):
+        gender_label += " 🎲"
+    col4.metric("Gender", gender_label)
+    col5.metric("Type",   char.character_type or "—")
 
     st.image(img_bytes, use_container_width=True)
 
