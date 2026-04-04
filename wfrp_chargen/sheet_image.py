@@ -23,20 +23,38 @@ _SHEET  = os.path.join(_HERE, "templates", "sheet_page0.png")
 _SHEET2 = os.path.join(_HERE, "templates", "sheet_page1.png")
 
 def _get_font(size: int):
-    # Prefer handwritten/print-style fonts; fall back to bold then regular
+    # Prefer handwritten/print-style fonts; fall back to generic readable fonts
     candidates = [
-        "C:/Windows/Fonts/segoeprb.ttf",   # Segoe Print Bold – clean handprint
-        "C:/Windows/Fonts/segoescb.ttf",   # Segoe Script Bold – cursive
-        "C:/Windows/Fonts/comicbd.ttf",    # Comic Sans Bold – thick, informal
+        # Windows fonts
+        "C:/Windows/Fonts/segoeprb.ttf",   # Segoe Print Bold
+        "C:/Windows/Fonts/segoescb.ttf",   # Segoe Script Bold
+        "C:/Windows/Fonts/comicbd.ttf",    # Comic Sans Bold
         "C:/Windows/Fonts/LHANDW.TTF",     # Lucida Handwriting
         "C:/Windows/Fonts/arial.ttf",
         "C:/Windows/Fonts/cour.ttf",
+        # macOS
+        "/Library/Fonts/Arial.ttf",
+        "/Library/Fonts/Comic Sans MS.ttf",
+        "/System/Library/Fonts/Helvetica.ttc",
+        # Linux (Streamlit Cloud / Ubuntu)
+        "/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf",
+        "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+        # Bundled in project (cross-platform fallback)
+        os.path.join(_HERE, "templates", "fonts", "DejaVuSans-Bold.ttf"),
+        os.path.join(_HERE, "templates", "fonts", "DejaVuSans.ttf"),
     ]
     for path in candidates:
         try:
             return ImageFont.truetype(path, size)
         except (IOError, OSError):
             continue
+    # Last resort: PIL's default (small bitmap, but better than crashing)
     return ImageFont.load_default()
 
 # Font sizes – calibrated for 2250 × 3250 px sheet

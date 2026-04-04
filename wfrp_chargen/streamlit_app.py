@@ -7,6 +7,7 @@ import io
 import os
 import sys
 import tempfile
+import traceback
 
 import streamlit as st
 from PIL import Image
@@ -19,13 +20,16 @@ if _HERE not in sys.path:
 from chargen.generator import generate_character
 from data.names import random_name
 from data.careers import CAREERS, CAREER_CLASS_TABLES
-from sheet_image import save_character_spread
+
+# Lazy import – may not be needed if we hit an error early
+def _save_spread(char, path, pc_mode, template):
+    from sheet_image import save_character_spread
+    return save_character_spread(char, path, pc_mode=pc_mode, template=template)
 
 # ── Careers organised by class (for the dropdown) ─────────────────────────────
 _CAREER_CLASSES = ["Warrior", "Ranger", "Rogue", "Academic"]
 
 def _careers_for_class(cls: str) -> list[str]:
-    """Return all unique basic career names belonging to the given career class."""
     careers: set[str] = set()
     for race_list in CAREER_CLASS_TABLES.get(cls, {}).values():
         for _, _, name in race_list:
@@ -33,7 +37,6 @@ def _careers_for_class(cls: str) -> list[str]:
     return sorted(careers)
 
 def _advanced_careers() -> list[str]:
-    """Return careers accessible only as exits (not rolled as starting careers)."""
     basic = {
         name
         for race_tbl in CAREER_CLASS_TABLES.values()
@@ -49,22 +52,30 @@ st.set_page_config(
     layout="wide",
 )
 
+# ── CSS tweaks ────────────────────────────────────────────────────────────────
+st.markdown("""
+<style>
+[data-testid="stMetricValue"] { font-size: 1.1rem; }
+</style>
+""", unsafe_allow_html=True)
+
 # ── Header ────────────────────────────────────────────────────────────────────
 st.title("⚔️ WFRP 1st Edition — Character Generator")
-st.caption("Warhammer Fantasy Roleplay · 1st Edition")
+st.caption("Warhammer Fantasy Roleplay · 1st Edition · Automatically generates stats, skills, trappings, spells and background narrative")
 st.divider()
 
 # ── Sidebar — character options ───────────────────────────────────────────────
 with st.sidebar:
     st.header("Character Options")
 
-    char_type = st.radio("Character type", ["PC", "NPC"], horizontal=True)
+    char_type = st.radio("Character type", ["PC", "NPC"], horizontal=True,
+                         help="PC: leaves advance scheme blank for player. NPC: auto-fills advances.")
 
     st.subheader("Sheet template")
     template_choice = st.radio(
         "Sheet style",
         ["Weskon's Fantasy Roleplay", "Classic Edited Sheet"],
-        help="Choose which character sheet layout to use.",
+        help="Weskon's sheet has more room for details. Classic is the original 1e layout.",
     )
     template_key = "weskon" if template_choice == "Weskon's Fantasy Roleplay" else "classic"
 
@@ -79,13 +90,14 @@ with st.sidebar:
     name_input = st.text_input(
         "Name",
         placeholder="Leave blank for random",
-        help="A race-appropriate name is suggested if left blank.",
+        help="A race-appropriate name is generated if left blank.",
     )
 
     if char_type == "PC":
         st.subheader("Career")
         class_options = ["Random"] + _CAREER_CLASSES
-        class_choice  = st.selectbox("Career class", class_options)
+        class_choice  = st.selectbox("Career class", class_options,
+                                     help="Warrior / Ranger / Rogue / Academic — or Random.")
 
         if class_choice != "Random":
             career_options = ["Random"] + _careers_for_class(class_choice)
@@ -95,12 +107,12 @@ with st.sidebar:
     else:
         st.subheader("Career (NPC)")
         st.caption("NPCs have no prerequisites — any career is available.")
-        npc_class_options = ["Random"] + _CAREER_CLASSES + ["Advanced"]
+        npc_class_options = ["Random"] + _CAREER_CLASSES + ["Advanced careers"]
         class_choice = st.selectbox("Career class", npc_class_options)
 
         if class_choice == "Random":
             career_options = ["Random"] + sorted(CAREERS.keys())
-        elif class_choice == "Advanced":
+        elif class_choice == "Advanced careers":
             career_options = ["Random"] + _advanced_careers()
         else:
             career_options = ["Random"] + _careers_for_class(class_choice)
@@ -111,72 +123,85 @@ with st.sidebar:
 
 # ── Generate ──────────────────────────────────────────────────────────────────
 if generate_btn:
-    with st.spinner("Rolling dice…"):
-        import random as _rand
+    import random as _rand
 
-        # Resolve race
-        if race_choice == "Random":
-            roll = _rand.randint(1, 100)
-            if roll <= 90:
-                race = "Human"
-            elif roll <= 95:
-                race = "Elf"
-            elif roll <= 98:
-                race = "Dwarf"
-            else:
-                race = "Halfling"
-        else:
-            race = race_choice
-
-        # Resolve gender
-        gender = None if gender_choice == "Random" else gender_choice
-        gender_was_rolled = False
-
-        # Resolve name
-        if name_input.strip():
-            name = name_input.strip()
-        else:
-            resolved_gender = gender or _rand.choice(["Male", "Female"])
-            name = random_name(race, resolved_gender)
-            if gender is None:
-                gender = resolved_gender
-                gender_was_rolled = True
-
-        # Resolve career options
-        career_class  = None if class_choice  in ("Random", "Advanced") else class_choice
-        career_name   = None if career_choice == "Random" else career_choice
-
-        # Generate character
-        char = generate_character(
-            race_name=race,
-            char_name=name,
-            career_class=career_class,
-            career_name=career_name,
-            gender=gender,
-            npc_mode=(char_type == "NPC"),
-        )
-        char.character_type = char_type
-        char._gender_was_rolled = gender_was_rolled
-
-        # Render to in-memory image
-        with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
-            tmp_path = tmp.name
+    with st.spinner("Rolling dice and filling the sheet…"):
         try:
-            save_character_spread(char, tmp_path, pc_mode=(char_type == "PC"),
-                                  template=template_key)
-            img = Image.open(tmp_path)
-            buf = io.BytesIO()
-            img.save(buf, format="JPEG", quality=95)
-            buf.seek(0)
-        finally:
-            os.unlink(tmp_path)
+            # Resolve race
+            if race_choice == "Random":
+                roll = _rand.randint(1, 100)
+                if roll <= 90:
+                    race = "Human"
+                elif roll <= 95:
+                    race = "Elf"
+                elif roll <= 98:
+                    race = "Dwarf"
+                else:
+                    race = "Halfling"
+            else:
+                race = race_choice
 
-    # Store result in session state so it persists across reruns
-    st.session_state["last_char"] = char
-    st.session_state["last_img"]  = buf.getvalue()
+            # Resolve gender
+            gender = None if gender_choice == "Random" else gender_choice
+            gender_was_rolled = False
+
+            # Resolve name
+            if name_input.strip():
+                name = name_input.strip()
+            else:
+                resolved_gender = gender or _rand.choice(["Male", "Female"])
+                name = random_name(race, resolved_gender)
+                if gender is None:
+                    gender = resolved_gender
+                    gender_was_rolled = True
+
+            # Resolve career options
+            career_class = None if class_choice in ("Random", "Advanced careers") else class_choice
+            career_name  = None if career_choice == "Random" else career_choice
+
+            # Generate character
+            char = generate_character(
+                race_name=race,
+                char_name=name,
+                career_class=career_class,
+                career_name=career_name,
+                gender=gender,
+                npc_mode=(char_type == "NPC"),
+            )
+            char.character_type = char_type
+            char._gender_was_rolled = gender_was_rolled
+
+            # Render to in-memory image
+            with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
+                tmp_path = tmp.name
+            try:
+                _save_spread(char, tmp_path, pc_mode=(char_type == "PC"), template=template_key)
+                img = Image.open(tmp_path)
+                buf = io.BytesIO()
+                img.save(buf, format="JPEG", quality=95)
+                buf.seek(0)
+            finally:
+                try:
+                    os.unlink(tmp_path)
+                except OSError:
+                    pass
+
+            # Store in session state
+            st.session_state["last_char"] = char
+            st.session_state["last_img"]  = buf.getvalue()
+            st.session_state["gen_error"] = None
+
+        except Exception as exc:
+            st.session_state["gen_error"] = traceback.format_exc()
+            st.error(f"⚠️ Error generating character: {exc}")
+
+# Show error details if any
+if st.session_state.get("gen_error"):
+    with st.expander("🐛 Error details (click to expand)", expanded=False):
+        st.code(st.session_state["gen_error"])
 
 # ── Display result ────────────────────────────────────────────────────────────
-if "last_char" in st.session_state:
+if "last_char" in st.session_state and st.session_state.get("gen_error") is None:
     char      = st.session_state["last_char"]
     img_bytes = st.session_state["last_img"]
 
@@ -185,12 +210,11 @@ if "last_char" in st.session_state:
     col1.metric("Name",   char.name  or "—")
     col2.metric("Race",   char.race  or "—")
     col3.metric("Career", char.career or "—")
-    # Gender: show roll indicator if it was randomly determined
     gender_label = char.gender or "—"
     if getattr(char, "_gender_was_rolled", False):
         gender_label += " 🎲"
     col4.metric("Gender", gender_label)
-    col5.metric("Type",   char.character_type or "—")
+    col5.metric("Type",   getattr(char, "character_type", char_type) or "—")
 
     st.image(img_bytes, use_container_width=True)
 
@@ -226,3 +250,13 @@ if "last_char" in st.session_state:
         if char.trappings:
             st.markdown("**Trappings**")
             st.write(", ".join(char.trappings))
+
+        if char.spells:
+            st.markdown("**Spells**")
+            st.write(", ".join(char.spells))
+
+        bg = getattr(char, "background_narrative", None)
+        if bg:
+            st.markdown("**Background**")
+            st.write(bg)
+
