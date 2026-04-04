@@ -313,6 +313,13 @@ _P2_SOCIAL_Y       = 1759
 _P2_RELIG_X        = 1960
 _P2_RELIG_Y        = 2090
 
+# Appearance section (below RUNNING row, left-centre of page 2)
+# Header band: y≈1290-1345; text area x=905-1185, y≈1360 onwards
+_P2_APPEAR_X       = 905    # left edge of appearance text area
+_P2_APPEAR_Y       = 1390   # first line of appearance text (clear of header band)
+_P2_APPEAR_SPACING = 48     # line spacing
+_P2_APPEAR_MAX_W   = 340    # max width for text lines
+
 # Background free-text area (birthplace / parents / family / star sign / mark merged here)
 _P2_BACK_X         = 200
 _P2_BACK_Y         = 2554
@@ -570,8 +577,9 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     # Mag: always show for NPC (even if 0); PC shows only if > 0
     if char.Mag or not pc_mode:
         _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
-    # Power Level: show starting value of 0
-    _draw_text(draw, _P2_PL_X, _P2_PL_Y, "0", f_stat, "mm")
+    # Power Level = Mag stat (0 = non-magic, 1-4 = magic level)
+    if char.Mag or not pc_mode:
+        _draw_text(draw, _P2_PL_X, _P2_PL_Y, str(char.Mag), f_stat, "mm")
     # IP and XP: show 0 for NPC; leave blank for PC (player fills in)
     if not pc_mode:
         _draw_text(draw, _P2_IP_X, _P2_IP_Y, "0", f_stat, "mm")
@@ -663,6 +671,26 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     for i, lang in enumerate(char.languages):
         y = _P2_LANG_START_Y + i * _P2_LANG_SPACING
         _draw_text(draw, _P2_LANG_X, y, lang, f_skill, "lm")
+
+    # ── Appearance ────────────────────────────────────────────────────────────
+    appear_lines = []
+    if getattr(char, "description", None):
+        appear_lines.append(char.description)
+    hair = getattr(char, "hair_colour", None)
+    eyes = getattr(char, "eye_colour",  None)
+    if hair and eyes:
+        appear_lines.append(f"Hair: {hair}  /  Eyes: {eyes}")
+    elif hair:
+        appear_lines.append(f"Hair: {hair}")
+    elif eyes:
+        appear_lines.append(f"Eyes: {eyes}")
+    if getattr(char, "height", None):
+        appear_lines.append(f"Height: {char.height}")
+    if getattr(char, "distinguishing_marks", None):
+        appear_lines.append(f"Mark: {char.distinguishing_marks}")
+    for i, line in enumerate(appear_lines):
+        _draw_text_fit(draw, _P2_APPEAR_X, _P2_APPEAR_Y + i * _P2_APPEAR_SPACING,
+                       line, _FS_SKILL, max_width=_P2_APPEAR_MAX_W, anchor="lm")
 
     # ── Background ────────────────────────────────────────────────────────────
     if char.social_level:
