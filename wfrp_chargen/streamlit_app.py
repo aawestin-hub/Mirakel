@@ -55,7 +55,11 @@ st.set_page_config(
 # ── CSS tweaks ────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English&display=swap');
 [data-testid="stMetricValue"] { font-size: 1.1rem; }
+h1, h2, h3, .stTitle > *, [data-testid="stHeadingWithActionElements"] h1 {
+    font-family: 'IM Fell English', Georgia, serif !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -127,7 +131,10 @@ if generate_btn:
 
     with st.spinner("Rolling dice and filling the sheet…"):
         try:
+            gen_log = []   # list of (label, value) strings for the generation log
+
             # Resolve race
+            race_was_rolled = False
             if race_choice == "Random":
                 roll = _rand.randint(1, 100)
                 if roll <= 90:
@@ -138,8 +145,11 @@ if generate_btn:
                     race = "Dwarf"
                 else:
                     race = "Halfling"
+                race_was_rolled = True
+                gen_log.append(("Race roll", f"d100={roll} → **{race}**"))
             else:
                 race = race_choice
+                gen_log.append(("Race", race))
 
             # Resolve gender
             gender = None if gender_choice == "Random" else gender_choice
@@ -148,15 +158,20 @@ if generate_btn:
             # Resolve name
             if name_input.strip():
                 name = name_input.strip()
+                gen_log.append(("Name", name + " (custom)"))
             else:
                 resolved_gender = gender or _rand.choice(["Male", "Female"])
-                name = random_name(race, resolved_gender)
+                used_names = st.session_state.get("used_names", set())
+                name = random_name(race, resolved_gender, exclude=used_names)
                 if gender is None:
                     gender = resolved_gender
                     gender_was_rolled = True
+                    gen_log.append(("Gender roll", f"→ **{gender}**"))
+                gen_log.append(("Name", name + " (random)"))
 
             # Resolve career options
             career_class = None if class_choice in ("Random", "Advanced careers") else class_choice
+            career_class_was_rolled = career_class is None
             career_name  = None if career_choice == "Random" else career_choice
 
             # Generate character
@@ -169,7 +184,33 @@ if generate_btn:
                 npc_mode=(char_type == "NPC"),
             )
             char.character_type = char_type
-            char._gender_was_rolled = gender_was_rolled
+            char._gender_was_rolled     = gender_was_rolled
+            char._race_was_rolled       = race_was_rolled
+            char._class_was_rolled      = career_class_was_rolled
+            char._career_was_rolled     = (career_choice == "Random")
+
+            # Log career class and career
+            if career_class_was_rolled:
+                gen_log.append(("Career class roll", f"→ **{char.career_class}**"))
+            else:
+                gen_log.append(("Career class", char.career_class or career_class))
+            if career_choice == "Random":
+                gen_log.append(("Career roll", f"→ **{char.career}**"))
+            else:
+                gen_log.append(("Career", char.career))
+
+            # Log key character facts
+            gen_log.append(("Alignment", char.alignment or "—"))
+            gen_log.append(("Star sign", getattr(char, "star_sign", "—") or "—"))
+            gen_log.append(("Place of birth", getattr(char, "place_of_birth", "—") or "—"))
+            gen_log.append(("Religion", getattr(char, "religion", "—") or "—"))
+            starter = f"WS {char.WS}  BS {char.BS}  S {char.S}  T {char.T}  W {char.W}  I {char.I}  A {char.A}  Dex {char.Dex}  Ld {char.Ld}  Int {char.Int}  Cl {char.Cl}  WP {char.WP}  Fel {char.Fel}"
+            gen_log.append(("Starter stats", starter))
+            wealth_parts = []
+            if getattr(char, "wealth_gc", 0): wealth_parts.append(f"{char.wealth_gc} GC")
+            if getattr(char, "wealth_ss", 0): wealth_parts.append(f"{char.wealth_ss} SS")
+            if getattr(char, "wealth_bp", 0): wealth_parts.append(f"{char.wealth_bp} BP")
+            gen_log.append(("Starting wealth", ", ".join(wealth_parts) if wealth_parts else "none"))
 
             # Render to in-memory image
             with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp:
@@ -187,9 +228,14 @@ if generate_btn:
                     pass
 
             # Store in session state
-            st.session_state["last_char"] = char
-            st.session_state["last_img"]  = buf.getvalue()
-            st.session_state["gen_error"] = None
+            st.session_state["last_char"]    = char
+            st.session_state["last_img"]     = buf.getvalue()
+            st.session_state["gen_error"]    = None
+            st.session_state["gen_log"]      = gen_log
+            # Track used names to avoid repeats within a session
+            used = st.session_state.get("used_names", set())
+            used.add(char.name)
+            st.session_state["used_names"] = used
 
         except Exception as exc:
             st.session_state["gen_error"] = traceback.format_exc()
@@ -208,13 +254,16 @@ if "last_char" in st.session_state and st.session_state.get("gen_error") is None
     # Character summary row
     col1, col2, col3, col4, col5 = st.columns(5)
     col1.metric("Name",   char.name  or "—")
-    col2.metric("Race",   char.race  or "—")
-    col3.metric("Career", char.career or "—")
+    race_label = (char.race or "—") + (" 🎲" if getattr(char, "_race_was_rolled", False) else "")
+    col2.metric("Race",   race_label)
+    career_label = (char.career or "—") + (" 🎲" if getattr(char, "_career_was_rolled", False) else "")
+    col3.metric("Career", career_label)
     gender_label = char.gender or "—"
     if getattr(char, "_gender_was_rolled", False):
         gender_label += " 🎲"
     col4.metric("Gender", gender_label)
-    col5.metric("Type",   getattr(char, "character_type", char_type) or "—")
+    class_label = (getattr(char, "career_class", None) or "—") + (" 🎲" if getattr(char, "_class_was_rolled", False) else "")
+    col5.metric("Class",  class_label)
 
     st.image(img_bytes, use_container_width=True)
 
@@ -224,6 +273,13 @@ if "last_char" in st.session_state and st.session_state.get("gen_error") is None
         file_name=f"{(char.name or 'character').replace(' ', '_')}_sheet.jpg",
         mime="image/jpeg",
     )
+
+    # Generation log
+    gen_log = st.session_state.get("gen_log", [])
+    if gen_log:
+        with st.expander("🎲 Generation log — see what was rolled", expanded=False):
+            for label, value in gen_log:
+                st.markdown(f"**{label}:** {value}")
 
     # Expandable stat block
     with st.expander("📊 Stats & details", expanded=False):

@@ -30,6 +30,13 @@ _NAMES: dict[str, dict] = {
             "Wendelin", "Xandor", "Zeno", "Arndt", "Bertram",
             "Caius", "Diebold", "Edvard", "Friederich", "Gunter",
             "Hubertus", "Idolf", "Junker", "Kordian", "Lenz",
+            # Extra variety
+            "Aldhard", "Brennus", "Casimir", "Dietmar", "Eckhard",
+            "Fabian", "Gebhard", "Hanno", "Ivo", "Joachim",
+            "Kaspar", "Lambert", "Magnus", "Nepomuk", "Oswin",
+            "Prosper", "Quirinus", "Raimund", "Sifrid", "Traugott",
+            "Ulbert", "Veit", "Waldemar", "Xeno", "Yorick",
+            "Zebulon", "Achard", "Borwin", "Cunrat", "Dankwart",
         ],
         "female": [
             "Adelheid", "Britta", "Catharina", "Dagmar", "Elke", "Frieda",
@@ -50,6 +57,12 @@ _NAMES: dict[str, dict] = {
             "Sieglinde", "Trudel", "Uta", "Viviane", "Wibke",
             "Almut", "Brunilde", "Clotilde", "Dörte", "Elsbeth",
             "Felicitas", "Gisela", "Helene", "Isolde", "Jutta",
+            # Extra variety
+            "Adeltraud", "Berengaria", "Clementia", "Diemut", "Ermgard",
+            "Friderun", "Gertrud", "Hadwig", "Ingeborg", "Kunigunde",
+            "Liutgard", "Mechtild", "Nothild", "Ortrude", "Peregrina",
+            "Radegund", "Swanhild", "Thecla", "Uda", "Waldburg",
+            "Xenia", "Yrsa", "Zbigneva", "Aelheid", "Bennigna",
         ],
         "surname": [
             "Brauer", "Dreher", "Fischer", "Gerber", "Hammerer", "Jäger",
@@ -70,6 +83,13 @@ _NAMES: dict[str, dict] = {
             "Quast", "Rademacher", "Schmied", "Tornow", "Uhlig",
             "von der Heide", "von Rauenstein", "zum Goldenen Anker",
             "Wildemann", "Ziegler", "Brunnmann", "Dorffmann", "Eichmann",
+            # Extra surnames
+            "Amberfeld", "Brunwald", "Carpenstock", "Dornbusch", "Edelmann",
+            "Faustmann", "Glasemann", "Hartberg", "Immenbach", "Johannstock",
+            "Kaltenburg", "Lichtenfeld", "Münsterwald", "Neidhardt", "Ochsenkopf",
+            "Pfalzmann", "Querfeld", "Ritterbach", "Schönfeld", "Thalbach",
+            "Uhlenhorst", "Vogelsberg", "Wachsmann", "Xylburg", "Zorndorf",
+            "zum Roten Hahn", "zur Silbernen Eule", "von Wolfburg",
         ],
     },
 
@@ -89,6 +109,11 @@ _NAMES: dict[str, dict] = {
             "Gandalf", "Glamir", "Gondri", "Hanar", "Hlodvir", "Hreinn",
             "Jorunn", "Kori", "Litr", "Nali", "Nori", "Ori",
             "Rekk", "Sindri", "Skirfir", "Thorin", "Throri", "Virvir",
+            # Extra
+            "Aldur", "Boldur", "Corbrin", "Durgrim", "Embor",
+            "Forgrim", "Grombold", "Holdir", "Ingor", "Kazrik",
+            "Lorgrim", "Mordrin", "Norgin", "Orgrik", "Pergrim",
+            "Ragdur", "Skolvir", "Torgin", "Ungrim", "Vordrin",
         ],
         "female": [
             "Bryn", "Dagny", "Edda", "Freyda", "Gudrun", "Helga",
@@ -101,6 +126,11 @@ _NAMES: dict[str, dict] = {
             "Gjertrud", "Halldis", "Hildur", "Isrid", "Jord", "Kolbrun",
             "Laug", "Magnhild", "Oddny", "Ragna", "Sigdis", "Solveig",
             "Thordis", "Unnur", "Vigdis", "Yrsa",
+            # Extra
+            "Agna", "Birna", "Disa", "Eldis", "Fjola",
+            "Grima", "Hrafna", "Ingirid", "Kolfinna", "Ljot",
+            "Mjoll", "Nidbjorg", "Olvora", "Pela", "Rangrid",
+            "Signy", "Thorhild", "Ulvhild", "Vigrun", "Yngvild",
         ],
         "surname": [
             "Copperback", "Dragonbrew", "Fireforge", "Goldmantle",
@@ -117,6 +147,11 @@ _NAMES: dict[str, dict] = {
             "Ironclad", "Kettlehelm", "Loderunner", "Mastercroft",
             "Nailbiter", "Oreseeker", "Pickmaster", "Rundrik",
             "Stonefist", "Tinderhelm", "Underforge", "Vaultkeeper",
+            # Extra
+            "Axebreaker", "Boldgranite", "Coalshield", "Deepaxe",
+            "Earthmantle", "Forgegrim", "Greystone", "Hardbrew",
+            "Ironborn", "Kettlebrow", "Lodepick", "Mineborn",
+            "Noblechest", "Oathforge", "Pitmaster", "Runeborn",
         ],
     },
 
@@ -136,6 +171,11 @@ _NAMES: dict[str, dict] = {
             "Fingon", "Gelmir", "Haldor", "Ingoldo", "Lindir",
             "Maeglin", "Nellas", "Oropher", "Pengolodh", "Rumil",
             "Saeros", "Tuor", "Urion", "Voronwe", "Wiliwarin",
+            # Extra
+            "Aelthas", "Berindel", "Calindor", "Darethil", "Elarindel",
+            "Farandil", "Galdoril", "Halathas", "Indorath", "Kaelthas",
+            "Lorindel", "Melindor", "Naerindel", "Olindor", "Perindel",
+            "Quelindor", "Randoril", "Seladon", "Thandoril", "Ulindorath",
         ],
         "female": [
             "Aelindra", "Caralyn", "Elariel", "Faelindra", "Gilindra",
@@ -149,6 +189,11 @@ _NAMES: dict[str, dict] = {
             "Amarie", "Beriel", "Celebrian", "Findis", "Galadriel",
             "Haleth", "Indis", "Luthien", "Melian", "Nerdanel",
             "Nienor", "Olwe", "Riel", "Silmarien", "Tinuviel",
+            # Extra
+            "Aelindel", "Brindela", "Calindra", "Daelawen", "Elindra",
+            "Faeldra", "Gaelindra", "Halindwen", "Ithindra", "Kaelindra",
+            "Lorindel", "Melawen", "Naelindra", "Olindra", "Paelindra",
+            "Quelindra", "Raelindra", "Saelindra", "Taelindra", "Vaelindra",
         ],
         "surname": [
             "Dawnweaver", "Farstrider", "Greenwarden", "Leafwhisper",
@@ -162,6 +207,11 @@ _NAMES: dict[str, dict] = {
             "Ashbough", "Brightleaf", "Clovermist", "Dewdancer",
             "Evenstar", "Frostbloom", "Goldenwood", "Hazelthorn",
             "Ivymantle", "Juniperveil", "Lakeborn", "Mistweave",
+            # Extra
+            "Alderbough", "Birchsong", "Cedarwind", "Dawnrider",
+            "Elderbloom", "Fernpath", "Galesong", "Heartwood",
+            "Ivysong", "Jasperleaf", "Kinderwood", "Leafsong",
+            "Moonweave", "Nightbloom", "Oakveil", "Pinecrest",
         ],
     },
 
@@ -181,6 +231,11 @@ _NAMES: dict[str, dict] = {
             "Falco", "Gardener", "Hamson", "Ilbert", "Jedsmith",
             "Kembro", "Largo", "Munro", "Ninto", "Oakley",
             "Poddo", "Quimby", "Ruggo", "Sancho", "Tomba",
+            # Extra
+            "Albo", "Bingo", "Chico", "Dino", "Erico",
+            "Fargo", "Grifo", "Hambo", "Ingo", "Jimbo",
+            "Kimbo", "Limbo", "Mimbo", "Nimbo", "Ombo",
+            "Pimbo", "Rimbo", "Simbo", "Timbo", "Wimbo",
         ],
         "female": [
             "Amaranth", "Belba", "Camellia", "Daisy", "Eglantine",
@@ -195,6 +250,11 @@ _NAMES: dict[str, dict] = {
             "Foxglove", "Geranium", "Honeydew", "Idellia", "Juniper",
             "Larkspur", "Magnolia", "Narcissa", "Oleander", "Petal",
             "Queensfoil", "Rosemary", "Saffron", "Thyme", "Umbella",
+            # Extra
+            "Almond", "Barley", "Clover", "Dill", "Fennel",
+            "Ginger", "Hazel", "Ivy", "Juniper", "Kale",
+            "Lily", "Mint", "Nettle", "Olive", "Parsley",
+            "Quince", "Rose", "Sage", "Tara", "Umber",
         ],
         "surname": [
             "Applebottom", "Barleycorn", "Brandyfoot", "Brownlock",
@@ -209,18 +269,39 @@ _NAMES: dict[str, dict] = {
             "Elderberry", "Flapmoor", "Goodpipe", "Haybottom",
             "Jollyweed", "Kettlesworth", "Leafstep", "Mudfoot",
             "Nicewhistle", "Onionpatch", "Pipewort", "Roundbelly",
+            # Extra
+            "Appletree", "Bumblebee", "Cobblepot", "Daisyfoot",
+            "Elderflower", "Fieldmouse", "Gooseberry", "Hobbithole",
+            "Inkwell", "Jamsworth", "Kettledrum", "Lardefoot",
+            "Mapleleaf", "Noodlecroft", "Oatfield", "Puddingbrook",
         ],
     },
 }
 
 
-def random_name(race: str, gender: str | None = None) -> str:
-    """Return a random full name appropriate for the given race and gender."""
+def random_name(race: str, gender: str | None = None,
+                exclude: set | None = None) -> str:
+    """Return a random full name appropriate for the given race and gender.
+
+    Parameters
+    ----------
+    race    : "Human", "Elf", "Dwarf", or "Halfling"
+    gender  : "Male" / "Female" / None (random)
+    exclude : set of full names already used — the function will try up to
+              10 times to return a name not in this set before giving up.
+    """
     data = _NAMES.get(race, _NAMES["Human"])
     if gender and gender.lower() in ("male", "female"):
         g = gender.lower()
     else:
         g = random.choice(["male", "female"])
-    forename = random.choice(data[g])
-    surname = random.choice(data["surname"])
-    return f"{forename} {surname}"
+
+    exclude = exclude or set()
+    for _ in range(10):
+        forename = random.choice(data[g])
+        surname  = random.choice(data["surname"])
+        name = f"{forename} {surname}"
+        if name not in exclude:
+            return name
+    # Fallback: return whatever we get on the last try
+    return name

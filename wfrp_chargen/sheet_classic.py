@@ -440,12 +440,13 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
                        max_width=740, anchor="lm", min_size=_CFS_SMALL)
         back_y += 22   # one line height — keep tight so narrative gets room
     if char.background_narrative:
-        _BACK_LINE_H = 22
+        _BACK_LINE_H = 18
+        _BACK_FONT   = 15   # slightly smaller than _CFS_SMALL to fit more lines
         # Limit to background box boundary (dividing line before Social Level)
         avail_h = _C2_BACK_END_Y - back_y - 5
         dynamic_max = max(1, avail_h // _BACK_LINE_H)
         _draw_paragraph(draw, _C2_BACK_X, back_y,
-                        char.background_narrative, _CFS_SMALL,
+                        char.background_narrative, _BACK_FONT,
                         max_width=740, line_height=_BACK_LINE_H, max_lines=dynamic_max,
                         shrink=False)
 
@@ -458,14 +459,20 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
                        _CFS_FIELD, max_width=300, anchor="lm")
 
     # ── Wealth ────────────────────────────────────────────────────────────────
-    # ── Wealth ────────────────────────────────────────────────────────────────
     # PC: leave blank if 0. NPC: always show value (even 0).
+    # Show "GC: X", "SS: X", "BP: X" labels with values.
     if getattr(char, 'wealth_gc', 0) or not pc_mode:
-        _draw_text(draw, _C2_WGC_X, _C2_WGC_Y, str(getattr(char,'wealth_gc',0)), f_small, "lm")
+        _draw_text_fit(draw, _C2_WGC_X, _C2_WGC_Y,
+                       f"GC: {getattr(char,'wealth_gc',0)}", _CFS_SMALL,
+                       max_width=160, anchor="lm")
     if getattr(char, 'wealth_ss', 0) or not pc_mode:
-        _draw_text(draw, _C2_WSS_X, _C2_WSS_Y, str(getattr(char,'wealth_ss',0)), f_small, "lm")
+        _draw_text_fit(draw, _C2_WSS_X, _C2_WSS_Y,
+                       f"SS: {getattr(char,'wealth_ss',0)}", _CFS_SMALL,
+                       max_width=160, anchor="lm")
     if getattr(char, 'wealth_bp', 0) or not pc_mode:
-        _draw_text(draw, _C2_WBP_X, _C2_WBP_Y, str(getattr(char,'wealth_bp',0)), f_small, "lm")
+        _draw_text_fit(draw, _C2_WBP_X, _C2_WBP_Y,
+                       f"BP: {getattr(char,'wealth_bp',0)}", _CFS_SMALL,
+                       max_width=160, anchor="lm")
 
 
 # ─────────────────────────────────────────────────────────────────────────────

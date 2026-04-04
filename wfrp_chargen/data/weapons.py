@@ -166,9 +166,9 @@ ARMOUR = {
     "Chain Mail Gauntlets": {"location": "Arms",              "enc": 2,
                              "head": 0, "body": 0, "arms": 2, "legs": 0},
     "Shield":               {"location": "Shield arm",        "enc": 3,
-                             "head": 0, "body": 0, "arms": 0, "legs": 0},
+                             "head": 0, "body": 0, "arms": 1, "legs": 0},
     "Buckler":              {"location": "Shield arm",        "enc": 1,
-                             "head": 0, "body": 0, "arms": 0, "legs": 0},
+                             "head": 0, "body": 0, "arms": 1, "legs": 0},
 }
 
 _ARMOUR_ALIASES = {

@@ -935,7 +935,7 @@ _BIRTHPLACE_PHRASES = {
     "City": "the busy, dangerous streets of the city",
     "Prosperous Town": "the comfortable lanes of a prosperous town",
     "Market Town": "the market squares and muddy lanes of a busy market town",
-    "Fortified Town": "behind the walls of a fortified settlement",
+    "Fortified Town": "the sheltered confines of a fortified town",
     "Farming Village": "a quiet farming village surrounded by open fields",
     "Small Settlement": "a small and largely forgotten settlement",
     "Pig/Cattle Farm": "a pig-and-cattle farm on the edge of settled land",
@@ -1481,13 +1481,82 @@ def generate_character(
     )
     char.psychology_notes = ""
 
-    # ── Starting wealth — parsed from trappings ───────────────────────────────    # Handles "2D6 Gold Crowns", "D6 Silver Shillings", "1D6 Brass Pennies" etc.
+    # ── Starting wealth — parsed from trappings, with per-career fallback ────
+    # Handles "2D6 Gold Crowns", "D6 Silver Shillings", "1D6 Brass Pennies" etc.
+    # Per WFRP 1e book each career has stated starting wealth. If not in trappings,
+    # fall back to _CAREER_WEALTH table below.
+    _CAREER_WEALTH = {
+        # Warrior careers
+        "Bodyguard":            ("gc", 2, 6),
+        "Labourer":             ("ss", 1, 6),
+        "Marine":               ("gc", 1, 6),
+        "Mercenary":            ("gc", 1, 6),
+        "Militiaman":           ("ss", 1, 6),
+        "Pit Fighter":          ("gc", 1, 6),
+        "Protagonist":          ("ss", 2, 6),
+        "Roadwarden":           ("gc", 2, 6),
+        "Soldier":              ("gc", 1, 6),
+        "Troll Slayer":         ("gc", 2, 6),
+        "Woodsman":             ("ss", 1, 6),
+        "Tunnel Fighter":       ("gc", 1, 6),
+        # Ranger careers
+        "Boatman":              ("ss", 1, 6),
+        "Bounty Hunter":        ("gc", 2, 6),
+        "Coachman":             ("gc", 1, 6),
+        "Farmer":               ("ss", 2, 6),
+        "Fisherman":            ("ss", 1, 6),
+        "Gamekeeper":           ("gc", 1, 6),
+        "Herdsman":             ("ss", 1, 6),
+        "Hunter":               ("gc", 1, 6),
+        "Muleskinner":          ("ss", 1, 6),
+        "Outrider":             ("gc", 2, 6),
+        "Pedlar":               ("gc", 2, 6),
+        "Prospector":           ("gc", 1, 6),
+        "Rustler":              ("ss", 2, 6),
+        "Seaman":               ("ss", 1, 6),
+        "Toll-Keeper":          ("gc", 1, 6),
+        "Trapper":              ("gc", 1, 6),
+        # Rogue careers
+        "Agitator":             ("gc", 1, 6),
+        "Beggar":               ("bp", 2, 6),
+        "Gambler":              ("gc", 2, 6),
+        "Grave Robber":         ("ss", 1, 6),
+        "Hypnotist":            ("gc", 1, 6),
+        "Jailer":               ("gc", 1, 6),
+        "Outlaw":               ("gc", 1, 6),
+        "Pilot":                ("gc", 1, 6),
+        "Rat Catcher":          ("bp", 2, 6),
+        "Runner":               ("ss", 1, 6),
+        "Smuggler":             ("gc", 2, 6),
+        "Thief":                ("gc", 1, 6),
+        "Tomb Robber":          ("gc", 1, 6),
+        "Watchman":             ("gc", 1, 6),
+        # Academic careers
+        "Alchemist's Apprentice": ("gc", 2, 6),
+        "Artisan's Apprentice": ("gc", 1, 6),
+        "Druid":                ("gc", 1, 6),
+        "Engineer":             ("gc", 2, 6),
+        "Hedge-Wizard's Apprentice": ("ss", 1, 6),
+        "Herbalist":            ("gc", 1, 6),
+        "Initiate":             ("gc", 2, 6),
+        "Pharmacist":           ("gc", 1, 6),
+        "Physician's Student":  ("gc", 1, 6),
+        "Runescribe":           ("gc", 2, 6),
+        "Runesmith's Apprentice": ("gc", 2, 6),
+        "Scribe":               ("gc", 1, 6),
+        "Seer":                 ("gc", 1, 6),
+        "Student":              ("gc", 1, 6),
+        "Wizard's Apprentice":  ("gc", 2, 6),
+        "Wood Elf Mage's Apprentice": ("gc", 1, 6),
+    }
+
     import re as _re
     _MONEY_PAT = _re.compile(
         r'^(\d*)D(\d+)\s+(Gold Crowns?|Silver Shillings?|Brass Pennies?)',
         _re.IGNORECASE
     )
     remaining = []
+    found_wealth_in_trappings = False
     for item in char.trappings:
         m = _MONEY_PAT.match(item.strip())
         if m:
@@ -1500,9 +1569,21 @@ def generate_character(
                 char.wealth_ss += rolled
             else:
                 char.wealth_bp += rolled
+            found_wealth_in_trappings = True
         else:
             remaining.append(item)
     char.trappings = remaining
+
+    # If no wealth was found in trappings, use the fallback table
+    if not found_wealth_in_trappings and char.career in _CAREER_WEALTH:
+        currency, num_dice, sides = _CAREER_WEALTH[char.career]
+        rolled = sum(random.randint(1, sides) for _ in range(num_dice))
+        if currency == "gc":
+            char.wealth_gc += rolled
+        elif currency == "ss":
+            char.wealth_ss += rolled
+        else:
+            char.wealth_bp += rolled
 
     # Resolve remaining dice quantities in trapping descriptions
     # e.g. "D4 pairs of Manacles" → "2 pairs of Manacles"
