@@ -264,8 +264,64 @@ CAREER_CLASS_TABLES: dict[str, dict[str, list[tuple[int, int, str]]]] = {
 # Advanced careers not in CAREER_CLASS_TABLES (accessible only via exits)
 # ---------------------------------------------------------------------------
 ADVANCED_CAREER_CLASSES: dict[str, str] = {
-    "Scholar":  "Academic",
-    "Minstrel": "Rogue",
+    # Warrior
+    "Artillerist":              "Warrior",
+    "Captain":                  "Warrior",
+    "Gunner":                   "Warrior",
+    "Judicial Champion":        "Warrior",
+    "Knight Errant":            "Warrior",
+    "Master Engineer (Dwarfs only)": "Warrior",
+    "Mercenary Captain":        "Warrior",
+    "Outlaw Chief":             "Warrior",
+    "Sapper":                   "Warrior",
+    "Slaver":                   "Warrior",
+    # Ranger
+    "Explorer":                 "Ranger",
+    "Highwayman":               "Ranger",
+    "Lodefinder":               "Ranger",
+    "Mountaineer":              "Ranger",
+    "Navigator":                "Ranger",
+    "Scout":                    "Ranger",
+    "Sea Captain":              "Ranger",
+    "Targeteer":                "Ranger",
+    # Rogue
+    "Assassin":                 "Rogue",
+    "Bard":                     "Rogue",
+    "Charlatan":                "Rogue",
+    "Counterfeiter":            "Rogue",
+    "Demagogue":                "Rogue",
+    "Fence":                    "Rogue",
+    "Forger":                   "Rogue",
+    "Informer":                 "Rogue",
+    "Jester":                   "Rogue",
+    "Jongleur":                 "Rogue",
+    "Minstrel":                 "Rogue",
+    "Racketeer":                "Rogue",
+    "Rogue":                    "Rogue",
+    "Thief (Clipper)":          "Rogue",
+    "Valet":                    "Rogue",
+    # Academic
+    "Alchemist - level 1":      "Academic",
+    "Artisan":                  "Academic",
+    "Astrologer":               "Academic",
+    "Augur":                    "Academic",
+    "Cleric - level 1":         "Academic",
+    "Diviner":                  "Academic",
+    "Druidic Priest - level 1": "Academic",
+    "Exorcist":                 "Academic",
+    "Grey Wizard - level 1":    "Academic",
+    "Hedge-Wizard - level 1":   "Academic",
+    "Lawyer":                   "Academic",
+    "Loremaster":               "Academic",
+    "Loremaster (Dwarfs only)": "Academic",
+    "Merchant":                 "Academic",
+    "Physician":                "Academic",
+    "Politician":               "Academic",
+    "Runesmith":                "Academic",
+    "Scholar":                  "Academic",
+    "Wise Woman":               "Academic",
+    "Wizard - level 1":         "Academic",
+    "Wood Elf Mage - level 1":  "Academic",
 }
 
 
@@ -1412,8 +1468,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Assassin": {
-        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "W": 3, "I": 30, "A": 1,
-                           "Dex": 20, "Cl": 20, "WP": 20},
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 2, "T": 2, "W": 5, "I": 20, "A": 2,
+                           "Dex": 20, "Ld": 20, "Int": 20, "Cl": 20, "WP": 20},
         "skills": [
             "Concealment: Urban", "Disguise", "Prepare Poisons",
             "Scale Sheer Surface", "Silent Move: Urban",

@@ -211,16 +211,20 @@ def prompt_template() -> str:
 
 def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
     """
-    Let the GM optionally choose race, gender and career for the NPC.
+    Let the GM choose race, gender and career for the NPC.
+    Career selection uses a 3-step hierarchical menu:
+      1. Basic / Advanced / Random
+      2. Career class (Warrior / Ranger / Rogue / Academic) / Random
+      3. Specific career from that class / Random
     Returns (race_or_None, gender_or_None, career_name_or_None).
     Press Enter at any prompt to keep it random.
     """
-    from data.careers import CAREERS, CAREER_CLASS_TABLES
+    from data.careers import CAREERS, CAREER_CLASS_TABLES, ADVANCED_CAREER_CLASSES
 
     print("NPC options — press Enter at any prompt to keep it random.")
     print()
 
-    # Race
+    # ── Race ──────────────────────────────────────────────────────────────────
     print("Race (Enter = random):")
     for i, r in enumerate(RACES_LIST, 1):
         print(f"  {i}. {r}")
@@ -236,13 +240,10 @@ def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
                 if r.lower() == raw.lower():
                     race = r
                     break
-    if race:
-        print(f"  -> {race}")
-    else:
-        print("  -> Random")
+    print(f"  -> {race}" if race else "  -> Random")
     print()
 
-    # Gender
+    # ── Gender ─────────────────────────────────────────────────────────────────
     print("Gender (Enter = random):")
     print("  1. Male   2. Female")
     raw = _safe_input("  > ").strip().lower()
@@ -255,48 +256,111 @@ def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
         print(f"  -> {gender}")
     else:
         gender_rolled = _random.choice(["Male", "Female"])
-        print(f"  -> Random → {gender_rolled} 🎲")
+        print(f"  -> Random (rolled: {gender_rolled})")
         gender = gender_rolled
     print()
 
-    # Career — show all (basic + advanced) grouped
-    basic_careers: list[str] = []
+    # ── Career: step 1 — Basic / Advanced ────────────────────────────────────
     used_race = race or "Human"
+
+    # Build basic career list per class for this race
+    basic_by_class: dict[str, list[str]] = {}
     for cls in ("Warrior", "Ranger", "Rogue", "Academic"):
+        seen: list[str] = []
         for entry in CAREER_CLASS_TABLES.get(cls, {}).get(used_race, []):
             c = entry[2]
-            if c not in basic_careers:
-                basic_careers.append(c)
-    basic_set = set(basic_careers)
-    advanced_careers = sorted(c for c in CAREERS if c not in basic_set)
+            if c not in seen:
+                seen.append(c)
+        if seen:
+            basic_by_class[cls] = seen
 
-    all_careers = basic_careers + advanced_careers
-    print(f"Career (Enter = random) — showing for {used_race}:")
-    print("  Basic careers:")
-    for i, c in enumerate(basic_careers, 1):
-        print(f"    {i:3}. {c}")
-    if advanced_careers:
-        print("  Advanced careers:")
-        for i, c in enumerate(advanced_careers, len(basic_careers) + 1):
-            print(f"    {i:3}. {c}")
-    print()
+    # Build advanced career list per class
+    basic_set = {c for careers in basic_by_class.values() for c in careers}
+    advanced_by_class: dict[str, list[str]] = {"Warrior": [], "Ranger": [], "Rogue": [], "Academic": []}
+    for c in sorted(CAREERS):
+        if c not in basic_set:
+            cls = ADVANCED_CAREER_CLASSES.get(c, "Academic")
+            advanced_by_class[cls].append(c)
 
+    print("Career type (Enter = random):")
+    print("  1. Basic   2. Advanced")
     raw = _safe_input("  > ").strip()
-    career_name: str | None = None
-    if raw:
-        if raw.isdigit():
-            idx = int(raw) - 1
-            if 0 <= idx < len(all_careers):
-                career_name = all_careers[idx]
-        else:
-            for c in all_careers:
-                if c.lower() == raw.lower():
-                    career_name = c
-                    break
-    if career_name:
-        print(f"  -> {career_name}")
+    career_tier: str | None = None
+    if raw in ("1", "basic", "b"):
+        career_tier = "basic"
+    elif raw in ("2", "advanced", "a"):
+        career_tier = "advanced"
+
+    if career_tier:
+        print(f"  -> {career_tier.capitalize()}")
     else:
         print("  -> Random")
+    print()
+
+    # ── Career: step 2 — Career class ─────────────────────────────────────────
+    if career_tier is not None:
+        by_class = basic_by_class if career_tier == "basic" else advanced_by_class
+        available_classes = [cls for cls in ("Warrior", "Ranger", "Rogue", "Academic") if by_class.get(cls)]
+        print("Career class (Enter = random):")
+        for i, cls in enumerate(available_classes, 1):
+            count = len(by_class[cls])
+            print(f"  {i}. {cls:<10}  ({count} careers)")
+        raw = _safe_input("  > ").strip()
+        career_class: str | None = None
+        if raw:
+            if raw.isdigit():
+                idx = int(raw) - 1
+                if 0 <= idx < len(available_classes):
+                    career_class = available_classes[idx]
+            else:
+                for cls in available_classes:
+                    if cls.lower() == raw.lower():
+                        career_class = cls
+                        break
+        if career_class:
+            print(f"  -> {career_class}")
+        else:
+            print("  -> Random")
+        print()
+    else:
+        by_class = None
+        career_class = None
+
+    # ── Career: step 3 — Specific career ──────────────────────────────────────
+    if career_tier is not None and career_class is not None:
+        by_class = basic_by_class if career_tier == "basic" else advanced_by_class
+        candidates = by_class.get(career_class, [])
+        print(f"Career ({career_class} {career_tier}) — Enter = random:")
+        for i, c in enumerate(candidates, 1):
+            print(f"  {i:3}. {c}")
+        print()
+        raw = _safe_input("  > ").strip()
+        career_name: str | None = None
+        if raw:
+            if raw.isdigit():
+                idx = int(raw) - 1
+                if 0 <= idx < len(candidates):
+                    career_name = candidates[idx]
+            else:
+                for c in candidates:
+                    if c.lower() == raw.lower():
+                        career_name = c
+                        break
+        if career_name:
+            print(f"  -> {career_name}")
+        else:
+            # Random from the chosen class
+            career_name = _random.choice(candidates) if candidates else None
+            print(f"  -> Random from {career_class}: {career_name}")
+    elif career_tier is not None and career_class is None:
+        # Random class, but pick from the chosen tier
+        all_in_tier = [c for careers in (basic_by_class if career_tier == "basic" else advanced_by_class).values()
+                       for c in careers]
+        career_name = _random.choice(all_in_tier) if all_in_tier else None
+        print(f"  -> Random {career_tier}: {career_name}")
+    else:
+        career_name = None
+        print("  -> Fully random career")
     print()
 
     return race, gender, career_name

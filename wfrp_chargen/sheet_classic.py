@@ -50,10 +50,11 @@ _C1_HAIR_X,   _C1_HAIR_Y   = 485,  465
 _C1_EYES_X,   _C1_EYES_Y   = 703,  465
 _C1_DESC_X,   _C1_DESC_Y   = 883,  465
 
-# Row 3: Current Career / Career Path / Career Exits  (tall row, top of cell y≈513)
-_C1_CAREER_X, _C1_CAREER_Y = 175,  513   # PC: lt anchor (top of cell)
-_C1_CPATH_X,  _C1_CPATH_Y  = 373,  513
-_C1_EXITS_X,  _C1_EXITS_Y  = 883,  513
+# Row 3: Current Career / Career Path / Career Exits
+# Header band at y=473-560 (x=200 pixel scan); data cell y=560-653, center≈607
+_C1_CAREER_X, _C1_CAREER_Y = 175,  563   # PC: lt anchor (top of cell, just below header)
+_C1_CPATH_X,  _C1_CPATH_Y  = 373,  563
+_C1_EXITS_X,  _C1_EXITS_Y  = 883,  563
 
 # Stats grid  (14 columns; row-label col ends at x≈295)
 _C1_STAT_COLS = {
@@ -72,7 +73,7 @@ _C1_HTH_I_X     = 281
 _C1_HTH_WS_X    = 339
 _C1_HTH_D_X     = 397
 _C1_HTH_PY_X    = 455
-_C1_HTH_START_Y = 952
+_C1_HTH_START_Y = 975   # header band y=851-971; content starts y=971
 _C1_HTH_SPACING = 55
 
 # Missile weapons  (S / L / E / ES / Load columns)
@@ -103,7 +104,7 @@ _C1_AP_LLEG_X,  _C1_AP_LLEG_Y  = 1100, 1950
 # Skills – two columns (right half of the weapon section)
 _C1_SKILL_L_X     = 505
 _C1_SKILL_R_X     = 800
-_C1_SKILL_START_Y = 952
+_C1_SKILL_START_Y = 975  # same start as HTH weapons
 _C1_SKILL_SPACING = 55
 _C1_SKILL_ROWS    = 11   # rows per column  →  22 skills max
 
@@ -145,30 +146,31 @@ _C2_MV_CAUT_Y = 512
 _C2_MV_STD_Y  = 552
 _C2_MV_RUN_Y  = 592
 
-# Insanity Points
-_C2_IP_X, _C2_IP_Y = 1175, 695
+# Insanity Points  (box is below PSYCHOLOGY & HEALTH header, right side)
+_C2_IP_X, _C2_IP_Y = 1175, 960
 
 # Languages
 _C2_LANG_X       = 1165
 _C2_LANG_START_Y = 487
 _C2_LANG_SPACING = 36
 
-# Background fields  (labels "Place of Birth:" etc. are pre-printed)
-_C2_BIRTH_X,  _C2_BIRTH_Y  = 600, 941
-_C2_PARENT_X, _C2_PARENT_Y = 640, 977
-_C2_FAMILY_X, _C2_FAMILY_Y = 615, 1012
+# Background fields  (labels "Place of Birth:" etc. are pre-printed in the BACKGROUND box)
+# BACKGROUND header band: y=1140-1190.  Row centres confirmed by pixel scan.
+_C2_BIRTH_X,  _C2_BIRTH_Y  = 940, 1212   # after "Place of Birth:" label (ends ~x=925)
+_C2_PARENT_X, _C2_PARENT_Y = 950, 1255   # after "Parents Occupation:" label (ends ~x=933)
+_C2_FAMILY_X, _C2_FAMILY_Y = 920, 1291   # after "Family Members:" label (ends ~x=901)
 
-# Extra narrative space below the three background lines
-_C2_BACK_X, _C2_BACK_Y = 418, 1040
+# Narrative / extra lines in the large open area below the three labelled rows
+_C2_BACK_X, _C2_BACK_Y = 665, 1330
 
-# Social Level  /  Religion
-_C2_SOCIAL_X, _C2_SOCIAL_Y = 580, 1140
-_C2_RELIG_X,  _C2_RELIG_Y  = 1000, 1140
+# Social Level  /  Religion  (row below the BACKGROUND box, y≈1463)
+_C2_SOCIAL_X, _C2_SOCIAL_Y = 860, 1463
+_C2_RELIG_X,  _C2_RELIG_Y  = 1120, 1463
 
-# Wealth  (first data row of the Wealth table)
-_C2_WGC_X, _C2_WGC_Y = 120, 1253
-_C2_WSS_X, _C2_WSS_Y = 120, 1287
-_C2_WBP_X, _C2_WBP_Y = 120, 1321
+# Wealth  (rows below the WEALTH header band at y=1520-1575)
+_C2_WGC_X, _C2_WGC_Y = 220, 1600
+_C2_WSS_X, _C2_WSS_Y = 220, 1635
+_C2_WBP_X, _C2_WBP_Y = 220, 1670
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -205,16 +207,22 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
                    _CFS_FIELD, max_width=730, anchor="lm")
 
     # ── Career ────────────────────────────────────────────────────────────────
+    # Career cell spans y≈563-653, center≈607
+    _career_center_y = _C1_CAREER_Y + 44   # center of cell for lm anchor
     if pc_mode:
         # Place at top of cell so player can strike out & write new career
         _draw_text_fit(draw, _C1_CAREER_X, _C1_CAREER_Y, char.career,
                        _CFS_FIELD, max_width=270, anchor="lt")
+        # Career path: also at top so player can track career progression
+        if hasattr(char, 'career_path') and char.career_path:
+            _draw_text_fit(draw, _C1_CPATH_X, _C1_CPATH_Y, char.career_path,
+                           _CFS_SMALL, max_width=480, anchor="lt")
     else:
-        _draw_text_fit(draw, _C1_CAREER_X, _C1_CAREER_Y + 38, char.career,
+        _draw_text_fit(draw, _C1_CAREER_X, _career_center_y, char.career,
                        _CFS_FIELD, max_width=270, anchor="lm")
         if char.career_exits:
             exits = ", ".join(char.career_exits[:3])
-            _draw_text_fit(draw, _C1_EXITS_X, _C1_EXITS_Y + 38, exits,
+            _draw_text_fit(draw, _C1_EXITS_X, _career_center_y, exits,
                            _CFS_SMALL, max_width=720, anchor="lm")
 
     # ── Stats ─────────────────────────────────────────────────────────────────
@@ -391,17 +399,16 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         _draw_text_fit(draw, _C2_FAMILY_X, _C2_FAMILY_Y, char.family_members,
                        _CFS_FIELD, max_width=445, anchor="lm")
 
-    # Extra space: star sign + narrative snippet
-    extra_lines = []
+    # Extra space: star sign + narrative snippet (wrapped)
     if char.star_sign:
-        extra_lines.append(f"Star sign: {char.star_sign}")
+        _draw_text_fit(draw, _C2_BACK_X, _C2_BACK_Y,
+                       f"Star sign: {char.star_sign}", _CFS_SMALL,
+                       max_width=740, anchor="lm")
     if char.background_narrative:
-        # Show a brief excerpt (first sentence) in the limited space available
         first_sent = char.background_narrative.split('.')[0] + '.'
-        extra_lines.append(first_sent)
-    for i, line in enumerate(extra_lines[:3]):
-        _draw_text_fit(draw, _C2_BACK_X, _C2_BACK_Y + i * 36, line,
-                       _CFS_SMALL, max_width=880, anchor="lm")
+        _draw_paragraph(draw, _C2_BACK_X, _C2_BACK_Y + 36,
+                        first_sent, _CFS_SMALL,
+                        max_width=740, line_height=28, max_lines=2)
 
     # ── Social Level / Religion ───────────────────────────────────────────────
     if char.social_level:
