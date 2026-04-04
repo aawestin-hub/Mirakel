@@ -182,11 +182,13 @@ _C2_PARENT_X, _C2_PARENT_Y = 950, 1255   # after "Parents Occupation:" label (en
 _C2_FAMILY_X, _C2_FAMILY_Y = 920, 1291   # after "Family Members:" label (ends ~x=901)
 
 # Narrative / extra lines in the large open area below the three labelled rows
-_C2_BACK_X, _C2_BACK_Y = 665, 1330
+# Box boundary: y≈1290 (after Family Members) to y≈1425 (dividing line before Social Level)
+_C2_BACK_X,     _C2_BACK_Y     = 665, 1318
+_C2_BACK_END_Y  = 1418          # dividing line; narrative must not exceed this
 
-# Social Level  /  Religion  (row below the BACKGROUND box, y≈1463)
-_C2_SOCIAL_X, _C2_SOCIAL_Y = 860, 1463
-_C2_RELIG_X,  _C2_RELIG_Y  = 1120, 1463
+# Social Level  /  Religion  (row below the BACKGROUND box, y≈1445)
+_C2_SOCIAL_X, _C2_SOCIAL_Y = 860, 1445
+_C2_RELIG_X,  _C2_RELIG_Y  = 1120, 1445
 
 # Wealth  (rows below the WEALTH header band at y=1520-1575)
 _C2_WGC_X, _C2_WGC_Y = 220, 1600
@@ -282,7 +284,7 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_HTH_START_Y + i * _C1_HTH_SPACING
         _draw_text_fit(draw, _C1_HTH_NAME_X, y, name, _CFS_SKILL,
-                       max_width=_C1_HTH_NAME_W, anchor="lm")
+                       max_width=_C1_HTH_NAME_W, anchor="lm", min_size=_CFS_SKILL)
         _draw_text(draw, _C1_HTH_I_X,  y, ws.get('i_mod',  '–'), f_small, "mm")
         _draw_text(draw, _C1_HTH_WS_X, y, ws.get('ws_mod', '–'), f_small, "mm")
         _draw_text(draw, _C1_HTH_D_X,  y, ws.get('damage', '–'), f_small, "mm")
@@ -297,7 +299,7 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_MSL_START_Y + i * _C1_MSL_SPACING
         _draw_text_fit(draw, _C1_MSL_NAME_X, y, name, _CFS_SKILL,
-                       max_width=_C1_MSL_NAME_W, anchor="lm")
+                       max_width=_C1_MSL_NAME_W, anchor="lm", min_size=_CFS_SKILL)
         # S=short range, L=medium range, E=long range, ES=damage
         _draw_text(draw, _C1_MSL_S_X,  y, ms.get('s_range', '–'), f_small, "mm")
         _draw_text(draw, _C1_MSL_L_X,  y, ms.get('m_range', '–'), f_small, "mm")
@@ -311,9 +313,9 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_ARM_START_Y + i * _C1_ARM_SPACING
         _draw_text_fit(draw, _C1_ARM_NAME_X, y, name, _CFS_SKILL,
-                       max_width=_C1_ARM_NAME_W, anchor="lm")
+                       max_width=_C1_ARM_NAME_W, anchor="lm", min_size=_CFS_SKILL)
         _draw_text_fit(draw, _C1_ARM_LOC_X - 28, y, ast.get('location','–'),
-                       _CFS_SMALL, max_width=58, anchor="lm")
+                       _CFS_SMALL, max_width=58, anchor="lm", min_size=_CFS_SMALL)
         _draw_text(draw, _C1_ARM_ENC_X, y, str(ast.get('enc','–')), f_small, "mm")
 
     # ── Armour Points (body diagram) ──────────────────────────────────────────
@@ -342,11 +344,11 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
     for i, skill in enumerate(col1):
         y = _C1_SKILL_START_Y + i * _C1_SKILL_SPACING
         _draw_text_fit(draw, _C1_SKILL_L_X, y, skill, _CFS_SKILL,
-                       max_width=_C1_SKILL_L_W, anchor="lm")
+                       max_width=_C1_SKILL_L_W, anchor="lm", min_size=_CFS_SKILL)
     for i, skill in enumerate(col2):
         y = _C1_SKILL_START_Y + i * _C1_SKILL_SPACING
         _draw_text_fit(draw, _C1_SKILL_R_X, y, skill, _CFS_SKILL,
-                       max_width=_C1_SKILL_R_W, anchor="lm")
+                       max_width=_C1_SKILL_R_W, anchor="lm", min_size=_CFS_SKILL)
 
 
 def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> None:
@@ -362,16 +364,16 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         y = _C2_SPELL_START_Y + i * _C2_SPELL_SPACING
         data = get_spell(spell_name) or {}
         _draw_text_fit(draw, _C2_SPELL_NAME_X, y, spell_name, _CFS_SKILL,
-                       max_width=354, anchor="lm")
+                       max_width=354, anchor="lm", min_size=_CFS_SKILL)
         if data:
             _draw_text(draw, _C2_SPELL_SL_X, y, data.get('sl', 0),  f_small, "mm")
             _draw_text(draw, _C2_SPELL_MP_X, y, data.get('mp', 0),  f_small, "mm")
             _draw_text(draw, _C2_SPELL_R_X,  y, data.get('r','–'),  f_small, "mm")
             _draw_text(draw, _C2_SPELL_D_X,  y, data.get('d','–'),  f_small, "mm")
             _draw_text_fit(draw, _C2_SPELL_ING_X, y, data.get('ingredients','–'),
-                           _CFS_SMALL, max_width=255, anchor="lm")
+                           _CFS_SMALL, max_width=255, anchor="lm", min_size=_CFS_SMALL)
             _draw_text_fit(draw, _C2_SPELL_EFF_X, y, data.get('effect','–'),
-                           _CFS_SMALL, max_width=280, anchor="lm")
+                           _CFS_SMALL, max_width=280, anchor="lm", min_size=_CFS_SMALL)
 
     # ── Right-column stat boxes ───────────────────────────────────────────────
     _draw_text(draw, _C2_FP_X,  _C2_FP_Y,  str(char.FP),  f_field, "mm")
@@ -393,7 +395,7 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         if y > _C2_TRAP_MAX_Y:
             break
         _draw_text_fit(draw, _C2_TRAP_NAME_X, y, item, _CFS_SKILL,
-                       max_width=240, anchor="lm")
+                       max_width=240, anchor="lm", min_size=_CFS_SKILL)
 
     # ── Movement rates ────────────────────────────────────────────────────────
     M  = char.M
@@ -417,7 +419,7 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
     for i, lang in enumerate(char.languages[:9]):
         y = _C2_LANG_START_Y + i * _C2_LANG_SPACING
         _draw_text_fit(draw, _C2_LANG_X, y, lang, _CFS_SKILL,
-                       max_width=440, anchor="lm")
+                       max_width=440, anchor="lm", min_size=_CFS_SKILL)
 
     # ── Background fields (labels are pre-printed on the sheet) ───────────────
     if char.place_of_birth:
@@ -435,11 +437,12 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
     if char.star_sign:
         _draw_text_fit(draw, _C2_BACK_X, back_y,
                        f"Star sign: {char.star_sign}", _CFS_SMALL,
-                       max_width=740, anchor="lm")
-        back_y += 36
+                       max_width=740, anchor="lm", min_size=_CFS_SMALL)
+        back_y += 22   # one line height — keep tight so narrative gets room
     if char.background_narrative:
         _BACK_LINE_H = 22
-        avail_h = _C2_SOCIAL_Y - back_y - 4   # small margin before social row
+        # Limit to background box boundary (dividing line before Social Level)
+        avail_h = _C2_BACK_END_Y - back_y - 5
         dynamic_max = max(1, avail_h // _BACK_LINE_H)
         _draw_paragraph(draw, _C2_BACK_X, back_y,
                         char.background_narrative, _CFS_SMALL,
