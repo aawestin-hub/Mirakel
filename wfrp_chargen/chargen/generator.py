@@ -144,6 +144,7 @@ def _apply_career_skills(career_skills: list, race: str = "") -> list:
 
 from data.races import RACES
 from data.careers import CAREERS, CAREER_CLASS_TABLES, CAREER_CLASS_PREREQS, ADVANCED_CAREER_CLASSES
+from data.names import random_name
 from chargen.character import Character
 from chargen.roller import roll_stat, roll_small_stat, roll_direct, roll_d100
 
@@ -474,9 +475,13 @@ def _roll_alignment(career_class: str, race: str = "Human") -> str:
 _HTH_KEYWORDS    = {"hand weapon", "sword", "dagger", "spear", "halberd", "axe",
                     "mace", "flail", "staff", "club", "blade",
                     "hammer", "knife", "foil", "truncheon", "cudgel", "scythe",
-                    "two-handed", "morning star", "whip"}
+                    "two-handed", "morning star", "whip", "lance", "pike",
+                    "javelin", "garrotte", "garotte", "cestus", "rapier",
+                    "falchion", "sabre", "broadsword", "shortsword", "fist"}
 _MISSILE_KEYWORDS = {"bow", "crossbow", "pistol", "handgun", "sling",
-                     "blunderbuss", "musket"}
+                     "blunderbuss", "musket", "blowpipe", "dart", "throwing"}
+# Phrases that contain a missile keyword but are NOT missile weapons
+_MISSILE_EXCLUSIONS = {"sling bag", "slingshot bag"}
 _ARMOUR_KEYWORDS  = {"armour", "armor", "jack", "mail", "helm", "helmet",
                      "coif", "shield", "buckler", "breastplate", "coat"}
 
@@ -497,7 +502,9 @@ def _categorise_trappings(trappings: list) -> dict:
     hth, missile, armour, other = [], [], [], []
     for item in trappings:
         low = item.lower()
-        if any(k in low for k in _MISSILE_KEYWORDS):
+        is_missile = (any(k in low for k in _MISSILE_KEYWORDS)
+                      and not any(exc in low for exc in _MISSILE_EXCLUSIONS))
+        if is_missile:
             missile.append(item)
         elif any(k in low for k in _HTH_KEYWORDS):
             hth.append(item)
@@ -508,77 +515,381 @@ def _categorise_trappings(trappings: list) -> dict:
     return {"hth": hth, "missile": missile, "armour": armour, "other": other}
 
 
-_CAREER_FLAVOR = {
-    "Wizard's Apprentice":    "bound by scholarly oaths to master the winds of magic at one of the Colleges",
-    "Hedge-Wizard's Apprentice": "learning the old ways and petty charms far from the Imperial Colleges",
-    "Initiate":               "devoted to the rites and mysteries of the gods",
-    "Mercenary":              "selling {poss} blade for coin and glory wherever war breaks out",
-    "Soldier":                "serving in the Empire's armies with little choice in the matter",
-    "Thief":                  "living by {poss} wits and nimble fingers in the shadows of the city",
-    "Scholar":                "pursuing knowledge in dusty libraries and forgotten tomes",
-    "Innkeeper":              "keeping the fires burning and the ale barrels full",
-    "Trader":                 "hauling goods along the rutted roads of the Empire",
-    "Hunter":                 "tracking quarry through the dark forests beyond the towns",
-    "Physician's Student":    "learning the healing arts under a demanding master",
-    "Rat Catcher":            "earning a grim living clearing vermin from cellars and sewers",
-    "Entertainer":            "earning {poss} supper with song, jest and clever tricks",
-    "Coachman":               "driving rattling coaches along dangerous Imperial roads",
-    "Ferryman":               "working the rivers and canals of the Old World",
-    "Boatman":                "crewing the boats and barges of the inland waterways",
-    "Tomb Robber":            "plundering the tombs of the long-dead for whatever could be sold",
-    "Burglar":                "slipping past locks and guards in the dead of night",
-    "Footpad":                "preying on lonely travellers after dark",
-    "Agitator":               "stirring up discontent and dangerous ideas among the common folk",
-    "Student":                "studying at one of the Empire's learned institutions",
-    "Pedlar":                 "selling trinkets and necessities from village to village",
-    "Raconteur":              "spinning tall tales and half-truths for beer money",
-    "Woodsman":               "felling timber and keeping watch on the forest's edge",
-    "Forester":               "ranging the deep woods as guide and warden",
-    "Herbalist":              "gathering the wild herbs of field and forest for medicine and trade",
-    "Navigator":              "plotting courses across open water for those who could pay",
-    "Sailor":                 "crewing ships through storm and dead calms alike",
-    "Camp Follower":          "trailing behind armies, scraping a living from the leavings of war",
-    "Servant":                "attending to the endless needs of a wealthy household",
-    "Squire":                 "learning the arts of war in service to a noble knight",
-    "Druid":                  "tending to the old groves and the forgotten rites of nature",
-    "Hypnotist":              "practising the subtle arts of the mind on willing and unwilling subjects",
-    "Pharmacist":             "compounding remedies, potions and powders for profit",
-    "Seer":                   "reading the omens and portents that others miss or fear",
-    "Charlatan":              "living entirely by deception, guile and a silver tongue",
-    "Bawd":                   "arranging the vices of others for a careful cut of the coin",
-    "Spy":                    "selling secrets to whoever would pay and trusting no one",
-    "Fence":                  "quietly trading in goods of uncertain origin",
-    "Gambler":                "trusting to luck and skill at cards, dice and other games",
-    "Bounty Hunter":          "tracking down fugitives for the posted reward",
-    "Exciseman":              "collecting the Empire's taxes and making few friends doing it",
-    "Jailer":                 "keeping order in the damp dungeons and lock-ups",
-    "Militiaman":             "serving in the local militia to keep what peace there was",
-    "Roadwarden":             "patrolling the Imperial roads against bandits and worse",
-    "Watchman":               "walking the night watch through dark and dangerous streets",
-    "Troll Slayer":           "seeking a glorious death against trolls, giants and worse",
-    "Wood Elf Wardancer":     "following the sacred and deadly martial dance of the Wood Elves",
-    "Wood Elf Mage's Apprentice": "learning the ancient elven ways of the forest's high magic",
-    "Runesmith":              "studying the sacred and powerful runes of the dwarf ancestors",
-    "Engineer":               "designing and building the remarkable machines of the Empire",
-    "Miner":                  "delving deep beneath the earth for ore and precious stone",
-    "Smuggler":               "moving contraband past the watchful eyes of river and road wardens",
-    "Outlaw":                 "living outside the law, hiding in the wilds and forests",
-    "Protagonist":            "picking fights and seeking trouble as a deliberate way of life",
-    "Noble":                  "born to privilege and the heavy obligations of {poss} station",
-    "Trapper":                "setting traps and snares in the wild places beyond the towns",
-    "Scribe":                 "writing letters and documents for those who could not",
-    "Artisan":                "plying {poss} craft with hammer, needle or paint-brush",
-    "Seaman":                 "sailing the great seas in search of whatever fortune offered",
+# Each entry is a list of variant phrases so the narrative is different each run.
+# {poss} is replaced with his/her/their.
+_CAREER_FLAVOR: dict[str, list[str]] = {
+    "Wizard's Apprentice": [
+        "bound by inescapable scholarly oaths to master the winds of magic at the Colleges of Magic in Altdorf",
+        "apprenticed to a College wizard, learning the dangerous art of channelling the aethyr",
+        "studying arcane theory under a college master, trying not to accidentally unmake the world",
+    ],
+    "Hedge-Wizard's Apprentice": [
+        "learning the old ways and folk charms far from the Imperial Colleges — and the witch hunters",
+        "apprenticed to a hedge-wizard in the rural wilds, mastering petty charms the Colleges would rather stamp out",
+        "picking up hedge magic from a wandering old hedge-wizard whose life depends on staying invisible to authority",
+    ],
+    "Initiate": [
+        "taking the first holy vows of the temple, tending to the sick and performing minor rituals",
+        "serving {poss} god faithfully, washing temple floors and running errands for senior clerics",
+        "devoted to the rites and mysteries of the temple, hoping one day to rise to ordained priesthood",
+    ],
+    "Mercenary": [
+        "selling {poss} blade for coin and glory wherever the pay is good and the questions are few",
+        "hiring {poss} sword out to merchants, nobles, and anyone else with deep pockets and dangerous enemies",
+        "fighting in the wars of others for a mercenary's wage, spending it in the taverns of Marienburg or Altdorf",
+    ],
+    "Soldier": [
+        "serving in the Empire's armies — an unglamorous life of boots, mud, and short rations",
+        "marching under the Empire's banner with little say in where or why",
+        "drilling with pike and bow for the Elector Count's wars, dreaming of the day {poss} service is done",
+    ],
+    "Thief": [
+        "living by {poss} wits and nimble fingers in the dangerous shadows of the city streets",
+        "picking pockets and dodging the city watch through the back alleys of Altdorf or Marienburg",
+        "making {poss} living from the carelessness of others in the labyrinthine streets of the Old World's cities",
+    ],
+    "Scholar": [
+        "pursuing knowledge in the dusty libraries of Altdorf and forgotten tomes of the Empire",
+        "researching the forgotten history of the Old World from mouldering manuscripts and crumbling ruins",
+        "spending {poss} days in candlelit archives, uncovering secrets the Empire would rather stay buried",
+    ],
+    "Assassin": [
+        "taking contracts to end lives quietly, moving through the shadows of the Old World's city rooftops",
+        "plying the deadliest of trades — a blade in the dark and a blowpipe's soft sigh",
+        "killing for coin with cold efficiency, known only to {poss} handlers by a false name",
+    ],
+    "Bounty Hunter": [
+        "hunting outlaws and fugitives across the Empire for the posted reward",
+        "tracking down anyone with a price on their head through forest and city alike",
+        "chasing down jumped bail and escaped criminals from Reikland to the Ostermark borders",
+    ],
+    "Innkeeper": [
+        "keeping the fires burning and the ale barrels full in a roadside inn",
+        "running a tavern that sees every kind of traveller — and knows better than to ask questions",
+        "managing the rowdy business of a coaching inn on one of the Empire's busier roads",
+    ],
+    "Trader": [
+        "hauling goods along the rutted roads of the Empire between Marienburg and the eastern provinces",
+        "buying cheap in one province and selling dear in another, one cart-axle away from ruin",
+        "running trade goods between towns, navigating roads haunted by outlaws and worse",
+    ],
+    "Hunter": [
+        "tracking quarry through the dark forests of the Empire beyond the safety of town walls",
+        "living off the land in the great forests of Reikland, selling pelts and meat to nearby settlements",
+        "ranging deep into the Drakwald or Reikwald forest in search of game — and trying to avoid what hunts back",
+    ],
+    "Physician's Student": [
+        "learning the healing arts under a demanding master in one of the Empire's great cities",
+        "studying anatomy and herb-lore under a physician, mostly washing instruments and running errands",
+        "serving a practising physician, learning the rudiments of surgery in the back alleys of Altdorf",
+    ],
+    "Rat Catcher": [
+        "earning a grim living clearing vermin from the cellars and sewers beneath the city",
+        "keeping the Empire's cities marginally less infested, one dead rat at a time",
+        "descending into the dark beneath Altdorf or Nuln armed with terrier and trap",
+    ],
+    "Entertainer": [
+        "earning {poss} supper with song, jest and clever tricks at inns from Marienburg to Middenheim",
+        "travelling the roads between towns with a troupe of players, performing wherever folk have coin to spare",
+        "making audiences laugh and wonder at fairs, festivals, and ducal courts across the Empire",
+    ],
+    "Coachman": [
+        "driving rattling coaches along the dangerous Imperial roads between Altdorf and the provinces",
+        "cracking a whip over exhausted horses while passengers pray the road wardens earn their pay",
+        "ferrying wealthy merchants and nervous travellers along the Empire's coaching routes",
+    ],
+    "Ferryman": [
+        "working the rivers and canals of the Old World, moving people and goods between the great river towns",
+        "poling a flat-bottomed barge through the fog of the Reik between Reikland's busy river ports",
+        "crossing the Empire's waterways in a leaky vessel, one copper at a time",
+    ],
+    "Boatman": [
+        "crewing the boats and barges of the inland waterways of the Empire",
+        "working the river traffic on the Reik or Talabec, loading and unloading at dawn in every weather",
+        "hauling cargo up and down the inland rivers, calling in at every small river town between here and Marienburg",
+    ],
+    "Tomb Robber": [
+        "plundering the tombs of the long-dead for whatever could be sold in Altdorf's less reputable markets",
+        "breaking into the barrow-mounds of Stirland in search of ancient valuables before the morning watch arrives",
+        "robbing the dead — a career choice that keeps the Cult of Morr in a state of perpetual outrage",
+    ],
+    "Footpad": [
+        "preying on lonely travellers after dark in the streets and alleys beyond the city torchlight",
+        "working the shadows of the city, relieving careless pedestrians of their purses",
+        "making a dishonest living from the unguarded pockets of late-night strollers",
+    ],
+    "Agitator": [
+        "stirring up discontent and dangerous ideas among the common folk of the Empire",
+        "printing pamphlets and making speeches that the authorities find deeply inconvenient",
+        "spreading sedition from market square to tavern common-room, one rabble-rousing leaflet at a time",
+    ],
+    "Student": [
+        "studying at one of the Empire's learned institutions in Altdorf or Nuln, barely surviving on scholarship money",
+        "reading too many books, drinking too much cheap wine, and arguing philosophy in the student quarter",
+        "working toward a qualification at the University of Altdorf between bouts of catastrophic irresponsibility",
+    ],
+    "Pedlar": [
+        "selling trinkets and necessities from village to village along the back roads of the Empire",
+        "pushing a cart of oddments and small necessities from market to market",
+        "travelling endlessly through the smaller settlements of the Empire, selling whatever people need or can be persuaded to want",
+    ],
+    "Raconteur": [
+        "spinning tall tales and half-truths for beer money in the common rooms of the Empire's inns",
+        "telling stories of dubious accuracy to anyone who will stand a round of drinks",
+        "living off {poss} voice and the generosity — or gullibility — of tavern audiences",
+    ],
+    "Woodsman": [
+        "felling timber and keeping watch on the forest's edge, always aware that the Drakwald watches back",
+        "working the great managed forests of the Empire, cutting wood and tending charcoal fires",
+        "ranging the forest margins with axe and bow, earning a living that keeps {him} just outside civilisation",
+    ],
+    "Forester": [
+        "ranging the deep woods of the Empire as guide and warden for those wealthy enough to hire one",
+        "patrolling the great forests of Reikland, enforcing the hunting laws and keeping roads clear of worse things",
+        "guiding travellers through the dark forests that press against the Empire's towns on every side",
+    ],
+    "Herbalist": [
+        "gathering the wild herbs of field and forest for medicine and trade in the Empire's market towns",
+        "collecting and preparing medicinal plants, one muddy boot-print at a time through the countryside",
+        "serving local communities with cures and remedies, working from {poss} sling bag of carefully dried herbs",
+    ],
+    "Navigator": [
+        "plotting courses across open water for captains wealthy enough to afford a trained eye",
+        "charting the coastal waters and river mouths of the Old World from Marienburg to the Sea of Claws",
+        "keeping a ship on course through fog and storm, navigating by the stars of the Old World sky",
+    ],
+    "Sailor": [
+        "crewing ships through storm and dead calm alike on the great seas and coastal waters",
+        "working the rigging and bilges of merchant ships out of Marienburg or Altdorf's river docks",
+        "following the sea roads of the Old World, answering to a captain's whistle from Bretonnia to Norsca",
+    ],
+    "Servant": [
+        "attending to the endless needs of a wealthy noble household, invisible to {poss} employers",
+        "running errands, polishing silver and managing the complex diplomacy of a great house's below-stairs life",
+        "serving a wealthy family in one of the Empire's great cities, privy to more secrets than {poss} employer suspects",
+    ],
+    "Squire": [
+        "learning the arts of war in service to a noble knight in the Empire's chivalric tradition",
+        "polishing armour, exercising horses, and following {poss} master into dangers a squire has no business facing",
+        "serving a knight of the Empire, learning the rigid code of honour that governs warfare and noble obligation",
+    ],
+    "Druid": [
+        "tending to the old groves and the forgotten rites of nature in the deep forests of the Empire",
+        "maintaining the ancient sacred places where the old gods still listen to {poss} quiet prayers",
+        "wandering the wilder reaches of the Empire, keeping faith with the old religion of forest and field",
+    ],
+    "Hypnotist": [
+        "practising the subtle arts of the mind on willing — and sometimes unwilling — subjects",
+        "using the power of suggestion to earn {poss} living, walking a narrow line between medicine and fraud",
+        "demonstrating the power of the focused will at fairs and private engagements in the Empire's cities",
+    ],
+    "Pharmacist": [
+        "compounding remedies, potions and powders for profit in a workshop that smells of strange things",
+        "grinding herbs and mixing compounds in {poss} apothecary, hoping the customers don't ask too many questions",
+        "dispensing cures and specifics to the sick of the Empire, some of which actually work",
+    ],
+    "Seer": [
+        "reading the omens and portents that others miss or prefer not to see",
+        "interpreting the will of the heavens for those wealthy or desperate enough to pay for the knowledge",
+        "offering {poss} services as a reader of signs, an unsettling trade in a world where the signs are usually bad",
+    ],
+    "Charlatan": [
+        "living entirely by deception, guile and a silver tongue in the marketplaces of the Empire",
+        "selling false cures, forged papers, and outright lies to the credulous citizens of wherever {he_l} happens to be",
+        "making {poss} living through confidence and clever talk, always one step ahead of those {he_l} has cheated",
+    ],
+    "Bawd": [
+        "arranging the vices of others for a careful cut of the coin in the back streets of the city",
+        "running a discreet enterprise in {poss} quarter of the city, known to the watch but never quite chargeable",
+        "profiting from the weaknesses of others with a businesslike lack of moral concern",
+    ],
+    "Spy": [
+        "selling secrets to whoever pays and trusting nobody — a necessary attitude in the trade",
+        "operating in the shadows of the Empire's courts, passing information between parties who would rather not meet",
+        "carrying messages and intelligence across the Empire under false identities, for clients who deny everything",
+    ],
+    "Fence": [
+        "quietly trading in goods of uncertain origin through a carefully maintained network of contacts",
+        "receiving stolen goods and finding buyers, maintaining a shop-front that bears no close examination",
+        "running a business that asks no questions and provides few answers — profitable but precarious",
+    ],
+    "Gambler": [
+        "trusting to luck and considerable skill at cards, dice and other games of chance",
+        "making {poss} living at the gambling dens of Altdorf and Marienburg, always knowing when to leave",
+        "playing the odds in the smoky back rooms of the Empire's cities, counting cards and reading faces",
+    ],
+    "Exciseman": [
+        "collecting the Empire's taxes and tolls, making enemies in every province {he_l} passes through",
+        "enforcing the revenue laws of the Emperor with a ledger and a guard of reluctant soldiers",
+        "auditing merchants and collecting duty on the roads of the Empire — a job with few friends and many enemies",
+    ],
+    "Jailer": [
+        "keeping order in the damp dungeons and lock-ups beneath the city watch-house",
+        "maintaining the custody of the Empire's prisoners in conditions the prisoners find deeply objectionable",
+        "guarding the cells of the local magistracy, learning more than {he_l} ever wanted to about human nature",
+    ],
+    "Militiaman": [
+        "serving in the local militia to keep what peace there was in {poss} town or village",
+        "drilling with the town militia, hoping the Empire's wars stay somewhere else this season",
+        "mustering with the levy when called upon, standing watch on the walls of a town under constant threat",
+    ],
+    "Roadwarden": [
+        "patrolling the Imperial roads against bandits, beastmen and anything else lurking in the verges",
+        "riding the roads of the Empire keeping the trade routes open and the coach companies honest",
+        "enforcing order on the roads between towns, a thin line of authority in a land of constant danger",
+    ],
+    "Watchman": [
+        "walking the night watch through dark and dangerous streets, lantern in one hand and club in the other",
+        "patrolling the streets of one of the Empire's cities at night, when the honest folk are safely inside",
+        "keeping order in the small hours, rousing drunks and pursuing criminals through the back alleys",
+    ],
+    "Troll Slayer": [
+        "seeking a glorious and painful death against trolls, giants and anything larger and more dangerous than a man",
+        "walking the Slayer's path — sworn to die in battle against a monster worthy of the deed",
+        "pursuing {poss} oath of slayerhood into the wilderness, looking for the fight that will redeem {poss} shame",
+    ],
+    "Wood Elf Wardancer": [
+        "following the sacred and deadly martial dance of the Wood Elves of Athel Loren",
+        "practising the Wardancer's art — a combination of battle-skill and religious ecstasy unique to the forest elves",
+        "moving between combat and ceremony in the ancient tradition of the Wardancers of Loren",
+    ],
+    "Wood Elf Mage's Apprentice": [
+        "learning the ancient elven ways of the forest's high magic under a master mage of Athel Loren",
+        "apprenticed to a Wood Elf mage, studying the old tongue and the deeper magic of the asur",
+        "studying the high magic of the forest elves in the shaded glades where human scholars are never invited",
+    ],
+    "Runesmith": [
+        "studying the sacred and powerful runes of the dwarf ancestors in the forge-temples of the holds",
+        "learning to inscribe the master runes that give dwarven weapons and armour their legendary quality",
+        "working the ancient craft of the runesmiths, a discipline that takes lifetimes to master and seconds to misuse",
+    ],
+    "Engineer": [
+        "designing and building the remarkable mechanical devices of the Dwarven Engineering Guild",
+        "constructing the bizarre contraptions that the Dwarven Engineers' Guild insists are perfectly safe",
+        "working on the siege weapons and mechanical marvels of the Empire's armies, frequently almost exploding",
+    ],
+    "Miner": [
+        "delving deep beneath the earth for ore and precious stone in the tunnels of the hold",
+        "working the deep seams of metal and stone that the dwarven holds depend on for their survival",
+        "swinging a pick in the dark beneath the mountains, one cave-in away from an early burial",
+    ],
+    "Smuggler": [
+        "moving contraband past the watchful eyes of river wardens and road toll collectors",
+        "running goods that attract too much tax or too much attention through the back channels of the Empire",
+        "keeping the Empire's grey economy moving along routes that don't appear on any official map",
+    ],
+    "Outlaw": [
+        "living outside the law in the forests and wilds, wanted by the authorities in at least one province",
+        "hiding in the great forests of the Empire after one too many encounters with the wrong sort of authority",
+        "making {poss} living by robbery and cunning in the wild places beyond the Empire's thin veneer of order",
+    ],
+    "Protagonist": [
+        "picking fights and seeking trouble as a deliberate way of life, paid by those with enemies they want hurt",
+        "making {poss} living as a professional troublemaker — hired to frighten, intimidate, or provoke",
+        "working as a paid brawler in the Empire's seedier establishments, trading blows for coin",
+    ],
+    "Noble": [
+        "born to privilege and the heavy obligations of {poss} station in the Empire's complex hierarchy",
+        "navigating the treacherous politics of the Imperial court with charm, cunning, and inherited wealth",
+        "carrying the weight of a noble name and the expectations that come with it through the salons of the Empire",
+    ],
+    "Trapper": [
+        "setting traps and snares in the wild places of the Empire, far from the comfort of towns",
+        "living off the land in the deep forests, selling pelts and game to settlements on the fringe",
+        "ranging the wilderness east of the Empire's settled lands, following the fur trade's seasonal rhythms",
+    ],
+    "Scribe": [
+        "writing letters, contracts and documents for those who cannot — or would rather not — manage it themselves",
+        "serving the bureaucracy of the Empire's courts and counting houses with quill and ink",
+        "working as a professional scribe in one of the Empire's great cities, knowing everyone's business",
+    ],
+    "Artisan": [
+        "plying {poss} craft with hammer, needle or paint-brush in a workshop somewhere in the Empire",
+        "running a small workshop producing quality goods for the Empire's merchant class",
+        "mastering {poss} trade in a guild workshop, earning a modest living and a modest reputation",
+    ],
+    "Seaman": [
+        "sailing the great seas in search of whatever fortune the winds and currents might offer",
+        "crewing merchant ships out of Marienburg, the greatest port of the Old World",
+        "living the sailor's life of hard voyages and short time ashore in the port cities of the Empire",
+    ],
+    # ── Advanced careers ──────────────────────────────────────────────────────
+    "Assassin": [
+        "taking contracts to end lives quietly — a blade in the dark, a poison in the cup",
+        "plying the deadliest of trades from the rooftops and back alleys of the Old World's great cities",
+        "killing for coin, known only by a false name and a reputation that precedes {him} into dangerous rooms",
+    ],
+    "Scout": [
+        "ranging ahead of armies and expeditions, reading the land and bringing back intelligence",
+        "working as a military or civilian scout across the Empire's borders and forests",
+        "serving as the eyes and ears of expeditions into the wilderness beyond the settled Empire",
+    ],
+    "Mercenary Captain": [
+        "commanding a band of hired swords across the battlefields of the Old World",
+        "leading {poss} company of mercenaries from one contract to the next, keeping them paid and pointed at the enemy",
+        "running a successful mercenary company with a reputation for delivering what was promised",
+    ],
+    "Outlaw Chief": [
+        "leading a band of outlaws in the forests with iron authority and cautious pragmatism",
+        "commanding the outlaws of the deep forest — wanted across three provinces and respected in all of them",
+        "ruling a loose confederation of outlaws with a combination of fear, charisma and occasional violence",
+    ],
+    "Master Thief": [
+        "operating at the top of the thieving trade, taking only the most lucrative and impossible jobs",
+        "pulling off thefts that more ordinary criminals consider impossible, for clients who pay well for discretion",
+        "the most accomplished burglar and pickpocket in {poss} city — though {poss} city doesn't know it yet",
+    ],
+    "Witch Hunter": [
+        "rooting out corruption, heresy and forbidden magic on behalf of the Grand Theogonist in Altdorf",
+        "hunting witches, cultists and daemons across the Empire with pistol, torch and unshakeable conviction",
+        "pursuing the Empire's enemies in the shadows, answerable only to the Grand Theogonist and {poss} own conscience",
+    ],
     # ── Advanced magic careers ────────────────────────────────────────────────
-    "Wizard - level 1":       "practicing the difficult art of Battle Magic, wielding the winds of magic through arcane formulae",
-    "Wizard - level 2":       "a seasoned practitioner of Battle Magic, commanding the winds of magic with increasing authority",
-    "Wizard - level 3":       "a powerful Battle Wizard commanding the full breadth of {poss} art",
-    "Wizard - level 4":       "a Wizard Lord of great power, a master of Battle Magic few dare challenge",
-    "Grey Wizard - level 1":  "practising the subtle art of illusion and concealment as an initiate of the Grey College",
-    "Hedge-Wizard - level 1": "practising the rough charms and folk sorcery of the hedge wizard's tradition",
-    "Wood Elf Mage - level 1": "wielding the high magic of the elven asur as a full-fledged mage of the forest",
-    "Cleric - level 1":       "serving as an ordained priest, channelling the divine will of {poss} god",
-    "Druidic Priest - level 1": "serving as a consecrated druidic priest of the old forest rites",
+    "Wizard - level 1": [
+        "practising the difficult art of Battle Magic at one of the eight Colleges of Magic in Altdorf",
+        "wielding the winds of magic through arcane formulae, a newly qualified but already dangerous practitioner",
+        "a Graduate of the Colleges, beginning the long road from apprentice to Wizard Lord",
+    ],
+    "Wizard - level 2": [
+        "a seasoned Battle Wizard, commanding the winds of magic with increasing authority",
+        "proven in study and practice, advancing through the second level of {poss} College's demanding curriculum",
+        "a Journeyman of the Colleges, trusted with more powerful formulae and more dangerous assignments",
+    ],
+    "Wizard - level 3": [
+        "a powerful Battle Wizard commanding the full breadth of {poss} art — few dare challenge such a figure",
+        "a senior member of {poss} College, whose ability in Battle Magic is respected even by rivals",
+        "carrying the title and authority of a third-level wizard, a distinction earned over many hard years",
+    ],
+    "Wizard - level 4": [
+        "a Wizard Lord of formidable power — even {poss} colleagues choose words carefully",
+        "one of the Empire's most powerful practitioners of Battle Magic, a Wizard Lord of the Colleges",
+        "commanding the full arsenal of Battle Magic at the highest level the Colleges can teach",
+    ],
+    "Grey Wizard - level 1": [
+        "practising the subtle art of illusion and concealment as an initiate of the Grey College of Altdorf",
+        "an initiate of the Grey Order, learning the magic of shadow and misdirection",
+        "a newly qualified Grey Wizard, invisible to most and unnerving to those who notice {him}",
+    ],
+    "Hedge-Wizard - level 1": [
+        "practising the rough folk-magic of the hedge wizard's tradition, outside and in hiding from the Colleges",
+        "wielding petty magic and hedge-craft without sanction from the Colleges — a dangerous freedom",
+        "calling on the old powers without the Colleges' blessing, which would be more worrying if they knew",
+    ],
+    "Wood Elf Mage - level 1": [
+        "wielding the high magic of the asur as a full mage of the Athel Loren tradition",
+        "a trained mage of the Wood Elves, bringing elven sorcery into the wider world of the Old World",
+        "a graduate of the elven mage tradition of Athel Loren, whose magic is older than the Colleges of Magic",
+    ],
+    "Cleric - level 1": [
+        "serving as an ordained priest, channelling the divine will of {poss} god in the temples of the Empire",
+        "wielding the power of the gods in {poss} god's name, an ordained cleric of the Empire's faith",
+        "a consecrated priest of the Empire, carrying out the divine will through prayer and action",
+    ],
+    "Druidic Priest - level 1": [
+        "serving as a consecrated druidic priest of the old forest rites in the groves of the Empire",
+        "an ordained priest of the old ways, conducting rites at the ancient sacred sites before the Empire was built",
+        "consecrated to the service of the old forest gods in the druidic tradition that predates the Empire",
+    ],
 }
 
 _RACE_INTRO = {
@@ -587,24 +898,36 @@ _RACE_INTRO = {
         "One of the countless souls trying to make their way in a perilous world,",
         "A child of the Old World, where danger lurks behind every friendly face,",
         "From the hard-worn lands of the Empire,",
+        "Like ten thousand others in the provinces of the Empire,",
+        "Raised on stories of the Empire's glory and its countless threats,",
+        "Forged in the smoke and grime of life among the common folk,",
+        "Neither noble nor destitute but somewhere in between,",
     ],
     "Elf": [
         "One of the elder folk, walking the world with older and sadder eyes than most,",
         "Born under the timeless stars that the elves have watched far longer than men,",
         "Carrying the long memory and quiet grace of the elven kindred,",
         "Far older in spirit than appearance alone would suggest,",
+        "Walking among the short-lived races with a patience born of centuries,",
+        "With the elegance and the subtle melancholy of elvenkind,",
+        "An elder race in a world growing ever more dangerous for those who remember older days,",
     ],
     "Dwarf": [
         "Forged by the unyielding spirit of the mountain holds,",
         "Dour, proud, and nursing grudges that would outlast most human kingdoms,",
         "Bearing the iron traditions of the dwarven ancestor gods,",
         "Stout as stone, twice as stubborn, and just as likely to crack heads,",
+        "Carrying a Book of Grudges in spirit if not always in hand,",
+        "Born of the mountains, shaped by the hammer and the forge,",
+        "Short of stature but long of memory, especially for wrongs done,",
     ],
     "Halfling": [
         "Smaller than most, but quick and clever enough to compensate,",
         "Wandered out of The Moot and into a world far larger than expected,",
         "With the insatiable curiosity that afflicts the best — and worst — halflings,",
         "Far from the comfortable hearths and well-stocked larders of The Moot,",
+        "Light on foot and lighter on conscience in a pinch,",
+        "Drawn away from the simple pleasures of The Moot by restless feet,",
     ],
 }
 
@@ -641,6 +964,11 @@ _RELIGION_PHRASES = {
 }
 
 
+def _article(word: str) -> str:
+    """Return 'an' if word starts with a vowel sound, else 'a'."""
+    return "an" if word and word[0].lower() in "aeiou" else "a"
+
+
 def _generate_background_narrative(char) -> str:
     """Generate a rich background paragraph for the character sheet."""
     race    = char.race
@@ -665,40 +993,88 @@ def _generate_background_narrative(char) -> str:
             settle_phrase = phrase
             break
 
-    if settle_phrase and "," in birth:
-        province = birth.split(",")[-1].strip()
-        sentences.append(f"{intro} {he_l} was raised in {settle_phrase} of {province}.")
-    elif birth:
-        sentences.append(f"{intro} {he_l} grew up in {birth}.")
-    else:
-        sentences.append(f"{intro} {his} origins are humble.")
+    age = getattr(char, "age", "")
+    age_clause = ""
+    try:
+        age_int = int(str(age).split()[0]) if age else 0
+        if age_int and age_int < 20:
+            age_clause = f" at a young age of {age_int}"
+        elif age_int and age_int > 40:
+            age_clause = f", having seen {age_int} years of the Old World"
+    except (ValueError, IndexError):
+        pass
+
+    birth_patterns = [
+        lambda: f"{intro} {he_l} was raised in {settle_phrase} of {birth.split(',')[-1].strip()}." if (settle_phrase and "," in birth) else None,
+        lambda: f"{intro} {he_l} grew up in {birth}." if birth else None,
+        lambda: f"{intro} {his_l} origins lie in {birth}{age_clause}." if birth else None,
+    ]
+    birth_sentence = None
+    random.shuffle(birth_patterns)
+    for pat in birth_patterns:
+        result = pat()
+        if result:
+            birth_sentence = result
+            break
+    if not birth_sentence:
+        birth_sentence = f"{intro} {his_l} origins are humble{age_clause}."
+    sentences.append(birth_sentence)
 
     # --- Family ---
     parent   = char.parents_occupation or ""
     siblings = char.family_members or "No siblings"
 
-    if parent:
-        if siblings != "No siblings":
-            sentences.append(
-                f"{his} parent worked as a {parent.lower()}, "
-                f"and {he_l} grew up alongside {siblings}."
-            )
-        else:
-            sentences.append(
-                f"The only child of a {parent.lower()}, "
-                f"{he_l} learned early that nothing comes for free."
-            )
+    family_opts = []
+    if parent and siblings != "No siblings":
+        art = _article(parent)
+        family_opts = [
+            f"{his} parent worked as {art} {parent.lower()}, and {he_l} grew up alongside {siblings}.",
+            f"Raised in the shadow of {art} {parent.lower()}'s trade, {he_l} shared {his_l} childhood with {siblings}.",
+            f"With {art} {parent.lower()} for a parent and {siblings} in the household, {he_l} learned the value of hard work early.",
+        ]
+    elif parent:
+        art = _article(parent)
+        family_opts = [
+            f"The only child of {art} {parent.lower()}, {he_l} learned early that nothing comes for free.",
+            f"Raised by {art} {parent.lower()}, {he_l} grew up watching the trade and wondering if there was more to life.",
+            f"{art.capitalize()} {parent.lower()}'s child, {he_l} always knew the practical side of the Empire's economy.",
+        ]
     elif siblings != "No siblings":
-        sentences.append(f"{he} has {siblings}, scattered by the winds of fate.")
+        family_opts = [
+            f"{he} has {siblings}, scattered by the winds of fate.",
+            f"{siblings} share {his_l} blood — where they are now is anyone's guess.",
+        ]
+    if family_opts:
+        sentences.append(random.choice(family_opts))
 
     # --- Career ---
-    raw_flavor = _CAREER_FLAVOR.get(career, f"making {his_l} living as a {career.lower()}")
-    flavor     = raw_flavor.replace("{poss}", his_l)
-    openers    = [
-        f"Now {he_l} makes {his_l} way in the world, {flavor}.",
-        f"These days {he_l} earns {his_l} keep by {flavor}.",
-        f"Fate and circumstance have led {him} to the path of {flavor}.",
-    ]
+    career_flavor_entry = _CAREER_FLAVOR.get(career)
+    if isinstance(career_flavor_entry, list):
+        raw_flavor = random.choice(career_flavor_entry)
+    elif isinstance(career_flavor_entry, str):
+        raw_flavor = career_flavor_entry
+    else:
+        raw_flavor = f"making {his_l} living as {_article(career)} {career.lower()}"
+    flavor = raw_flavor.replace("{poss}", his_l).replace("{he_l}", he_l).replace("{him}", him)
+    # Detect noun-phrase flavor (starts with "a/an/the") vs gerund phrase
+    first_word = flavor.lstrip().split()[0].lower() if flavor.strip() else ""
+    is_noun = first_word in ("a", "an", "the") or (len(first_word) > 3 and not first_word.endswith("ing"))
+    if is_noun:
+        openers = [
+            f"Now {he_l} makes {his_l} way in the world as {flavor}.",
+            f"These days {he_l} earns {his_l} keep as {flavor}.",
+            f"Fate has seen {him} become {flavor}.",
+            f"The road has brought {him} to life as {flavor}.",
+            f"In the end, {he_l} has made {his_l} name as {flavor}.",
+        ]
+    else:
+        openers = [
+            f"Now {he_l} makes {his_l} way in the world, {flavor}.",
+            f"These days {he_l} earns {his_l} keep by {flavor}.",
+            f"Fate and circumstance have led {him} to the path of {flavor}.",
+            f"Of late, {he_l} has found {his_l} place in the world by {flavor}.",
+            f"The road has brought {him} to this: {flavor}.",
+        ]
     sentences.append(random.choice(openers))
 
     # --- Career magic lore ---
@@ -746,14 +1122,46 @@ def _generate_background_narrative(char) -> str:
         "Initiate": [
             f"{he} has taken the first steps toward ordination, serving {his_l} temple faithfully in the hope of further advancement.",
             f"The gods speak to those who listen closely enough; {he_l} is learning to hear.",
+            f"The temple is {his_l} family now — the rituals, the prayers, and the long hours of instruction that shape a cleric.",
         ],
         "Cleric - level 1": [
             f"Ordained into the service of {his_l} god, {he_l} channels divine power through prayer and devotion.",
             f"The temple's teachings run deep in {him}; {his_l} faith is not merely performed but felt.",
+            f"The weight of ordination sits heavily but willingly on {his_l} shoulders.",
         ],
     }
     if career in _MAGIC_LORE:
         sentences.append(random.choice(_MAGIC_LORE[career]))
+
+    # --- Personality / motivation (career-class tinted) ---
+    _PERSONALITY_BY_CLASS = {
+        "Warrior": [
+            f"{he} is not a complicated soul — {he_l} prefers to solve problems with direct action.",
+            f"There is a restlessness to {him} that only the prospect of danger seems to quiet.",
+            f"{his} confidence in a fight is either impressive or alarming, depending on whether you are standing next to {him}.",
+        ],
+        "Ranger": [
+            f"{he} prefers the open road to four walls, and the company of the horizon to that of crowds.",
+            f"There is a self-reliance to {him} that sometimes reads as coldness but is really just competence.",
+            f"{he} reads the land and the sky with the ease of someone who has staked {his_l} life on such reading more than once.",
+        ],
+        "Rogue": [
+            f"{his} eyes are always moving — taking stock, calculating, weighing up the odds.",
+            f"{he} has a flexible relationship with the law that {he_l} prefers not to explain in detail.",
+            f"There is a quick wit to {him} and a quicker pair of hands; both have kept {him} alive.",
+        ],
+        "Academic": [
+            f"{his} knowledge runs deep but {his_l} common sense is sometimes harder to locate.",
+            f"There is a curiosity to {him} that gets {him} into trouble almost as often as it gets {him} out of it.",
+            f"{he} believes that understanding the world is the first step toward surviving it — an optimistic view.",
+        ],
+    }
+    career_class_guess = getattr(char, "career_class", "Warrior")
+    personality_pool = _PERSONALITY_BY_CLASS.get(career_class_guess, _PERSONALITY_BY_CLASS["Warrior"])
+    # Only add personality if narrative is still short (under 3 sentences)
+    if len(sentences) < 3:
+        sentences.append(random.choice(personality_pool))
+
     if char.religion:
         rel = _RELIGION_PHRASES.get(char.religion, f"quiet observance of {char.religion}")
         closers = [
@@ -768,6 +1176,7 @@ def _generate_background_narrative(char) -> str:
         star_lines = [
             f"Born under {char.star_sign}, {he_l} carries the mark of the heavens.",
             f"The sign of {char.star_sign} watched over {his_l} birth, for good or ill.",
+            f"{char.star_sign} was in the sky when {he_l} came into the world — the astrologers have their opinions.",
         ]
         sentences.append(random.choice(star_lines))
 
@@ -777,8 +1186,13 @@ def _generate_background_narrative(char) -> str:
         mark_lines = [
             f"Most who meet {him} remember {his_l} {mark} long after the encounter.",
             f"{his} {mark} is a detail rarely overlooked by sharp-eyed strangers.",
+            f"The {mark} has drawn comments all {his_l} life — {he_l} has stopped explaining it.",
         ]
         sentences.append(random.choice(mark_lines))
+
+    # Guarantee minimum 3 sentences
+    while len(sentences) < 3:
+        sentences.append(random.choice(personality_pool))
 
     return " ".join(sentences)
 
@@ -938,6 +1352,46 @@ def generate_character(
     }
     char.is_advanced_career = resolved_career not in _basic_careers
 
+    # ── NPC stat advancement ───────────────────────────────────────────────
+    # For NPCs, apply a random portion of the career's advance scheme to
+    # reflect the NPC having worked in their career for some time.
+    if npc_mode:
+        _PERCENTILE = ("WS", "BS", "I", "Dex", "Ld", "Int", "Cl", "WP", "Fel")
+        _SMALL      = ("S", "T")
+        all_stat_keys = list(_PERCENTILE) + list(_SMALL) + ["W", "A"]
+        char.starter_profile = {s: getattr(char, s) for s in all_stat_keys}
+
+        adv = char.advance_scheme
+        for stat, max_adv in adv.items():
+            if stat == "M":
+                continue  # Movement is rarely advanced
+            try:
+                max_adv = int(max_adv)
+            except (TypeError, ValueError):
+                continue
+            if max_adv <= 0:
+                continue
+
+            # Advanced careers have taken more of their advances; basic less so
+            if char.is_advanced_career:
+                pct = random.uniform(0.6, 1.0)
+            else:
+                pct = random.uniform(0.25, 0.65)
+
+            advance = round(pct * max_adv)
+            if stat in _SMALL:
+                advance = min(advance, max_adv)
+            elif stat == "A":
+                advance = 1 if (advance >= 1 and max_adv >= 1) else 0
+            elif stat in _PERCENTILE:
+                advance = round(advance / 5) * 5  # round to nearest 5 for realism
+
+            current = getattr(char, stat, 0)
+            if isinstance(current, int):
+                setattr(char, stat, current + advance)
+
+        char.compute_bonuses()
+
     # ── Alignment ─────────────────────────────────────────────────────────
     char.alignment = _roll_alignment(chosen_class, race_name)
 
@@ -950,6 +1404,10 @@ def generate_character(
     char.eye_colour  = appearance["eye_colour"]
     char.gender      = gender if gender else appearance["gender"]
     char.description = appearance["description"]
+
+    # ── Auto-generate name if not provided ────────────────────────────────
+    if not char.name:
+        char.name = random_name(race_name, char.gender)
 
     # ── Resolve "X or Y" trapping alternatives ────────────────────────────
     char.trappings = _resolve_alternatives(char.trappings)
@@ -1054,7 +1512,20 @@ def generate_character(
             n = int(m.group(1)) if m.group(1) else 1
             sides = int(m.group(2))
             return str(sum(random.randint(1, sides) for _ in range(n)))
-        return _re.sub(r'(\d*)D(\d+)', _sub, text, flags=_re.IGNORECASE)
+        resolved = _re.sub(r'(\d*)D(\d+)', _sub, text, flags=_re.IGNORECASE)
+        # Fix "1 <plural>" → "1 <singular>" for simple -s plurals (1 or 2 words after number)
+        def _fix_plural(m):
+            prefix, words_str = m.group(1), m.group(2)
+            words = words_str.split()
+            last = words[-1]
+            if (len(last) > 2 and last.endswith('s')
+                    and not last.endswith('ss') and not last.endswith('us')
+                    and not last.endswith('is') and last.lower() != 'has'):
+                words[-1] = last[:-1]
+            return prefix + ' '.join(words)
+        return _re.sub(
+            r'\b(1\s+)((?:[A-Za-z]+\s+){0,2}[A-Za-z]+s)\b',
+            _fix_plural, resolved)
 
     char.trappings = [_roll_dice_in_text(t) for t in char.trappings]
 

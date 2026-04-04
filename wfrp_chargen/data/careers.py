@@ -331,6 +331,7 @@ ADVANCED_CAREER_CLASSES: dict[str, str] = {
     # Warrior (additional)
     "Duellist":                 "Warrior",
     "Giant Slayer":             "Warrior",
+    "Daemon Slayer":            "Warrior",
     "Torturer":                 "Warrior",
 }
 
@@ -396,7 +397,8 @@ CAREERS: dict[str, dict] = {
         "skills": [
             "Disarm", "Dodge Blow", "Secret Language: Battle Tongue",
             "Strike Mighty Blow", "Strike To Stun",
-            "75% chance of Drive Cart", "50% chance of Animal Care", "25% chance of Ride",
+            "75% chance of Drive Cart", "50% chance of Animal Care",
+            "25% chance of Ride", "25% chance of Specialist Weapon: Two-Handed Weapons",
         ],
         "trappings": ["Hand Weapon", "Bow or Crossbow and ammunition", "Mail Shirt or Metal Breastplate", "Shield"],
         "exits": [
@@ -518,10 +520,12 @@ CAREERS: dict[str, dict] = {
     },
 
     "Troll Slayer": {
-        "advance_scheme": {"WS": 20, "S": 2, "T": 2, "W": 10, "I": 1, "Cl": 20, "WP": 20},
+        "advance_scheme": {"WS": 20, "S": 2, "T": 2, "W": 10, "I": 10, "Cl": 20, "WP": 20},
         "skills": [
-            "Disarm", "Dodge Blow", "Specialist Weapon: Two-Handed Weapon",
+            "Consume Alcohol", "Disarm", "Dodge Blow",
+            "Specialist Weapon: Two-Handed Weapon",
             "Street Fighting", "Strike Mighty Blow",
+            "50% chance of Very Resilient", "50% chance of Very Strong",
         ],
         "trappings": ["Two-Handed Axe"],
         "note": "Dwarf only. Character has sworn the Slayer Oath.",
@@ -934,9 +938,10 @@ CAREERS: dict[str, dict] = {
     "Thief": {
         "advance_scheme": {"WS": 10, "BS": 10, "T": 2, "W": 2, "I": 10, "Dex": 10, "Fel": 10},
         "skills": [
-            "Concealment: Urban", "Secret Language: Thieves' Tongue",
-            "Secret Signs: Thieves' Signs", "Silent Move: Rural", "Silent Move: Urban",
-            "25% chance of Evaluate",
+            "Concealment: Urban", "Pick Lock", "Pick Pocket",
+            "Secret Language: Thieves' Tongue", "Secret Signs: Thieves' Signs",
+            "Shadowing", "Silent Move: Rural", "Silent Move: Urban",
+            "25% chance of Evaluate", "25% chance of Swim",
         ],
         "trappings": [
             "Knife", "Dark Clothing", "Grappling Hook", "10m Rope", "Lock Picks",
@@ -1069,10 +1074,10 @@ CAREERS: dict[str, dict] = {
     "Initiate": {
         "advance_scheme": {"W": 1, "Int": 10, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
-            "Read/Write", "Scroll Lore", "Secret Language: Classical",
+            "Heal Wounds", "Read/Write", "Scroll Lore", "Secret Language: Classical",
             "Theology", "Read/Write: Khazalid (Dwarfs only)",
         ],
-        "trappings": ["Robes", "Religious symbol"],
+        "trappings": ["Holy Symbol", "Robes", "Religious symbol"],
         "exits": ["Agitator", "Astrologer", "Augur", "Cleric - level 1", "Diviner", "Exorcist"],
     },
 
@@ -1138,9 +1143,10 @@ CAREERS: dict[str, dict] = {
         "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
                            "Dex": 20, "Ld": 30, "Int": 40, "Cl": 20, "WP": 20, "Fel": 20},
         "skills": [
-            "Astronomy", "Cartography", "History", "Identify Plant",
-            "Linguistics", "Magical Sense", "Numismatics",
-            "Rune Lore", "Speak Additional Language",
+            "Arcane Language: Magick", "Astronomy", "Cartography", "History",
+            "Identify Plant", "Linguistics", "Magical Sense", "Metallurgy",
+            "Numismatics", "Read/Write", "Rune Lore",
+            "Secret Language: Classical", "Speak Additional Language",
         ],
         "trappings": ["Hand Weapon", "Writing equipment", "5D6 Gold Crowns"],
         "exits": ["Explorer", "Loremaster (Dwarfs only)", "Merchant"],
@@ -1199,12 +1205,14 @@ CAREERS: dict[str, dict] = {
         "advance_scheme": {"I": 10, "Dex": 10, "Int": 20, "WP": 20},
         "skills": [
             "Arcane Language: Magick", "Cast Spells: Petty Magic only",
+            "Identify Magic", "Magical Awareness",
             "Read/Write", "Secret Language: Classical",
             "50% chance of Scroll Lore",
         ],
         "trappings": [
             "Grimoire (containing spells of Petty Magic)",
             "D3 doses of magical ingredient",
+            "Spell components",
             "Robe",
         ],
         "exits": [
@@ -1218,7 +1226,7 @@ CAREERS: dict[str, dict] = {
         "skills": [
             "Arcane Language: Magick", "Cast Spells: Petty Magic",
             "Follow Trail", "Identify Plants",
-            "Secret Language: Malla-room-na-larin", "Sing", "Silent Move: Rural",
+            "Secret Language: Eltharin", "Sing", "Silent Move: Rural",
         ],
         "trappings": ["None listed"],
         "note": "Wood Elf only.",
@@ -1373,8 +1381,8 @@ CAREERS: dict[str, dict] = {
         "advance_scheme": {"WS": 20, "BS": 30, "S": 1, "T": 1, "W": 4, "I": 30, "A": 2,
                            "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
-            "Concealment: Rural", "Follow Trail", "Orientation",
-            "Set Trap", "Silent Move: Rural", "Spot Trap", "Trapping",
+            "Acute Hearing", "Concealment: Rural", "Follow Trail", "Orientation",
+            "Outdoor Survival", "Set Trap", "Silent Move: Rural", "Spot Trap", "Trapping",
         ],
         "trappings": [
             "Hand Weapon", "Crossbow and ammunition", "Leather Jack",
@@ -1483,15 +1491,16 @@ CAREERS: dict[str, dict] = {
         "advance_scheme": {"WS": 30, "BS": 30, "S": 2, "T": 2, "W": 5, "I": 30, "A": 3,
                            "Dex": 30, "Ld": 20, "Int": 20, "Cl": 30, "WP": 30},
         "skills": [
-            "Concealment: Urban", "Disguise", "Prepare Poisons",
-            "Scale Sheer Surface", "Silent Move: Urban",
+            "Concealment: Urban", "Disguise", "Pick Lock",
+            "Prepare Poisons", "Scale Sheer Surface", "Shadowing",
+            "Silent Move: Urban", "Specialist Weapon: Blowpipe",
             "Strike To Injure", "Strike To Stun",
         ],
         "trappings": [
             "Hand Weapon", "Garotte", "Short Bow and arrows or 2 Knives",
-            "Dark clothing", "D3 doses of poison",
+            "Dark clothing", "Blowpipe and D6 poison darts", "D3 doses of poison",
         ],
-        "exits": ["Demagogue"],
+        "exits": ["Demagogue", "Master Thief", "Outlaw Chief", "Spy"],
     },
 
     "Charlatan": {
@@ -1981,7 +1990,7 @@ CAREERS: dict[str, dict] = {
             "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
             "Cast Spells: Petty Magic", "Follow Trail",
             "Identify Plants", "Magical Awareness", "Read/Write",
-            "Secret Language: Malla-room-na-larin", "Silent Move: Rural",
+            "Secret Language: Eltharin", "Silent Move: Rural",
         ],
         "trappings": [
             "Grimoire (Wood Elf Battle Magic Level 1 spells)",
@@ -2085,6 +2094,24 @@ CAREERS: dict[str, dict] = {
         ],
         "note": "Dwarf only. The Slayer has survived killing a troll.",
         "exits": ["Daemon Slayer"],
+    },
+
+    "Daemon Slayer": {
+        "advance_scheme": {"WS": 40, "BS": 10, "S": 4, "T": 3, "W": 8, "I": 30, "A": 4,
+                           "Dex": 10, "Ld": 20, "Cl": 40, "WP": 40},
+        "skills": [
+            "Consume Alcohol", "Disarm", "Dodge Blow",
+            "Immunity To Poison", "Specialist Weapon: Two-Handed Weapon",
+            "Street Fighting", "Strike Mighty Blow", "Strike To Injure",
+            "Very Resilient", "Very Strong",
+        ],
+        "trappings": [
+            "Two-Handed Axe (rune-inscribed)",
+            "Elaborate slayer tattooing",
+            "Shaved and crested topknot",
+        ],
+        "note": "Dwarf only. The Slayer has slain both a troll and a giant.",
+        "exits": [],
     },
 
     "Torturer": {

@@ -70,29 +70,35 @@ _C1_STARTER_Y = 735
 _C1_ADV_Y     = 809
 _C1_CURR_Y    = 885
 
-# Hand-to-hand weapons  (name col + I / WS / D / PY columns)
-_C1_HTH_NAME_X  = 175
-_C1_HTH_I_X     = 281
-_C1_HTH_WS_X    = 339
-_C1_HTH_D_X     = 397
-_C1_HTH_PY_X    = 455
+# Hand-to-hand weapons  (pixel-scanned at y=1000)
+# Name: x=198-508 (center=353), stats: I=543, WS=612, D=685, PY=757
+_C1_HTH_NAME_X  = 202   # lm; left edge + 4px padding (col starts x=198)
+_C1_HTH_NAME_W  = 295   # max width of HTH weapon name (col is 310px)
+_C1_HTH_I_X     = 543   # center of I column  (x=512-574)
+_C1_HTH_WS_X    = 612   # center of WS column (x=578-646)
+_C1_HTH_D_X     = 685   # center of D column  (x=650-720)
+_C1_HTH_PY_X    = 757   # center of PY column (x=724-790)
 _C1_HTH_START_Y = 975   # header band y=851-971; content starts y=971
 _C1_HTH_SPACING = 55
 
-# Missile weapons  (S / L / E / ES / Load columns)
-_C1_MSL_NAME_X  = 175
-_C1_MSL_S_X     = 281
-_C1_MSL_L_X     = 339
-_C1_MSL_E_X     = 397
-_C1_MSL_ES_X    = 455
-_C1_MSL_LOAD_X  = 513
+# Missile weapons  (same column layout as HTH at y=1250)
+# Name: x=196-506 (center=351), stats: S=540, L=610, E=684, ES=755
+_C1_MSL_NAME_X  = 200   # lm; left edge + 4px padding
+_C1_MSL_NAME_W  = 290   # max width of missile weapon name
+_C1_MSL_S_X     = 540   # center of S column  (x=510-570)
+_C1_MSL_L_X     = 610   # center of L column  (x=576-644)
+_C1_MSL_E_X     = 684   # center of E column  (x=648-720)
+_C1_MSL_ES_X    = 755   # center of ES column (x=724-786)
+# Load has no separate column; no 5th stat col in this template
 _C1_MSL_START_Y = 1227
 _C1_MSL_SPACING = 53
 
-# Armour table  (name / Loc / ENC columns)
-_C1_ARM_NAME_X  = 175
-_C1_ARM_LOC_X   = 350
-_C1_ARM_ENC_X   = 415
+# Armour table  (pixel-scanned at y=1480)
+# Name: x=192-440 (center=316), Loc: x=444-506 (center=475), ENC: x=510-574 (center=542)
+_C1_ARM_NAME_X  = 196   # lm; left edge of name column
+_C1_ARM_NAME_W  = 235   # max width (col is 248px)
+_C1_ARM_LOC_X   = 475   # mm; center of Loc column
+_C1_ARM_ENC_X   = 542   # mm; center of ENC column
 _C1_ARM_START_Y = 1447
 _C1_ARM_SPACING = 55
 
@@ -104,12 +110,16 @@ _C1_AP_BODY_X,  _C1_AP_BODY_Y  = 1100, 1790
 _C1_AP_RLEG_X,  _C1_AP_RLEG_Y  = 565, 1910
 _C1_AP_LLEG_X,  _C1_AP_LLEG_Y  = 1100, 1950
 
-# Skills – two columns (right half of the weapon section)
-_C1_SKILL_L_X     = 505
-_C1_SKILL_R_X     = 800
-_C1_SKILL_START_Y = 975  # same start as HTH weapons
+# Skills – two columns (pixel-scanned at y=1000)
+# Left skills: x=806-1160 (w=354, center=983)
+# Right skills: x=1176-1518 (w=342, center=1347)
+_C1_SKILL_L_X     = 810   # lm; left edge of left skills column
+_C1_SKILL_L_W     = 340   # max width of skill text in left column
+_C1_SKILL_R_X     = 1180  # lm; left edge of right skills column
+_C1_SKILL_R_W     = 330   # max width of skill text in right column
+_C1_SKILL_START_Y = 975   # same start as HTH weapons
 _C1_SKILL_SPACING = 55
-_C1_SKILL_ROWS    = 11   # rows per column  →  22 skills max
+_C1_SKILL_ROWS    = 11    # rows per column  →  22 skills max
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -214,7 +224,8 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
                    _CFS_FIELD, max_width=210, anchor="lm")
     _draw_text_fit(draw, _C1_EYES_X, _C1_EYES_Y, char.eye_colour,
                    _CFS_FIELD, max_width=175, anchor="lm")
-    _draw_text_fit(draw, _C1_DESC_X, _C1_DESC_Y, char.distinguishing_marks,
+    desc_parts = [p for p in [char.description, char.distinguishing_marks] if p]
+    _draw_text_fit(draw, _C1_DESC_X, _C1_DESC_Y, ", ".join(desc_parts) if desc_parts else "",
                    _CFS_FIELD, max_width=730, anchor="lm")
 
     # ── Career ────────────────────────────────────────────────────────────────
@@ -243,19 +254,16 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
 
     # ── Stats ─────────────────────────────────────────────────────────────────
     STAT_ORDER = ['M','WS','BS','S','T','W','I','A','Dex','Ld','Int','Cl','WP','Fel']
+    starter = getattr(char, "starter_profile", {})
     for stat in STAT_ORDER:
         x = _C1_STAT_COLS[stat]
-        val = getattr(char, stat, None)
-        if val is not None:
-            _draw_text(draw, x, _C1_STARTER_Y, val, f_stat, "mm")
-            if not pc_mode:
-                # Current profile = starter + all advances taken
-                adv_raw = char.advance_scheme.get(stat, 0)
-                try:
-                    adv_num = int(adv_raw)
-                except (TypeError, ValueError):
-                    adv_num = 0
-                curr_val = val + adv_num
+        curr_val = getattr(char, stat, None)
+        start_val = starter.get(stat) if starter else None
+        if start_val is None:
+            start_val = curr_val
+        if start_val is not None:
+            _draw_text(draw, x, _C1_STARTER_Y, start_val, f_stat, "mm")
+            if not pc_mode and curr_val is not None:
                 _draw_text(draw, x, _C1_CURR_Y, curr_val, f_stat, "mm")
         # Advance scheme
         if stat in char.advance_scheme:
@@ -274,11 +282,13 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_HTH_START_Y + i * _C1_HTH_SPACING
         _draw_text_fit(draw, _C1_HTH_NAME_X, y, name, _CFS_SKILL,
-                       max_width=165, anchor="lm")
-        _draw_text(draw, _C1_HTH_I_X,  y, ws.get('I', '–'),  f_small, "mm")
-        _draw_text(draw, _C1_HTH_WS_X, y, ws.get('WS','–'), f_small, "mm")
-        _draw_text(draw, _C1_HTH_D_X,  y, ws.get('D', '–'),  f_small, "mm")
-        _draw_text(draw, _C1_HTH_PY_X, y, ws.get('PY','–'), f_small, "mm")
+                       max_width=_C1_HTH_NAME_W, anchor="lm")
+        _draw_text(draw, _C1_HTH_I_X,  y, ws.get('i_mod',  '–'), f_small, "mm")
+        _draw_text(draw, _C1_HTH_WS_X, y, ws.get('ws_mod', '–'), f_small, "mm")
+        _draw_text(draw, _C1_HTH_D_X,  y, ws.get('damage', '–'), f_small, "mm")
+        # PY (Parry): show Yes/No from data
+        py_val = ws.get('parry', '–')
+        _draw_text(draw, _C1_HTH_PY_X, y, py_val, f_small, "mm")
 
     # ── Missile Weapons ───────────────────────────────────────────────────────
     for i, name in enumerate(char.missile_weapons[:4]):
@@ -287,12 +297,12 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_MSL_START_Y + i * _C1_MSL_SPACING
         _draw_text_fit(draw, _C1_MSL_NAME_X, y, name, _CFS_SKILL,
-                       max_width=165, anchor="lm")
-        _draw_text(draw, _C1_MSL_S_X,    y, ms.get('S',   '–'), f_small, "mm")
-        _draw_text(draw, _C1_MSL_L_X,    y, ms.get('L',   '–'), f_small, "mm")
-        _draw_text(draw, _C1_MSL_E_X,    y, ms.get('E',   '–'), f_small, "mm")
-        _draw_text(draw, _C1_MSL_ES_X,   y, ms.get('ES',  '–'), f_small, "mm")
-        _draw_text(draw, _C1_MSL_LOAD_X, y, ms.get('Load','–'), f_small, "mm")
+                       max_width=_C1_MSL_NAME_W, anchor="lm")
+        # S=short range, L=medium range, E=long range, ES=damage
+        _draw_text(draw, _C1_MSL_S_X,  y, ms.get('s_range', '–'), f_small, "mm")
+        _draw_text(draw, _C1_MSL_L_X,  y, ms.get('m_range', '–'), f_small, "mm")
+        _draw_text(draw, _C1_MSL_E_X,  y, ms.get('l_range', '–'), f_small, "mm")
+        _draw_text(draw, _C1_MSL_ES_X, y, ms.get('damage',  '–'), f_small, "mm")
 
     # ── Armour table ──────────────────────────────────────────────────────────
     for i, name in enumerate(char.armour_items[:5]):
@@ -301,9 +311,10 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
             continue
         y = _C1_ARM_START_Y + i * _C1_ARM_SPACING
         _draw_text_fit(draw, _C1_ARM_NAME_X, y, name, _CFS_SKILL,
-                       max_width=215, anchor="lm")
-        _draw_text(draw, _C1_ARM_LOC_X, y, ast.get('location','–'), f_small, "lm")
-        _draw_text(draw, _C1_ARM_ENC_X, y, ast.get('enc','–'),      f_small, "mm")
+                       max_width=_C1_ARM_NAME_W, anchor="lm")
+        _draw_text_fit(draw, _C1_ARM_LOC_X - 28, y, ast.get('location','–'),
+                       _CFS_SMALL, max_width=58, anchor="lm")
+        _draw_text(draw, _C1_ARM_ENC_X, y, str(ast.get('enc','–')), f_small, "mm")
 
     # ── Armour Points (body diagram) ──────────────────────────────────────────
     def _sum_ap(loc: str) -> int:
@@ -331,11 +342,11 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
     for i, skill in enumerate(col1):
         y = _C1_SKILL_START_Y + i * _C1_SKILL_SPACING
         _draw_text_fit(draw, _C1_SKILL_L_X, y, skill, _CFS_SKILL,
-                       max_width=270, anchor="lm")
+                       max_width=_C1_SKILL_L_W, anchor="lm")
     for i, skill in enumerate(col2):
         y = _C1_SKILL_START_Y + i * _C1_SKILL_SPACING
         _draw_text_fit(draw, _C1_SKILL_R_X, y, skill, _CFS_SKILL,
-                       max_width=270, anchor="lm")
+                       max_width=_C1_SKILL_R_W, anchor="lm")
 
 
 def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> None:
@@ -367,9 +378,10 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
     # Mag: always show for NPC; PC shows only if > 0
     if char.Mag or not pc_mode:
         _draw_text(draw, _C2_MAG_X, _C2_MAG_Y, str(char.Mag), f_field, "mm")
-    # Power Level: only draw for magic users; NPC always shows, PC only if Mag > 0
-    if char.Mag or not pc_mode:
-        _draw_text(draw, _C2_PL_X,  _C2_PL_Y,  str(char.Mag), f_field, "mm")
+    # Power Level: only draw for magic users; PC only if Mag > 0
+    pl = getattr(char, 'power_level', 0)
+    if pl or not pc_mode:
+        _draw_text(draw, _C2_PL_X, _C2_PL_Y, str(pl), f_field, "mm")
     # XP: blank for PC (filled during play); show 0 for NPC
     if not pc_mode:
         _draw_text(draw, _C2_XP_X, _C2_XP_Y, "0", f_field, "mm")
@@ -418,16 +430,21 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         _draw_text_fit(draw, _C2_FAMILY_X, _C2_FAMILY_Y, char.family_members,
                        _CFS_FIELD, max_width=445, anchor="lm")
 
-    # Extra space: star sign + narrative snippet (wrapped)
+    # Extra space: star sign + narrative (wrapped, more lines)
+    back_y = _C2_BACK_Y
     if char.star_sign:
-        _draw_text_fit(draw, _C2_BACK_X, _C2_BACK_Y,
+        _draw_text_fit(draw, _C2_BACK_X, back_y,
                        f"Star sign: {char.star_sign}", _CFS_SMALL,
                        max_width=740, anchor="lm")
+        back_y += 36
     if char.background_narrative:
-        first_sent = char.background_narrative.split('.')[0] + '.'
-        _draw_paragraph(draw, _C2_BACK_X, _C2_BACK_Y + 36,
-                        first_sent, _CFS_SMALL,
-                        max_width=740, line_height=28, max_lines=2)
+        _BACK_LINE_H = 22
+        avail_h = _C2_SOCIAL_Y - back_y - 4   # small margin before social row
+        dynamic_max = max(1, avail_h // _BACK_LINE_H)
+        _draw_paragraph(draw, _C2_BACK_X, back_y,
+                        char.background_narrative, _CFS_SMALL,
+                        max_width=740, line_height=_BACK_LINE_H, max_lines=dynamic_max,
+                        shrink=False)
 
     # ── Social Level / Religion ───────────────────────────────────────────────
     if char.social_level:

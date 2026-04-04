@@ -377,8 +377,12 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
                     anchor=career_anchor, max_lines=4)
 
     # ── STARTER PROFILE ───────────────────────────────────────────────────────
+    # For NPCs with advances applied, show the original rolled stats as starter
+    starter = getattr(char, "starter_profile", {})
     for stat, x in _STAT_X.items():
-        val = getattr(char, stat, None)
+        val = starter.get(stat) if starter else None
+        if val is None:
+            val = getattr(char, stat, None)
         if val is not None:
             _draw_text(draw, x, _STARTER_Y, val, f_stat, "mm")
 
@@ -395,15 +399,9 @@ def _fill_page1(char: Character, draw: ImageDraw.ImageDraw,
 
     # ── CURRENT PROFILE ───────────────────────────────────────────────────────
     if not pc_mode:
-        adv = char.advance_scheme if getattr(char, "is_advanced_career", False) else {}
         for stat, x in _STAT_X.items():
             val = getattr(char, stat, None)
             if val is not None:
-                if adv and stat in adv:
-                    try:
-                        val = val + int(adv[stat])
-                    except (TypeError, ValueError):
-                        pass
                 _draw_text(draw, x, _CURRENT_Y, val, f_stat, "mm")
 
     # ── SKILLS ────────────────────────────────────────────────────────────────
@@ -485,13 +483,18 @@ def save_character_image(char: Character,
 
 def _draw_paragraph(draw, x: int, y: int, text: str, base_size: int,
                     max_width: int, line_height: int, max_lines: int = 15,
-                    colour=_INK) -> None:
-    """Word-wrap text into multiple lines, shrinking font to fit."""
+                    colour=_INK, shrink: bool = True) -> None:
+    """Word-wrap text into multiple lines.
+
+    shrink=True (default): tries progressively smaller fonts until text fits.
+    shrink=False: uses base_size only; truncates at max_lines with ellipsis.
+    """
     if not text:
         return
     words = text.split()
-    for size in range(base_size, 20, -2):
-        font = _get_font(size)
+    min_size = 16
+
+    def _wrap(font):
         lines, cur = [], []
         for word in words:
             test = " ".join(cur + [word])
@@ -503,26 +506,36 @@ def _draw_paragraph(draw, x: int, y: int, text: str, base_size: int,
                 cur = [word]
         if cur:
             lines.append(" ".join(cur))
-        if len(lines) <= max_lines:
-            for i, line in enumerate(lines):
-                draw.text((x, y + i * line_height), line,
-                          font=font, fill=colour, anchor="lm")
-            return
-    # fallback at min size
-    font = _get_font(22)
-    lines, cur = [], []
-    for word in words:
-        test = " ".join(cur + [word])
-        if _text_width(draw, test, font) <= max_width:
-            cur.append(word)
-        else:
-            if cur:
-                lines.append(" ".join(cur))
-            cur = [word]
-    if cur:
-        lines.append(" ".join(cur))
-    for i, line in enumerate(lines[:max_lines]):
-        draw.text((x, y + i * line_height), line, font=font, fill=colour, anchor="lm")
+        return lines
+
+    def _render_truncated(font, lines):
+        if len(lines) > max_lines:
+            lines = lines[:max_lines]
+            last = lines[-1]
+            while last and _text_width(draw, last + "…", font) > max_width:
+                last = last.rsplit(" ", 1)[0]
+            lines[-1] = last + "…"
+        for i, line in enumerate(lines):
+            draw.text((x, y + i * line_height), line, font=font, fill=colour, anchor="lm")
+
+    if shrink:
+        # Try progressively smaller sizes until text fits within max_lines
+        sizes = list(range(base_size, min_size - 1, -2)) if base_size > min_size else [base_size]
+        for size in sizes:
+            font = _get_font(size)
+            lines = _wrap(font)
+            if len(lines) <= max_lines:
+                for i, line in enumerate(lines):
+                    draw.text((x, y + i * line_height), line,
+                              font=font, fill=colour, anchor="lm")
+                return
+        # Fallback: use min size, truncate with ellipsis
+        font = _get_font(min_size)
+        _render_truncated(font, _wrap(font))
+    else:
+        # No shrink: use base_size, truncate with ellipsis at max_lines
+        font = _get_font(base_size)
+        _render_truncated(font, _wrap(font))
 
 
 def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,

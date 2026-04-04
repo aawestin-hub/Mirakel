@@ -334,37 +334,36 @@ def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
         print("  -> Random")
     print()
 
-    # ── Career: step 3 — Specific career ──────────────────────────────────────
+    # ── Career: step 3 — Specific career (always shown) ───────────────────────
     if career_class is not None:
         candidates = by_class.get(career_class, [])
-        tier_label = career_tier.capitalize() if career_tier else "Any"
-        print(f"Career ({career_class} / {tier_label}) — Enter = random:")
-        for i, c in enumerate(candidates, 1):
-            print(f"  {i:3}. {c}")
-        print()
-        raw = _safe_input("  > ").strip()
-        career_name: str | None = None
-        if raw:
-            if raw.isdigit():
-                idx = int(raw) - 1
-                if 0 <= idx < len(candidates):
-                    career_name = candidates[idx]
-            else:
-                for c in candidates:
-                    if c.lower() == raw.lower():
-                        career_name = c
-                        break
-        if career_name:
-            print(f"  -> {career_name}")
-        else:
-            career_name = _random.choice(candidates) if candidates else None
-            print(f"  -> Random from {career_class}: {career_name}")
+        class_label = career_class
     else:
-        # Random class — pick random career from whole tier pool
-        all_in_tier = [c for careers in by_class.values() for c in careers]
-        career_name = _random.choice(all_in_tier) if all_in_tier else None
-        tier_label = career_tier.capitalize() if career_tier else "any"
-        print(f"  -> Fully random {tier_label}: {career_name}")
+        candidates = sorted({c for careers in by_class.values() for c in careers})
+        class_label = "All classes"
+
+    tier_label = career_tier.capitalize() if career_tier else "Any"
+    print(f"Career ({class_label} / {tier_label}) — Enter = random:")
+    for i, c in enumerate(candidates, 1):
+        print(f"  {i:3}. {c}")
+    print()
+    raw = _safe_input("  > ").strip()
+    career_name: str | None = None
+    if raw:
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(candidates):
+                career_name = candidates[idx]
+        else:
+            for c in candidates:
+                if c.lower() == raw.lower():
+                    career_name = c
+                    break
+    if career_name:
+        print(f"  -> {career_name}")
+    else:
+        career_name = _random.choice(candidates) if candidates else None
+        print(f"  -> Random ({class_label}): {career_name}")
     print()
 
     return race, gender, career_name
@@ -500,8 +499,6 @@ def main() -> None:
                 break
             if again in ("n", "no"):
                 print("Farewell, and may Sigmar guide your dice!\n")
-                sys.exit(0)
-            if again == "":
                 sys.exit(0)
 
 

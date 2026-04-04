@@ -105,6 +105,7 @@ class Character:
     wealth_bp:           int   = 0   # Brass Pennies
     background_narrative: str = ""
     companions:          list  = field(default_factory=list)  # list of {name, stats}
+    starter_profile:     dict  = field(default_factory=dict)  # original rolled stats (before NPC advances)
 
     def compute_bonuses(self) -> None:
         """
