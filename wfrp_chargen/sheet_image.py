@@ -300,6 +300,16 @@ _P2_BACK_X         = 200
 _P2_BACK_Y         = 2554
 _P2_BACK_SPACING   = 48
 
+# Companion row (y=2325-2443, data row center y≈2413)
+# Name col: x=902-1164 (center=1033); 14 stat cols with exact centers (pixel-scanned y=2413)
+_P2_COMP_NAME_X    = 1033  # center of companion name column
+_P2_COMP_NAME_MAX  = 240   # max width for companion name text
+_P2_COMP_Y         = 2413  # Y center of companion data row
+_P2_COMP_ROW_H     = 30    # row height for second companion row
+_P2_COMP_STAT_XS   = [1197, 1262, 1329, 1395, 1464, 1530, 1595, 1663,
+                       1733, 1797, 1861, 1931, 2001, 2063]
+_P2_COMP_STATS     = ["M","WS","BS","S","T","W","I","A","Dex","Ld","Int","Cl","WP","Fel"]
+
 _PAGE_GAP = 20
 
 
@@ -629,6 +639,20 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     if char.religion:
         _draw_text_fit(draw, _P2_RELIG_X, _P2_RELIG_Y, char.religion,
                        _FS_FIELD, max_width=270, anchor="mm")
+
+    # ── Companions & Animals ──────────────────────────────────────────────────
+    companions = getattr(char, "companions", [])
+    f_comp = _get_font(_FS_SMALL)
+    for row_idx, comp in enumerate(companions[:2]):  # max 2 companion rows
+        cy = _P2_COMP_Y + row_idx * _P2_COMP_ROW_H
+        _draw_text_fit(draw, _P2_COMP_NAME_X, cy, comp["name"],
+                       _FS_SMALL, max_width=_P2_COMP_NAME_MAX, anchor="mm")
+        stats = comp.get("stats", {})
+        for col_idx, stat in enumerate(_P2_COMP_STATS):
+            val = stats.get(stat)
+            if val is not None:
+                cx = _P2_COMP_STAT_XS[col_idx]
+                _draw_text(draw, cx, cy, str(val), f_comp, "mm")
 
     # ── Background free-text (birthplace / parents / family merged) ───────────
     # ── Background narrative ───────────────────────────────────────────────────

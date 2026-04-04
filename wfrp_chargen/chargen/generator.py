@@ -1130,6 +1130,22 @@ def generate_character(
         char.spells = random.sample(_DIVINE_SPELLS, min(2, len(_DIVINE_SPELLS)))
         char.Mag = 1
 
+    # ── Companions (horse/animal from trappings) ──────────────────────────────
+    _HORSE_KEYWORDS = ["horse", "warhorse", "riding horse", "pony", "mule", "steed"]
+    _HORSE_STATS = {
+        "Riding Horse":  {"M":8,"WS":31,"BS":0,"S":4,"T":4,"W":10,"I":20,"A":1,"Dex":0,"Ld":14,"Int":12,"Cl":53,"WP":40,"Fel":15},
+        "War Horse":     {"M":8,"WS":41,"BS":0,"S":5,"T":5,"W":14,"I":30,"A":1,"Dex":0,"Ld":18,"Int":14,"Cl":53,"WP":43,"Fel":18},
+        "Mule":          {"M":6,"WS":21,"BS":0,"S":3,"T":4,"W": 8,"I":20,"A":1,"Dex":0,"Ld":29,"Int":14,"Cl":53,"WP":43,"Fel":10},
+    }
+    char.companions = []
+    trapping_str = " ".join(char.trappings).lower()
+    if "warhorse" in trapping_str or "war horse" in trapping_str:
+        char.companions.append({"name": "War Horse", "stats": _HORSE_STATS["War Horse"]})
+    elif any(k in trapping_str for k in ["riding horse", "horse"]):
+        char.companions.append({"name": "Riding Horse", "stats": _HORSE_STATS["Riding Horse"]})
+    elif "mule" in trapping_str:
+        char.companions.append({"name": "Mule", "stats": _HORSE_STATS["Mule"]})
+
     # ── Background narrative ──────────────────────────────────────────────────
     char.background_narrative = _generate_background_narrative(char)
 

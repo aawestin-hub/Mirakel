@@ -104,6 +104,7 @@ class Character:
     wealth_ss:           int   = 0   # Silver Shillings
     wealth_bp:           int   = 0   # Brass Pennies
     background_narrative: str = ""
+    companions:          list  = field(default_factory=list)  # list of {name, stats}
 
     def compute_bonuses(self) -> None:
         """
