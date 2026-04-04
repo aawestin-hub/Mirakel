@@ -252,16 +252,17 @@ _AV_SHIELD_X   = 1420
 _AV_SHIELD_Y   = 2322
 
 # ── Page 2 coordinates (relative to page-2 image origin) ──────────────────────
+# Right column value boxes span x=1811-2107, center=1960 (pixel-scanned)
 
-_P2_FP_X           = 2040
-_P2_FP_Y           = 340
-_P2_MAG_X          = 2040
-_P2_MAG_Y          = 520
-_P2_PL_X           = 2040  # Power Level
+_P2_FP_X           = 1960
+_P2_FP_Y           = 330
+_P2_MAG_X          = 1960
+_P2_MAG_Y          = 508
+_P2_PL_X           = 1960  # Power Level
 _P2_PL_Y           = 686
-_P2_IP_X           = 2040
-_P2_IP_Y           = 1459
-_P2_XP_X           = 2040
+_P2_IP_X           = 1960
+_P2_IP_Y           = 1471
+_P2_XP_X           = 1960
 _P2_XP_Y           = 870
 
 _P2_TRAP_X         = 191
@@ -289,10 +290,10 @@ _P2_LANG_X         = 1527
 _P2_LANG_START_Y   = 1056
 _P2_LANG_SPACING   = 48
 
-_P2_SOCIAL_X       = 2040
-_P2_SOCIAL_Y       = 1756
-_P2_RELIG_X        = 2040
-_P2_RELIG_Y        = 2000
+_P2_SOCIAL_X       = 1960
+_P2_SOCIAL_Y       = 1759
+_P2_RELIG_X        = 1960
+_P2_RELIG_Y        = 2090
 
 # Background free-text area (birthplace / parents / family / star sign / mark merged here)
 _P2_BACK_X         = 200
@@ -303,13 +304,16 @@ _PAGE_GAP = 20
 
 
 # ── Page 2 spell section coordinates ──────────────────────────────────────────
-_P2_SPELL_NAME_X    = 20
-_P2_SPELL_SL_X      = 727
-_P2_SPELL_MP_X      = 820
-_P2_SPELL_R_X       = 913
-_P2_SPELL_D_X       = 1025   # shifted right to avoid left-edge clipping
-_P2_SPELL_ING_X     = 1075
-_P2_SPELL_EFF_X     = 1490
+# Column boundaries (pixel-scanned at y=380):
+# NAME x=162-570, SL x=576-663, MP x=669-776, R x=782-874,
+# D x=880-981, ING x=987-1362, EFF x=1368-1785
+_P2_SPELL_NAME_X    = 170   # left-aligned inside NAME column (x=162-570)
+_P2_SPELL_SL_X      = 620   # center of SL column (576-663)
+_P2_SPELL_MP_X      = 723   # center of MP column (669-776)
+_P2_SPELL_R_X       = 828   # center of R column (782-874)
+_P2_SPELL_D_X       = 931   # center of D column (880-981)
+_P2_SPELL_ING_X     = 995   # left-aligned inside ING column (987-1362)
+_P2_SPELL_EFF_X     = 1375  # left-aligned inside EFF column (1368-1785)
 _P2_SPELL_START_Y   = 352   # first data row center (header ends y≈287)
 _P2_SPELL_SPACING   = 130   # each row ~130px tall (660px / 5 rows)
 
@@ -539,20 +543,20 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
         y = _P2_SPELL_START_Y + i * _P2_SPELL_SPACING
         data = get_spell(spell_name)
         _draw_text_fit(draw, _P2_SPELL_NAME_X, y, spell_name,
-                       _FS_SKILL, max_width=640, anchor="lm")
+                       _FS_SKILL, max_width=390, anchor="lm")
         if data:
             _draw_text_fit(draw, _P2_SPELL_SL_X,  y, str(data["sl"]),
-                           26, max_width=90, anchor="mm")
+                           26, max_width=80, anchor="mm")
             _draw_text_fit(draw, _P2_SPELL_MP_X,  y, str(data["mp"]),
-                           26, max_width=90, anchor="mm")
+                           26, max_width=100, anchor="mm")
             _draw_text_fit(draw, _P2_SPELL_R_X,   y, data["r"],
-                           26, max_width=90, anchor="mm", min_size=14)
+                           26, max_width=85, anchor="mm", min_size=14)
             _draw_text_fit(draw, _P2_SPELL_D_X,   y, data["d"],
-                           26, max_width=90, anchor="mm", min_size=14)
+                           26, max_width=95, anchor="mm", min_size=14)
             _draw_text_fit(draw, _P2_SPELL_ING_X, y, data["ingredients"],
-                           26, max_width=330, anchor="lm")
+                           26, max_width=355, anchor="lm")
             _draw_text_wrap(draw, _P2_SPELL_EFF_X, y, data["effect"],
-                            26, max_width=260, line_height=_P2_SPELL_SPACING // 2,
+                            26, max_width=390, line_height=_P2_SPELL_SPACING // 2,
                             anchor="lm", max_lines=2)
 
     # ── Trappings (items not already listed as weapons/armour) ────────────────
@@ -623,8 +627,8 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     if char.social_level:
         _draw_text(draw, _P2_SOCIAL_X, _P2_SOCIAL_Y, char.social_level, f_field, "mm")
     if char.religion:
-        _draw_text_fit(draw, _P2_RELIG_X - 170, _P2_RELIG_Y, char.religion,
-                       _FS_FIELD, max_width=340, anchor="lm")
+        _draw_text_fit(draw, _P2_RELIG_X, _P2_RELIG_Y, char.religion,
+                       _FS_FIELD, max_width=270, anchor="mm")
 
     # ── Background free-text (birthplace / parents / family merged) ───────────
     # ── Background narrative ───────────────────────────────────────────────────

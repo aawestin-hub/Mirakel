@@ -509,12 +509,12 @@ def _categorise_trappings(trappings: list) -> dict:
 
 
 _CAREER_FLAVOR = {
-    "Wizard's Apprentice":    "bound by scholarly oaths to master the winds of magic",
-    "Hedge-Wizard's Apprentice": "learning the old ways and petty charms far from the Colleges",
-    "Initiate":               "devoted to the rites of the gods",
-    "Mercenary":              "selling {poss} blade for coin and glory",
+    "Wizard's Apprentice":    "bound by scholarly oaths to master the winds of magic at one of the Colleges",
+    "Hedge-Wizard's Apprentice": "learning the old ways and petty charms far from the Imperial Colleges",
+    "Initiate":               "devoted to the rites and mysteries of the gods",
+    "Mercenary":              "selling {poss} blade for coin and glory wherever war breaks out",
     "Soldier":                "serving in the Empire's armies with little choice in the matter",
-    "Thief":                  "living by {poss} wits and nimble fingers",
+    "Thief":                  "living by {poss} wits and nimble fingers in the shadows of the city",
     "Scholar":                "pursuing knowledge in dusty libraries and forgotten tomes",
     "Innkeeper":              "keeping the fires burning and the ale barrels full",
     "Trader":                 "hauling goods along the rutted roads of the Empire",
@@ -557,7 +557,7 @@ _CAREER_FLAVOR = {
     "Watchman":               "walking the night watch through dark and dangerous streets",
     "Troll Slayer":           "seeking a glorious death against trolls, giants and worse",
     "Wood Elf Wardancer":     "following the sacred and deadly martial dance of the Wood Elves",
-    "Wood Elf Mage's Apprentice": "learning the ancient elven ways of the forest's magic",
+    "Wood Elf Mage's Apprentice": "learning the ancient elven ways of the forest's high magic",
     "Runesmith":              "studying the sacred and powerful runes of the dwarf ancestors",
     "Engineer":               "designing and building the remarkable machines of the Empire",
     "Miner":                  "delving deep beneath the earth for ore and precious stone",
@@ -569,6 +569,16 @@ _CAREER_FLAVOR = {
     "Scribe":                 "writing letters and documents for those who could not",
     "Artisan":                "plying {poss} craft with hammer, needle or paint-brush",
     "Seaman":                 "sailing the great seas in search of whatever fortune offered",
+    # ── Advanced magic careers ────────────────────────────────────────────────
+    "Wizard - level 1":       "practicing the difficult art of Battle Magic, wielding the winds of magic through arcane formulae",
+    "Wizard - level 2":       "a seasoned practitioner of Battle Magic, commanding the winds of magic with increasing authority",
+    "Wizard - level 3":       "a powerful Battle Wizard commanding the full breadth of {poss} art",
+    "Wizard - level 4":       "a Wizard Lord of great power, a master of Battle Magic few dare challenge",
+    "Grey Wizard - level 1":  "practising the subtle art of illusion and concealment as an initiate of the Grey College",
+    "Hedge-Wizard - level 1": "practising the rough charms and folk sorcery of the hedge wizard's tradition",
+    "Wood Elf Mage - level 1": "wielding the high magic of the elven asur as a full-fledged mage of the forest",
+    "Cleric - level 1":       "serving as an ordained priest, channelling the divine will of {poss} god",
+    "Druidic Priest - level 1": "serving as a consecrated druidic priest of the old forest rites",
 }
 
 _RACE_INTRO = {
@@ -691,7 +701,59 @@ def _generate_background_narrative(char) -> str:
     ]
     sentences.append(random.choice(openers))
 
-    # --- Religion ---
+    # --- Career magic lore ---
+    _MAGIC_LORE = {
+        "Wizard's Apprentice": [
+            f"{his} gift for magic was recognised early, earning {him} an unwanted but inescapable place at one of the Colleges of Magic.",
+            f"The winds of magic stir whenever {he_l} concentrates — a gift that frightened {his_l} family before the Colleges took notice.",
+        ],
+        "Wizard - level 1": [
+            f"{he} has passed the first trials of {his_l} College, earning the right to study Battle Magic in earnest.",
+            f"Years of gruelling study at the Colleges have given {him} command of the first level of Battle Magic.",
+        ],
+        "Wizard - level 2": [
+            f"Proven in both study and practice, {he_l} has advanced beyond the apprentice halls and into the real work of the Battle Mages.",
+            f"{his} mastery of the second level of Battle Magic sets {him} apart from many who never survive the early trials.",
+        ],
+        "Wizard - level 3": [
+            f"Few reach the third level of Battle Magic — {he_l} carries the weight of that hard-won distinction.",
+            f"Seasoned by long service and hard battles, {he_l} has become a genuinely dangerous practitioner of the magical arts.",
+        ],
+        "Wizard - level 4": [
+            f"A Wizard Lord commands respect and fear in equal measure; {his_l} power is rarely questioned twice.",
+            f"The full might of Battle Magic flows at {his_l} command — even {his_l} colleagues speak carefully around {him}.",
+        ],
+        "Grey Wizard - level 1": [
+            f"Inducted into the Grey College, {he_l} has learned to walk unseen and weave illusion as a second skin.",
+            f"The Grey Order prizes subtlety over spectacle; {he_l} has taken that lesson to heart.",
+        ],
+        "Hedge-Wizard's Apprentice": [
+            f"Magic without the Colleges is forbidden in the Empire — {he_l} walks a dangerous road.",
+            f"{his} tutor never attended the Colleges, and neither will {he_l} if the witch hunters have their way.",
+        ],
+        "Hedge-Wizard - level 1": [
+            f"The Colleges of Magic call it witchcraft; {he_l} calls it tradition, handed down through a long and careful line.",
+            f"Without formal training, {his_l} magic is raw and unpredictable — but often effective enough.",
+        ],
+        "Wood Elf Mage's Apprentice": [
+            f"The high magic of the asur flows through {him}, connecting {him} to the ancient power of the Forest of Loren.",
+            f"{he} studies the ancient songs of power handed down by the Mage-Lords of Athel Loren.",
+        ],
+        "Wood Elf Mage - level 1": [
+            f"A full mage of the wood elves commands both the petty magic of the wilds and the higher formulae of the asur.",
+            f"Trained in the ancient elven tradition, {he_l} wields magic as a birthright, not a studied art.",
+        ],
+        "Initiate": [
+            f"{he} has taken the first steps toward ordination, serving {his_l} temple faithfully in the hope of further advancement.",
+            f"The gods speak to those who listen closely enough; {he_l} is learning to hear.",
+        ],
+        "Cleric - level 1": [
+            f"Ordained into the service of {his_l} god, {he_l} channels divine power through prayer and devotion.",
+            f"The temple's teachings run deep in {him}; {his_l} faith is not merely performed but felt.",
+        ],
+    }
+    if career in _MAGIC_LORE:
+        sentences.append(random.choice(_MAGIC_LORE[career]))
     if char.religion:
         rel = _RELIGION_PHRASES.get(char.religion, f"quiet observance of {char.religion}")
         closers = [
@@ -1014,6 +1076,14 @@ def generate_character(
         "Aura of Protection", "Zone of Steadfastness", "Silver Spear",
         "Wind Blast", "Mystic Mist",
     ]
+    _ARCANE_L2 = [
+        "Dispel", "Drain Magic", "Magic Shield",
+        "Shatter", "Steal Magic",
+    ]
+    _ARCANE_L3 = [
+        "Cause Cowardice", "Hammerhand", "Lightning Bolt",
+        "Magic Armour", "Telekinesis",
+    ]
     if resolved_career == "Wizard's Apprentice":
         char.spells = random.sample(_PETTY_MAGIC, min(3, len(_PETTY_MAGIC)))
         char.Mag = 1
@@ -1025,6 +1095,39 @@ def generate_character(
         char.Mag = 1
     elif resolved_career == "Wood Elf Mage's Apprentice":
         char.spells = random.sample(_PETTY_MAGIC + _ARCANE_L1, min(3, 7))
+        char.Mag = 1
+    elif resolved_career in ("Wizard - level 1", "Grey Wizard - level 1"):
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + random.sample(_ARCANE_L1, min(2, len(_ARCANE_L1))))
+        char.Mag = 1
+    elif resolved_career in ("Wizard - level 2",):
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + random.sample(_ARCANE_L1, 3)
+                       + random.sample(_ARCANE_L2, min(2, len(_ARCANE_L2))))
+        char.Mag = 2
+    elif resolved_career in ("Wizard - level 3",):
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + random.sample(_ARCANE_L1, 3)
+                       + random.sample(_ARCANE_L2, 3)
+                       + random.sample(_ARCANE_L3, min(2, len(_ARCANE_L3))))
+        char.Mag = 3
+    elif resolved_career in ("Wizard - level 4",):
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + _ARCANE_L1[:3] + _ARCANE_L2[:3] + _ARCANE_L3[:3])
+        char.Mag = 4
+    elif resolved_career == "Hedge-Wizard - level 1":
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + random.sample(_ARCANE_L1, min(1, len(_ARCANE_L1))))
+        char.Mag = 1
+    elif resolved_career == "Wood Elf Mage - level 1":
+        char.spells = (random.sample(_PETTY_MAGIC, 3)
+                       + random.sample(_ARCANE_L1, min(3, len(_ARCANE_L1))))
+        char.Mag = 1
+    elif resolved_career in ("Cleric - level 1",):
+        char.spells = random.sample(_DIVINE_SPELLS, min(3, len(_DIVINE_SPELLS)))
+        char.Mag = 1
+    elif resolved_career in ("Druidic Priest - level 1", "Druid"):
+        char.spells = random.sample(_DIVINE_SPELLS, min(2, len(_DIVINE_SPELLS)))
         char.Mag = 1
 
     # ── Background narrative ──────────────────────────────────────────────────
