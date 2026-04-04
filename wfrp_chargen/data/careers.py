@@ -314,14 +314,24 @@ ADVANCED_CAREER_CLASSES: dict[str, str] = {
     "Lawyer":                   "Academic",
     "Loremaster":               "Academic",
     "Loremaster (Dwarfs only)": "Academic",
+    "Master Thief":             "Rogue",
     "Merchant":                 "Academic",
     "Physician":                "Academic",
     "Politician":               "Academic",
     "Runesmith":                "Academic",
     "Scholar":                  "Academic",
+    "Spy":                      "Rogue",
     "Wise Woman":               "Academic",
+    "Witch Hunter":             "Academic",
     "Wizard - level 1":         "Academic",
+    "Wizard - level 2":         "Academic",
+    "Wizard - level 3":         "Academic",
+    "Wizard - level 4":         "Academic",
     "Wood Elf Mage - level 1":  "Academic",
+    # Warrior (additional)
+    "Duellist":                 "Warrior",
+    "Giant Slayer":             "Warrior",
+    "Torturer":                 "Warrior",
 }
 
 
@@ -336,7 +346,7 @@ CAREERS: dict[str, dict] = {
     # ── WARRIOR CAREERS ──────────────────────────────────────────────────────
 
     "Bodyguard": {
-        "advance_scheme": {"WS": 20, "S": 1, "W": 2, "I": 10, "A": 1},
+        "advance_scheme": {"WS": 20, "S": 1, "T": 2, "W": 2, "I": 10, "A": 1},
         "skills": [
             "Disarm", "Specialist Weapon - Fist Weapon", "Street Fighting",
             "Strike Mighty Blow", "Strike To Stun",
@@ -365,7 +375,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Marine": {
-        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "W": 2, "I": 10, "A": 1, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 2, "W": 2, "I": 10, "A": 1, "Cl": 10},
         "skills": [
             "Consume Alcohol", "Disarm", "Dodge Blow", "Row",
             "Secret Language: Battle Tongue", "Strike Mighty Blow", "Strike To Stun",
@@ -382,7 +392,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Mercenary": {
-        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "W": 2, "I": 10, "A": 1, "Ld": 10, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 2, "W": 2, "I": 10, "A": 1, "Ld": 10, "Cl": 10},
         "skills": [
             "Disarm", "Dodge Blow", "Secret Language: Battle Tongue",
             "Strike Mighty Blow", "Strike To Stun",
@@ -396,7 +406,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Militiaman": {
-        "advance_scheme": {"WS": 10, "BS": 10, "W": 2, "I": 10, "A": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "T": 2, "W": 2, "I": 10, "A": 1},
         "skills": [
             "Dodge Blow", "Strike Mighty Blow",
             "50% chance of Drive Cart", "25% chance of Animal Care", "25% chance of Ride",
@@ -423,7 +433,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Outlaw": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "WP": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 1, "I": 10, "Dex": 10, "WP": 10, "W": 2},
         "skills": [
             "Concealment: Rural", "Disarm", "Dodge Blow", "Scale Sheer Surface",
             "Secret Language: Battle Tongue or Thieves' (equal chance of either)",
@@ -456,7 +466,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Protagonist": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 10, "A": 1},
+        "advance_scheme": {"WS": 10, "T": 2, "W": 2, "I": 10, "A": 1},
         "skills": [
             "Disarm", "Dodge Blow", "Ride: Horse", "Street Fighting",
             "Strike Mighty Blow", "Strike To Injure", "Strike To Stun",
@@ -466,7 +476,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Seaman": {
-        "advance_scheme": {"WS": 10, "BS": 10, "Dex": 10, "W": 2, "I": 10, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "T": 1, "Dex": 10, "W": 2, "I": 10, "Cl": 10},
         "skills": [
             "Dodge Blow", "Row", "Sailing", "Scale Sheer Surface",
             "Speak Additional Language", "Street Fighting", "Strike Mighty Blow", "Swim",
@@ -484,7 +494,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Soldier": {
-        "advance_scheme": {"WS": 10, "BS": 10, "W": 2, "I": 10, "A": 1, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "T": 2, "W": 2, "I": 10, "A": 1, "Cl": 10},
         "skills": [
             "Disarm", "Dodge Blow", "Secret Language: Battle Tongue",
             "Street Fighting", "Strike Mighty Blow",
@@ -498,7 +508,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Squire": {
-        "advance_scheme": {"WS": 10, "I": 10, "Dex": 10, "Ld": 10, "Fel": 10, "W": 2},
+        "advance_scheme": {"WS": 10, "T": 2, "I": 10, "Dex": 10, "Ld": 10, "Fel": 10},
         "skills": [
             "Charm", "Drive Cart", "Evaluate", "Read/Write",
             "Ride", "Speak Additional Language",
@@ -508,7 +518,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Troll Slayer": {
-        "advance_scheme": {"WS": 20, "S": 2, "W": 2, "I": 10, "A": 1, "Cl": 20, "WP": 20},
+        "advance_scheme": {"WS": 20, "S": 2, "T": 2, "W": 10, "I": 1, "Cl": 20, "WP": 20},
         "skills": [
             "Disarm", "Dodge Blow", "Specialist Weapon: Two-Handed Weapon",
             "Street Fighting", "Strike Mighty Blow",
@@ -519,7 +529,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Tunnel Fighter": {
-        "advance_scheme": {"WS": 10, "S": 1, "W": 2, "I": 10, "A": 1},
+        "advance_scheme": {"WS": 10, "S": 1, "T": 2, "I": 10, "A": 1},
         "skills": [
             "Dodge Blow", "Orientation (underground only)", "Scale Sheer Surface",
             "Strike Mighty Blow", "Strike To Injure", "Strike To Stun",
@@ -532,7 +542,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Watchman": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 10, "A": 1},
+        "advance_scheme": {"WS": 10, "T": 2, "W": 2, "I": 10, "A": 1},
         "skills": ["Strike Mighty Blow", "Strike To Stun"],
         "trappings": [
             "Club", "Lantern and pole",
@@ -548,7 +558,7 @@ CAREERS: dict[str, dict] = {
     # ── RANGER CAREERS ───────────────────────────────────────────────────────
 
     "Boatman": {
-        "advance_scheme": {"Dex": 10, "I": 10, "W": 2},
+        "advance_scheme": {"T": 1, "Dex": 10, "I": 10, "W": 2},
         "skills": [
             "Fish", "Orientation", "River Lore", "Row",
             "50% chance of Very Strong", "25% chance of Boat Building",
@@ -559,7 +569,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Bounty Hunter": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "Cl": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 2, "W": 2, "I": 10, "Dex": 10, "Cl": 10},
         "skills": [
             "Follow Trail", "Shadowing", "Silent Move: Rural", "Silent Move: Urban",
             "Specialist Weapon: Lasso", "Specialist Weapon: Net",
@@ -599,7 +609,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Fisherman": {
-        "advance_scheme": {"Dex": 10, "I": 10, "W": 2},
+        "advance_scheme": {"T": 1, "Dex": 10, "I": 10, "W": 2},
         "skills": [
             "Fish", "Sailing", "Swim",
             "50% chance of River Lore", "25% chance of Boat Building",
@@ -610,7 +620,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Gamekeeper": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 1, "I": 10, "Dex": 10, "W": 1},
         "skills": [
             "Concealment: Rural", "Marksmanship",
             "Secret Signs: Poacher (Poachers only)",
@@ -637,7 +647,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Hunter": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 1, "I": 10, "Dex": 10, "W": 2},
         "skills": [
             "Concealment: Rural", "Follow Trail", "Game Hunting",
             "Secret Language: Ranger", "Secret Signs: Woodsman's",
@@ -666,7 +676,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Outrider": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "Cl": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 1, "I": 10, "Dex": 10, "Cl": 10, "W": 2},
         "skills": [
             "Animal Care", "Follow Trail", "Orientation", "Ride: Horse",
             "Silent Move: Rural", "Specialist Weapon: Lasso",
@@ -680,7 +690,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Pilot": {
-        "advance_scheme": {"Dex": 10, "I": 10, "W": 2},
+        "advance_scheme": {"T": 1, "Dex": 10, "I": 10, "W": 2},
         "skills": [
             "Orientation", "Row", "Sailing", "Swim",
             "20% chance of Consume Alcohol",
@@ -693,7 +703,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Prospector": {
-        "advance_scheme": {"I": 10, "Int": 10, "W": 2},
+        "advance_scheme": {"T": 1, "I": 10, "Int": 10, "W": 2},
         "skills": [
             "Animal Care", "Carpentry", "Metallurgy", "Orientation", "River Lore",
             "50% chance of Fish", "50% chance of Game Hunting", "50% chance of Luck",
@@ -723,7 +733,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Roadwarden": {
-        "advance_scheme": {"WS": 10, "BS": 10, "I": 10, "W": 2, "A": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "T": 2, "W": 2, "I": 10, "A": 1},
         "skills": ["Ride: Horse"],
         "trappings": [
             "Bow or Crossbow and ammunition", "Horse with saddle and harness",
@@ -751,7 +761,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Trapper": {
-        "advance_scheme": {"BS": 10, "I": 10, "Dex": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "T": 1, "I": 10, "Dex": 10, "W": 2},
         "skills": [
             "Concealment: Rural", "Orientation", "Row",
             "Secret Language: Ranger", "Secret Signs: Woodsman's",
@@ -766,7 +776,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Woodsman": {
-        "advance_scheme": {"BS": 10, "S": 1, "I": 10, "Dex": 10, "W": 2},
+        "advance_scheme": {"BS": 10, "S": 1, "T": 1, "I": 10, "Dex": 10, "W": 2},
         "skills": [
             "Concealment: Rural", "Follow Trail", "Identify Plant",
             "Secret Language: Ranger", "Set Trap", "Silent Move: Rural",
@@ -820,7 +830,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Footpad": {
-        "advance_scheme": {"I": 10, "Dex": 10, "W": 1},
+        "advance_scheme": {"WS": 10, "T": 1, "W": 1, "I": 10, "Dex": 10},
         "skills": [
             "Concealment Urban", "Dodge Blow", "Gamble",
             "Palm Object", "Pick Pocket", "Scale Sheer Surface",
@@ -853,7 +863,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Jailer": {
-        "advance_scheme": {"WS": 10, "S": 1, "W": 2, "Cl": 10, "A": 1},
+        "advance_scheme": {"WS": 10, "S": 1, "T": 2, "W": 2, "A": 1, "Cl": 10},
         "skills": [
             "Immunity To Disease", "Immunity To Poison", "Palm Object",
             "Silent Move: Urban",
@@ -865,7 +875,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Minstrel": {
-        "advance_scheme": {"I": 10, "Dex": 10, "Ld": 10, "Cl": 10, "Fel": 10, "W": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 1, "I": 10, "A": 1, "Dex": 10, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": ["Charm", "Etiquette", "Musicianship", "Public Speaking", "Sing"],
         "trappings": ["Lute or mandolin", "Sheet music", "Colourful clothes"],
         "exits": ["Charlatan", "Jester"],
@@ -922,7 +932,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Thief": {
-        "advance_scheme": {"WS": 10, "BS": 10, "W": 2, "I": 10, "Dex": 10, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "T": 2, "W": 2, "I": 10, "Dex": 10, "Fel": 10},
         "skills": [
             "Concealment: Urban", "Secret Language: Thieves' Tongue",
             "Secret Signs: Thieves' Signs", "Silent Move: Rural", "Silent Move: Urban",
@@ -935,7 +945,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Tomb Robber": {
-        "advance_scheme": {"I": 10, "Dex": 10, "W": 2},
+        "advance_scheme": {"T": 1, "I": 10, "Dex": 10, "W": 2},
         "skills": [
             "Concealment: Rural", "Concealment: Urban",
             "Silent Move: Rural", "Silent Move: Urban", "Spot Trap",
@@ -1004,7 +1014,7 @@ CAREERS: dict[str, dict] = {
         "note": "Primarily available to Dwarfs.",
         "exits": [
             "Artillerist", "Artisan", "Gunner", "Master Engineer (Dwarfs only)",
-            "Sapper", "Tunnel Fighter",
+            "Sapper", "Veteran Tunnel Fighter",
         ],
     },
 
@@ -1125,7 +1135,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Scholar": {
-        "advance_scheme": {"I": 10, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10, "W": 2},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 30, "Int": 40, "Cl": 20, "WP": 20, "Fel": 20},
         "skills": [
             "Astronomy", "Cartography", "History", "Identify Plant",
             "Linguistics", "Magical Sense", "Numismatics",
@@ -1220,8 +1231,8 @@ CAREERS: dict[str, dict] = {
     # ── Warrior advanced ─────────────────────────────────────────────────────
 
     "Mercenary Captain": {
-        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "W": 4, "I": 20, "A": 2,
-                           "Ld": 30, "Cl": 20, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 30, "BS": 20, "S": 3, "T": 2, "W": 6, "I": 20, "A": 3,
+                           "Dex": 10, "Ld": 30, "Int": 20, "Cl": 20, "WP": 20, "Fel": 10},
         "skills": [
             "Command", "Disarm", "Dodge Blow", "Secret Language: Battle Tongue",
             "Strike Mighty Blow", "Strike To Injure", "Wit",
@@ -1235,8 +1246,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Artillerist": {
-        "advance_scheme": {"WS": 10, "BS": 30, "S": 2, "W": 3, "I": 20, "A": 1,
-                           "Dex": 20, "Int": 10},
+        "advance_scheme": {"WS": 20, "BS": 30, "S": 2, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 30, "Ld": 20, "Int": 30, "Cl": 10, "WP": 10},
         "skills": [
             "Artillery", "Carpentry", "Engineering", "Set Trap",
             "Smithing", "Specialist Weapon: Engineer",
@@ -1247,7 +1258,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Gunner": {
-        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "W": 3, "I": 20, "A": 1, "Dex": 20},
+        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Artillery", "Dodge Blow", "Drive Cart", "Seaman",
             "Specialist Weapon: Flintlock Pistol or Blunderbuss",
@@ -1261,7 +1272,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Sapper": {
-        "advance_scheme": {"WS": 10, "S": 2, "T": 1, "W": 3, "I": 10, "A": 1, "Dex": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 2, "T": 1, "W": 3, "I": 10, "A": 1, "Dex": 10, "Ld": 10, "Int": 20, "Cl": 10, "WP": 10},
         "skills": [
             "Carpentry", "Concealment: Underground", "Demolition", "Engineering",
             "Mining", "Orientation", "Silent Move: Underground",
@@ -1271,10 +1282,10 @@ CAREERS: dict[str, dict] = {
             "Hand Weapon", "Pick Axe", "Engineering tools", "Rope (50 metres)",
         ],
         "note": "Primarily available to Dwarfs.",
-        "exits": ["Artillerist", "Mercenary Captain", "Tunnel Fighter"],
+        "exits": ["Artillerist", "Mercenary Captain", "Veteran Tunnel Fighter"],
     },
 
-    "Tunnel Fighter": {
+    "Veteran Tunnel Fighter": {
         "advance_scheme": {"WS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 2, "Cl": 10},
         "skills": [
             "Concealment: Underground", "Mining", "Silent Move: Underground",
@@ -1289,8 +1300,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Knight Errant": {
-        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 20, "A": 2,
-                           "Ld": 20, "Cl": 20, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 30, "BS": 20, "S": 3, "T": 2, "W": 6, "I": 20, "A": 3,
+                           "Dex": 10, "Ld": 20, "Int": 10, "Cl": 20, "WP": 20, "Fel": 20},
         "skills": [
             "Animal Care", "Dodge Blow", "Etiquette", "Heraldry",
             "Ride", "Specialist Weapon: Lance", "Strike Mighty Blow",
@@ -1303,8 +1314,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Captain": {
-        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 20, "A": 2,
-                           "Ld": 30, "Cl": 30, "WP": 20, "Fel": 20},
+        "advance_scheme": {"WS": 40, "BS": 20, "S": 4, "T": 3, "W": 8, "I": 30, "A": 4,
+                           "Dex": 10, "Ld": 30, "Int": 20, "Cl": 30, "WP": 20, "Fel": 20},
         "skills": [
             "Command", "Disarm", "Dodge Blow", "Etiquette", "Heraldry",
             "Ride", "Secret Language: Battle Tongue", "Strike Mighty Blow", "Wit",
@@ -1331,7 +1342,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Judicial Champion": {
-        "advance_scheme": {"WS": 30, "S": 2, "W": 4, "I": 10, "A": 2, "Cl": 20, "WP": 10},
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 10, "A": 2, "Dex": 10, "Ld": 10, "Int": 10, "Cl": 20, "WP": 10},
         "skills": [
             "Disarm", "Dodge Blow", "Specialist Weapon: Fist Weapons",
             "Specialist Weapon: Parrying Weapons", "Specialist Weapon: Two-Handed Weapons",
@@ -1344,7 +1355,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Slaver": {
-        "advance_scheme": {"WS": 20, "S": 1, "W": 3, "I": 20, "A": 1, "Ld": 20, "Cl": 10},
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 10, "Ld": 20, "Int": 10, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
             "Command", "Dodge Blow", "Drive Cart", "Evaluate", "Haggle",
             "Strike Mighty Blow", "Strike To Stun",
@@ -1359,8 +1370,8 @@ CAREERS: dict[str, dict] = {
     # ── Ranger advanced ───────────────────────────────────────────────────────
 
     "Scout": {
-        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
-                           "Dex": 10, "Cl": 10},
+        "advance_scheme": {"WS": 20, "BS": 30, "S": 1, "T": 1, "W": 4, "I": 30, "A": 2,
+                           "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Concealment: Rural", "Follow Trail", "Orientation",
             "Set Trap", "Silent Move: Rural", "Spot Trap", "Trapping",
@@ -1373,7 +1384,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Targeteer": {
-        "advance_scheme": {"WS": 10, "BS": 30, "W": 2, "I": 20, "A": 1, "Dex": 20, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 30, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Concealment: Rural", "Marksmanship", "Outdoor Survival",
             "Silent Move: Rural",
@@ -1386,7 +1397,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Mountaineer": {
-        "advance_scheme": {"WS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 10, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Concealment: Rural", "Orientation", "Scale Sheer Surface",
             "Silent Move: Rural", "Spot Trap",
@@ -1400,7 +1411,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Navigator": {
-        "advance_scheme": {"W": 2, "I": 10, "Dex": 10, "Int": 20, "Cl": 10, "WP": 10},
+        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 30, "Ld": 20, "Int": 40, "Cl": 20, "WP": 20, "Fel": 10},
         "skills": [
             "Astronomy", "Cartography", "Navigation", "Orientation",
             "Read/Write", "Row", "Sailing", "Swim",
@@ -1410,8 +1422,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Explorer": {
-        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "W": 3, "I": 20, "A": 1, "Dex": 10,
-                           "Ld": 10, "Int": 10, "Cl": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 10,
+                           "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Astronomy", "Cartography", "Evaluate", "Orientation",
             "Outdoor Survival", "Read/Write", "Ride", "Row",
@@ -1425,7 +1437,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Lodefinder": {
-        "advance_scheme": {"T": 1, "W": 2, "I": 20, "Dex": 10, "Int": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 10, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Concealment: Underground", "Dowsing", "Mining",
             "Orientation", "Prospecting",
@@ -1438,8 +1450,8 @@ CAREERS: dict[str, dict] = {
     # ── Rogue advanced ────────────────────────────────────────────────────────
 
     "Outlaw Chief": {
-        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "W": 4, "I": 30, "A": 2,
-                           "Ld": 30, "Cl": 20, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 2, "T": 2, "W": 5, "I": 20, "A": 2,
+                           "Dex": 10, "Ld": 20, "Int": 20, "Cl": 20, "WP": 20, "Fel": 10},
         "skills": [
             "Concealment: Rural", "Disguise", "Dodge Blow",
             "Secret Language: Battle Tongue or Thieves' (equal chance of either)",
@@ -1453,8 +1465,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Highwayman": {
-        "advance_scheme": {"WS": 10, "BS": 20, "W": 2, "I": 20, "A": 1,
-                           "Dex": 10, "Cl": 10, "WP": 10},
+        "advance_scheme": {"WS": 10, "BS": 20, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1,
+                           "Dex": 10, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10},
         "skills": [
             "Concealment: Rural", "Disarm", "Evaluate", "Palm Object",
             "Ride", "Silent Move: Rural", "Strike To Injure",
@@ -1468,8 +1480,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Assassin": {
-        "advance_scheme": {"WS": 20, "BS": 20, "S": 2, "T": 2, "W": 5, "I": 20, "A": 2,
-                           "Dex": 20, "Ld": 20, "Int": 20, "Cl": 20, "WP": 20},
+        "advance_scheme": {"WS": 30, "BS": 30, "S": 2, "T": 2, "W": 5, "I": 30, "A": 3,
+                           "Dex": 30, "Ld": 20, "Int": 20, "Cl": 30, "WP": 30},
         "skills": [
             "Concealment: Urban", "Disguise", "Prepare Poisons",
             "Scale Sheer Surface", "Silent Move: Urban",
@@ -1523,8 +1535,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Racketeer": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "A": 1, "Ld": 20,
-                           "Cl": 10, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 20, "A": 2,
+                           "Dex": 20, "Ld": 20, "Int": 20, "Cl": 10, "WP": 10, "Fel": 20},
         "skills": [
             "Bribery", "Concealment: Urban", "Disarm", "Intimidate",
             "Secret Language: Thieves' Tongue", "Street Fighting",
@@ -1536,7 +1548,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Informer": {
-        "advance_scheme": {"W": 2, "I": 20, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 10, "Ld": 10, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
             "Bribery", "Evaluate", "Shadowing",
             "Secret Language: Thieves' Tongue",
@@ -1559,7 +1571,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Jongleur": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Cl": 10, "Fel": 20},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10, "Fel": 20},
         "skills": [
             "Acrobatics", "Contortionist", "Dance", "Juggling",
             "Musicianship", "Sing", "Tale Teller",
@@ -1587,7 +1599,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Thief (Clipper)": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 10, "Cl": 10, "WP": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
             "Bribery", "Evaluate", "Numismatics", "Palm Object",
             "Pick Pocket", "Sleight of Hand",
@@ -1597,7 +1609,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Forger": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 20, "WP": 10, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
             "Art", "Evaluate", "Forgery", "Numismatics", "Read/Write",
             "50% chance of Calligraphy",
@@ -1609,7 +1621,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Counterfeiter": {
-        "advance_scheme": {"W": 2, "I": 10, "Dex": 20, "Int": 20, "WP": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 10, "A": 1, "Dex": 20, "Ld": 10, "Int": 20, "Cl": 10, "WP": 10, "Fel": 10},
         "skills": [
             "Art", "Chemistry", "Evaluate", "Forgery", "Metallurgy",
             "Numismatics", "Read/Write",
@@ -1636,8 +1648,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Lawyer": {
-        "advance_scheme": {"W": 2, "I": 10, "Ld": 20, "Int": 30,
-                           "Cl": 20, "WP": 20, "Fel": 20},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 10, "Ld": 30, "Int": 30, "Cl": 20, "WP": 20, "Fel": 30},
         "skills": [
             "Blather", "Charm", "Evaluate", "Law", "Numismatics",
             "Read/Write", "Secret Language: Classical", "Super Numerate",
@@ -1649,8 +1661,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Physician": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 30,
-                           "Cl": 20, "WP": 20, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 30, "Ld": 20, "Int": 40, "Cl": 20, "WP": 20, "Fel": 20},
         "skills": [
             "Diagnose Disease", "Heal Wounds", "Identify Plants",
             "Prepare Poisons and Antidotes", "Read/Write",
@@ -1695,7 +1707,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Astrologer": {
-        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "WP": 20, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 10, "A": 1, "Dex": 20, "Ld": 20, "Int": 30, "Cl": 10, "WP": 20, "Fel": 10},
         "skills": [
             "Arcane Language: Magick", "Astronomy", "Cartography",
             "Navigation", "Read/Write", "Scroll Lore",
@@ -1709,7 +1721,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Augur": {
-        "advance_scheme": {"W": 1, "I": 10, "Int": 20, "Cl": 10, "WP": 20, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 1, "I": 10, "A": 1, "Dex": 10, "Ld": 10, "Int": 20, "Cl": 10, "WP": 20, "Fel": 10},
         "skills": [
             "Arcane Language: Magick", "Divining", "Fortune Telling",
             "Magical Awareness", "Read/Write", "Second Sight",
@@ -1721,7 +1733,7 @@ CAREERS: dict[str, dict] = {
     },
 
     "Diviner": {
-        "advance_scheme": {"W": 2, "I": 10, "Int": 20, "WP": 30, "Fel": 10},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 10, "A": 1, "Dex": 10, "Ld": 10, "Int": 20, "Cl": 10, "WP": 30, "Fel": 10},
         "skills": [
             "Arcane Language: Magick", "Divining", "Magical Awareness",
             "Magical Sense", "Read/Write", "Rune Lore", "Second Sight",
@@ -1747,7 +1759,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Alchemist - level 1": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 20, "Int": 30, "WP": 20},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 30, "Ld": 20, "Int": 40, "Cl": 20, "WP": 20, "Fel": 10},
         "skills": [
             "Alchemy", "Arcane Language: Magick", "Chemistry", "Evaluate",
             "Identify Plants", "Metallurgy", "Read/Write", "Scroll Lore",
@@ -1761,7 +1774,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Hedge-Wizard - level 1": {
-        "advance_scheme": {"W": 1, "I": 10, "Int": 20, "WP": 20},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 10, "Ld": 10, "Int": 20, "Cl": 10, "WP": 20, "Mag": 1},
         "skills": [
             "Animal Care", "Cast Spells: Petty Magic",
             "Cast Spells: Hedge Magic Level 1", "Identify Plants",
@@ -1773,8 +1787,8 @@ CAREERS: dict[str, dict] = {
     },
 
     "Wizard - level 1": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 30,
-                           "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 30, "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
         "skills": [
             "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
             "Cast Spells: Petty Magic", "Magical Awareness",
@@ -1788,157 +1802,318 @@ CAREERS: dict[str, dict] = {
     },
 
     "Grey Wizard - level 1": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 30,
-                           "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 30, "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
         "skills": [
             "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
             "Cast Spells: Petty Magic", "Concealment: Urban",
-            "Magical Awareness", "Read/Write", "Scroll Lore",
-            "Secret Language: Classical", "Silent Move: Urban",
+            "Disguise", "Magical Awareness", "Read/Write",
+            "Secret Language: Classical",
         ],
         "trappings": [
-            "Grey robes", "Staff", "Grimoire (Grey Magic spells)",
-            "D3 magic ingredients",
+            "Grimoire (Battle Magic Level 1 spells)", "Grey Robes", "Staff",
+            "D3 magic ingredients", "2D6 Gold Crowns",
         ],
         "exits": ["Scholar", "Wizard - level 2"],
     },
 
+    # ── Missing advanced careers ──────────────────────────────────────────────
+
     "Cleric - level 1": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Ld": 20, "Int": 20,
-                           "Cl": 30, "WP": 30, "Fel": 20, "Mag": 1},
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 2, "T": 1, "W": 5, "I": 20, "A": 2,
+                           "Dex": 10, "Ld": 30, "Int": 20, "Cl": 30, "WP": 30, "Fel": 30, "Mag": 1},
         "skills": [
-            "Cast Spells: Cleric Level 1", "Etiquette", "Heal Wounds",
-            "Immunity to Disease", "Pray", "Public Speaking", "Read/Write",
+            "Arcane Language: Magick", "Cast Spells: Clerical Level 1",
+            "Cast Spells: Petty Magic", "Heal Wounds",
+            "Magical Awareness", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical", "Theology",
         ],
         "trappings": [
-            "Hand Weapon", "Holy Symbol", "Prayer Book", "Robes",
-            "2D6 Silver Shillings",
+            "Holy Symbol", "Holy Text", "Robes", "Staff",
+            "D3 doses of blessed water",
         ],
-        "exits": ["Exorcist", "Scholar"],
+        "exits": ["Exorcist", "Scholar", "Witch Hunter"],
     },
 
     "Druidic Priest - level 1": {
-        "advance_scheme": {"T": 1, "W": 2, "I": 20, "Ld": 20, "Int": 10,
-                           "Cl": 30, "WP": 30, "Fel": 10, "Mag": 1},
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 2, "W": 4, "I": 20, "A": 1,
+                           "Dex": 10, "Ld": 20, "Int": 20, "Cl": 30, "WP": 30, "Fel": 20, "Mag": 1},
         "skills": [
-            "Animal Care", "Cast Spells: Druid Level 1", "Cure Disease",
-            "Identify Plants", "Immunity to Disease", "Pray", "Read/Write",
-            "Secret Signs: Druid",
+            "Arcane Language: Druidic", "Cast Spells: Druidic Magic Level 1",
+            "Cast Spells: Petty Magic", "Dowsing",
+            "Herb Lore", "Identify Plants", "Magical Awareness",
+            "Read/Write", "Secret Language: Druidic", "Theology",
         ],
         "trappings": [
-            "Silver sickle-knife", "Druidic robes", "Staff",
-            "Holy symbol", "D3 magic ingredients",
+            "Silver sickle-knife", "Robes (white, unbleached linen)",
+            "Mistletoe sprig", "Staff",
         ],
-        "exits": ["Scholar"],
-    },
-
-    "Wood Elf Mage - level 1": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Dex": 20, "Int": 20,
-                           "WP": 30, "Fel": 10, "Mag": 1},
-        "skills": [
-            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
-            "Cast Spells: Petty Magic", "Follow Trail", "Identify Plants",
-            "Magical Awareness", "Read/Write",
-            "Secret Language: Malla-room-na-larin",
-        ],
-        "trappings": [
-            "Staff or Longbow", "Robes", "Grimoire (Wood Elf Magic spells)",
-            "D3 magic ingredients",
-        ],
-        "note": "Wood Elf only.",
-        "exits": [],
+        "exits": ["Druid", "Scholar", "Wise Woman"],
     },
 
     "Exorcist": {
-        "advance_scheme": {"WS": 10, "W": 2, "I": 20, "Ld": 20, "Int": 10,
-                           "Cl": 30, "WP": 30},
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 1, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 10, "Ld": 20, "Int": 20, "Cl": 30, "WP": 30, "Fel": 10},
         "skills": [
-            "Arcane Language: Magick", "Charm", "Heal Wounds",
-            "Immunity to Disease", "Immunity to Poison", "Magical Sense",
-            "Pray", "Read/Write",
+            "Arcane Language: Magick", "Cast Spells: Petty Magic",
+            "Heal Wounds", "Magical Awareness",
+            "Read/Write", "Scroll Lore",
+            "Secret Language: Classical", "Theology",
         ],
         "trappings": [
-            "Hand Weapon", "Holy Symbol", "Prayer Book",
-            "Robes", "Holy water (D6 vials)",
+            "Holy Symbol", "Robes", "Writing kit",
+            "Candles and chalk", "D3 doses of blessed water",
+        ],
+        "exits": ["Cleric - level 1", "Scholar", "Witch Hunter"],
+    },
+
+    "Witch Hunter": {
+        "advance_scheme": {"WS": 30, "BS": 30, "S": 2, "T": 2, "W": 5, "I": 20, "A": 2,
+                           "Dex": 10, "Ld": 20, "Int": 30, "Cl": 30, "WP": 30, "Fel": 10},
+        "skills": [
+            "Arcane Language: Magick", "Concealment: Urban",
+            "Disguise", "Interrogate", "Magical Awareness",
+            "Read/Write", "Scroll Lore", "Secret Language: Classical",
+            "Silent Move: Urban",
+        ],
+        "trappings": [
+            "Pistol and ammunition", "Hand Weapon", "Mail Shirt",
+            "Warrant of authority", "Manacles", "5D6 Gold Crowns",
+        ],
+        "exits": ["Captain", "Exorcist", "Politician"],
+    },
+
+    "Loremaster": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 30, "Int": 50, "Cl": 20, "WP": 20, "Fel": 20},
+        "skills": [
+            "Arcane Language: Magick", "Astronomy", "Cartography",
+            "History", "Linguistics", "Magical Sense",
+            "Read/Write", "Secret Language: Classical",
+            "Speak Additional Language",
+        ],
+        "trappings": [
+            "Extensive library or research access", "Writing equipment",
+            "D6 reference books", "5D6 Gold Crowns",
+        ],
+        "exits": ["Navigator", "Scholar"],
+    },
+
+    "Loremaster (Dwarfs only)": {
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 1, "T": 1, "W": 3, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 30, "Int": 50, "Cl": 30, "WP": 30},
+        "skills": [
+            "Arcane Language: Dwarf", "Arcane Language: Magick",
+            "History", "Metallurgy",
+            "Read/Write: Khazalid", "Rune Lore",
+            "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Great tome of lore", "Writing equipment",
+            "Dwarf runes and inscriptions", "5D6 Gold Crowns",
+        ],
+        "note": "Dwarf only.",
+        "exits": ["Runesmith"],
+    },
+
+    "Master Engineer (Dwarfs only)": {
+        "advance_scheme": {"WS": 20, "BS": 30, "S": 2, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 40, "Ld": 20, "Int": 40, "Cl": 20, "WP": 20},
+        "skills": [
+            "Artillery", "Carpentry", "Engineering", "Metallurgy",
+            "Read/Write", "Secret Signs: Dwarven Engineer's Guild",
+            "Set Trap", "Smithing",
+        ],
+        "trappings": [
+            "Engineering tools", "Drawing instruments and paper",
+            "Mail Coat", "Hand Weapon", "50 Gold Crowns",
+        ],
+        "note": "Dwarf only.",
+        "exits": ["Artillerist", "Artisan", "Sapper"],
+    },
+
+    "Runesmith": {
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 2, "T": 2, "W": 4, "I": 20, "A": 1,
+                           "Dex": 40, "Ld": 20, "Int": 30, "Cl": 20, "WP": 30, "Mag": 2},
+        "skills": [
+            "Arcane Language: Dwarf", "Art", "Carpentry",
+            "Engineering", "Magical Sense", "Metallurgy",
+            "Read/Write: Khazalid", "Rune Lore", "Smithing",
+        ],
+        "trappings": [
+            "Anvil (transportable)", "Smithing tools",
+            "Rune-inscribed weapons or armour", "5D6 Gold Crowns",
+        ],
+        "note": "Dwarf only.",
+        "exits": ["Artisan", "Loremaster (Dwarfs only)"],
+    },
+
+    "Jester": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10, "Fel": 30},
+        "skills": [
+            "Acrobatics", "Act", "Blather", "Charm", "Contortionist",
+            "Juggling", "Mime", "Sing", "Wit",
+        ],
+        "trappings": [
+            "Jester's motley", "Bladder-on-a-stick",
+            "Bells (sewn onto clothing)", "D6 Silver Shillings",
+        ],
+        "exits": ["Bard", "Charlatan", "Minstrel"],
+    },
+
+    "Valet": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 2, "I": 20, "A": 1, "Dex": 20, "Ld": 10, "Int": 10, "Cl": 10, "WP": 10, "Fel": 20},
+        "skills": [
+            "Blather", "Charm", "Cook", "Etiquette",
+            "Evaluate", "Gossip", "Haggle",
+        ],
+        "trappings": [
+            "Livery or fine servant's clothes", "Cleaning supplies",
+            "Writing kit", "D6 Silver Shillings",
+        ],
+        "exits": ["Charlatan", "Informer", "Merchant"],
+    },
+
+    "Wood Elf Mage - level 1": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 4, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 30, "Cl": 20, "WP": 30, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 1",
+            "Cast Spells: Petty Magic", "Follow Trail",
+            "Identify Plants", "Magical Awareness", "Read/Write",
+            "Secret Language: Malla-room-na-larin", "Silent Move: Rural",
+        ],
+        "trappings": [
+            "Grimoire (Wood Elf Battle Magic Level 1 spells)",
+            "Staff", "Robes or travelling garb",
+            "D3 magic ingredients",
+        ],
+        "note": "Wood Elf only.",
+        "exits": ["Scholar", "Wizard - level 1"],
+    },
+
+    "Wizard - level 2": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 5, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 40, "Cl": 20, "WP": 40, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 2",
+            "Cast Spells: Battle Magic Level 1", "Cast Spells: Petty Magic",
+            "Magical Awareness", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Grimoire (Battle Magic Level 2 spells)", "Robe", "Staff",
+            "D6 magic ingredients", "5D6 Gold Crowns",
+        ],
+        "exits": ["Scholar", "Wizard - level 3"],
+    },
+
+    "Wizard - level 3": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 6, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 50, "Cl": 20, "WP": 50, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 3",
+            "Cast Spells: Battle Magic Level 2", "Cast Spells: Battle Magic Level 1",
+            "Cast Spells: Petty Magic",
+            "Magical Awareness", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Grimoire (Battle Magic Level 3 spells)", "Robe", "Staff",
+            "2D6 magic ingredients", "10D6 Gold Crowns",
+        ],
+        "exits": ["Scholar", "Wizard - level 4"],
+    },
+
+    "Wizard - level 4": {
+        "advance_scheme": {"WS": 10, "BS": 10, "S": 1, "T": 1, "W": 7, "I": 20, "A": 1,
+                           "Dex": 20, "Ld": 20, "Int": 60, "Cl": 20, "WP": 60, "Fel": 10, "Mag": 1},
+        "skills": [
+            "Arcane Language: Magick", "Cast Spells: Battle Magic Level 4",
+            "Cast Spells: Battle Magic Level 3", "Cast Spells: Battle Magic Level 2",
+            "Cast Spells: Battle Magic Level 1", "Cast Spells: Petty Magic",
+            "Magical Awareness", "Read/Write", "Scroll Lore",
+            "Secret Language: Classical",
+        ],
+        "trappings": [
+            "Grimoire (Battle Magic Level 4 spells)", "Robe", "Staff",
+            "3D6 magic ingredients", "20D6 Gold Crowns",
         ],
         "exits": ["Scholar"],
     },
 
-    "Runesmith": {
-        "advance_scheme": {"WS": 10, "S": 1, "T": 1, "W": 2, "I": 20,
-                           "Dex": 30, "Int": 30, "Cl": 20, "WP": 20},
+    "Master Thief": {
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 1, "T": 1, "W": 4, "I": 30, "A": 2,
+                           "Dex": 40, "Ld": 10, "Int": 30, "Cl": 20, "WP": 20, "Fel": 20},
         "skills": [
-            "Arcane Language: Runic", "Evaluate",
-            "Identify Magical Artefacts", "Metallurgy", "Rune Lore", "Smithing",
+            "Concealment: Urban", "Disguise", "Evaluate",
+            "Palm Object", "Pick Lock", "Pick Pocket",
+            "Scale Sheer Surface", "Secret Language: Thieves' Tongue",
+            "Secret Signs: Thieves' Signs", "Silent Move: Urban",
         ],
         "trappings": [
-            "Smithing tools", "Runestone collection", "50 Gold Crowns",
+            "Lock picks (master quality)", "Dark clothing", "Rope (20 metres)",
+            "Grappling hook", "D10 Gold Crowns",
         ],
-        "note": "Dwarfs only.",
-        "exits": ["Loremaster (Dwarfs only)"],
+        "exits": ["Assassin", "Fence"],
     },
 
-    "Master Engineer (Dwarfs only)": {
-        "advance_scheme": {"S": 1, "T": 1, "W": 3, "I": 20, "A": 1, "Dex": 20,
-                           "Int": 30, "Cl": 20, "WP": 10},
+    "Duellist": {
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 2, "T": 2, "W": 5, "I": 30, "A": 3,
+                           "Dex": 20, "Ld": 10, "Cl": 20, "WP": 10, "Fel": 10},
         "skills": [
-            "Artillery", "Carpentry", "Drive Cart", "Engineering",
-            "Metallurgy", "Read/Write", "Smithing",
-            "Specialist Weapon: Engineer",
+            "Disarm", "Dodge Blow", "Etiquette", "Read/Write",
+            "Specialist Weapon: Fencing Sword", "Specialist Weapon: Parrying Weapon",
+            "Strike To Injure",
         ],
         "trappings": [
-            "Engineering tools", "Hand Weapon", "Blueprints",
-            "50 Gold Crowns",
+            "Fencing Sword", "Parrying Dagger", "Fine Clothing", "D6 Gold Crowns",
         ],
-        "note": "Dwarfs only.",
-        "exits": [],
+        "exits": ["Captain", "Mercenary Captain"],
     },
 
-    "Loremaster": {
-        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "Cl": 20, "WP": 20},
+    "Giant Slayer": {
+        "advance_scheme": {"WS": 30, "BS": 10, "S": 3, "T": 2, "W": 6, "I": 20, "A": 3,
+                           "Dex": 10, "Ld": 10, "Cl": 30, "WP": 30},
         "skills": [
-            "Arcane Language: Magick", "Astronomy", "Cartography", "History",
-            "Identify Magical Artefacts", "Read/Write", "Rune Lore",
-            "Scroll Lore", "Secret Language: Classical", "Speak Additional Language",
+            "Disarm", "Dodge Blow", "Specialist Weapon: Two-Handed Weapon",
+            "Street Fighting", "Strike Mighty Blow", "Strike To Injure",
         ],
         "trappings": [
-            "Extensive library", "Writing kit", "D6 reference books",
+            "Two-Handed Axe", "Elaborate tattooing",
+            "Topknot or crest",
         ],
-        "exits": [],
+        "note": "Dwarf only. The Slayer has survived killing a troll.",
+        "exits": ["Daemon Slayer"],
     },
 
-    "Loremaster (Dwarfs only)": {
-        "advance_scheme": {"W": 2, "I": 10, "Int": 30, "Cl": 20, "WP": 20},
+    "Torturer": {
+        "advance_scheme": {"WS": 20, "BS": 10, "S": 2, "T": 1, "W": 4, "I": 10, "A": 2,
+                           "Dex": 10, "Ld": 10, "Int": 10, "Cl": 20, "WP": 10},
         "skills": [
-            "Arcane Language: Runic", "Cartography", "History",
-            "Identify Magical Artefacts", "Read/Write", "Rune Lore",
-            "Scroll Lore", "Speak Additional Language",
+            "Immunity To Disease", "Immunity To Poison",
+            "Specialist Weapon: Flail Weapons",
+            "Strike To Injure", "Strike To Stun",
         ],
         "trappings": [
-            "Extensive library", "Runestone collection", "Writing kit",
+            "Assorted torture implements", "Leather Apron",
+            "Hand Weapon", "Chain Mail Gauntlets",
         ],
-        "note": "Dwarfs only.",
-        "exits": [],
+        "exits": ["Bodyguard", "Jailer", "Slaver"],
     },
 
-    "Valet": {
-        "advance_scheme": {"W": 2, "I": 10, "Dex": 10, "Ld": 10,
-                           "Cl": 10, "WP": 10, "Fel": 20},
+    "Spy": {
+        "advance_scheme": {"WS": 20, "BS": 20, "S": 1, "T": 1, "W": 4, "I": 30, "A": 2,
+                           "Dex": 20, "Ld": 20, "Int": 30, "Cl": 20, "WP": 20, "Fel": 40},
         "skills": [
-            "Etiquette", "Evaluate", "Gamble",
-            "50% chance of Ride", "50% chance of Drive Cart",
+            "Act", "Concealment: Urban", "Disguise", "Evaluate",
+            "Lip Reading", "Shadowing", "Silent Move: Urban",
+            "Speak Additional Language",
         ],
-        "trappings": ["Livery uniform", "D3 Silver Shillings"],
-        "exits": ["Charlatan", "Lawyer", "Merchant"],
-    },
-
-    "Jester": {
-        "advance_scheme": {"W": 2, "I": 20, "Dex": 10, "Cl": 10, "Fel": 20},
-        "skills": [
-            "Acrobatics", "Act", "Blather", "Charm",
-            "Contortionist", "Dance", "Juggling", "Wit",
+        "trappings": [
+            "Disguise kit", "Dark clothing", "Writing kit",
+            "Forged identity papers", "D6 Gold Crowns",
         ],
-        "trappings": ["Jester's motley", "Bladder on stick", "D3 Silver Shillings"],
-        "exits": ["Bard", "Charlatan", "Jongleur"],
+        "exits": ["Assassin", "Charlatan", "Politician"],
     },
 }

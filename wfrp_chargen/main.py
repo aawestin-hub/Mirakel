@@ -298,39 +298,47 @@ def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
     print()
 
     # ── Career: step 2 — Career class ─────────────────────────────────────────
-    if career_tier is not None:
-        by_class = basic_by_class if career_tier == "basic" else advanced_by_class
-        available_classes = [cls for cls in ("Warrior", "Ranger", "Rogue", "Academic") if by_class.get(cls)]
-        print("Career class (Enter = random):")
-        for i, cls in enumerate(available_classes, 1):
-            count = len(by_class[cls])
-            print(f"  {i}. {cls:<10}  ({count} careers)")
-        raw = _safe_input("  > ").strip()
-        career_class: str | None = None
-        if raw:
-            if raw.isdigit():
-                idx = int(raw) - 1
-                if 0 <= idx < len(available_classes):
-                    career_class = available_classes[idx]
-            else:
-                for cls in available_classes:
-                    if cls.lower() == raw.lower():
-                        career_class = cls
-                        break
-        if career_class:
-            print(f"  -> {career_class}")
-        else:
-            print("  -> Random")
-        print()
+    # Always show this step. If career_tier is None, show careers from all tiers.
+    if career_tier == "basic":
+        by_class = basic_by_class
+    elif career_tier == "advanced":
+        by_class = advanced_by_class
     else:
-        by_class = None
-        career_class = None
+        # Merge both tiers
+        by_class = {}
+        for cls in ("Warrior", "Ranger", "Rogue", "Academic"):
+            merged = list(basic_by_class.get(cls, [])) + list(advanced_by_class.get(cls, []))
+            if merged:
+                by_class[cls] = merged
+
+    available_classes = [cls for cls in ("Warrior", "Ranger", "Rogue", "Academic") if by_class.get(cls)]
+    print("Career class (Enter = random):")
+    for i, cls in enumerate(available_classes, 1):
+        count = len(by_class[cls])
+        print(f"  {i}. {cls:<10}  ({count} careers)")
+    raw = _safe_input("  > ").strip()
+    career_class: str | None = None
+    if raw:
+        if raw.isdigit():
+            idx = int(raw) - 1
+            if 0 <= idx < len(available_classes):
+                career_class = available_classes[idx]
+        else:
+            for cls in available_classes:
+                if cls.lower() == raw.lower():
+                    career_class = cls
+                    break
+    if career_class:
+        print(f"  -> {career_class}")
+    else:
+        print("  -> Random")
+    print()
 
     # ── Career: step 3 — Specific career ──────────────────────────────────────
-    if career_tier is not None and career_class is not None:
-        by_class = basic_by_class if career_tier == "basic" else advanced_by_class
+    if career_class is not None:
         candidates = by_class.get(career_class, [])
-        print(f"Career ({career_class} {career_tier}) — Enter = random:")
+        tier_label = career_tier.capitalize() if career_tier else "Any"
+        print(f"Career ({career_class} / {tier_label}) — Enter = random:")
         for i, c in enumerate(candidates, 1):
             print(f"  {i:3}. {c}")
         print()
@@ -349,18 +357,14 @@ def prompt_npc_options() -> tuple[str | None, str | None, str | None]:
         if career_name:
             print(f"  -> {career_name}")
         else:
-            # Random from the chosen class
             career_name = _random.choice(candidates) if candidates else None
             print(f"  -> Random from {career_class}: {career_name}")
-    elif career_tier is not None and career_class is None:
-        # Random class, but pick from the chosen tier
-        all_in_tier = [c for careers in (basic_by_class if career_tier == "basic" else advanced_by_class).values()
-                       for c in careers]
-        career_name = _random.choice(all_in_tier) if all_in_tier else None
-        print(f"  -> Random {career_tier}: {career_name}")
     else:
-        career_name = None
-        print("  -> Fully random career")
+        # Random class — pick random career from whole tier pool
+        all_in_tier = [c for careers in by_class.values() for c in careers]
+        career_name = _random.choice(all_in_tier) if all_in_tier else None
+        tier_label = career_tier.capitalize() if career_tier else "any"
+        print(f"  -> Fully random {tier_label}: {career_name}")
     print()
 
     return race, gender, career_name

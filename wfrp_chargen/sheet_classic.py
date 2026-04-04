@@ -56,16 +56,19 @@ _C1_CAREER_X, _C1_CAREER_Y = 175,  563   # PC: lt anchor (top of cell, just belo
 _C1_CPATH_X,  _C1_CPATH_Y  = 373,  563
 _C1_EXITS_X,  _C1_EXITS_Y  = 883,  563
 
-# Stats grid  (14 columns; row-label col ends at x≈295)
+# Stats grid  (14 columns; pixel-scan confirmed dividers at y=730:
+#   right borders: M=522, WS=598, BS=677, S=755, T=833, W=907, I=986, A=1063,
+#   Dex=1139, Ld=1213, Int=1293, Cl=1367, WP=1447, Fel=1520)
 _C1_STAT_COLS = {
-    'M':   343, 'WS':  439, 'BS':  535, 'S':   631,
-    'T':   727, 'W':   823, 'I':   919, 'A':  1015,
-    'Dex':1111, 'Ld': 1207, 'Int':1303, 'Cl': 1399,
-    'WP': 1495, 'Fel':1591,
+    'M':   484, 'WS':  560, 'BS':  638, 'S':   716,
+    'T':   794, 'W':   870, 'I':   947, 'A':  1025,
+    'Dex':1101, 'Ld': 1176, 'Int':1253, 'Cl': 1330,
+    'WP': 1407, 'Fel':1484,
 }
-_C1_STARTER_Y = 757
-_C1_ADV_Y     = 812
-_C1_CURR_Y    = 867
+# Row centers: content y=707-763 (starter), 779-839 (advance), 855-916 (current)
+_C1_STARTER_Y = 735
+_C1_ADV_Y     = 809
+_C1_CURR_Y    = 885
 
 # Hand-to-hand weapons  (name col + I / WS / D / PY columns)
 _C1_HTH_NAME_X  = 175
@@ -114,45 +117,53 @@ _C1_SKILL_ROWS    = 11   # rows per column  →  22 skills max
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Spells table  (name / SL / MP / R / D / Ingredients / Effect)
-_C2_SPELL_NAME_X  = 120
-_C2_SPELL_SL_X    = 315   # mm center
-_C2_SPELL_MP_X    = 355   # mm center
-_C2_SPELL_R_X     = 375   # lm start
-_C2_SPELL_D_X     = 420   # lm start
-_C2_SPELL_ING_X   = 465   # lm start
-_C2_SPELL_EFF_X   = 750   # lm start
-_C2_SPELL_START_Y = 201
-_C2_SPELL_SPACING = 67
+# Column dividers at y=210: x=196(left), 474(name/SL), 541(SL/MP), 612(MP/R),
+#                           680(R/D), 752(D/Ing), 1012(Ing/Eff), 1298(Eff/right)
+_C2_SPELL_NAME_X  = 206   # lm; 10px inside left border at x=196
+_C2_SPELL_SL_X    = 508   # mm center  (474+541)/2
+_C2_SPELL_MP_X    = 577   # mm center  (541+612)/2
+_C2_SPELL_R_X     = 646   # mm center  (612+680)/2
+_C2_SPELL_D_X     = 716   # mm center  (680+752)/2
+_C2_SPELL_ING_X   = 755   # lm start at col left edge
+_C2_SPELL_EFF_X   = 1015  # lm start at col left edge
+_C2_SPELL_START_Y = 236   # center of first spell row (y=193+43)
+_C2_SPELL_SPACING = 87    # 5 rows spanning y=193-630
 
 # Right-column stat boxes (FATE POINTS / MAGIC POINTS / POWER LEVEL / EXPERIENCE)
-_C2_FP_X,  _C2_FP_Y  = 1520, 205
-_C2_MAG_X, _C2_MAG_Y = 1520, 299
-_C2_PL_X,  _C2_PL_Y  = 1520, 393
-_C2_XP_X,  _C2_XP_Y  = 1520, 483
+# Content cell centers confirmed by pixel scan at x=1450:
+#   FP: y=193-256 center=225; MP: y=315-376 center=346;
+#   PL: y=432-499 center=466; XP: y=520-640 center=580
+_C2_FP_X,  _C2_FP_Y  = 1520, 225
+_C2_MAG_X, _C2_MAG_Y = 1520, 346
+_C2_PL_X,  _C2_PL_Y  = 1520, 466
+_C2_XP_X,  _C2_XP_Y  = 1520, 580
 
 # Equipment / Trappings  (name / Loc / ENC)
+# Section header band y=642-695; content starts y≈710
 _C2_TRAP_NAME_X  = 120
-_C2_TRAP_LOC_X   = 330
-_C2_TRAP_ENC_X   = 390
-_C2_TRAP_START_Y = 487
-_C2_TRAP_SPACING = 36
-_C2_TRAP_MAX_Y   = 860   # stop before Movement section
+_C2_TRAP_LOC_X   = 437
+_C2_TRAP_ENC_X   = 500
+_C2_TRAP_START_Y = 710
+_C2_TRAP_SPACING = 34
+_C2_TRAP_MAX_Y   = 878   # stop before PSYCHOLOGY header at y≈880
 
 # Movement rate (columns: 10 SECS / Min. / M.P.H.)
-_C2_MV_10_X   = 527
-_C2_MV_MIN_X  = 574
-_C2_MV_MPH_X  = 614
-_C2_MV_CAUT_Y = 512
-_C2_MV_STD_Y  = 552
-_C2_MV_RUN_Y  = 592
+# Confirmed by pixel scan: col dividers at x=873/943/1009/1080; row centers at y=721/781/845
+_C2_MV_10_X   = 908
+_C2_MV_MIN_X  = 976
+_C2_MV_MPH_X  = 1045
+_C2_MV_CAUT_Y = 721
+_C2_MV_STD_Y  = 781
+_C2_MV_RUN_Y  = 845
 
 # Insanity Points  (box is below PSYCHOLOGY & HEALTH header, right side)
 _C2_IP_X, _C2_IP_Y = 1175, 960
 
 # Languages
+# Section header shares y=642-695 band; content starts y≈710
 _C2_LANG_X       = 1165
-_C2_LANG_START_Y = 487
-_C2_LANG_SPACING = 36
+_C2_LANG_START_Y = 710
+_C2_LANG_SPACING = 30
 
 # Background fields  (labels "Place of Birth:" etc. are pre-printed in the BACKGROUND box)
 # BACKGROUND header band: y=1140-1190.  Row centres confirmed by pixel scan.
@@ -217,11 +228,16 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
         if hasattr(char, 'career_path') and char.career_path:
             _draw_text_fit(draw, _C1_CPATH_X, _C1_CPATH_Y, char.career_path,
                            _CFS_SMALL, max_width=480, anchor="lt")
+        # Career exits: show for PC too
+        if char.career_exits:
+            exits = ", ".join(char.career_exits[:4])
+            _draw_text_fit(draw, _C1_EXITS_X, _C1_EXITS_Y, exits,
+                           _CFS_SMALL, max_width=720, anchor="lt")
     else:
         _draw_text_fit(draw, _C1_CAREER_X, _career_center_y, char.career,
                        _CFS_FIELD, max_width=270, anchor="lm")
         if char.career_exits:
-            exits = ", ".join(char.career_exits[:3])
+            exits = ", ".join(char.career_exits[:4])
             _draw_text_fit(draw, _C1_EXITS_X, _career_center_y, exits,
                            _CFS_SMALL, max_width=720, anchor="lm")
 
@@ -233,7 +249,14 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
         if val is not None:
             _draw_text(draw, x, _C1_STARTER_Y, val, f_stat, "mm")
             if not pc_mode:
-                _draw_text(draw, x, _C1_CURR_Y, val, f_stat, "mm")
+                # Current profile = starter + all advances taken
+                adv_raw = char.advance_scheme.get(stat, 0)
+                try:
+                    adv_num = int(adv_raw)
+                except (TypeError, ValueError):
+                    adv_num = 0
+                curr_val = val + adv_num
+                _draw_text(draw, x, _C1_CURR_Y, curr_val, f_stat, "mm")
         # Advance scheme
         if stat in char.advance_scheme:
             raw = char.advance_scheme[stat]
@@ -328,25 +351,25 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         y = _C2_SPELL_START_Y + i * _C2_SPELL_SPACING
         data = get_spell(spell_name) or {}
         _draw_text_fit(draw, _C2_SPELL_NAME_X, y, spell_name, _CFS_SKILL,
-                       max_width=230, anchor="lm")
+                       max_width=354, anchor="lm")
         if data:
             _draw_text(draw, _C2_SPELL_SL_X, y, data.get('sl', 0),  f_small, "mm")
             _draw_text(draw, _C2_SPELL_MP_X, y, data.get('mp', 0),  f_small, "mm")
-            _draw_text_fit(draw, _C2_SPELL_R_X, y, data.get('r','–'),
-                           _CFS_SMALL, max_width=45,  anchor="lm")
-            _draw_text_fit(draw, _C2_SPELL_D_X, y, data.get('d','–'),
-                           _CFS_SMALL, max_width=45,  anchor="lm")
+            _draw_text(draw, _C2_SPELL_R_X,  y, data.get('r','–'),  f_small, "mm")
+            _draw_text(draw, _C2_SPELL_D_X,  y, data.get('d','–'),  f_small, "mm")
             _draw_text_fit(draw, _C2_SPELL_ING_X, y, data.get('ingredients','–'),
-                           _CFS_SMALL, max_width=285, anchor="lm")
+                           _CFS_SMALL, max_width=255, anchor="lm")
             _draw_text_fit(draw, _C2_SPELL_EFF_X, y, data.get('effect','–'),
-                           _CFS_SMALL, max_width=890, anchor="lm")
+                           _CFS_SMALL, max_width=280, anchor="lm")
 
     # ── Right-column stat boxes ───────────────────────────────────────────────
     _draw_text(draw, _C2_FP_X,  _C2_FP_Y,  str(char.FP),  f_field, "mm")
     # Mag: always show for NPC; PC shows only if > 0
     if char.Mag or not pc_mode:
         _draw_text(draw, _C2_MAG_X, _C2_MAG_Y, str(char.Mag), f_field, "mm")
-    _draw_text(draw, _C2_PL_X,  _C2_PL_Y,  str(getattr(char, 'power_level', 0)), f_field, "mm")
+    # Power Level: only draw for magic users; NPC always shows, PC only if Mag > 0
+    if char.Mag or not pc_mode:
+        _draw_text(draw, _C2_PL_X,  _C2_PL_Y,  str(char.Mag), f_field, "mm")
     # XP: blank for PC (filled during play); show 0 for NPC
     if not pc_mode:
         _draw_text(draw, _C2_XP_X, _C2_XP_Y, "0", f_field, "mm")
@@ -362,20 +385,16 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
 
     # ── Movement rates ────────────────────────────────────────────────────────
     M  = char.M
-    _Y = 0.9144   # yards → metres
-    _K = 1.60934  # mph → km/h
     mv_rows = [
-        (round(M     * _Y, 1), round(M *  6 * _Y, 1),
-         round(M *  6 * 60 / 1760 * _K, 1), _C2_MV_CAUT_Y),
-        (round(M * 2 * _Y, 1), round(M * 12 * _Y, 1),
-         round(M * 12 * 60 / 1760 * _K, 1), _C2_MV_STD_Y),
-        (round(M * 4 * _Y, 1), round(M * 24 * _Y, 1),
-         round(M * 24 * 60 / 1760 * _K, 1), _C2_MV_RUN_Y),
+        # (yds/10secs,  yds/min,   mph,                    y)
+        (M,     M *  6,          round(M *  6 * 60 / 1760, 1), _C2_MV_CAUT_Y),
+        (M * 2, M * 12,          round(M * 12 * 60 / 1760, 1), _C2_MV_STD_Y),
+        (M * 4, M * 24,          round(M * 24 * 60 / 1760, 1), _C2_MV_RUN_Y),
     ]
-    for v10, vmin, vkph, y in mv_rows:
+    for v10, vmin, vmph, y in mv_rows:
         _draw_text(draw, _C2_MV_10_X,  y, str(v10),  f_small, "mm")
         _draw_text(draw, _C2_MV_MIN_X, y, str(vmin), f_small, "mm")
-        _draw_text(draw, _C2_MV_MPH_X, y, str(vkph), f_small, "mm")
+        _draw_text(draw, _C2_MV_MPH_X, y, str(vmph), f_small, "mm")
 
     # ── Insanity Points ───────────────────────────────────────────────────────
     # Always show for NPC; PC leaves blank (filled during play)
