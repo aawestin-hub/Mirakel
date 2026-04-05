@@ -36,25 +36,29 @@ _CFS_SMALL = 17
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Row 1: Name / Race / Gender / Career Class / Alignment  (data row center y≈335)
-_C1_NAME_X,   _C1_NAME_Y   = 175,  335
-_C1_RACE_X,   _C1_RACE_Y   = 533,  335
-_C1_GENDER_X, _C1_GENDER_Y = 698,  335
-_C1_CC_X,     _C1_CC_Y     = 782,  335   # Career Class (anchor lm at left edge)
-_C1_ALIGN_X,  _C1_ALIGN_Y  = 1205, 335   # Alignment (anchor lm)
+# Pixel-scan confirmed column borders: NAME=201-657, RACE=669-807, GENDER=822-963,
+# CAREER CLASS=978-1302, ALIGNMENT=1314-1518
+_C1_NAME_X,   _C1_NAME_Y   = 205,  335   # lm: left edge of NAME cell
+_C1_RACE_X,   _C1_RACE_Y   = 738,  335   # mm: center of RACE cell (669+807)/2
+_C1_GENDER_X, _C1_GENDER_Y = 893,  335   # mm: center of GENDER cell (822+963)/2
+_C1_CC_X,     _C1_CC_Y     = 983,  335   # lm: left edge of CC cell
+_C1_ALIGN_X,  _C1_ALIGN_Y  = 1320, 335   # lm: left edge of ALIGNMENT cell
 
 # Row 2: Age / Height / Weight / Hair / Eyes / Description  (center y≈465)
-_C1_AGE_X,    _C1_AGE_Y    = 209,  465
-_C1_HEIGHT_X, _C1_HEIGHT_Y = 309,  465
-_C1_WEIGHT_X, _C1_WEIGHT_Y = 420,  465
-_C1_HAIR_X,   _C1_HAIR_Y   = 495,  465
-_C1_EYES_X,   _C1_EYES_Y   = 703,  465
-_C1_DESC_X,   _C1_DESC_Y   = 883,  465
+# Pixel-scan confirmed column borders: AGE=207-342, HEIGHT=354-498, WEIGHT=510-654,
+# HAIR=666-807, EYES=822-963, DESCRIPTION=975-1518
+_C1_AGE_X,    _C1_AGE_Y    = 275,  465   # mm: center of AGE cell
+_C1_HEIGHT_X, _C1_HEIGHT_Y = 426,  465   # mm: center of HEIGHT cell
+_C1_WEIGHT_X, _C1_WEIGHT_Y = 582,  465   # mm: center of WEIGHT cell
+_C1_HAIR_X,   _C1_HAIR_Y   = 670,  465   # lm: left edge of HAIR cell
+_C1_EYES_X,   _C1_EYES_Y   = 827,  465   # lm: left edge of EYES cell
+_C1_DESC_X,   _C1_DESC_Y   = 980,  465   # lm: left edge of DESC cell
 
 # Row 3: Current Career / Career Path / Career Exits
-# Header band at y=473-560 (x=200 pixel scan); data cell y=560-653, center≈607
-_C1_CAREER_X, _C1_CAREER_Y = 175,  563   # PC: lt anchor (top of cell, just below header)
-_C1_CPATH_X,  _C1_CPATH_Y  = 373,  563
-_C1_EXITS_X,  _C1_EXITS_Y  = 883,  563
+# Pixel-scan confirmed column borders: CAREER=201-516, CAREER PATH=528-1020, EXITS=1038-1518
+_C1_CAREER_X, _C1_CAREER_Y = 205,  563   # lt anchor (top of cell, just below header)
+_C1_CPATH_X,  _C1_CPATH_Y  = 532,  563   # lt: left edge of CAREER PATH cell
+_C1_EXITS_X,  _C1_EXITS_Y  = 1042, 563   # lt: left edge of EXITS cell
 
 # Stats grid  (14 columns; pixel-scan confirmed dividers at y=730:
 #   right borders: M=522, WS=598, BS=677, S=755, T=833, W=907, I=986, A=1063,
@@ -222,25 +226,25 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
 
     # ── Identity ──────────────────────────────────────────────────────────────
     _draw_text_fit(draw, _C1_NAME_X, _C1_NAME_Y, char.name, _CFS_FIELD,
-                   max_width=370, anchor="lm")
+                   max_width=450, anchor="lm")
     _draw_text(draw, _C1_RACE_X,   _C1_RACE_Y,   char.race,   f_field, "mm")
     _draw_text(draw, _C1_GENDER_X, _C1_GENDER_Y, char.gender, f_field, "mm")
     _draw_text_fit(draw, _C1_CC_X, _C1_CC_Y, char.career_class,
-                   _CFS_FIELD, max_width=390, anchor="lm")
+                   _CFS_FIELD, max_width=315, anchor="lm")
     if char.alignment:
         _draw_text_fit(draw, _C1_ALIGN_X, _C1_ALIGN_Y, char.alignment,
-                       _CFS_FIELD, max_width=420, anchor="lm")
+                       _CFS_FIELD, max_width=190, anchor="lm")
 
     _draw_text(draw, _C1_AGE_X,    _C1_AGE_Y,    str(char.age),  f_field, "mm")
     _draw_text(draw, _C1_HEIGHT_X, _C1_HEIGHT_Y, char.height,    f_field, "mm")
     _draw_text(draw, _C1_WEIGHT_X, _C1_WEIGHT_Y, char.weight,    f_field, "mm")
     _draw_text_fit(draw, _C1_HAIR_X, _C1_HAIR_Y, char.hair_colour,
-                   _CFS_FIELD, max_width=210, anchor="lm")
+                   _CFS_FIELD, max_width=135, anchor="lm")
     _draw_text_fit(draw, _C1_EYES_X, _C1_EYES_Y, char.eye_colour,
-                   _CFS_FIELD, max_width=175, anchor="lm")
+                   _CFS_FIELD, max_width=135, anchor="lm")
     desc_parts = [p for p in [char.description, char.distinguishing_marks] if p]
     _draw_text_fit(draw, _C1_DESC_X, _C1_DESC_Y, ", ".join(desc_parts) if desc_parts else "",
-                   _CFS_FIELD, max_width=730, anchor="lm")
+                   _CFS_FIELD, max_width=530, anchor="lm")
 
     # ── Career ────────────────────────────────────────────────────────────────
     # Career cell spans y≈563-653, center≈607
@@ -248,28 +252,28 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
     if pc_mode:
         # Place at top of cell so player can strike out & write new career
         _draw_text_fit(draw, _C1_CAREER_X, _C1_CAREER_Y, char.career,
-                       _CFS_FIELD, max_width=185, anchor="lt")
+                       _CFS_FIELD, max_width=308, anchor="lt")
         # Career path: also at top so player can track career progression
         if hasattr(char, 'career_path') and char.career_path:
             _draw_text_fit(draw, _C1_CPATH_X, _C1_CPATH_Y, char.career_path,
-                           _CFS_SMALL, max_width=480, anchor="lt")
+                           _CFS_SMALL, max_width=485, anchor="lt")
         # Career exits: show for PC too
         if char.career_exits:
             exits = ", ".join(char.career_exits[:4])
             _draw_text_fit(draw, _C1_EXITS_X, _C1_EXITS_Y, exits,
-                           _CFS_SMALL, max_width=620, anchor="lt")
+                           _CFS_SMALL, max_width=472, anchor="lt")
     else:
         _draw_text_fit(draw, _C1_CAREER_X, _career_center_y, char.career,
-                       _CFS_FIELD, max_width=185, anchor="lm")
+                       _CFS_FIELD, max_width=308, anchor="lm")
         # NPC: show career class in the career path field for reference
         if getattr(char, 'career_class', None):
             _draw_text_fit(draw, _C1_CPATH_X, _career_center_y,
                            f"[{char.career_class}]", _CFS_SMALL,
-                           max_width=470, anchor="lm")
+                           max_width=485, anchor="lm")
         if char.career_exits:
             exits = ", ".join(char.career_exits[:4])
             _draw_text_fit(draw, _C1_EXITS_X, _career_center_y, exits,
-                           _CFS_SMALL, max_width=620, anchor="lm")
+                           _CFS_SMALL, max_width=472, anchor="lm")
 
     # ── Stats ─────────────────────────────────────────────────────────────────
     STAT_ORDER = ['M','WS','BS','S','T','W','I','A','Dex','Ld','Int','Cl','WP','Fel']
