@@ -1,0 +1,9 @@
+[    5287ms] [WARNING] Unrecognized feature: 'ambient-light-sensor'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'battery'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'document-domain'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'layout-animations'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'legacy-image-formats'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'oversized-images'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'vr'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5287ms] [WARNING] Unrecognized feature: 'wake-lock'. @ https://warhammer.streamlit.app/-/build/assets/index-Cg6KltND.js:33
+[    5603ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://warhammer.streamlit.app/~/+/:0

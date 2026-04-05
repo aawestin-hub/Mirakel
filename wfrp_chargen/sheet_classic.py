@@ -140,13 +140,13 @@ _C2_SPELL_START_Y = 236   # center of first spell row (y=193+43)
 _C2_SPELL_SPACING = 87    # 5 rows spanning y=193-630
 
 # Right-column stat boxes (FATE POINTS / MAGIC POINTS / POWER LEVEL / EXPERIENCE)
-# Content cell centers confirmed by pixel scan at x=1450:
-#   FP: y=193-256 center=225; MP: y=315-376 center=346;
-#   PL: y=432-499 center=466; XP: y=520-640 center=580
-_C2_FP_X,  _C2_FP_Y  = 1520, 225
-_C2_MAG_X, _C2_MAG_Y = 1520, 346
-_C2_PL_X,  _C2_PL_Y  = 1520, 466
-_C2_XP_X,  _C2_XP_Y  = 1520, 580
+# Left border of right column: x=1300-1315; label/value divider: x=1515; right edge: x=1700
+# Value box (where we write numbers): x=1516 to 1700, center=1608
+# Row centers: FP y=193-256 center=225; MP y=315-376 center=346; PL y=432-499 center=466; XP y=520-640 center=580
+_C2_FP_X,  _C2_FP_Y  = 1608, 225
+_C2_MAG_X, _C2_MAG_Y = 1608, 346
+_C2_PL_X,  _C2_PL_Y  = 1608, 466
+_C2_XP_X,  _C2_XP_Y  = 1608, 580
 
 # Equipment / Trappings  (name / Loc / ENC)
 # Section header band y=642-695; content starts y≈710
@@ -167,7 +167,8 @@ _C2_MV_STD_Y  = 781
 _C2_MV_RUN_Y  = 845
 
 # Insanity Points  (box is below PSYCHOLOGY & HEALTH header, right side)
-_C2_IP_X, _C2_IP_Y = 1175, 960
+# INSANITY POINTS: label dark band x=1100-1293, value cell x=1304-1504, y=877-932
+_C2_IP_X, _C2_IP_Y = 1404, 905
 
 # Languages
 # Section header shares y=642-695 band; content starts y≈710

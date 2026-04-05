@@ -1,0 +1,144 @@
+- generic [ref=e2]:
+  - generic [ref=e6]:
+    - iframe [active] [ref=e7]:
+      - generic [ref=f3e2]:
+        - generic [ref=f3e4]:
+          - button "keyboard_double_arrow_left" [ref=f3e213] [cursor=pointer]:
+            - generic [ref=f3e215]: keyboard_double_arrow_left
+          - generic [ref=f3e8]:
+            - heading "Character Options" [level=2] [ref=f3e12]
+            - generic [ref=f3e14]:
+              - generic [ref=f3e15]:
+                - paragraph [ref=f3e18]: Character type
+                - button "Help for Character type" [ref=f3e22] [cursor=pointer]:
+                  - img [ref=f3e23]
+              - radiogroup "Character type" [ref=f3e26] [cursor=pointer]:
+                - generic [ref=f3e27]:
+                  - radio "PC" [checked]
+                  - paragraph [ref=f3e32]: PC
+                - generic [ref=f3e33]:
+                  - radio "NPC"
+                  - paragraph [ref=f3e38]: NPC
+            - heading "Sheet template" [level=3] [ref=f3e42]
+            - generic [ref=f3e44]:
+              - generic [ref=f3e45]:
+                - paragraph [ref=f3e48]: Sheet style
+                - button "Help for Sheet style" [ref=f3e52] [cursor=pointer]:
+                  - img [ref=f3e53]
+              - radiogroup "Sheet style" [ref=f3e56] [cursor=pointer]:
+                - generic [ref=f3e57]:
+                  - radio "Weskon's Fantasy Roleplay" [checked]
+                  - paragraph [ref=f3e62]: Weskon's Fantasy Roleplay
+                - generic [ref=f3e63]:
+                  - radio "Classic Edited Sheet"
+                  - paragraph [ref=f3e68]: Classic Edited Sheet
+            - heading "Identity" [level=3] [ref=f3e72]
+            - generic [ref=f3e74]:
+              - paragraph [ref=f3e78]: Race
+              - generic [ref=f3e80]:
+                - generic [ref=f3e81]:
+                  - generic [ref=f3e82]: Random
+                  - combobox "Selected Random. Race" [ref=f3e84]
+                - img "open" [ref=f3e86]
+            - generic [ref=f3e89]:
+              - paragraph [ref=f3e93]: Gender
+              - generic [ref=f3e95]:
+                - generic [ref=f3e96]:
+                  - generic [ref=f3e97]: Random
+                  - combobox "Selected Random. Gender" [ref=f3e99]
+                - img "open" [ref=f3e101]
+            - generic [ref=f3e104]:
+              - generic [ref=f3e105]:
+                - paragraph [ref=f3e108]: Name
+                - button "Help for Name" [ref=f3e112] [cursor=pointer]:
+                  - img [ref=f3e113]
+              - textbox "Name" [ref=f3e118]:
+                - /placeholder: Leave blank for random
+            - heading "Career" [level=3] [ref=f3e122]
+            - generic [ref=f3e124]:
+              - generic [ref=f3e125]:
+                - paragraph [ref=f3e128]: Career class
+                - button "Help for Career class" [ref=f3e132] [cursor=pointer]:
+                  - img [ref=f3e133]
+              - generic [ref=f3e137]:
+                - generic [ref=f3e138]:
+                  - generic [ref=f3e139]: Random
+                  - combobox "Selected Random. Career class" [ref=f3e141]
+                - img "open" [ref=f3e143]
+            - generic [ref=f3e146]:
+              - paragraph [ref=f3e150]: Career
+              - generic [ref=f3e152]:
+                - generic [ref=f3e153]:
+                  - generic [ref=f3e154]: Random
+                  - combobox "Selected Random. Career" [ref=f3e156]
+                - img "open" [ref=f3e158]
+            - separator [ref=f3e164]
+            - button "🎲 Generate character" [active] [ref=f3e167] [cursor=pointer]:
+              - paragraph [ref=f3e171]: 🎲 Generate character
+        - generic [ref=f3e174]:
+          - banner [ref=f3e175]:
+            - generic [ref=f3e178]:
+              - generic [ref=f3e179]:
+                - button "Fork" [ref=f3e181] [cursor=pointer]:
+                  - generic [ref=f3e183]: Fork
+                - button [ref=f3e185] [cursor=pointer]
+              - button "Main menu" [ref=f3e189] [cursor=pointer]:
+                - img [ref=f3e190]
+          - generic [ref=f3e195]:
+            - heading "⚔️ WFRP 1st Edition — Character Generator" [level=1] [ref=f3e200]:
+              - text: ⚔️ WFRP 1st Edition — Character Generator
+              - generic [ref=f3e201]:
+                - link "Link to heading":
+                  - /url: "#wfrp-1st-edition-character-generator"
+                  - img
+            - paragraph [ref=f3e206]: Warhammer Fantasy Roleplay · 1st Edition · Automatically generates stats, skills, trappings, spells and background narrative
+            - separator [ref=f3e211]
+            - generic [ref=f3e217]:
+              - generic [ref=f3e222]:
+                - paragraph [ref=f3e225]: Name
+                - paragraph [ref=f3e228]: Hieronymus Eisenfaust
+              - generic [ref=f3e233]:
+                - paragraph [ref=f3e236]: Race
+                - paragraph [ref=f3e239]: Human 🎲
+              - generic [ref=f3e244]:
+                - paragraph [ref=f3e247]: Career
+                - paragraph [ref=f3e250]: Boatman 🎲
+              - generic [ref=f3e255]:
+                - paragraph [ref=f3e258]: Gender
+                - paragraph [ref=f3e261]: Male 🎲
+              - generic [ref=f3e266]:
+                - paragraph [ref=f3e269]: Class
+                - paragraph [ref=f3e272]: Ranger 🎲
+            - generic [ref=f3e275]:
+              - button "Fullscreen" [ref=f3e280] [cursor=pointer]:
+                - img [ref=f3e281]
+              - img "0" [ref=f3e286]
+            - button "⬇️ Download sheet (JPG)" [ref=f3e289] [cursor=pointer]:
+              - paragraph [ref=f3e293]: ⬇️ Download sheet (JPG)
+            - group [ref=f3e296]:
+              - generic "keyboard_arrow_right 🎲 Generation log — see what was rolled" [ref=f3e297] [cursor=pointer]:
+                - generic [ref=f3e298]:
+                  - generic [ref=f3e300]: keyboard_arrow_right
+                  - paragraph [ref=f3e303]: 🎲 Generation log — see what was rolled
+            - group [ref=f3e306]:
+              - generic "keyboard_arrow_right 📊 Stats & details" [ref=f3e307] [cursor=pointer]:
+                - generic [ref=f3e308]:
+                  - generic [ref=f3e310]: keyboard_arrow_right
+                  - paragraph [ref=f3e313]: 📊 Stats & details
+    - link [ref=e20] [cursor=pointer]:
+      - /url: https://streamlit.io/cloud
+      - img [ref=e11]
+    - link "App Creator Avatar" [ref=e18] [cursor=pointer]:
+      - /url: https://share.streamlit.io/user/aawestin-hub
+      - img "App Creator Avatar" [ref=e19]
+  - iframe [ref=e1]:
+    - generic [ref=f1e2]:
+      - img [ref=f1e4]
+      - generic [ref=f1e11]:
+        - heading "Status embed installed correctly" [level=1] [ref=f1e12]:
+          - paragraph [ref=f1e13]: Status embed installed correctly
+        - generic [ref=f1e14]: This will be shown if an incident or maintenance is posted on your status page.
+        - link "View latest updates" [ref=f1e16] [cursor=pointer]:
+          - /url: https://www.streamlitstatus.com?utm_source=embed
+      - button [ref=f1e18] [cursor=pointer]:
+        - img [ref=f1e19]
