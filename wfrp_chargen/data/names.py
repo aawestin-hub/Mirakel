@@ -231,11 +231,11 @@ _NAMES: dict[str, dict] = {
             "Falco", "Gardener", "Hamson", "Ilbert", "Jedsmith",
             "Kembro", "Largo", "Munro", "Ninto", "Oakley",
             "Poddo", "Quimby", "Ruggo", "Sancho", "Tomba",
-            # Extra
-            "Albo", "Bingo", "Chico", "Dino", "Erico",
-            "Fargo", "Grifo", "Hambo", "Ingo", "Jimbo",
-            "Kimbo", "Limbo", "Mimbo", "Nimbo", "Ombo",
-            "Pimbo", "Rimbo", "Simbo", "Timbo", "Wimbo",
+            # Extra (Moot-style halfling names)
+            "Aldo", "Baldo", "Celdo", "Delmo", "Elmo",
+            "Falko", "Galbo", "Halco", "Idelmo", "Jalco",
+            "Kelmo", "Lalco", "Malco", "Nalbo", "Olmo",
+            "Palco", "Ralbo", "Salco", "Talmo", "Ulco",
         ],
         "female": [
             "Amaranth", "Belba", "Camellia", "Daisy", "Eglantine",
