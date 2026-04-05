@@ -574,11 +574,11 @@ def _fill_page2(char: Character, draw: ImageDraw.ImageDraw,
     # ── Info boxes ────────────────────────────────────────────────────────────
     # FP: always shown (meaningful starting value)
     _draw_text(draw, _P2_FP_X, _P2_FP_Y, str(char.FP), f_stat, "mm")
-    # Mag: always show for NPC (even if 0); PC shows only if > 0
-    if char.Mag or not pc_mode:
+    # Mag: only show when character actually has magic ability
+    if char.Mag > 0:
         _draw_text(draw, _P2_MAG_X, _P2_MAG_Y, str(char.Mag), f_stat, "mm")
-    # Power Level = Mag stat (0 = non-magic, 1-4 = magic level)
-    if char.Mag or not pc_mode:
+    # Power Level = Mag stat (only draw for magic users)
+    if char.Mag > 0:
         _draw_text(draw, _P2_PL_X, _P2_PL_Y, str(char.Mag), f_stat, "mm")
     # IP and XP: show 0 for NPC; leave blank for PC (player fills in)
     if not pc_mode:

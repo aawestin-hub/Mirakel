@@ -1548,11 +1548,104 @@ def generate_character(
         "Student":              ("gc", 1, 6),
         "Wizard's Apprentice":  ("gc", 2, 6),
         "Wood Elf Mage's Apprentice": ("gc", 1, 6),
+        # Advanced Warrior careers
+        "Champion":             ("gc", 4, 6),
+        "Daemon Slayer":        ("gc", 4, 6),
+        "Giant Slayer":         ("gc", 3, 6),
+        "Judicial Champion":    ("gc", 3, 6),
+        "Knight Errant":        ("gc", 3, 6),
+        "Mercenary Captain":    ("gc", 4, 6),
+        "Sergeant":             ("gc", 2, 6),
+        "Veteran Tunnel Fighter": ("gc", 2, 6),
+        # Advanced Ranger careers
+        "Scout":                ("gc", 2, 6),
+        "Targeteer":            ("gc", 2, 6),
+        "Navigator":            ("gc", 2, 6),
+        "Mountaineer":          ("gc", 1, 6),
+        "Squire":               ("gc", 1, 6),
+        "Outrider":             ("gc", 2, 6),
+        # Advanced Rogue careers
+        "Assassin":             ("gc", 3, 6),
+        "Charlatan":            ("gc", 2, 6),
+        "Demagogue":            ("gc", 1, 6),
+        "Footpad":              ("gc", 1, 6),
+        "Forger":               ("gc", 2, 6),
+        "Highwayman":           ("gc", 2, 6),
+        "Informer":             ("gc", 1, 6),
+        "Jester":               ("gc", 1, 6),
+        "Jongleur":             ("gc", 1, 6),
+        "Master Thief":         ("gc", 3, 6),
+        "Outlaw Chief":         ("gc", 3, 6),
+        "Raconteur":            ("gc", 1, 6),
+        "Racketeer":            ("gc", 2, 6),
+        "Rogue":                ("gc", 2, 6),
+        "Rustler":              ("ss", 2, 6),
+        "Spy":                  ("gc", 2, 6),
+        "Torturer":             ("gc", 1, 6),
+        # Advanced Academic careers
+        "Alchemist - level 1":  ("gc", 3, 6),
+        "Astrologer":           ("gc", 2, 6),
+        "Augur":                ("gc", 1, 6),
+        "Bard":                 ("gc", 1, 6),
+        "Cleric - level 1":     ("gc", 2, 6),
+        "Diviner":              ("gc", 2, 6),
+        "Druidic Priest - level 1": ("gc", 2, 6),
+        "Exorcist":             ("gc", 2, 6),
+        "Grey Wizard - level 1": ("gc", 3, 6),
+        "Hedge-Wizard - level 1": ("gc", 2, 6),
+        "Hypnotist":            ("gc", 1, 6),
+        "Lawyer":               ("gc", 3, 6),
+        "Loremaster":           ("gc", 4, 6),
+        "Loremaster (Dwarfs only)": ("gc", 4, 6),
+        "Physician":            ("gc", 3, 6),
+        "Scholar":              ("gc", 3, 6),
+        "Seer":                 ("gc", 1, 6),
+        "Wise Woman":           ("gc", 1, 6),
+        "Witch Hunter":         ("gc", 3, 6),
+        "Wizard - level 1":     ("gc", 3, 6),
+        "Wizard - level 2":     ("gc", 4, 6),
+        "Wizard - level 3":     ("gc", 5, 6),
+        "Wizard - level 4":     ("gc", 6, 6),
+        "Wood Elf Mage - level 1": ("gc", 2, 6),
+        # Misc advanced careers
+        "Artisan":              ("gc", 2, 6),
+        "Bawd":                 ("ss", 2, 6),
+        "Bodyguard":            ("gc", 2, 6),
+        "Bounty Hunter":        ("gc", 2, 6),
+        "Coachman":             ("gc", 1, 6),
+        "Counterfeiter":        ("gc", 1, 6),
+        "Duellist":             ("gc", 2, 6),
+        "Entertainer":          ("gc", 1, 6),
+        "Exciseman":            ("gc", 1, 6),
+        "Explorer":             ("gc", 3, 6),
+        "Fence":                ("gc", 3, 6),
+        "Gunner":               ("gc", 1, 6),
+        "Lodefinder":           ("gc", 1, 6),
+        "Marine":               ("gc", 1, 6),
+        "Minstrel":             ("gc", 1, 6),
+        "Noble":                ("gc", 5, 6),
+        "Pit Fighter":          ("gc", 1, 6),
+        "Politician":           ("gc", 4, 6),
+        "Protagonist":          ("ss", 2, 6),
+        "Roadwarden":           ("gc", 2, 6),
+        "Runescribe":           ("gc", 2, 6),
+        "Runesmith":            ("gc", 4, 6),
+        "Runesmith's Apprentice": ("gc", 2, 6),
+        "Sapper":               ("gc", 1, 6),
+        "Servant":              ("ss", 1, 6),
+        "Slaver":               ("gc", 2, 6),
+        "Valet":                ("ss", 1, 6),
+        "Watchman":             ("gc", 1, 6),
     }
 
     import re as _re
     _MONEY_PAT = _re.compile(
         r'^(\d*)D(\d+)\s+(Gold Crowns?|Silver Shillings?|Brass Pennies?)',
+        _re.IGNORECASE
+    )
+    # Also handle fixed amounts like "50 Gold Crowns" or "20 Silver Shillings"
+    _FIXED_PAT = _re.compile(
+        r'^(\d+)\s+(Gold Crowns?|Silver Shillings?|Brass Pennies?)',
         _re.IGNORECASE
     )
     remaining = []
@@ -1571,7 +1664,18 @@ def generate_character(
                 char.wealth_bp += rolled
             found_wealth_in_trappings = True
         else:
-            remaining.append(item)
+            mf = _FIXED_PAT.match(item.strip())
+            if mf:
+                amount, currency = int(mf.group(1)), mf.group(2).lower()
+                if "gold" in currency:
+                    char.wealth_gc += amount
+                elif "silver" in currency:
+                    char.wealth_ss += amount
+                else:
+                    char.wealth_bp += amount
+                found_wealth_in_trappings = True
+            else:
+                remaining.append(item)
     char.trappings = remaining
 
     # If no wealth was found in trappings, use the fallback table

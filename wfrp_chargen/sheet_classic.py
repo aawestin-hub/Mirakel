@@ -46,7 +46,7 @@ _C1_ALIGN_X,  _C1_ALIGN_Y  = 1205, 335   # Alignment (anchor lm)
 _C1_AGE_X,    _C1_AGE_Y    = 209,  465
 _C1_HEIGHT_X, _C1_HEIGHT_Y = 309,  465
 _C1_WEIGHT_X, _C1_WEIGHT_Y = 420,  465
-_C1_HAIR_X,   _C1_HAIR_Y   = 485,  465
+_C1_HAIR_X,   _C1_HAIR_Y   = 495,  465
 _C1_EYES_X,   _C1_EYES_Y   = 703,  465
 _C1_DESC_X,   _C1_DESC_Y   = 883,  465
 
@@ -195,6 +195,17 @@ _C2_WGC_X, _C2_WGC_Y = 220, 1600
 _C2_WSS_X, _C2_WSS_Y = 220, 1635
 _C2_WBP_X, _C2_WBP_Y = 220, 1670
 
+# Companions & Animals  (open grid to the right of WEALTH, header y=1516-1570,
+#   data area y=1570-2056.  Column borders pixel-scanned at y=1590.)
+# Name column: x=695-876 → center 786; stat cells ~43-48px wide
+_C2_COMP_NAME_X    = 786   # mm center of companion name column
+_C2_COMP_NAME_MAX  = 170   # max px for name text
+_C2_COMP_STAT_XS   = [898, 942, 987, 1031, 1078, 1123, 1168, 1213,
+                       1260, 1304, 1347, 1395, 1442, 1485]
+_C2_COMP_STATS     = ["M","WS","BS","S","T","W","I","A","Dex","Ld","Int","Cl","WP","Fel"]
+_C2_COMP_ROW1_Y    = 1640  # y center of first companion row
+_C2_COMP_ROW_H     = 140   # px between companion rows
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Fill functions
@@ -236,7 +247,7 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
     if pc_mode:
         # Place at top of cell so player can strike out & write new career
         _draw_text_fit(draw, _C1_CAREER_X, _C1_CAREER_Y, char.career,
-                       _CFS_FIELD, max_width=270, anchor="lt")
+                       _CFS_FIELD, max_width=185, anchor="lt")
         # Career path: also at top so player can track career progression
         if hasattr(char, 'career_path') and char.career_path:
             _draw_text_fit(draw, _C1_CPATH_X, _C1_CPATH_Y, char.career_path,
@@ -245,14 +256,19 @@ def _fill_classic_page1(img: Image.Image, char: Character, pc_mode: bool) -> Non
         if char.career_exits:
             exits = ", ".join(char.career_exits[:4])
             _draw_text_fit(draw, _C1_EXITS_X, _C1_EXITS_Y, exits,
-                           _CFS_SMALL, max_width=720, anchor="lt")
+                           _CFS_SMALL, max_width=620, anchor="lt")
     else:
         _draw_text_fit(draw, _C1_CAREER_X, _career_center_y, char.career,
-                       _CFS_FIELD, max_width=270, anchor="lm")
+                       _CFS_FIELD, max_width=185, anchor="lm")
+        # NPC: show career class in the career path field for reference
+        if getattr(char, 'career_class', None):
+            _draw_text_fit(draw, _C1_CPATH_X, _career_center_y,
+                           f"[{char.career_class}]", _CFS_SMALL,
+                           max_width=470, anchor="lm")
         if char.career_exits:
             exits = ", ".join(char.career_exits[:4])
             _draw_text_fit(draw, _C1_EXITS_X, _career_center_y, exits,
-                           _CFS_SMALL, max_width=720, anchor="lm")
+                           _CFS_SMALL, max_width=620, anchor="lm")
 
     # ── Stats ─────────────────────────────────────────────────────────────────
     STAT_ORDER = ['M','WS','BS','S','T','W','I','A','Dex','Ld','Int','Cl','WP','Fel']
@@ -377,12 +393,12 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
 
     # ── Right-column stat boxes ───────────────────────────────────────────────
     _draw_text(draw, _C2_FP_X,  _C2_FP_Y,  str(char.FP),  f_field, "mm")
-    # Mag: always show for NPC; PC shows only if > 0
-    if char.Mag or not pc_mode:
+    # Mag: only show when character actually has magic ability
+    if char.Mag > 0:
         _draw_text(draw, _C2_MAG_X, _C2_MAG_Y, str(char.Mag), f_field, "mm")
-    # Power Level: only draw for magic users; PC only if Mag > 0
+    # Power Level: only draw for magic users
     pl = getattr(char, 'power_level', 0)
-    if pl or not pc_mode:
+    if pl > 0:
         _draw_text(draw, _C2_PL_X, _C2_PL_Y, str(pl), f_field, "mm")
     # XP: blank for PC (filled during play); show 0 for NPC
     if not pc_mode:
@@ -473,6 +489,19 @@ def _fill_classic_page2(img: Image.Image, char: Character, pc_mode: bool) -> Non
         _draw_text_fit(draw, _C2_WBP_X, _C2_WBP_Y,
                        f"BP: {getattr(char,'wealth_bp',0)}", _CFS_SMALL,
                        max_width=160, anchor="lm")
+
+    # ── Companions & Animals ─────────────────────────────────────────────────
+    companions = getattr(char, "companions", [])
+    for row_idx, comp in enumerate(companions[:3]):
+        cy = _C2_COMP_ROW1_Y + row_idx * _C2_COMP_ROW_H
+        _draw_text_fit(draw, _C2_COMP_NAME_X, cy, comp["name"],
+                       _CFS_SMALL, max_width=_C2_COMP_NAME_MAX, anchor="mm")
+        stats = comp.get("stats", {})
+        for col_idx, stat in enumerate(_C2_COMP_STATS):
+            val = stats.get(stat)
+            if val is not None:
+                cx = _C2_COMP_STAT_XS[col_idx]
+                _draw_text(draw, cx, cy, val, _get_font(_CFS_SMALL - 2), "mm")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
