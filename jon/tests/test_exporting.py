@@ -44,7 +44,7 @@ def test_build_export_workbook_creates_expected_sheets():
     assert workbook["Renset data"]["E2"].number_format == "#,##0"
     assert workbook["Renset data"]["F2"].number_format == "#,##0"
     assert workbook["Renset data"]["B1"].fill.fgColor.rgb == "00F2F2F2"
-    assert workbook["Renset data"]["C1"].fill.fgColor.rgb == "00D9D9D9"
+    assert workbook["Renset data"]["C1"].fill.fgColor.rgb == "00F2F2F2"
     assert workbook["Renset data"]["D1"].fill.fgColor.rgb == "00DDEBF7"
     assert workbook["Renset data"]["E1"].fill.fgColor.rgb == "00E2F0D9"
     assert workbook["Renset data"]["F1"].fill.fgColor.rgb == "00FCE4EC"

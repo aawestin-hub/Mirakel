@@ -15,10 +15,7 @@ MONTH_NAME_PATTERN = re.compile(
     r"^(januar|februar|mars|april|mai|juni|juli|august|september|oktober|november|desember)( \[\d+\])?$",
     re.IGNORECASE,
 )
-MONTH_FILLS = [
-    PatternFill(fill_type="solid", fgColor="F2F2F2"),
-    PatternFill(fill_type="solid", fgColor="D9D9D9"),
-]
+MONTH_FILL = PatternFill(fill_type="solid", fgColor="F2F2F2")
 SUMMARY_FILLS = {
     "regnskap": PatternFill(fill_type="solid", fgColor="DDEBF7"),
     "budsjett": PatternFill(fill_type="solid", fgColor="E2F0D9"),
@@ -71,9 +68,6 @@ def build_export_workbook(
 
 
 def _apply_month_column_colors(worksheet, cleaned_df: pd.DataFrame) -> None:
-    month_fill_by_value: dict[str, PatternFill] = {}
-    fill_index = 0
-
     for column_index, column_name in enumerate(cleaned_df.columns, start=1):
         summary_fill = _extract_summary_fill(str(column_name))
         if summary_fill is not None:
@@ -84,13 +78,8 @@ def _apply_month_column_colors(worksheet, cleaned_df: pd.DataFrame) -> None:
         month_value = _extract_month_group(str(column_name))
         if not month_value:
             continue
-        if month_value not in month_fill_by_value:
-            month_fill_by_value[month_value] = MONTH_FILLS[fill_index % len(MONTH_FILLS)]
-            fill_index += 1
-
-        fill = month_fill_by_value[month_value]
         for row_index in range(1, worksheet.max_row + 1):
-            worksheet.cell(row=row_index, column=column_index).fill = fill
+            worksheet.cell(row=row_index, column=column_index).fill = MONTH_FILL
 
 
 def _extract_month_group(column_name: str) -> str | None:
