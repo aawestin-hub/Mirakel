@@ -6,9 +6,7 @@ import re
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-import gspread
 import pandas as pd
-import requests
 import streamlit as st
 from streamlit.errors import StreamlitSecretNotFoundError
 
@@ -25,6 +23,8 @@ SHEET_ID_PATTERN = re.compile(r"/spreadsheets/d/([a-zA-Z0-9-_]+)")
 
 
 def load_sheet_from_url(url: str) -> pd.DataFrame:
+    import requests
+
     sheet_id, gid = _parse_google_sheet_url(url)
     export_url = (
         f"https://docs.google.com/spreadsheets/d/{sheet_id}/export"
@@ -56,6 +56,8 @@ def export_dataframe_to_google_sheet(
     df: pd.DataFrame,
     spreadsheet_title: str,
 ) -> str:
+    import gspread
+
     credentials_info = _load_service_account_info()
     if not credentials_info:
         raise GoogleSheetsExportError(
