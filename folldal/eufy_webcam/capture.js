@@ -98,7 +98,15 @@ async function ensureAuthenticated(page, context) {
 async function activateCamera(page, cameraName) {
   const cameraCard = page.locator('.camera-item', { hasText: cameraName }).first();
   await cameraCard.waitFor({ state: 'visible', timeout: 90_000 });
-  await cameraCard.locator('.camera-main-inner').click();
+  await page.evaluate((name) => {
+    const cards = Array.from(document.querySelectorAll('.camera-item'));
+    const card = cards.find((entry) => entry.textContent?.includes(name));
+    const target = card?.querySelector('.camera-main-inner');
+    if (!(target instanceof HTMLElement)) {
+      throw new Error(`Camera card not found for ${name}`);
+    }
+    target.click();
+  }, cameraName);
 
   await page.waitForFunction(
     (name) => {
