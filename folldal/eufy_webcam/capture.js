@@ -112,6 +112,14 @@ async function dismissVisibleModal(page) {
       );
     };
 
+    const setNativeValue = (input, value) => {
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+      descriptor?.set?.call(input, value);
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      input.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: value }));
+    };
+
     const modals = Array.from(document.querySelectorAll('.ant-modal-wrap, .liveViewAccess-content'));
     const visibleModal = modals.find(isVisible);
     if (!(visibleModal instanceof HTMLElement)) {
@@ -119,8 +127,11 @@ async function dismissVisibleModal(page) {
     }
 
     const modalText = visibleModal.textContent?.trim().slice(0, 500) ?? '';
-    const pinInput = Array.from(visibleModal.querySelectorAll('input')).find(isVisible);
-    if (pinInput instanceof HTMLInputElement) {
+    const pinInputs = Array.from(visibleModal.querySelectorAll('input')).filter(
+      (element) => element instanceof HTMLInputElement && isVisible(element)
+    );
+
+    if (pinInputs.length > 0) {
       if (!pin) {
         return {
           handled: false,
@@ -129,12 +140,18 @@ async function dismissVisibleModal(page) {
         };
       }
 
-      pinInput.focus();
-      pinInput.value = '';
-      pinInput.dispatchEvent(new Event('input', { bubbles: true }));
-      pinInput.value = pin;
-      pinInput.dispatchEvent(new Event('input', { bubbles: true }));
-      pinInput.dispatchEvent(new Event('change', { bubbles: true }));
+      const singleCharacterInputs = pinInputs.every((input) => input.maxLength === 1 || input.maxLength === 0);
+      if (singleCharacterInputs && pinInputs.length >= pin.length) {
+        pinInputs.slice(0, pin.length).forEach((input, index) => {
+          input.focus();
+          setNativeValue(input, pin[index] ?? '');
+        });
+      } else {
+        const firstInput = pinInputs[0];
+        firstInput.focus();
+        setNativeValue(firstInput, '');
+        setNativeValue(firstInput, pin);
+      }
     }
 
     const buttons = Array.from(visibleModal.querySelectorAll('button')).filter(isVisible);
@@ -149,7 +166,7 @@ async function dismissVisibleModal(page) {
       return {
         handled: false,
         text: modalText,
-        requiresPin: pinInput instanceof HTMLInputElement && !pin,
+        requiresPin: pinInputs.length > 0 && !pin,
       };
     }
 
