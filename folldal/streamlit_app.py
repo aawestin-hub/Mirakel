@@ -565,6 +565,12 @@ def apply_custom_styles() -> None:
                 padding: 1rem 1.1rem;
                 margin-bottom: 1rem;
             }
+            .page-heading {
+                color: #3d2a18;
+                font-size: 1.7rem;
+                font-weight: 800;
+                margin: 0.35rem 0 0.85rem 0;
+            }
             .calendar-container {
                 display: flex;
                 flex-wrap: wrap;
@@ -932,6 +938,7 @@ def render_useful_links(links_df: pd.DataFrame) -> None:
 
 apply_custom_styles()
 display_header_image()
+st.markdown("<h1 class='page-heading'>Folldal-appen!</h1>", unsafe_allow_html=True)
 conn = get_connection()
 apps_script_url = get_apps_script_url()
 bookings = load_bookings(conn, apps_script_url)
