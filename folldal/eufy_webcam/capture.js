@@ -73,6 +73,7 @@ async function ensureRegionSelected(page) {
 
   await page.locator('[role="combobox"], .ant-select-selection').first().click();
   await page.locator('.ant-select-dropdown-menu-item', { hasText: region }).first().click();
+  await dismissVisibleModal(page);
 }
 
 async function loginIfNeeded(page, context) {
@@ -90,11 +91,12 @@ async function loginIfNeeded(page, context) {
   await ensureRegionSelected(page);
   await emailField.fill(email);
   await passwordField.fill(password);
+  await dismissVisibleModal(page);
 
   const submitButton = page
     .locator('button:has-text("Log In"), button:has-text("Login"), button:has-text("Sign In"), .ant-btn-primary')
     .first();
-  await submitButton.click();
+  await submitButton.evaluate((button) => button.click());
 
   try {
     await Promise.race([
