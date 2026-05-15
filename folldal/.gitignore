@@ -1,0 +1,8 @@
+.streamlit/secrets.toml
+__pycache__/
+.playwright-cli/
+calendar-frontpage.png
+design-check.png
+final-design-check.png
+mobile-check.png
+overview-check.png
