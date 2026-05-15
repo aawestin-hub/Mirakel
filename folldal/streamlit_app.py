@@ -938,7 +938,7 @@ def render_useful_links(links_df: pd.DataFrame) -> None:
 
 apply_custom_styles()
 display_header_image()
-st.markdown("<h1 class='page-heading'>Folldal-appen!</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='page-heading'>Sandvoll-appen!</h1>", unsafe_allow_html=True)
 conn = get_connection()
 apps_script_url = get_apps_script_url()
 bookings = load_bookings(conn, apps_script_url)
@@ -994,6 +994,9 @@ if selected_page == "Book hytta":
                 conflict_table["Til dato"] = conflict_table["Til dato"].apply(format_date)
                 st.dataframe(conflict_table, hide_index=True, width="stretch")
             else:
+                success_message = (
+                    f"Booking lagret for {selected_booker} fra {format_date(from_date)} til {format_date(to_date)}."
+                )
                 new_booking = pd.DataFrame(
                     [
                         {
@@ -1010,15 +1013,16 @@ if selected_page == "Book hytta":
                     pd.concat([bookings, new_booking], ignore_index=True)
                 )
                 save_bookings(conn, apps_script_url, updated_bookings)
-                st.success(
-                    f"Booking lagret for {selected_booker} fra {format_date(from_date)} til {format_date(to_date)}."
-                )
+                st.session_state.page_selector = "Se bookinger"
+                st.session_state.booking_success_message = success_message
                 st.rerun()
 
 elif selected_page == "Værmelding":
     render_weather_section()
 
 elif selected_page == "Se bookinger":
+    if booking_success_message := st.session_state.pop("booking_success_message", None):
+        st.success(booking_success_message)
     st.subheader("Eksisterende bookinger")
     if bookings.empty:
         st.info("Ingen bookinger enda.")
