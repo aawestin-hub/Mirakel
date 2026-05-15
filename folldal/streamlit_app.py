@@ -8,6 +8,7 @@ import requests
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
+BASE_DIR = Path(__file__).resolve().parent
 
 st.set_page_config(
     page_title="Sandvollen",
@@ -34,7 +35,7 @@ MESSAGES_WORKSHEET = "Beskjeder"
 MESSAGE_COLUMNS = ["Fra", "Til", "Beskjed", "Opprettet"]
 LINKS_WORKSHEET = "Lenker"
 LINK_COLUMNS = ["Kategori", "Tittel", "URL"]
-HEADER_IMAGE_PATH = Path("assets") / "sandvollen-header.jpg"
+HEADER_IMAGE_PATH = BASE_DIR / "assets" / "sandvollen-header.jpg"
 WEATHER_LAT = 62.1285
 WEATHER_LON = 10.0416
 WEATHER_ALTITUDE = 0
