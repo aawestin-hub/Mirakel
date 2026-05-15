@@ -43,6 +43,7 @@ WEATHER_ALTITUDE = 0
 WEATHER_URL = "https://api.met.no/weatherapi/locationforecast/2.0/compact"
 WEATHER_USER_AGENT = "Sandvollen/1.0"
 APP_TIMEZONE = ZoneInfo("Europe/Oslo")
+SIKOM_LIVING_URL = "https://account.sikomliving.com/"
 
 DEFAULT_OFFERS = [
     {
@@ -956,6 +957,7 @@ page_options = [
     "Se bookinger",
     "Slett booking",
     "Værmelding",
+    "Klikk hytta varm",
 ]
 
 valid_page_options = [None, *page_options]
@@ -1028,6 +1030,9 @@ if selected_page == "Book hytta":
 
 elif selected_page == "Værmelding":
     render_weather_section()
+
+elif selected_page == "Klikk hytta varm":
+    st.link_button("Åpne Sikom Living", SIKOM_LIVING_URL, use_container_width=True)
 
 elif selected_page == "Se bookinger":
     if booking_success_message := st.session_state.pop("booking_success_message", None):
