@@ -1037,18 +1037,19 @@ elif selected_page == "Klikk hytta varm":
 elif selected_page == "Se bookinger":
     if booking_success_message := st.session_state.pop("booking_success_message", None):
         st.success(booking_success_message)
-    st.subheader("Eksisterende bookinger")
-    if bookings.empty:
-        st.info("Ingen bookinger enda.")
+    upcoming_bookings = bookings[bookings["Til dato"] >= date.today()].reset_index(drop=True)
+    st.subheader("Kommende bookinger")
+    if upcoming_bookings.empty:
+        st.info("Ingen kommende bookinger.")
     else:
-        display_df = bookings[["Booket av", "Fra dato", "Til dato", "Kommentar"]].copy()
+        display_df = upcoming_bookings[["Booket av", "Fra dato", "Til dato", "Kommentar"]].copy()
         display_df["Fra dato"] = display_df["Fra dato"].apply(format_date)
         display_df["Til dato"] = display_df["Til dato"].apply(format_date)
         display_df["Kommentar"] = display_df["Kommentar"].fillna("").replace("", "—")
         display_df = display_df.rename(columns={"Kommentar": "Kommentarer"})
         st.table(display_df)
 
-    render_booking_calendar(bookings, months_to_show=12, show_navigation=False, stacked=True)
+    render_booking_calendar(upcoming_bookings, months_to_show=12, show_navigation=False, stacked=True)
 
 elif selected_page == "Slett booking":
     st.subheader("Slett booking")
