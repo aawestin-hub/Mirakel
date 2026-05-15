@@ -956,6 +956,9 @@ valid_page_options = [None, *page_options]
 if st.session_state.get("page_selector") not in valid_page_options:
     st.session_state.page_selector = None
 
+if pending_page := st.session_state.pop("next_page_selector", None):
+    st.session_state.page_selector = pending_page
+
 selected_page = st.selectbox(
     "hva vil du gjøre",
     valid_page_options,
@@ -1013,7 +1016,7 @@ if selected_page == "Book hytta":
                     pd.concat([bookings, new_booking], ignore_index=True)
                 )
                 save_bookings(conn, apps_script_url, updated_bookings)
-                st.session_state.page_selector = "Se bookinger"
+                st.session_state.next_page_selector = "Se bookinger"
                 st.session_state.booking_success_message = success_message
                 st.rerun()
 
