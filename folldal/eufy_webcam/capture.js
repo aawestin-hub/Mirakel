@@ -18,6 +18,7 @@ const cameraNames = (process.env.EUFY_CAMERA_NAMES ?? 'Folldal_Vestsiden,Folldal
   .filter(Boolean);
 const email = process.env.EUFY_EMAIL ?? '';
 const password = process.env.EUFY_PASSWORD ?? '';
+const storageStateBase64 = process.env.EUFY_STORAGE_STATE_B64 ?? '';
 
 function slugify(value) {
   return value
@@ -38,6 +39,15 @@ async function pathExists(targetPath) {
 async function ensureDirectories() {
   await fs.mkdir(outputDir, { recursive: true });
   await fs.mkdir(stateDir, { recursive: true });
+}
+
+async function seedStorageStateFromEnvironment() {
+  if (!storageStateBase64 || (await pathExists(storageStatePath))) {
+    return;
+  }
+
+  const decodedState = Buffer.from(storageStateBase64, 'base64').toString('utf8');
+  await fs.writeFile(storageStatePath, decodedState, 'utf8');
 }
 
 async function loginIfNeeded(page, context) {
@@ -123,6 +133,7 @@ async function writeMetadata(cameras) {
 
 async function main() {
   await ensureDirectories();
+  await seedStorageStateFromEnvironment();
 
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext(

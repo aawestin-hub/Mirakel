@@ -1,0 +1,90 @@
+name: Update Eufy webcam
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+    - cron: '0 11 * * *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: eufy-webcam-pages
+  cancel-in-progress: true
+
+jobs:
+  schedule-window:
+    runs-on: ubuntu-latest
+    outputs:
+      run_capture: ${{ steps.check.outputs.run_capture }}
+    steps:
+      - name: Check Oslo noon window
+        id: check
+        run: |
+          if [ "${GITHUB_EVENT_NAME}" = "workflow_dispatch" ]; then
+            echo "run_capture=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          current_hour=$(TZ=Europe/Oslo date +%H)
+          if [ "$current_hour" = "12" ]; then
+            echo "run_capture=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_capture=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  capture:
+    needs: schedule-window
+    if: needs.schedule-window.outputs.run_capture == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: folldal/eufy_webcam
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: folldal/eufy_webcam/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture latest images
+        env:
+          EUFY_STORAGE_STATE_B64: ${{ secrets.EUFY_STORAGE_STATE_B64 }}
+          EUFY_EMAIL: ${{ secrets.EUFY_EMAIL }}
+          EUFY_PASSWORD: ${{ secrets.EUFY_PASSWORD }}
+        run: npm run capture
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: folldal/eufy_webcam/public
+
+  deploy:
+    needs:
+      - schedule-window
+      - capture
+    if: needs.schedule-window.outputs.run_capture == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
