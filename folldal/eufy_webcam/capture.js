@@ -50,11 +50,17 @@ async function seedStorageStateFromEnvironment() {
   await fs.writeFile(storageStatePath, decodedState, 'utf8');
 }
 
-async function loginIfNeeded(page, context) {
-  await page.goto(loginUrl, { waitUntil: 'networkidle' });
+function emailLocator(page) {
+  return page.locator('input[type="email"], input[placeholder*="mail" i], input[autocomplete="username"]').first();
+}
 
-  const emailField = page.locator('input[type="email"], input[placeholder*="mail" i], input[autocomplete="username"]').first();
-  const passwordField = page.locator('input[type="password"], input[autocomplete="current-password"]').first();
+function passwordLocator(page) {
+  return page.locator('input[type="password"], input[autocomplete="current-password"]').first();
+}
+
+async function loginIfNeeded(page, context) {
+  const emailField = emailLocator(page);
+  const passwordField = passwordLocator(page);
 
   if ((await emailField.count()) === 0 || (await passwordField.count()) === 0) {
     return;
@@ -76,8 +82,16 @@ async function loginIfNeeded(page, context) {
   await context.storageState({ path: storageStatePath });
 }
 
-async function openCameraPage(page) {
+async function ensureAuthenticated(page, context) {
   await page.goto(`${baseUrl}/#/camera`, { waitUntil: 'domcontentloaded' });
+  await page.waitForLoadState('networkidle');
+
+  if ((await emailLocator(page).count()) > 0 && (await passwordLocator(page).count()) > 0) {
+    await loginIfNeeded(page, context);
+    await page.goto(`${baseUrl}/#/camera`, { waitUntil: 'domcontentloaded' });
+    await page.waitForLoadState('networkidle');
+  }
+
   await page.waitForSelector('.camera-item', { timeout: 90_000 });
 }
 
@@ -144,8 +158,7 @@ async function main() {
   const page = await context.newPage();
 
   try {
-    await loginIfNeeded(page, context);
-    await openCameraPage(page);
+    await ensureAuthenticated(page, context);
 
     const capturedCameras = [];
     for (const cameraName of cameraNames) {
