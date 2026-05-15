@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f1ea;
+  color: #2c251d;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem 3rem;
+}
+
+.header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  margin-top: 0;
+  color: #6b5b49;
+}
+
+.camera-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.camera-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(55, 40, 24, 0.12);
+  overflow: hidden;
+}
+
+.camera-card h2 {
+  margin: 0;
+  padding: 1rem 1rem 0.5rem;
+  font-size: 1.1rem;
+}
+
+.camera-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #ddd6cc;
+}
+
+.empty {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1rem;
+}

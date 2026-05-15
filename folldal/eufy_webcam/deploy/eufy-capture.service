@@ -1,0 +1,10 @@
+[Unit]
+Description=Capture latest Eufy webcam snapshots
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/folldal-eufy-webcam
+EnvironmentFile=/opt/folldal-eufy-webcam/.env
+ExecStart=/usr/bin/npm run capture

@@ -12,3 +12,9 @@ node_modules/
 
 # Misc
 *.pptx
+
+# Eufy webcam runtime
+folldal/eufy_webcam/node_modules/
+folldal/eufy_webcam/state/
+folldal/eufy_webcam/public/*.jpg
+folldal/eufy_webcam/public/metadata.json

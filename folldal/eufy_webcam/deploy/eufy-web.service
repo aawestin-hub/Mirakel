@@ -1,0 +1,15 @@
+[Unit]
+Description=Serve Folldal Eufy webcam page
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/folldal-eufy-webcam
+EnvironmentFile=/opt/folldal-eufy-webcam/.env
+ExecStart=/usr/bin/npm run serve
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

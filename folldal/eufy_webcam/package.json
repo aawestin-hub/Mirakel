@@ -1,0 +1,12 @@
+{
+  "name": "folldal-eufy-webcam",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture": "node capture.js",
+    "serve": "node server.js"
+  },
+  "dependencies": {
+    "playwright": "^1.59.1"
+  }
+}
