@@ -49,6 +49,9 @@ For å bruke den må repoet ha disse GitHub Secrets:
 - `EUFY_STORAGE_STATE_B64` **eller**
 - `EUFY_EMAIL`
 - `EUFY_PASSWORD`
+- `EUFY_SAFETY_PIN`
+
+`EUFY_SAFETY_PIN` er sikkerhetskoden Eufy ber om for **Web Portal Access** før livebildet kan åpnes i nettleseren.
 
 Deretter må GitHub Pages være slått på for repoet med **Build and deployment source = GitHub Actions**.
 

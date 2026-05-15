@@ -19,6 +19,7 @@ const cameraNames = (process.env.EUFY_CAMERA_NAMES ?? 'Folldal_Vestsiden,Folldal
 const email = process.env.EUFY_EMAIL ?? '';
 const password = process.env.EUFY_PASSWORD ?? '';
 const storageStateBase64 = process.env.EUFY_STORAGE_STATE_B64 ?? '';
+const safetyPin = process.env.EUFY_SAFETY_PIN ?? '';
 
 function slugify(value) {
   return value
@@ -96,7 +97,7 @@ async function ensureAuthenticated(page, context) {
 }
 
 async function dismissVisibleModal(page) {
-  const modalResult = await page.evaluate(() => {
+  const modalResult = await page.evaluate((pin) => {
     const isVisible = (element) => {
       if (!(element instanceof HTMLElement)) {
         return false;
@@ -114,7 +115,26 @@ async function dismissVisibleModal(page) {
     const modals = Array.from(document.querySelectorAll('.ant-modal-wrap, .liveViewAccess-content'));
     const visibleModal = modals.find(isVisible);
     if (!(visibleModal instanceof HTMLElement)) {
-      return { handled: false, text: '' };
+      return { handled: false, text: '', requiresPin: false };
+    }
+
+    const modalText = visibleModal.textContent?.trim().slice(0, 500) ?? '';
+    const pinInput = Array.from(visibleModal.querySelectorAll('input')).find(isVisible);
+    if (pinInput instanceof HTMLInputElement) {
+      if (!pin) {
+        return {
+          handled: false,
+          text: modalText,
+          requiresPin: true,
+        };
+      }
+
+      pinInput.focus();
+      pinInput.value = '';
+      pinInput.dispatchEvent(new Event('input', { bubbles: true }));
+      pinInput.value = pin;
+      pinInput.dispatchEvent(new Event('input', { bubbles: true }));
+      pinInput.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     const buttons = Array.from(visibleModal.querySelectorAll('button')).filter(isVisible);
@@ -128,7 +148,8 @@ async function dismissVisibleModal(page) {
     if (!(selectedButton instanceof HTMLElement)) {
       return {
         handled: false,
-        text: visibleModal.textContent?.trim().slice(0, 500) ?? '',
+        text: modalText,
+        requiresPin: pinInput instanceof HTMLInputElement && !pin,
       };
     }
 
@@ -138,9 +159,16 @@ async function dismissVisibleModal(page) {
     return {
       handled: true,
       buttonText,
-      text: visibleModal.textContent?.trim().slice(0, 500) ?? '',
+      text: modalText,
+      requiresPin: false,
     };
-  });
+  }, safetyPin);
+
+  if (modalResult.requiresPin) {
+    throw new Error(
+      `Eufy live view requires a Safety PIN. Set EUFY_SAFETY_PIN before running capture. Modal text: ${modalResult.text}`
+    );
+  }
 
   if (modalResult.handled) {
     console.log(`Dismissed modal with button "${modalResult.buttonText}".`);

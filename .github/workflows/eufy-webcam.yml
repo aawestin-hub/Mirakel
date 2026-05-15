@@ -65,6 +65,7 @@ jobs:
           EUFY_STORAGE_STATE_B64: ${{ secrets.EUFY_STORAGE_STATE_B64 }}
           EUFY_EMAIL: ${{ secrets.EUFY_EMAIL }}
           EUFY_PASSWORD: ${{ secrets.EUFY_PASSWORD }}
+          EUFY_SAFETY_PIN: ${{ secrets.EUFY_SAFETY_PIN }}
         run: npm run capture
 
       - name: Configure GitHub Pages
