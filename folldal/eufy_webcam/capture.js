@@ -20,6 +20,7 @@ const email = process.env.EUFY_EMAIL ?? '';
 const password = process.env.EUFY_PASSWORD ?? '';
 const storageStateBase64 = process.env.EUFY_STORAGE_STATE_B64 ?? '';
 const safetyPin = process.env.EUFY_SAFETY_PIN ?? '';
+const region = process.env.EUFY_REGION ?? 'Norway';
 
 function slugify(value) {
   return value
@@ -59,6 +60,21 @@ function passwordLocator(page) {
   return page.locator('input[type="password"], input[autocomplete="current-password"]').first();
 }
 
+async function ensureRegionSelected(page) {
+  const regionCombobox = page.locator('.ant-select-selection-selected-value, .ant-select-selection__rendered').first();
+  if ((await regionCombobox.count()) === 0) {
+    return;
+  }
+
+  const selectedRegion = ((await regionCombobox.textContent()) ?? '').trim();
+  if (selectedRegion && selectedRegion !== 'Select Your Region') {
+    return;
+  }
+
+  await page.locator('[role="combobox"], .ant-select-selection').first().click();
+  await page.locator('.ant-select-dropdown-menu-item', { hasText: region }).first().click();
+}
+
 async function loginIfNeeded(page, context) {
   const emailField = emailLocator(page);
   const passwordField = passwordLocator(page);
@@ -71,6 +87,7 @@ async function loginIfNeeded(page, context) {
     throw new Error('Missing EUFY_EMAIL or EUFY_PASSWORD. Set them in the environment before running capture.');
   }
 
+  await ensureRegionSelected(page);
   await emailField.fill(email);
   await passwordField.fill(password);
 
@@ -79,7 +96,22 @@ async function loginIfNeeded(page, context) {
     .first();
   await submitButton.click();
 
-  await page.waitForURL((url) => !url.toString().includes('/login'), { timeout: 90_000 });
+  try {
+    await Promise.race([
+      page.waitForURL((url) => !url.toString().includes('/login'), { timeout: 90_000 }),
+      page.waitForSelector('.camera-item', { timeout: 90_000 }),
+      page.waitForFunction(
+        () =>
+          !document.querySelector('input[type="email"], input[name="email"]') &&
+          !document.querySelector('input[type="password"], input[name="password"]'),
+        { timeout: 90_000 }
+      ),
+    ]);
+  } catch (error) {
+    const loginText = await page.locator('body').textContent();
+    throw new Error(`Eufy login did not complete. Visible text: ${(loginText ?? '').trim().slice(0, 500)}`);
+  }
+
   await context.storageState({ path: storageStatePath });
 }
 
