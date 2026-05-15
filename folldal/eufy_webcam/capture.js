@@ -12,6 +12,7 @@ const loginUrl = process.env.EUFY_LOGIN_URL ?? `${baseUrl}/#/login?type=/`;
 const outputDir = path.resolve(__dirname, process.env.EUFY_OUTPUT_DIR ?? './public');
 const stateDir = path.resolve(__dirname, process.env.EUFY_STATE_DIR ?? './state');
 const storageStatePath = path.join(stateDir, 'storage-state.json');
+const profileDir = path.resolve(__dirname, process.env.EUFY_PROFILE_DIR ?? './state/profile');
 const cameraNames = (process.env.EUFY_CAMERA_NAMES ?? 'Folldal_Vestsiden,Folldal_Inngangsparti')
   .split(',')
   .map((value) => value.trim())
@@ -21,6 +22,8 @@ const password = process.env.EUFY_PASSWORD ?? '';
 const storageStateBase64 = process.env.EUFY_STORAGE_STATE_B64 ?? '';
 const safetyPin = process.env.EUFY_SAFETY_PIN ?? '';
 const region = process.env.EUFY_REGION ?? 'Norway';
+const headless = (process.env.EUFY_HEADLESS ?? 'true').toLowerCase() !== 'false';
+const usePersistentProfile = (process.env.EUFY_USE_PERSISTENT_PROFILE ?? 'false').toLowerCase() === 'true';
 
 function slugify(value) {
   return value
@@ -41,6 +44,9 @@ async function pathExists(targetPath) {
 async function ensureDirectories() {
   await fs.mkdir(outputDir, { recursive: true });
   await fs.mkdir(stateDir, { recursive: true });
+  if (usePersistentProfile) {
+    await fs.mkdir(profileDir, { recursive: true });
+  }
 }
 
 async function seedStorageStateFromEnvironment() {
@@ -313,31 +319,88 @@ async function writeMetadata(cameras) {
   await fs.writeFile(metadataPath, `${JSON.stringify(metadata, null, 2)}\n`, 'utf8');
 }
 
+async function openBrowserSession({ persistent = usePersistentProfile, headed = !headless } = {}) {
+  const viewport = { width: 1600, height: 1200 };
+
+  if (persistent) {
+    const context = await chromium.launchPersistentContext(profileDir, {
+      headless: !headed,
+      viewport,
+    });
+    const page = context.pages()[0] ?? (await context.newPage());
+    return {
+      context,
+      page,
+      close: async () => {
+        await context.close();
+      },
+    };
+  }
+
+  const browser = await chromium.launch({ headless: !headed });
+  const context = await browser.newContext(
+    (await pathExists(storageStatePath))
+      ? { storageState: storageStatePath, viewport }
+      : { viewport }
+  );
+  const page = await context.newPage();
+
+  return {
+    context,
+    page,
+    close: async () => {
+      await context.close();
+      await browser.close();
+    },
+  };
+}
+
+async function bootstrapLogin() {
+  if (!usePersistentProfile) {
+    throw new Error('Set EUFY_USE_PERSISTENT_PROFILE=true before running login bootstrap.');
+  }
+
+  const session = await openBrowserSession({ persistent: true, headed: true });
+
+  try {
+    console.log('Opening Eufy in a persistent browser profile.');
+    console.log('Complete login, any verification steps, and confirm live view access in the browser window.');
+    console.log('The script will finish after the camera list is visible.');
+
+    await session.page.goto(loginUrl, { waitUntil: 'domcontentloaded' });
+    await session.page.waitForSelector('.camera-item', { timeout: 30 * 60_000 });
+    await session.context.storageState({ path: storageStatePath });
+
+    console.log(`Saved persistent browser profile to ${profileDir}.`);
+    console.log(`Saved storage state to ${storageStatePath}.`);
+  } finally {
+    await session.close();
+  }
+}
+
 async function main() {
   await ensureDirectories();
   await seedStorageStateFromEnvironment();
 
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext(
-    (await pathExists(storageStatePath))
-      ? { storageState: storageStatePath, viewport: { width: 1600, height: 1200 } }
-      : { viewport: { width: 1600, height: 1200 } }
-  );
-  const page = await context.newPage();
+  if (process.argv.includes('--login')) {
+    await bootstrapLogin();
+    return;
+  }
+
+  const session = await openBrowserSession({ headed: false });
 
   try {
-    await ensureAuthenticated(page, context);
+    await ensureAuthenticated(session.page, session.context);
 
     const capturedCameras = [];
     for (const cameraName of cameraNames) {
-      capturedCameras.push(await captureCamera(page, cameraName));
+      capturedCameras.push(await captureCamera(session.page, cameraName));
     }
 
-    await context.storageState({ path: storageStatePath });
+    await session.context.storageState({ path: storageStatePath });
     await writeMetadata(capturedCameras);
   } finally {
-    await context.close();
-    await browser.close();
+    await session.close();
   }
 }
 

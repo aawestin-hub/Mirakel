@@ -7,7 +7,7 @@ Dette er et lite VPS-oppsett som:
 3. lagrer de siste bildene lokalt,
 4. og viser dem på en enkel side.
 
-Det kan også kjøres gratis via **GitHub Actions + GitHub Pages**.
+Det kan også kjøres gratis via **GitHub Actions + GitHub Pages**, men Eufy legger nå ofte på ekstra verification-kode der. Derfor er **VPS med persistent browser profile** den anbefalte løsningen.
 
 ## Filer
 
@@ -17,7 +17,7 @@ Det kan også kjøres gratis via **GitHub Actions + GitHub Pages**.
 - `deploy/` - systemd-filer og oppsettsskript
 - `.env.example` - miljøvariabler som må fylles ut
 
-## Rask start på VPS
+## Anbefalt oppsett: VPS med persistent profil
 
 ```bash
 cd /opt
@@ -27,7 +27,34 @@ bash deploy/setup-vps.sh /opt/folldal-eufy-webcam
 cp .env.example .env
 ```
 
-Fyll deretter inn Eufy-bruker og passord i `.env`.
+Fyll deretter inn Eufy-bruker, passord og Safety PIN i `.env`.
+
+Sett disse verdiene:
+
+```bash
+EUFY_USE_PERSISTENT_PROFILE=true
+EUFY_PROFILE_DIR=./state/profile
+EUFY_HEADLESS=true
+EUFY_REGION=Norway
+```
+
+### Engangsinnlogging
+
+Før timeren startes, kjør én manuell innlogging i en GUI-capable session:
+
+```bash
+cd /opt/folldal-eufy-webcam
+npm run login
+```
+
+Fullfør deretter i nettleseren:
+
+1. logg inn på Eufy
+2. håndter eventuell verification code
+3. åpne kameraoversikten
+4. bekreft live view / Safety PIN ved behov
+
+Når kameraene vises, lagres profilen i `state/profile/` og senere kjøringer kan bruke samme browserprofil.
 
 ## Systemd
 
@@ -61,3 +88,5 @@ Workflowen:
 2. logger inn i Eufy,
 3. lager nye bilder og metadata,
 4. og publiserer `public/` til GitHub Pages.
+
+I praksis er denne flyten nå best som reserve/eksperiment, fordi GitHub-runneren lettere blir møtt med verification code enn en fast VPS-profil.

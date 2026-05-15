@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "capture": "node capture.js",
+    "login": "node capture.js --login",
     "serve": "node server.js"
   },
   "dependencies": {
