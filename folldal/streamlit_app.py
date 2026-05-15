@@ -2,6 +2,7 @@ import calendar
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 import pandas as pd
 import requests
@@ -41,6 +42,7 @@ WEATHER_LON = 10.0416
 WEATHER_ALTITUDE = 0
 WEATHER_URL = "https://api.met.no/weatherapi/locationforecast/2.0/compact"
 WEATHER_USER_AGENT = "Sandvollen/1.0"
+APP_TIMEZONE = ZoneInfo("Europe/Oslo")
 
 DEFAULT_OFFERS = [
     {
@@ -124,6 +126,10 @@ def empty_bookings() -> pd.DataFrame:
     return pd.DataFrame(columns=BOOKING_COLUMNS)
 
 
+def normalize_date_series(values: pd.Series) -> pd.Series:
+    return pd.to_datetime(values, errors="coerce", utc=True).dt.tz_convert(APP_TIMEZONE).dt.date
+
+
 def normalize_bookings(df: pd.DataFrame) -> pd.DataFrame:
     normalized = df.copy()
 
@@ -133,8 +139,8 @@ def normalize_bookings(df: pd.DataFrame) -> pd.DataFrame:
 
     normalized = normalized[BOOKING_COLUMNS]
     normalized["Booket av"] = normalized["Booket av"].replace({"Meg": "Andreas"})
-    normalized["Fra dato"] = pd.to_datetime(normalized["Fra dato"], errors="coerce").dt.date
-    normalized["Til dato"] = pd.to_datetime(normalized["Til dato"], errors="coerce").dt.date
+    normalized["Fra dato"] = normalize_date_series(normalized["Fra dato"])
+    normalized["Til dato"] = normalize_date_series(normalized["Til dato"])
     normalized["Opprettet"] = pd.to_datetime(normalized["Opprettet"], errors="coerce")
 
     normalized = normalized.dropna(subset=["Fra dato", "Til dato"])
