@@ -956,7 +956,7 @@ page_options = [
     "Book hytta",
     "Se bookinger",
     "Slett booking",
-    "Værmelding",
+    "Værmelding og webkamera",
     "Klikk hytta varm",
 ]
 
@@ -1028,7 +1028,7 @@ if selected_page == "Book hytta":
                 st.session_state.booking_success_message = success_message
                 st.rerun()
 
-elif selected_page == "Værmelding":
+elif selected_page == "Værmelding og webkamera":
     render_weather_section()
 
 elif selected_page == "Klikk hytta varm":
