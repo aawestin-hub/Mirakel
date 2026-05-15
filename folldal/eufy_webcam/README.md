@@ -9,6 +9,17 @@ Dette er et lite VPS-oppsett som:
 
 Det kan også kjøres gratis via **GitHub Actions + GitHub Pages**, men Eufy legger nå ofte på ekstra verification-kode der. Derfor er **VPS med persistent browser profile** den anbefalte løsningen.
 
+## Finnes det en gratis løsning?
+
+Ja, men bare én som er realistisk for dette oppsettet:
+
+1. **Oracle Cloud Always Free VM** - gratis Linux-VM med persistent disk, og dermed den eneste gratisløsningen som ligner nok på en fast maskin til at Eufy kan fungere stabilt.
+2. **GitHub Actions / Render / Railway / Fly.io free / Codespaces** - ikke egnet til dette fordi de er midlertidige eller mangler persistent disk/browserprofil.
+
+Viktig: Oracle er normalt **gratis i drift**, men konto-opprettelsen krever vanligvis fortsatt **kortverifisering ved registrering**. Det er altså den eneste realistiske gratisveien videre, men ikke helt uten betalingskort i oppstarten.
+
+Hvis du bruker Oracle Cloud Always Free, kan resten av oppsettet under brukes nesten uendret.
+
 ## Filer
 
 - `capture.js` - henter nye bilder fra Eufy
