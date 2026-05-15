@@ -95,9 +95,62 @@ async function ensureAuthenticated(page, context) {
   await page.waitForSelector('.camera-item', { timeout: 90_000 });
 }
 
-async function activateCamera(page, cameraName) {
-  const cameraCard = page.locator('.camera-item', { hasText: cameraName }).first();
-  await cameraCard.waitFor({ state: 'visible', timeout: 90_000 });
+async function dismissVisibleModal(page) {
+  const modalResult = await page.evaluate(() => {
+    const isVisible = (element) => {
+      if (!(element instanceof HTMLElement)) {
+        return false;
+      }
+      const style = window.getComputedStyle(element);
+      const rect = element.getBoundingClientRect();
+      return (
+        style.display !== 'none' &&
+        style.visibility !== 'hidden' &&
+        rect.width > 0 &&
+        rect.height > 0
+      );
+    };
+
+    const modals = Array.from(document.querySelectorAll('.ant-modal-wrap, .liveViewAccess-content'));
+    const visibleModal = modals.find(isVisible);
+    if (!(visibleModal instanceof HTMLElement)) {
+      return { handled: false, text: '' };
+    }
+
+    const buttons = Array.from(visibleModal.querySelectorAll('button')).filter(isVisible);
+    const preferredKeywords = ['allow', 'confirm', 'continue', 'ok', 'yes', 'agree', 'enable', 'start'];
+    const selectedButton =
+      buttons.find((button) => {
+        const label = button.textContent?.trim().toLowerCase() ?? '';
+        return preferredKeywords.some((keyword) => label.includes(keyword));
+      }) ?? buttons.at(-1);
+
+    if (!(selectedButton instanceof HTMLElement)) {
+      return {
+        handled: false,
+        text: visibleModal.textContent?.trim().slice(0, 500) ?? '',
+      };
+    }
+
+    const buttonText = selectedButton.textContent?.trim() ?? '';
+    selectedButton.click();
+
+    return {
+      handled: true,
+      buttonText,
+      text: visibleModal.textContent?.trim().slice(0, 500) ?? '',
+    };
+  });
+
+  if (modalResult.handled) {
+    console.log(`Dismissed modal with button "${modalResult.buttonText}".`);
+    await page.waitForTimeout(2_000);
+  }
+
+  return modalResult;
+}
+
+async function clickCameraCard(page, cameraName) {
   await page.evaluate((name) => {
     const cards = Array.from(document.querySelectorAll('.camera-item'));
     const card = cards.find((entry) => entry.textContent?.includes(name));
@@ -107,21 +160,49 @@ async function activateCamera(page, cameraName) {
     }
     target.click();
   }, cameraName);
+}
 
-  await page.waitForFunction(
-    (name) => {
-      const cards = Array.from(document.querySelectorAll('.camera-item'));
-      const card = cards.find((entry) => entry.textContent?.includes(name));
-      const video = card?.querySelector('video');
-      if (!video) {
-        return false;
-      }
-      const style = window.getComputedStyle(video);
-      return style.display !== 'none' && video.clientWidth > 0 && video.clientHeight > 0;
-    },
-    cameraName,
-    { timeout: 90_000 }
-  );
+async function waitForCameraMedia(page, cameraName, timeout) {
+  try {
+    await page.waitForFunction(
+      (name) => {
+        const cards = Array.from(document.querySelectorAll('.camera-item'));
+        const card = cards.find((entry) => entry.textContent?.includes(name));
+        const media = card?.querySelector('video, canvas, img');
+        if (!(media instanceof HTMLElement)) {
+          return false;
+        }
+        const style = window.getComputedStyle(media);
+        return style.display !== 'none' && media.clientWidth > 0 && media.clientHeight > 0;
+      },
+      cameraName,
+      { timeout }
+    );
+    return true;
+  } catch (error) {
+    if (error instanceof Error && error.name === 'TimeoutError') {
+      return false;
+    }
+    throw error;
+  }
+}
+
+async function activateCamera(page, cameraName) {
+  const cameraCard = page.locator('.camera-item', { hasText: cameraName }).first();
+  await cameraCard.waitFor({ state: 'visible', timeout: 90_000 });
+  await dismissVisibleModal(page);
+  await clickCameraCard(page, cameraName);
+  await dismissVisibleModal(page);
+
+  if (!(await waitForCameraMedia(page, cameraName, 30_000))) {
+    const modalResult = await dismissVisibleModal(page);
+    await clickCameraCard(page, cameraName);
+
+    if (!(await waitForCameraMedia(page, cameraName, 60_000))) {
+      const modalDetails = modalResult.text ? ` Modal text: ${modalResult.text}` : '';
+      throw new Error(`Timed out waiting for live media for ${cameraName}.${modalDetails}`);
+    }
+  }
 
   return cameraCard;
 }
