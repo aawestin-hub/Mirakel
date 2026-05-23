@@ -170,6 +170,21 @@ def clean_wide_data_with_report(df: pd.DataFrame) -> CleaningResult:
         raise ValueError("Fant ingen dimensjonskolonner i datasettet.")
     if not metric_columns:
         raise ValueError("Fant ingen månedskolonner i datasettet.")
+
+    prepared, dropped_source_summary_rows = _drop_blank_ktoniv7_summary_rows(
+        prepared,
+        summary_value_columns=summary_value_columns,
+        enabled=has_ktoniv7_source,
+    )
+    if dropped_source_summary_rows:
+        adjustments.append(
+            {
+                "Kategori": "Rensing",
+                "Beskrivelse": "Fjernet kilderader uten Ktoniv7-tekst som bare representerte summer.",
+                "Verdi": dropped_source_summary_rows,
+            }
+        )
+
     dimension_before_fill = prepared[dimension_columns].replace(r"^\s*$", pd.NA, regex=True).copy()
     prepared[dimension_columns] = dimension_before_fill.ffill()
 
@@ -621,6 +636,30 @@ def _insert_total_row(
     result.attrs["subtotal_labels"] = subtotal_labels
     result.attrs["total_label"] = total_label
     return result, total_label
+
+
+def _drop_blank_ktoniv7_summary_rows(
+    df: pd.DataFrame,
+    summary_value_columns: list[str],
+    enabled: bool,
+) -> tuple[pd.DataFrame, int]:
+    if not enabled or df.empty or not summary_value_columns:
+        return df, 0
+
+    ktoniv7_column = next((column for column in df.columns if "ktoniv7" in column.lower()), None)
+    if ktoniv7_column is None:
+        return df, 0
+
+    blank_ktoniv7 = df[ktoniv7_column].map(normalize_cell).eq("")
+    has_summary_values = df[summary_value_columns].apply(
+        lambda row: any(normalize_cell(value) != "" for value in row),
+        axis=1,
+    )
+    rows_to_drop = blank_ktoniv7 & has_summary_values
+    if not rows_to_drop.any():
+        return df, 0
+
+    return df.loc[~rows_to_drop].reset_index(drop=True), int(rows_to_drop.sum())
 
 
 def _get_month_name_for_regnskap_column(column_name: str) -> str | None:

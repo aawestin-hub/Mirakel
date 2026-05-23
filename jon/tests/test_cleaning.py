@@ -354,6 +354,33 @@ def test_clean_wide_data_with_report_inserts_inntekter_subtotal_row():
     assert "Inntekter" in result.cleaned_df.attrs["subtotal_labels"]
 
 
+def test_clean_wide_data_with_report_drops_blank_ktoniv7_summary_rows():
+    structured = pd.DataFrame(
+        [
+            ["1950 - Bruk av bundne driftsfond", "-64035", "-64035"],
+            ["", "1429151.94", "5217600.14"],
+        ],
+        columns=[
+            "Ktoniv7",
+            "202601 | Regnskap",
+            "Regnskap som total",
+        ],
+    )
+
+    result = clean_wide_data_with_report(structured)
+
+    matching_rows = result.cleaned_df[
+        result.cleaned_df["Ktoniv7"] == "1950 - Bruk av bundne driftsfond"
+    ]
+    assert len(matching_rows) == 1
+    assert matching_rows.iloc[0]["januar"] == -64035.0
+    assert matching_rows.iloc[0]["Regnskap"] == -64035.0
+    assert (
+        "Fjernet kilderader uten Ktoniv7-tekst som bare representerte summer."
+        in result.adjustments_df["Beskrivelse"].tolist()
+    )
+
+
 def test_clean_wide_data_with_report_inserts_total_row_without_subtotals():
     structured = pd.DataFrame(
         [
